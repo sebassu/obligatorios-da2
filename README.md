@@ -1,2 +1,12 @@
-# Obligatorios_194973_200604
-Primer y segundo obligatorio de "Diseño de Aplicaciones II", de los estudiantes Sebastián Uriarte Güimil y Lucía Dabezies. Grupo M6A, Universidad ORT Uruguay, 2017.
+# Diseño de Aplicaciones II.
+
+##### Primer y segundo obligatorio.
+
+- Lucía Dabezies, Nº de estudiante: 200604.
+- Sebastián Uriarte Güimil, Nº de estudiante: 194973.
+
+**Docente:** Gabriel Piffaretti.
+
+Grupo M6A.<br/>
+Universidad ORT Uruguay.<br/>
+Segundo semestre, 2017.
