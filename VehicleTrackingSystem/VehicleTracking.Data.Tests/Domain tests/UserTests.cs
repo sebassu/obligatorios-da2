@@ -219,5 +219,54 @@ namespace Data.Domain.Tests
         {
             testingUser.Password = null;
         }
+
+        [TestMethod]
+        public void UserSetValidPhoneNumberTest()
+        {
+            testingUser.PhoneNumber = "22032352";
+            Assert.AreEqual("22032352", testingUser.PhoneNumber);
+        }
+
+        [TestMethod]
+        public void UserSetValidPhoneNumberStartingWith0Test()
+        {
+            testingUser.PhoneNumber = "091946954";
+            Assert.AreEqual("091946954", testingUser.PhoneNumber);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidPhoneNumberStartingWithDouble0Test()
+        {
+            testingUser.PhoneNumber = "00123456";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidPhoneNumberLettersTest()
+        {
+            testingUser.PhoneNumber = "Hola123456";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidPhoneNumberTooLongTest()
+        {
+            testingUser.PhoneNumber = "1234567891234679";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidPhoneNumberEmptyTest()
+        {
+            testingUser.Username = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidPhoneNumberNullTest()
+        {
+            testingUser.PhoneNumber = null;
+        }
     }
 }
