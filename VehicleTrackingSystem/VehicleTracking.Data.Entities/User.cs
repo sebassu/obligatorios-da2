@@ -46,7 +46,7 @@ namespace Domain
             }
         }
 
-        public static bool IsValidName(string value)
+        protected virtual bool IsValidName(string value)
         {
             return Utilities.ContainsLettersOrSpacesOnly(value);
         }
@@ -70,7 +70,7 @@ namespace Domain
             }
         }
 
-        public static bool IsValidUsername(string value)
+        protected virtual bool IsValidUsername(string value)
         {
             return Utilities.ContainsLettersOrDigitsOnly(value);
         }
@@ -81,7 +81,7 @@ namespace Domain
             get { return password; }
             set
             {
-                if (!string.IsNullOrWhiteSpace(value))
+                if (IsValidPassword(value))
                 {
                     password = value;
                 }
@@ -90,6 +90,11 @@ namespace Domain
                     throw new UserException(ErrorMessages.PasswordIsInvalid);
                 }
             }
+        }
+
+        protected virtual bool IsValidPassword(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value);
         }
 
         internal static User InstanceForTestingPurposes()
