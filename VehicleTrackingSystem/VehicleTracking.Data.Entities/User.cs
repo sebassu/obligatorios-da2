@@ -1,6 +1,7 @@
 ﻿using System.Resources;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 [assembly: NeutralResourcesLanguage("es")]
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
@@ -97,6 +98,32 @@ namespace Domain
             return !string.IsNullOrWhiteSpace(value);
         }
 
+        private string phoneNumber;
+        public string PhoneNumber
+        {
+            get { return phoneNumber; }
+            set
+            {
+                if (IsValidPhoneNumber(value))
+                {
+                    phoneNumber = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.PhoneNumberIsInvalid, value);
+                    throw new UserException(errorMessage);
+                }
+            }
+        }
+
+        private bool IsValidPhoneNumber(string value)
+        {
+            Regex phoneFormat =
+                new Regex("^(?!00)[0-9]{8,9}$");
+            return value != null && phoneFormat.IsMatch(value);
+        }
+
         internal static User InstanceForTestingPurposes()
         {
             return new User();
@@ -108,6 +135,7 @@ namespace Domain
             lastName = "inválido.";
             username = "usuarioinválido";
             password = "Contraseña inválida.";
+            phoneNumber = "Teléfono inválido.";
         }
     }
 }

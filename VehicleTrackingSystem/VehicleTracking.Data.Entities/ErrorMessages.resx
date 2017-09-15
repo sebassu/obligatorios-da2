@@ -123,6 +123,9 @@
   <data name="PasswordIsInvalid" xml:space="preserve">
     <value>Es necesario ingresar una contraseña no vacía.</value>
   </data>
+  <data name="PhoneNumberIsInvalid" xml:space="preserve">
+    <value>Número telefónico inválido: "{0}". Se aceptan únicamente teléfonos siguiendo el formato uruguayo.</value>
+  </data>
   <data name="UsernameIsInvalid" xml:space="preserve">
     <value>El usuario "{0}" es inválido: se permiten únicamente aquellos con letras o números, sin espacios.</value>
   </data>

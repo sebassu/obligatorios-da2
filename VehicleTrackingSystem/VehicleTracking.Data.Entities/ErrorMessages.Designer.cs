@@ -79,6 +79,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Número telefónico inválido: &quot;{0}&quot;. Se aceptan únicamente teléfonos siguiendo el formato uruguayo..
+        /// </summary>
+        internal static string PhoneNumberIsInvalid {
+            get {
+                return ResourceManager.GetString("PhoneNumberIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El usuario &quot;{0}&quot; es inválido: se permiten únicamente aquellos con letras o números, sin espacios..
         /// </summary>
         internal static string UsernameIsInvalid {
