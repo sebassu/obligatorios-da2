@@ -27,6 +27,25 @@ namespace Domain
             }
         }
 
+        private string lastName;
+        public string LastName
+        {
+            get { return lastName; }
+            set
+            {
+                if (IsValidName(value))
+                {
+                    lastName = value.Trim();
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.NameIsInvalid, "Apellido", value);
+                    throw new UserException(errorMessage);
+                }
+            }
+        }
+
         public static bool IsValidName(string value)
         {
             return Utilities.ContainsLettersOrSpacesOnly(value);
