@@ -70,6 +70,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Es necesario ingresar una contraseña no vacía..
+        /// </summary>
+        internal static string PasswordIsInvalid {
+            get {
+                return ResourceManager.GetString("PasswordIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El usuario &quot;{0}&quot; es inválido: se permiten únicamente aquellos con letras o números, sin espacios..
         /// </summary>
         internal static string UsernameIsInvalid {

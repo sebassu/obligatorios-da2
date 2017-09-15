@@ -75,6 +75,23 @@ namespace Domain
             return Utilities.ContainsLettersOrDigitsOnly(value);
         }
 
+        private string password;
+        public virtual string Password
+        {
+            get { return password; }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    password = value;
+                }
+                else
+                {
+                    throw new UserException(ErrorMessages.PasswordIsInvalid);
+                }
+            }
+        }
+
         internal static User InstanceForTestingPurposes()
         {
             return new User();
@@ -83,6 +100,9 @@ namespace Domain
         protected User()
         {
             firstName = "Usuario";
+            lastName = "inválido.";
+            username = "usuarioinválido";
+            password = "Contraseña inválida.";
         }
     }
 }
