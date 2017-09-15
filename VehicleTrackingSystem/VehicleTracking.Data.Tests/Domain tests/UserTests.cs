@@ -119,5 +119,60 @@ namespace Data.Domain.Tests
         {
             testingUser.LastName = null;
         }
+
+        [TestMethod]
+        public void UserSetValidUsernameTest()
+        {
+            testingUser.Username = "msantos";
+            Assert.AreEqual("msantos", testingUser.Username);
+        }
+
+        [TestMethod]
+        public void UserSetValidUsernameWithNumbersTest()
+        {
+            testingUser.Username = "msantos42";
+            Assert.AreEqual("msantos42", testingUser.Username);
+        }
+
+        [TestMethod]
+        public void UserSetValidUsernameNumbersTest()
+        {
+            testingUser.Username = "5218048";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidUsernameCompoundTest()
+        {
+            testingUser.Username = " msantos 42 ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidUsernamePunctuationTest()
+        {
+            testingUser.Username = "!@.$#% *-/";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidUsernameOnlySpacesTest()
+        {
+            testingUser.Username = " \n\n  \t\t \n\t  ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidUsernameEmptyTest()
+        {
+            testingUser.Username = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidUsernameNullTest()
+        {
+            testingUser.Username = null;
+        }
     }
 }
