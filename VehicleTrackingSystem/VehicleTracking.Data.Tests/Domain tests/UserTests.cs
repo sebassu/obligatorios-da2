@@ -70,5 +70,54 @@ namespace Data.Domain.Tests
         {
             testingUser.FirstName = null;
         }
+
+        [TestMethod]
+        public void UserSetValidLastNameTest()
+        {
+            testingUser.LastName = "Santos";
+            Assert.AreEqual("Santos", testingUser.LastName);
+        }
+
+        [TestMethod]
+        public void UserSetValidLastNameCompoundTest()
+        {
+            testingUser.LastName = "  García Morales  ";
+            Assert.AreEqual("García Morales", testingUser.LastName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidLastNameNumbersTest()
+        {
+            testingUser.LastName = "5678";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidLastNamePunctuationTest()
+        {
+            testingUser.LastName = "!@.$#% *-/";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidLastNameOnlySpacesTest()
+        {
+            testingUser.FirstName = " \n\n  \t\t \n\t  ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidLastNameEmptyTest()
+        {
+            testingUser.LastName = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidLastNameNullTest()
+        {
+            testingUser.LastName = null;
+        }
     }
 }
