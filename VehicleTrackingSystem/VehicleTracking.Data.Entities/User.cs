@@ -1,7 +1,8 @@
-﻿using System.Globalization;
+﻿using System.Resources;
+using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Linq;
 
+[assembly: NeutralResourcesLanguage("es")]
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 namespace Domain
 {
@@ -28,9 +29,7 @@ namespace Domain
 
         public static bool IsValidName(string value)
         {
-            return !string.IsNullOrWhiteSpace(value) &&
-                value.ToCharArray().All(c => char.IsLetter(c)
-                || char.IsWhiteSpace(c));
+            return Utilities.ContainsLettersOrSpacesOnly(value);
         }
 
         internal static User InstanceForTestingPurposes()
