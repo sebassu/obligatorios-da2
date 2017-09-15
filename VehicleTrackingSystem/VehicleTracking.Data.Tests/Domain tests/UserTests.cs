@@ -20,6 +20,9 @@ namespace Data.Domain.Tests
         public void UserForTestingPurposesTest()
         {
             Assert.AreEqual("Usuario", testingUser.FirstName);
+            Assert.AreEqual("inválido.", testingUser.LastName);
+            Assert.AreEqual("usuarioinválido", testingUser.Username);
+            Assert.AreEqual("Contraseña inválida.", testingUser.Password);
         }
 
         [TestMethod]
@@ -173,6 +176,48 @@ namespace Data.Domain.Tests
         public void UserSetInvalidUsernameNullTest()
         {
             testingUser.Username = null;
+        }
+
+        [TestMethod]
+        public void UserSetValidPasswordTest()
+        {
+            testingUser.Password = "pS8a11";
+            Assert.AreEqual("pS8a11", testingUser.Password);
+        }
+
+        [TestMethod]
+        public void UserSetValidPasswordNoLettersTest()
+        {
+            testingUser.Password = "123456789";
+            Assert.AreEqual("123456789", testingUser.Password);
+        }
+
+        [TestMethod]
+        public void UserSetValidPasswordNoNumbersTest()
+        {
+            testingUser.Password = "habitualEspacio";
+            Assert.AreEqual("habitualEspacio", testingUser.Password);
+        }
+
+        [TestMethod]
+        public void UserSetValidPasswordPunctuationTest()
+        {
+            testingUser.Password = "/*- #$%- ))";
+            Assert.AreEqual("/*- #$%- ))", testingUser.Password);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidPasswordEmptyTest()
+        {
+            testingUser.Password = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserSetInvalidPasswordNullTest()
+        {
+            testingUser.Password = null;
         }
     }
 }
