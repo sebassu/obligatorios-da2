@@ -120,4 +120,7 @@
   <data name="NameIsInvalid" xml:space="preserve">
     <value>{0} inválido: "{1}". Solamente se permite ingresar caracteres alfabéticos o espacios para este campo.</value>
   </data>
+  <data name="UsernameIsInvalid" xml:space="preserve">
+    <value>El usuario "{0}" es inválido: se permiten únicamente aquellos con letras o números, sin espacios.</value>
+  </data>
 </root>

@@ -68,5 +68,14 @@ namespace Domain {
                 return ResourceManager.GetString("NameIsInvalid", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El usuario &quot;{0}&quot; es inválido: se permiten únicamente aquellos con letras o números, sin espacios..
+        /// </summary>
+        internal static string UsernameIsInvalid {
+            get {
+                return ResourceManager.GetString("UsernameIsInvalid", resourceCulture);
+            }
+        }
     }
 }

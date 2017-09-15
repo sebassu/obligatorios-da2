@@ -1,6 +1,7 @@
 ﻿using System.Resources;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 [assembly: NeutralResourcesLanguage("es")]
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
@@ -49,6 +50,31 @@ namespace Domain
         public static bool IsValidName(string value)
         {
             return Utilities.ContainsLettersOrSpacesOnly(value);
+        }
+
+        private string username;
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+                if (IsValidUsername(value))
+                {
+                    username = value.Trim();
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.UsernameIsInvalid, value);
+                    throw new UserException(errorMessage);
+                }
+            }
+        }
+
+        public static bool IsValidUsername(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value) &&
+                value.ToCharArray().All(c => char.IsLetter(c) || char.IsNumber(c));
         }
 
         internal static User InstanceForTestingPurposes()
