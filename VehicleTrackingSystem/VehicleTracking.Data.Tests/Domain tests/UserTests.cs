@@ -322,5 +322,63 @@ namespace Data.Domain.Tests
             testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
                 "emravenna", "contraseñaVálida123", "0A# .0!&1-2");
         }
+
+        [TestMethod]
+        public void UserEqualsReflexiveTest()
+        {
+            Assert.AreEqual(testingUser, testingUser);
+        }
+
+        [TestMethod]
+        public void UserEqualsSymmetricTest()
+        {
+            User secondTestingUser = User.InstanceForTestingPurposes();
+            Assert.AreEqual(testingUser, secondTestingUser);
+            Assert.AreEqual(secondTestingUser, testingUser);
+        }
+
+        [TestMethod]
+        public void UserEqualsTransitiveTest()
+        {
+            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "A", "B",
+                "sameUsername", "Password1", "22003695");
+            User secondTestingUser = User.CreateNewUser(UserRoles.PORT_OPERATOR, "C", "D",
+                "sameUsername", "Password2", "26927852");
+            User thirdTestingUser = User.CreateNewUser(UserRoles.TRANSPORTER, "E", "F",
+                "sameUsername", "Password4", "43651245");
+            Assert.AreEqual(testingUser, secondTestingUser);
+            Assert.AreEqual(secondTestingUser, thirdTestingUser);
+            Assert.AreEqual(testingUser, thirdTestingUser);
+        }
+
+        [TestMethod]
+        public void UserEqualsDifferentUsersTest()
+        {
+            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Same first name",
+                "Same last name", "differentUsernames0", "SamePassword0", "22001223");
+            User secondTestingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Same first name",
+                "Same last name", "seeTheyAreDifferent0", "SamePassword0", "22001223");
+            Assert.AreNotEqual(testingUser, secondTestingUser);
+        }
+
+        [TestMethod]
+        public void UserEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingUser, null);
+        }
+
+        [TestMethod]
+        public void UserEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingUser, someRandomObject);
+        }
+
+        [TestMethod]
+        public void UserGetHashCodeTest()
+        {
+            object testingUserAsObject = testingUser;
+            Assert.AreEqual(testingUserAsObject.GetHashCode(), testingUser.GetHashCode());
+        }
     }
 }
