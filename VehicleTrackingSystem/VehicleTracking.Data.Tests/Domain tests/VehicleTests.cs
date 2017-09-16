@@ -24,6 +24,7 @@ namespace Data.Tests.Domain_tests
         {
             Assert.AreEqual("Audi", testingVehicle.Brand);
             Assert.AreEqual("Q5", testingVehicle.Model);
+            Assert.AreEqual("2016", testingVehicle.Year);
         }
 
         //Vehicle Brand
@@ -110,6 +111,49 @@ namespace Data.Tests.Domain_tests
         public void VehicleSetInvalidModelPunctuationTest()
         {
             testingVehicle.Model = "!@$#%^";
+        }
+
+        //Vehicle Year
+        [TestMethod]
+        public void VehicleSetValidYearTest()
+        {
+            testingVehicle.Year = "2017";
+            Assert.AreEqual("2017", testingVehicle.Year);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidBrandLettersTest()
+        {
+            testingVehicle.Year = "dos mil catorce";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidYearEmptyTest()
+        {
+            testingVehicle.Year = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidYearOnlySpacesTest()
+        {
+            testingVehicle.Year = "     ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidYearNullTest()
+        {
+            testingVehicle.Year = null;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidYearPunctuationTest()
+        {
+            testingVehicle.Year = "!@$#%^";
         }
     }
 }
