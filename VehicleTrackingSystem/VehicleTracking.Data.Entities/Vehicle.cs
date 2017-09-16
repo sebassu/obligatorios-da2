@@ -115,6 +115,7 @@ namespace Domain
             brand = "Audi";
             model = "Q5";
             year = 2016;
+            color = "Blue";
         }
     }
 }

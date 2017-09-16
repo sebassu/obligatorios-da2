@@ -25,6 +25,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual("Audi", testingVehicle.Brand);
             Assert.AreEqual("Q5", testingVehicle.Model);
             Assert.AreEqual(2016, testingVehicle.Year);
+            Assert.AreEqual("Blue", testingVehicle.Color);
         }
 
         //Vehicle Brand
