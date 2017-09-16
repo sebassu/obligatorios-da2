@@ -33,8 +33,8 @@ namespace Data.Persistence.Tests
         [TestMethod]
         public void URepositoryAddNewUserValidTest()
         {
-            User userToVerify = User.CreateNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
-                "pLamponne1", "NoHaceFaltaSaleSolo", "099212121");
+            User userToVerify = User.CreateNewUser(UserRoles.TRANSPORTER, "Pablo",
+                "Lamponne", "pLamponne1", "NoHaceFaltaSaleSolo", "099212121");
             UserRepository.AddNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
                 "pLamponne1", "NoHaceFaltaSaleSolo", "099212121");
             CollectionAssert.Contains(UserRepository.Elements.ToList(), userToVerify);
@@ -43,8 +43,8 @@ namespace Data.Persistence.Tests
         [TestMethod]
         public void URepositoryAddNewUserReturnsAddedUserValidTest()
         {
-            User addedUser = UserRepository.AddNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
-                "pLamponne2", "NoHaceFaltaSaleSolo", "099212121");
+            User addedUser = UserRepository.AddNewUser(UserRoles.TRANSPORTER, "Pablo",
+                "Lamponne", "pLamponne2", "NoHaceFaltaSaleSolo", "099212121");
             CollectionAssert.Contains(UserRepository.Elements.ToList(), addedUser);
         }
 
@@ -90,8 +90,8 @@ namespace Data.Persistence.Tests
         [ExpectedException(typeof(UserException))]
         public void URepositoryAddNewUserInvalidLastNameTest()
         {
-            UserRepository.AddNewUser(UserRoles.YARD_OPERATOR, "Gabriel David", "*$ 563a%7*//*0&d!@",
-                "gdMedina2", "MusicaSuperDivertida", "096869689");
+            UserRepository.AddNewUser(UserRoles.YARD_OPERATOR, "Gabriel David",
+                "*$ 563a%7*//*0&d!@", "gdMedina2", "MusicaSuperDivertida", "096869689");
         }
 
         [TestMethod]
@@ -106,8 +106,8 @@ namespace Data.Persistence.Tests
         [ExpectedException(typeof(UserException))]
         public void URepositoryAddNewUserInvalidPasswordTest()
         {
-            UserRepository.AddNewUser(UserRoles.YARD_OPERATOR, "Gabriel David", "Medina",
-                "gdMedina3", "  \n \t \t\t\n ", "096869689");
+            UserRepository.AddNewUser(UserRoles.YARD_OPERATOR, "Gabriel David",
+                "Medina", "gdMedina3", "  \n \t \t\t\n ", "096869689");
         }
 
         [TestMethod]
@@ -116,6 +116,54 @@ namespace Data.Persistence.Tests
         {
             UserRepository.AddNewUser(UserRoles.YARD_OPERATOR, "Gabriel David", "Medina",
                 "gdMedina4", "MusicaSuperDivertida", "La juguetería del Señor Simón.");
+        }
+
+        [TestMethod]
+        public void URepositoryRemoveUserValidTest()
+        {
+            User userToVerify = UserRepository.AddNewUser(UserRoles.YARD_OPERATOR, "Gabriel David",
+                "Medina", "gdMedina5", "MusicaSuperDivertida", "096869689");
+            UserRepository.Remove(userToVerify);
+            CollectionAssert.DoesNotContain(UserRepository.Elements.ToList(), userToVerify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void URepositoryRemoveUserNotInRepositoryInvalidTest()
+        {
+            User userToVerify = User.CreateNewUser(UserRoles.YARD_OPERATOR, "Gabriel David",
+                "Medina", "gdMedina6", "MusicaSuperDivertida", "096869689");
+            UserRepository.Remove(userToVerify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void URepositoryRemoveNullUserInvalidTest()
+        {
+            UserRepository.Remove(null);
+        }
+
+        [TestMethod]
+        public void URepositoryRemoveAdministratorValidTest()
+        {
+            User administratorToVerify = UserRepository.AddNewUser(UserRoles.ADMINISTRATOR,
+                "Mario", "Santos", "mSantos1", "DisculpeFuegoTiene", "099424242");
+            UserRepository.Remove(administratorToVerify);
+            CollectionAssert.DoesNotContain(UserRepository.Elements.ToList(), administratorToVerify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void URepositoryTryToRemoveAllAdministratorsInvalidTest()
+        {
+            UserRepository.AddNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos", "mSantos2",
+                "DisculpeFuegoTiene", "099424242");
+            var administrators = UserRepository.Elements.Where(u =>
+                u.Role == UserRoles.ADMINISTRATOR).ToList();
+            foreach (var administrator in administrators)
+            {
+                UserRepository.Remove(administrator);
+            }
         }
     }
 }
