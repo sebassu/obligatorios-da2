@@ -185,5 +185,10 @@ namespace Domain
         {
             return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return vin + ". " + brand + " " + model + ". " + year;
+        }
     }
 }
