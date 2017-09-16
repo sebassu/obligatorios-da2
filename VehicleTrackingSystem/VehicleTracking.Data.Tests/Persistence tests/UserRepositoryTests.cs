@@ -1,4 +1,6 @@
 ﻿using Domain;
+using Persistence;
+using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -32,9 +34,9 @@ namespace Data.Persistence.Tests
         public void URepositoryAddNewUserValidTest()
         {
             User userToVerify = User.CreateNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
-                "primerLamponne", "NoHaceFaltaSaleSolo", "099212121");
+                "pLamponne1", "NoHaceFaltaSaleSolo", "099212121");
             UserRepository.AddNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
-                "primerLamponne", "NoHaceFaltaSaleSolo", "099212121");
+                "pLamponne1", "NoHaceFaltaSaleSolo", "099212121");
             CollectionAssert.Contains(UserRepository.Elements.ToList(), userToVerify);
         }
 
@@ -42,7 +44,7 @@ namespace Data.Persistence.Tests
         public void URepositoryAddNewUserReturnsAddedUserValidTest()
         {
             User addedUser = UserRepository.AddNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
-                "segundoLamponne", "NoHaceFaltaSaleSolo", "099212121");
+                "pLamponne2", "NoHaceFaltaSaleSolo", "099212121");
             CollectionAssert.Contains(UserRepository.Elements.ToList(), addedUser);
         }
 
@@ -50,9 +52,9 @@ namespace Data.Persistence.Tests
         public void URepositoryAddNewUserOnlyUsernamesMatchValidTest()
         {
             User userToVerify = User.InstanceForTestingPurposes();
-            userToVerify.Username = "tercerLamponne";
+            userToVerify.Username = "pLamponne3";
             UserRepository.AddNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
-                "tercerLamponne", "NoHaceFaltaSaleSolo", "099212121");
+                "pLamponne3", "NoHaceFaltaSaleSolo", "099212121");
             CollectionAssert.Contains(UserRepository.Elements.ToList(), userToVerify);
         }
 
@@ -61,9 +63,9 @@ namespace Data.Persistence.Tests
         public void URepositoryAddRepeatedUserInvalidTest()
         {
             UserRepository.AddNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
-                "cuartoLamponne", "NoHaceFaltaSaleSolo", "099212121");
+                "pLamponne4", "NoHaceFaltaSaleSolo", "099212121");
             UserRepository.AddNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
-                "cuartoLamponne", "NoHaceFaltaSaleSolo", "099212121");
+                "pLamponne4", "NoHaceFaltaSaleSolo", "099212121");
         }
 
         [TestMethod]
@@ -81,7 +83,7 @@ namespace Data.Persistence.Tests
         public void URepositoryAddNewUserInvalidFirstNameTest()
         {
             UserRepository.AddNewUser(UserRoles.YARD_OPERATOR, "1d2@#!9 #(", "Medina",
-                "gdMedina", "MusicaSuperDivertida", "096869689");
+                "gdMedina1", "MusicaSuperDivertida", "096869689");
         }
 
         [TestMethod]
@@ -89,7 +91,7 @@ namespace Data.Persistence.Tests
         public void URepositoryAddNewUserInvalidLastNameTest()
         {
             UserRepository.AddNewUser(UserRoles.YARD_OPERATOR, "Gabriel David", "*$ 563a%7*//*0&d!@",
-                "gdMedina", "MusicaSuperDivertida", "096869689");
+                "gdMedina2", "MusicaSuperDivertida", "096869689");
         }
 
         [TestMethod]
@@ -105,7 +107,7 @@ namespace Data.Persistence.Tests
         public void URepositoryAddNewUserInvalidPasswordTest()
         {
             UserRepository.AddNewUser(UserRoles.YARD_OPERATOR, "Gabriel David", "Medina",
-                "gdMedina", "  \n \t \t\t\n ", "096869689");
+                "gdMedina3", "  \n \t \t\t\n ", "096869689");
         }
 
         [TestMethod]
@@ -113,7 +115,7 @@ namespace Data.Persistence.Tests
         public void URepositoryAddNewUserInvalidPhoneNumberTest()
         {
             UserRepository.AddNewUser(UserRoles.YARD_OPERATOR, "Gabriel David", "Medina",
-                "gdMedina", "MusicaSuperDivertida", "La juguetería del Señor Simón.");
+                "gdMedina4", "MusicaSuperDivertida", "La juguetería del Señor Simón.");
         }
     }
 }
