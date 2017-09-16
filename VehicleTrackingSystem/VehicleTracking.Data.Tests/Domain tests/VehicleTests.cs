@@ -19,13 +19,14 @@ namespace Data.Tests.Domain_tests
             testingVehicle = Vehicle.InstanceForTestingPurposes();
         }
 
-        //Vehicle Brand
         [TestMethod]
         public void VehicleForTestingPurposesTest()
         {
             Assert.AreEqual("Audi", testingVehicle.Brand);
+            Assert.AreEqual("Q5", testingVehicle.Model);
         }
 
+        //Vehicle Brand
         [TestMethod]
         public void VehicleSetValidBrandTest()
         {
@@ -73,6 +74,49 @@ namespace Data.Tests.Domain_tests
         public void VehicleSetInvalidBrandPunctuationTest()
         {
             testingVehicle.Brand = "!@$#%^";
+        }
+
+        //Vehicle model
+        [TestMethod]
+        public void VehicleSetValidModelTest()
+        {
+            testingVehicle.Model = "R8";
+            Assert.AreEqual("R8", testingVehicle.Model);
+        }
+
+        [TestMethod]
+        public void VehicleSetValidModelCompoundTest()
+        {
+            testingVehicle.Model = "  A 1 ";
+            Assert.AreEqual("A 1", testingVehicle.Model);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidModelEmptyTest()
+        {
+            testingVehicle.Model = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidModelOnlySpacesTest()
+        {
+            testingVehicle.Model = "     ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidModelNullTest()
+        {
+            testingVehicle.Model = null;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidModelPunctuationTest()
+        {
+            testingVehicle.Model = "!@$#%^";
         }
     }
 }
