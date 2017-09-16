@@ -6,8 +6,14 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 namespace Domain
 {
+    public enum UserRoles { ADMINISTRATOR, PORT_OPERATOR, TRANSPORTER, YARD_OPERATOR }
+
     public class User
     {
+        public int Id { get; set; }
+
+        public UserRoles Role { get; set; } = UserRoles.ADMINISTRATOR;
+
         private string firstName;
         public string FirstName
         {
@@ -133,6 +139,23 @@ namespace Domain
             username = "usuarioinválido";
             password = "Contraseña inválida.";
             phoneNumber = "Teléfono inválido.";
+        }
+
+        internal static User CreateNewUser(UserRoles role, string firstName, string lastName,
+            string username, string password, string phoneNumber)
+        {
+            return new User(role, firstName, lastName, username, password, phoneNumber);
+        }
+
+        private User(UserRoles roleToSet, string firstNameToSet, string lastNameToSet,
+            string usernameToSet, string passwordToSet, string phoneNumberToSet)
+        {
+            Role = roleToSet;
+            FirstName = firstNameToSet;
+            LastName = lastNameToSet;
+            Username = usernameToSet;
+            Password = passwordToSet;
+            PhoneNumber = phoneNumberToSet;
         }
     }
 }
