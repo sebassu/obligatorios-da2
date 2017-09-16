@@ -380,5 +380,31 @@ namespace Data.Domain.Tests
             object testingUserAsObject = testingUser;
             Assert.AreEqual(testingUserAsObject.GetHashCode(), testingUser.GetHashCode());
         }
+
+        [TestMethod]
+        public void UserToStringTest1()
+        {
+            Assert.AreEqual("Usuario inválido. <usuarioinválido>",
+                testingUser.ToString());
+        }
+
+        [TestMethod]
+        public void UserToStringTest2()
+        {
+            testingUser.FirstName = "Mario";
+            testingUser.LastName = "Santos";
+            testingUser.Username = "msantos";
+            Assert.AreEqual("Mario Santos <msantos>", testingUser.ToString());
+        }
+
+        [TestMethod]
+        public void UserToStringTest3()
+        {
+            testingUser.FirstName = "Gabriel";
+            testingUser.LastName = "Medina";
+            testingUser.Username = "gmedina";
+            Assert.AreEqual(testingUser.FirstName + " " + testingUser.LastName + " <"
+                + testingUser.Username + ">", testingUser.ToString());
+        }
     }
 }
