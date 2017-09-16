@@ -148,6 +148,8 @@ namespace Data.Persistence.Tests
         {
             User administratorToVerify = UserRepository.AddNewUser(UserRoles.ADMINISTRATOR,
                 "Mario", "Santos", "mSantos1", "DisculpeFuegoTiene", "099424242");
+            UserRepository.AddNewUser(UserRoles.ADMINISTRATOR, "John", "Smith", "hannibal",
+                "theresNoPlanBOnlyPlanA", "099111111");
             UserRepository.Remove(administratorToVerify);
             CollectionAssert.DoesNotContain(UserRepository.Elements.ToList(), administratorToVerify);
         }
