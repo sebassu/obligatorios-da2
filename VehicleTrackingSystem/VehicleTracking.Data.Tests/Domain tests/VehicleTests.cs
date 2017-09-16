@@ -114,13 +114,11 @@ namespace Data.Tests.Domain_tests
         }
 
         //Vehicle Year
-        [TestMethod]//no funciona
+        [TestMethod]
         public void VehicleSetValidYearTest()
         {
             testingVehicle.Year = 2017;
             Assert.AreEqual(2017, testingVehicle.Year);
-            //Assert.AreSame(2017, testingVehicle.Year);
-            //Assert.IsTrue(2017 == testingVehicle.Year);
         }
 
         [TestMethod]
@@ -135,6 +133,56 @@ namespace Data.Tests.Domain_tests
         public void VehicleSetInvalidYearLessThan1900Test()
         {
             testingVehicle.Year = 1500;
+        }
+
+        //Vehicle Color
+        [TestMethod]
+        public void VehicleSetValidColorTest()
+        {
+            testingVehicle.Color = "Blue";
+            Assert.AreEqual("Blue", testingVehicle.Color);
+        }
+
+        [TestMethod]
+        public void VehicleSetValidColorCompoundTest()
+        {
+            testingVehicle.Color = "  Dark Red ";
+            Assert.AreEqual("Dark Red", testingVehicle.Color);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidColorNumberTest()
+        {
+            testingVehicle.Color = "123";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidColorEmptyTest()
+        {
+            testingVehicle.Color = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidColorOnlySpacesTest()
+        {
+            testingVehicle.Color = "     ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidColorNullTest()
+        {
+            testingVehicle.Color = null;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidColorPunctuationTest()
+        {
+            testingVehicle.Color = "!@$#%^";
         }
     }
 }
