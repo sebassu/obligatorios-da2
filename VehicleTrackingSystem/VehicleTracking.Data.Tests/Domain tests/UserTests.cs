@@ -268,5 +268,59 @@ namespace Data.Domain.Tests
         {
             testingUser.PhoneNumber = null;
         }
+
+        [TestMethod]
+        public void UserParameterFactoryMethodValidTest()
+        {
+            testingUser = User.CreateNewUser(UserRoles.PORT_OPERATOR, "Emilio", "Ravenna",
+                "emravenna", "contraseñaVálida123", "099212121");
+            Assert.AreEqual(0, testingUser.Id);
+            Assert.AreEqual(UserRoles.PORT_OPERATOR, testingUser.Role);
+            Assert.AreEqual("Emilio", testingUser.FirstName);
+            Assert.AreEqual("Ravenna", testingUser.LastName);
+            Assert.AreEqual("emravenna", testingUser.Username);
+            Assert.AreEqual("contraseñaVálida123", testingUser.Password);
+            Assert.AreEqual("099212121", testingUser.PhoneNumber);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserParameterFactoryMethodInvalidFirstNameTest()
+        {
+            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "1&6 1a2-*!3", "Ravenna",
+                "emravenna", "contraseñaVálida123", "099212121");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserParameterFactoryMethodInvalidLastNameTest()
+        {
+            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", ";#d1 -($!#",
+                "emravenna", "contraseñaVálida123", "099212121");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserParameterFactoryMethodInvalidUsernameTest()
+        {
+            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
+                "12! $^#&", "contraseñaVálida123", "099212121");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserParameterFactoryMethodInvalidPasswordTest()
+        {
+            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
+                "emravenna", "", "099212121");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UserParameterFactoryMethodInvalidPhoneNumberTest()
+        {
+            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
+                "emravenna", "contraseñaVálida123", "0A# .0!&1-2");
+        }
     }
 }
