@@ -1,7 +1,6 @@
 ﻿using System.Resources;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 
 [assembly: NeutralResourcesLanguage("es")]
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
@@ -119,9 +118,7 @@ namespace Domain
 
         private bool IsValidPhoneNumber(string value)
         {
-            Regex phoneFormat =
-                new Regex("^(?!00)[0-9]{8,9}$");
-            return value != null && phoneFormat.IsMatch(value);
+            return Utilities.HasValidPhoneFormat(value);
         }
 
         internal static User InstanceForTestingPurposes()
