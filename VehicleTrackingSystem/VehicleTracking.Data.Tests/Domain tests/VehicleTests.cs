@@ -302,5 +302,33 @@ namespace Data.Tests.Domain_tests
                 2016, "Green", "QWERTYUIO123");
         }
 
+        //Equals
+        [TestMethod]
+        public void VehicleEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingVehicle, null);
+        }
+
+        [TestMethod]
+        public void VehicleEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingVehicle, someRandomObject);
+        }
+
+        [TestMethod]
+        public void VehicleEqualsReflexiveTest()
+        {
+            Assert.AreEqual(testingVehicle, testingVehicle);
+        }
+
+        [TestMethod]
+        public void VehicleEqualsSymmetricTest()
+        {
+            Vehicle secondTestingVehicle = Vehicle.InstanceForTestingPurposes();
+            Assert.AreEqual(testingVehicle, secondTestingVehicle);
+            Assert.AreEqual(secondTestingVehicle, testingVehicle);
+        }
+
     }
 }
