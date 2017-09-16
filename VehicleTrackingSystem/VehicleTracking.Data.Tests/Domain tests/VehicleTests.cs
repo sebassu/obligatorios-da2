@@ -27,6 +27,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(2016, testingVehicle.Year);
             Assert.AreEqual("Blue", testingVehicle.Color);
             Assert.AreEqual("QWERTYUI123456789", testingVehicle.Vin);
+            Assert.AreEqual(1, testingVehicle.Id);
         }
 
         //Vehicle Brand
@@ -236,5 +237,14 @@ namespace Data.Tests.Domain_tests
         {
             testingVehicle.Vin = "ASDFGH12345";
         }
+
+        //Vehicle id
+        [TestMethod]
+        public void VehicleSetIdValidTest()
+        {
+            testingVehicle.Id = 42;
+            Assert.AreEqual(42, testingVehicle.Id);
+        }
+
     }
 }
