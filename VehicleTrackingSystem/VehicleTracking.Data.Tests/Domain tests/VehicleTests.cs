@@ -330,5 +330,13 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(secondTestingVehicle, testingVehicle);
         }
 
-    }
+        //Get HashCode
+        [TestMethod]
+        public void UserGetHashCodeTest()
+        {
+            object testingVehicleAsObject = testingVehicle;
+            Assert.AreEqual(testingVehicleAsObject.GetHashCode(), testingVehicle.GetHashCode());
+        }
+
+        }
 }
