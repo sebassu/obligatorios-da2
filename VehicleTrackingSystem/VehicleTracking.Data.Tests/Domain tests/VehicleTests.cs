@@ -28,6 +28,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual("Blue", testingVehicle.Color);
             Assert.AreEqual("QWERTYUI123456789", testingVehicle.Vin);
             Assert.AreEqual(1, testingVehicle.Id);
+            Assert.AreEqual(VehicleType.CAR, testingVehicle.Role);
         }
 
         //Vehicle Brand
@@ -244,6 +245,61 @@ namespace Data.Tests.Domain_tests
         {
             testingVehicle.Id = 42;
             Assert.AreEqual(42, testingVehicle.Id);
+        }
+
+        //Vehicle Factory method
+        [TestMethod]
+        public void VehicleParameterFactoryMethodValidTest()
+        {
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
+                2016, "Green", "QWERTYUIO12345678");
+            Assert.AreEqual(0, testingVehicle.Id);
+            Assert.AreEqual(VehicleType.SUV, testingVehicle.Role);
+            Assert.AreEqual("Chevrolet", testingVehicle.Brand);
+            Assert.AreEqual("Onix", testingVehicle.Model);
+            Assert.AreEqual(2016, testingVehicle.Year);
+            Assert.AreEqual("Green", testingVehicle.Color);
+            Assert.AreEqual("QWERTYUIO12345678", testingVehicle.Vin);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleParameterFactoryMethodInvalidBrandTest()
+        {
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet1", "Onix",
+                2016, "Green", "QWERTYUIO12345678");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleParameterFactoryMethodInvalidModelTest()
+        {
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix!",
+                2016, "Green", "QWERTYUIO12345678");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void UserParameterFactoryMethodInvalidYearTest()
+        {
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
+                2040, "Green", "QWERTYUIO12345678");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void UserParameterFactoryMethodInvalidColorTest()
+        {
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
+                2016, "Green#", "QWERTYUIO12345678");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void UserParameterFactoryMethodInvalidVinTest()
+        {
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
+                2016, "Green", "QWERTYUIO123");
         }
 
     }

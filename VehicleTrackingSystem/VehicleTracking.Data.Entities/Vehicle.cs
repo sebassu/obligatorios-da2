@@ -7,8 +7,15 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
+
+    public enum VehicleType { CAR, TRUCK, SUV, VAN, MINI_VAN }
+
     class Vehicle
     {
+        public int Id { get; set; }
+
+        public VehicleType Role { get; set; } = VehicleType.CAR;
+
         private string brand;
         public string Brand
         {
