@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace VehicleTracking.Web.API.Tests
+namespace Web.API.Tests
 {
     [TestClass]
     public class UnitTest1
