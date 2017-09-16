@@ -330,7 +330,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(secondTestingVehicle, testingVehicle);
         }
 
-        //Get HashCode
+        //Vehicle GetHashCode
         [TestMethod]
         public void UserGetHashCodeTest()
         {
@@ -338,5 +338,22 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(testingVehicleAsObject.GetHashCode(), testingVehicle.GetHashCode());
         }
 
+        //Vehicle ToString
+        [TestMethod]
+        public void UserToStringTest1()
+        {
+            Assert.AreEqual("QWERTYUI123456789. Audi Q5. 2016",
+                testingVehicle.ToString());
         }
+
+        [TestMethod]
+        public void UserToStringTest2()
+        {
+            testingVehicle.Vin = "ZXCVBNM1234567890";
+            testingVehicle.Brand = "Fiat";
+            testingVehicle.Model = "1";
+            testingVehicle.Year = 2017;
+            Assert.AreEqual("ZXCVBNM1234567890. Fiat 1. 2017 ", testingVehicle.ToString());
+        }
+    }
 }
