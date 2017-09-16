@@ -157,5 +157,23 @@ namespace Domain
             Password = passwordToSet;
             PhoneNumber = phoneNumberToSet;
         }
+
+        public override bool Equals(object obj)
+        {
+            User userToCompareAgainst = obj as User;
+            if (Utilities.IsNotNull(userToCompareAgainst))
+            {
+                return username.Equals(userToCompareAgainst.username);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
