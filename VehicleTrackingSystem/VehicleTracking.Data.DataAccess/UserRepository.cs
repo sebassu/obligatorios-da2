@@ -1,5 +1,4 @@
 ﻿using Domain;
-using System.Data;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -29,16 +28,7 @@ namespace Persistence
                 {
                     User userToAdd = User.CreateNewUser(role, firstName, lastName,
                         username, password, phoneNumber);
-                    try
-                    {
-                        context.Users.Add(userToAdd);
-                        context.SaveChanges();
-                    }
-                    catch (DataException exception)
-                    {
-                        throw new RepositoryException("Error en base de datos. Detalles: "
-                            + exception.ToString());
-                    }
+                    EntityFrameworkUtilities<User>.Add(context, userToAdd);
                     return userToAdd;
                 }
                 else
