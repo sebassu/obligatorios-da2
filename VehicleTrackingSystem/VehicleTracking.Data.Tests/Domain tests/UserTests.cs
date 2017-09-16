@@ -19,10 +19,20 @@ namespace Data.Domain.Tests
         [TestMethod]
         public void UserForTestingPurposesTest()
         {
+            Assert.AreEqual(0, testingUser.Id);
+            Assert.AreEqual(UserRoles.ADMINISTRATOR, testingUser.Role);
             Assert.AreEqual("Usuario", testingUser.FirstName);
             Assert.AreEqual("inválido.", testingUser.LastName);
             Assert.AreEqual("usuarioinválido", testingUser.Username);
             Assert.AreEqual("Contraseña inválida.", testingUser.Password);
+            Assert.AreEqual("Teléfono inválido.", testingUser.PhoneNumber);
+        }
+
+        [TestMethod]
+        public void UserSetIdValidTest()
+        {
+            testingUser.Id = 42;
+            Assert.AreEqual(42, testingUser.Id);
         }
 
         [TestMethod]

@@ -82,7 +82,7 @@ namespace Domain
         }
 
         private string password;
-        public virtual string Password
+        public string Password
         {
             get { return password; }
             set
@@ -122,7 +122,7 @@ namespace Domain
             }
         }
 
-        private bool IsValidPhoneNumber(string value)
+        protected virtual bool IsValidPhoneNumber(string value)
         {
             return Utilities.HasValidPhoneFormat(value);
         }
@@ -141,13 +141,13 @@ namespace Domain
             phoneNumber = "Teléfono inválido.";
         }
 
-        internal static User CreateNewUser(UserRoles role, string firstName, string lastName,
+        public static User CreateNewUser(UserRoles role, string firstName, string lastName,
             string username, string password, string phoneNumber)
         {
             return new User(role, firstName, lastName, username, password, phoneNumber);
         }
 
-        private User(UserRoles roleToSet, string firstNameToSet, string lastNameToSet,
+        protected User(UserRoles roleToSet, string firstNameToSet, string lastNameToSet,
             string usernameToSet, string passwordToSet, string phoneNumberToSet)
         {
             Role = roleToSet;
