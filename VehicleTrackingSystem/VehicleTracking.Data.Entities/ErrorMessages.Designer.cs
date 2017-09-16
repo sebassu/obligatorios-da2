@@ -61,6 +61,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} inválida: &quot;{1}&quot;. Solo se permite ingresar caracteres alfabéticos o espacios para este campo..
+        /// </summary>
+        internal static string BrandIsInvalid {
+            get {
+                return ResourceManager.GetString("BrandIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. Solamente se permite ingresar caracteres alfabéticos o espacios para este campo..
         /// </summary>
         internal static string NameIsInvalid {
