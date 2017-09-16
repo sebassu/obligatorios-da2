@@ -81,6 +81,30 @@ namespace Domain
             return Utilities.ValidYear(value);
         }
 
+        private string color;
+        public string Color
+        {
+            get { return color; }
+            set
+            {
+                if (IsValidColor(value))
+                {
+                    color = value.Trim();
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.ColorIsInvalid, "", value);
+                    throw new VehicleException(errorMessage);
+                }
+            }
+        }
+
+        private bool IsValidColor(string value)
+        {
+            return Utilities.ContainsLettersOrSpacesOnly(value);
+        }
+
         internal static Vehicle InstanceForTestingPurposes()
         {
             return new Vehicle();
@@ -90,6 +114,7 @@ namespace Domain
         {
             brand = "Audi";
             model = "Q5";
+            year = 2016;
         }
     }
 }

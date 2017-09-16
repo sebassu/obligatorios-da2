@@ -70,6 +70,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El color &quot;{1}&quot;  no es valido. Solo se permite ingresar caracteres alfabéticos o espacios para este campo..
+        /// </summary>
+        internal static string ColorIsInvalid {
+            get {
+                return ResourceManager.GetString("ColorIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. Solo se permiten ingresar caracteres alfabéticos, numéricos o espacios para este campo..
         /// </summary>
         internal static string ModelIsInvalid {
