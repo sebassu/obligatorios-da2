@@ -28,7 +28,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual("Blue", testingVehicle.Color);
             Assert.AreEqual("QWERTYUI123456789", testingVehicle.Vin);
             Assert.AreEqual(1, testingVehicle.Id);
-            Assert.AreEqual(VehicleType.CAR, testingVehicle.Role);
+            Assert.AreEqual(VehicleType.CAR, testingVehicle.Type);
         }
 
         //Vehicle Brand
@@ -254,7 +254,7 @@ namespace Data.Tests.Domain_tests
             testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
                 2016, "Green", "QWERTYUIO12345678");
             Assert.AreEqual(0, testingVehicle.Id);
-            Assert.AreEqual(VehicleType.SUV, testingVehicle.Role);
+            Assert.AreEqual(VehicleType.SUV, testingVehicle.Type);
             Assert.AreEqual("Chevrolet", testingVehicle.Brand);
             Assert.AreEqual("Onix", testingVehicle.Model);
             Assert.AreEqual(2016, testingVehicle.Year);

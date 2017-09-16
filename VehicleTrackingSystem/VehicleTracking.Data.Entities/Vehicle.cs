@@ -14,7 +14,7 @@ namespace Domain
     {
         public int Id { get; set; }
 
-        public VehicleType Role { get; set; } = VehicleType.CAR;
+        public VehicleType Type { get; set; } = VehicleType.CAR;
 
         private string brand;
         public string Brand
@@ -137,7 +137,6 @@ namespace Domain
             return Utilities.ContainsLettersOrDigitsOnly(value) && value.Length == VinLength;
         }
 
-
         internal static Vehicle InstanceForTestingPurposes()
         {
             return new Vehicle();
@@ -150,6 +149,23 @@ namespace Domain
             year = 2016;
             color = "Blue";
             vin = "QWERTYUI123456789";
+        }
+
+        public static Vehicle CreateNewVehicle(VehicleType type, string brand, string model,
+           int year, string color, string vin)
+        {
+            return new Vehicle(type, brand, model, year, color, vin);
+        }
+
+        protected Vehicle(VehicleType typeToSet, string brandToSet, string modelToSet,
+            int yearToSet, string colorToSet, string vinToSet)
+        {
+            Type = typeToSet;
+            Brand = brandToSet;
+            Model = modelToSet;
+            Year = yearToSet;
+            Color = colorToSet;
+            Vin = vinToSet;
         }
     }
 }
