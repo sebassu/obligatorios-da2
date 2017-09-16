@@ -57,6 +57,30 @@ namespace Domain
             return Utilities.ContainsLettersOrDigitsOnly(value) || Utilities.ContainsLettersOrSpacesOnly(value);
         }
 
+        private int year;
+        public int Year
+        {
+            get { return year; }
+            set
+            {
+                if (IsValidYear(value))
+                {
+                    year = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.YearIsInvalid, "Año", value);
+                    throw new VehicleException(errorMessage);
+                }
+            }
+        }
+
+        public bool IsValidYear(int value)
+        {
+            return Utilities.ValidYear(value);
+        }
+
         internal static Vehicle InstanceForTestingPurposes()
         {
             return new Vehicle();

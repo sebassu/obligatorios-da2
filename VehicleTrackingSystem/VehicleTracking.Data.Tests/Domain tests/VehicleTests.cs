@@ -24,7 +24,7 @@ namespace Data.Tests.Domain_tests
         {
             Assert.AreEqual("Audi", testingVehicle.Brand);
             Assert.AreEqual("Q5", testingVehicle.Model);
-            Assert.AreEqual("2016", testingVehicle.Year);
+            Assert.AreEqual(2016, testingVehicle.Year);
         }
 
         //Vehicle Brand
@@ -114,46 +114,27 @@ namespace Data.Tests.Domain_tests
         }
 
         //Vehicle Year
-        [TestMethod]
+        [TestMethod]//no funciona
         public void VehicleSetValidYearTest()
         {
-            testingVehicle.Year = "2017";
-            Assert.AreEqual("2017", testingVehicle.Year);
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidBrandLettersTest()
-        {
-            testingVehicle.Year = "dos mil catorce";
+            testingVehicle.Year = 2017;
+            Assert.AreEqual(2017, testingVehicle.Year);
+            //Assert.AreSame(2017, testingVehicle.Year);
+            //Assert.IsTrue(2017 == testingVehicle.Year);
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidYearEmptyTest()
+        public void VehicleSetInvalidYearGreaterThanNowTest()
         {
-            testingVehicle.Year = "";
+            testingVehicle.Year = 2022;
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidYearOnlySpacesTest()
+        public void VehicleSetInvalidYearLessThan1900Test()
         {
-            testingVehicle.Year = "     ";
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidYearNullTest()
-        {
-            testingVehicle.Year = null;
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidYearPunctuationTest()
-        {
-            testingVehicle.Year = "!@$#%^";
+            testingVehicle.Year = 1500;
         }
     }
 }

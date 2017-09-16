@@ -113,5 +113,14 @@ namespace Domain {
                 return ResourceManager.GetString("UsernameIsInvalid", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. El año no puede ser mayor al actual ni menor a 1900..
+        /// </summary>
+        internal static string YearIsInvalid {
+            get {
+                return ResourceManager.GetString("YearIsInvalid", resourceCulture);
+            }
+        }
     }
 }
