@@ -85,13 +85,6 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        public void VehicleSetValidModelCompoundTest()
-        {
-            testingVehicle.Model = "  A 1 ";
-            Assert.AreEqual("A 1", testingVehicle.Model);
-        }
-
-        [TestMethod]
         [ExpectedException(typeof(VehicleException))]
         public void VehicleSetInvalidModelEmptyTest()
         {

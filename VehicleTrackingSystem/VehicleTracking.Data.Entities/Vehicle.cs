@@ -33,6 +33,30 @@ namespace Domain
             return Utilities.ContainsLettersOrSpacesOnly(value);
         }
 
+        private string model;
+        public string Model
+        {
+            get { return model; }
+            set
+            {
+                if (IsValidModel(value))
+                {
+                    model = value.Trim();
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.ModelIsInvalid, "Modelo", value);
+                    throw new VehicleException(errorMessage);
+                }
+            }
+        }
+
+        private bool IsValidModel(string value)
+        {
+            return Utilities.ContainsLettersOrDigitsOnly(value) || Utilities.ContainsLettersOrSpacesOnly(value);
+        }
+
         internal static Vehicle InstanceForTestingPurposes()
         {
             return new Vehicle();
@@ -41,6 +65,7 @@ namespace Domain
         protected Vehicle()
         {
             brand = "Audi";
+            model = "Q5";
         }
     }
 }

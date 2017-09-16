@@ -120,6 +120,9 @@
   <data name="BrandIsInvalid" xml:space="preserve">
     <value>{0} inválida: "{1}". Solo se permite ingresar caracteres alfabéticos o espacios para este campo.</value>
   </data>
+  <data name="ModelIsInvalid" xml:space="preserve">
+    <value>{0} inválido: "{1}". Solo se permiten ingresar caracteres alfabéticos, numéricos o espacios para este campo.</value>
+  </data>
   <data name="NameIsInvalid" xml:space="preserve">
     <value>{0} inválido: "{1}". Solamente se permite ingresar caracteres alfabéticos o espacios para este campo.</value>
   </data>
