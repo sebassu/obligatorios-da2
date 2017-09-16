@@ -181,5 +181,9 @@ namespace Domain
             }
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
