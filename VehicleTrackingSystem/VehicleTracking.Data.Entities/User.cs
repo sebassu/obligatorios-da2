@@ -175,5 +175,10 @@ namespace Domain
         {
             return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return FirstName + " " + LastName + " <" + username + ">";
+        }
     }
 }
