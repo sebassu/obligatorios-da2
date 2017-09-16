@@ -124,6 +124,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El vin &quot;{1}&quot; es inválido. Solo se permite ingresar caracteres alfabéticos y numéricos para este campo y el largo debe ser de 17 caracteres..
+        /// </summary>
+        internal static string VinIsInvalid {
+            get {
+                return ResourceManager.GetString("VinIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. El año no puede ser mayor al actual ni menor a 1900..
         /// </summary>
         internal static string YearIsInvalid {

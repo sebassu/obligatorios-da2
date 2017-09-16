@@ -138,6 +138,9 @@
   <data name="UsernameIsInvalid" xml:space="preserve">
     <value>El usuario "{0}" es inválido: se permiten únicamente aquellos con letras o números, sin espacios.</value>
   </data>
+  <data name="VinIsInvalid" xml:space="preserve">
+    <value>El vin "{1}" es inválido. Solo se permite ingresar caracteres alfabéticos y numéricos para este campo y el largo debe ser de 17 caracteres.</value>
+  </data>
   <data name="YearIsInvalid" xml:space="preserve">
     <value>{0} inválido: "{1}". El año no puede ser mayor al actual ni menor a 1900.</value>
   </data>

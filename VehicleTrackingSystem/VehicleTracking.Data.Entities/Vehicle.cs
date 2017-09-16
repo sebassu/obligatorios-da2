@@ -105,6 +105,32 @@ namespace Domain
             return Utilities.ContainsLettersOrSpacesOnly(value);
         }
 
+        private string vin;
+        public string Vin
+        {
+            get { return vin; }
+            set
+            {
+                if (IsValidVin(value))
+                {
+                    color = value.Trim();
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.VinIsInvalid, "", value);
+                    throw new VehicleException(errorMessage);
+                }
+            }
+        }
+
+        private int VinLength = 17;
+        private bool IsValidVin(string value)
+        {
+            return Utilities.ContainsLettersOrDigitsOnly(value) && value.Length == VinLength;
+        }
+
+
         internal static Vehicle InstanceForTestingPurposes()
         {
             return new Vehicle();
@@ -116,6 +142,7 @@ namespace Domain
             model = "Q5";
             year = 2016;
             color = "Blue";
+            vin = "QWERTYUI123456789";
         }
     }
 }

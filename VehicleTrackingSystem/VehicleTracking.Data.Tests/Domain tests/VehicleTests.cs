@@ -26,6 +26,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual("Q5", testingVehicle.Model);
             Assert.AreEqual(2016, testingVehicle.Year);
             Assert.AreEqual("Blue", testingVehicle.Color);
+            Assert.AreEqual("QWERTYUI123456789", testingVehicle.Vin);
         }
 
         //Vehicle Brand
@@ -184,6 +185,56 @@ namespace Data.Tests.Domain_tests
         public void VehicleSetInvalidColorPunctuationTest()
         {
             testingVehicle.Color = "!@$#%^";
+        }
+
+        //Vehicle Vin
+        [TestMethod]
+        public void VehicleSetVinModelTest()
+        {
+            testingVehicle.Vin = "12345678ASDFGHJKL";
+            Assert.AreEqual("12345678ASDFGHJKL", testingVehicle.Vin);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVinEmptyTest()
+        {
+            testingVehicle.Vin = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVinOnlySpacesTest()
+        {
+            testingVehicle.Vin = "     ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVinNullTest()
+        {
+            testingVehicle.Vin = null;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVinPunctuationTest()
+        {
+            testingVehicle.Vin = "!@$#%^";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVinLongerTest()
+        {
+            testingVehicle.Vin = "ASDFGHJKL123456789";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVinShorterTest()
+        {
+            testingVehicle.Vin = "ASDFGH12345";
         }
     }
 }
