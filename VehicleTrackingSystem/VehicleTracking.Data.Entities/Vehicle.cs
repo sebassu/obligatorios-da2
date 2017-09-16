@@ -167,5 +167,19 @@ namespace Domain
             Color = colorToSet;
             Vin = vinToSet;
         }
+
+        public override bool Equals(object obj)
+        {
+            Vehicle vehicleToCompareAgainst = obj as Vehicle;
+            if (Utilities.IsNotNull(vehicleToCompareAgainst))
+            {
+                return vin.Equals(vehicleToCompareAgainst.vin);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }
