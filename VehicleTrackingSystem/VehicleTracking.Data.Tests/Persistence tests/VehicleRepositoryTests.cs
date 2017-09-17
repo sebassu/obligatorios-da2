@@ -4,31 +4,13 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persistence;
 
-namespace Data.Tests.Repository_tests
+namespace Data.Persistence.Tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
     public class VehicleRepositoryTests
     {
-        [AssemblyInitialize]
-        public static void AssemblySetup(TestContext context)
-        {
-            DeleteAllDatabaseData();
-        }
-
-        [AssemblyCleanup]
-        public static void AssemblySetup()
-        {
-            DeleteAllDatabaseData();
-        }
-
-        private static void DeleteAllDatabaseData()
-        {
-            using (var context = new VTSystemContext())
-            {
-                context.DeleteAllData();
-            }
-        }
+   
 
         [TestMethod]
         public void VRepositoryAddNewVehicleValidTest()
@@ -41,11 +23,11 @@ namespace Data.Tests.Repository_tests
         }
 
         [TestMethod]
-        public void VRepositoryAddNewVehcleReturnsAddedVehicleValidTest()
+        public void VRepositoryAddNewVehicleReturnsAddedVehicleValidTest()
         {
             Vehicle addedVehicle = VehicleRepository.AddNewVehicle(VehicleType.CAR, "Chevrolet", "Onix",
-                2015, "Red", "ASDFGHJKL12345678");
-            CollectionAssert.Contains(VehicleReposiory.Elements.ToList(), addedVehicle);
+                2015, "Red", "12345678ASDFGHJKL");
+            CollectionAssert.Contains(VehicleRepository.Elements.ToList(), addedVehicle);
         }
 
         [TestMethod]
@@ -63,9 +45,9 @@ namespace Data.Tests.Repository_tests
         public void VRepositoryAddRepeatedVehicleInvalidTest()
         {
             VehicleRepository.AddNewVehicle(VehicleType.CAR, "Chevrolet", "Onix",
-                2015, "Red", "ZXCVBNM1234567890");
+                2015, "Red", "QWERTYUIOP1234567");
             VehicleRepository.AddNewVehicle(VehicleType.CAR, "Chevrolet", "Onix",
-                2015, "Red", "ZXCVBNM1234567890");
+                2015, "Red", "QWERTYUIOP1234567");
         }
 
         [TestMethod]
@@ -73,17 +55,17 @@ namespace Data.Tests.Repository_tests
         public void VRepositoryAddNewVehicleRepeatedVinInvalidTest()
         {
             VehicleRepository.AddNewVehicle(VehicleType.CAR, "Chevrolet", "Onix",
-                2015, "Red", "ZXCVBNM1234567890");
-            VehicleRepository.AddNewUser(VehicleType.CAR, "Audi", "A1",
-                2017, "Black", "ZXCVBNM1234567890");
+                2015, "Red", "123456789QWERTYUI");
+            VehicleRepository.AddNewVehicle(VehicleType.CAR, "Audi", "A1",
+                2017, "Black", "123456789QWERTYUI");
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
         public void VRepositoryAddNewVehicleInvalidBrandTest()
         {
-            VehicleRepository.AddNewVehicle(VehicleType.CAR, "¡Chevrolet!", "Onix",
-                2015, "Red", "ZXCVBNM1234567890");
+            VehicleRepository.AddNewVehicle(VehicleType.CAR, "¡Chevrolet123!", "Onix",
+                2015, "Red", "1Q2W3E4R5T6Y7U8I9");
         }
 
         [TestMethod]
@@ -91,7 +73,7 @@ namespace Data.Tests.Repository_tests
         public void VRepositoryAddNewVehicleInvalidModelTest()
         {
             VehicleRepository.AddNewVehicle(VehicleType.CAR, "Chevrolet", "Onix#",
-                2015, "Red", "ZXCVBNM1234567890");
+                2015, "Red", "Q1W2E3R4T5Y6U7I8O");
         }
 
         [TestMethod]
@@ -99,7 +81,7 @@ namespace Data.Tests.Repository_tests
         public void VRepositoryAddNewVehicleInvalidYearTest()
         {
             VehicleRepository.AddNewVehicle(VehicleType.CAR, "Chevrolet", "Onix",
-                2030, "Red", "ZXCVBNM1234567890");
+                2030, "Red", "QW12ER34TY56UI78O");
         }
 
         [TestMethod]
@@ -107,7 +89,7 @@ namespace Data.Tests.Repository_tests
         public void VRepositoryAddNewVehicleInvalidColorTest()
         {
             VehicleRepository.AddNewVehicle(VehicleType.CAR, "Chevrolet", "Onix",
-                2015, "!@#", "ZXCVBNM1234567890");
+                2015, "!@#", "QWERTYUIOPASDFGHJ");
         }
 
         [TestMethod]

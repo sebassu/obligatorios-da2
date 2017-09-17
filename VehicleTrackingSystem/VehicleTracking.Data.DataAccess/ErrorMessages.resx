@@ -126,4 +126,7 @@
   <data name="UsernameMustBeUnique" xml:space="preserve">
     <value>No es posible completar la acción: el nombre de usuario ingresado ya se encuentra registrado en el sistema.</value>
   </data>
+  <data name="VinMustBeUnique" xml:space="preserve">
+    <value>No es posible completar la acción. El Vin ingresado ya se encuentra registrado en el sistema.</value>
+  </data>
 </root>

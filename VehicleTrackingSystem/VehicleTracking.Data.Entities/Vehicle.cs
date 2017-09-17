@@ -115,7 +115,7 @@ namespace Domain
             {
                 if (IsValidVin(value))
                 {
-                    color = value.Trim();
+                    vin = value.Trim();
                 }
                 else
                 {

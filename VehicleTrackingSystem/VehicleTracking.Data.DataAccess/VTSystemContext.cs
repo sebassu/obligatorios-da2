@@ -9,6 +9,8 @@ namespace Persistence
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Vehicle> Vehicles { get; set; }
+
         public VTSystemContext() : base()
         {
             var defaultInitializer = new DropCreateDatabaseIfModelChanges<VTSystemContext>();

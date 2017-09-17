@@ -27,7 +27,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(2016, testingVehicle.Year);
             Assert.AreEqual("Blue", testingVehicle.Color);
             Assert.AreEqual("QWERTYUI123456789", testingVehicle.Vin);
-            Assert.AreEqual(1, testingVehicle.Id);
+            Assert.AreEqual(0, testingVehicle.Id);
             Assert.AreEqual(VehicleType.CAR, testingVehicle.Type);
         }
 
@@ -340,20 +340,20 @@ namespace Data.Tests.Domain_tests
 
         //Vehicle ToString
         [TestMethod]
-        public void UserToStringTest1()
+        public void VehicleToStringTest1()
         {
             Assert.AreEqual("QWERTYUI123456789. Audi Q5. 2016",
                 testingVehicle.ToString());
         }
 
         [TestMethod]
-        public void UserToStringTest2()
+        public void VehicleToStringTest2()
         {
-            testingVehicle.Vin = "ZXCVBNM1234567890";
+            testingVehicle.Vin = "QWERTYUI123456789";
             testingVehicle.Brand = "Fiat";
             testingVehicle.Model = "1";
             testingVehicle.Year = 2017;
-            Assert.AreEqual("ZXCVBNM1234567890. Fiat 1. 2017 ", testingVehicle.ToString());
+            Assert.AreEqual("QWERTYUI123456789. Fiat 1. 2017 ", testingVehicle.ToString());
         }
     }
 }
