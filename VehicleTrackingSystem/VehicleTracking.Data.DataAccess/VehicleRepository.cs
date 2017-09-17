@@ -48,5 +48,10 @@ namespace Persistence
                 return context.Vehicles.Any(v => v.Vin == vehicleToLookup);
             }
         }
+
+        public static void Remove(Vehicle elementToRemove)
+        {
+            EntityFrameworkUtilities<Vehicle>.Remove(elementToRemove);
+        }
     }
 }
