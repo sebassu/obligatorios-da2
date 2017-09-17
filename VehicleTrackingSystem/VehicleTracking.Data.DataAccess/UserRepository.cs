@@ -74,25 +74,8 @@ namespace Persistence
         {
             try
             {
-                using (var context = new VTSystemContext())
-                {
-                    EntityFrameworkUtilities<User>.AttachIfIsValid(context, userToModify);
-                    bool usernameChanges = userToModify.Username != usernameToSet;
-                    if (usernameChanges && ExistsUserWithUsername(usernameToSet))
-                    {
-                        throw new RepositoryException(ErrorMessages.UsernameMustBeUnique);
-                    }
-                    else
-                    {
-                        userToModify.Role = roleToSet;
-                        userToModify.FirstName = firstNameToSet;
-                        userToModify.LastName = lastNameToSet;
-                        userToModify.Username = usernameToSet;
-                        userToModify.Password = passwordToSet;
-                        userToModify.PhoneNumber = phoneNumberToSet;
-                        context.SaveChanges();
-                    }
-                }
+                AttemptToSetUserAttributes(userToModify, roleToSet, firstNameToSet, lastNameToSet,
+                    usernameToSet, passwordToSet, phoneNumberToSet);
             }
             catch (DataException)
             {
@@ -100,6 +83,42 @@ namespace Persistence
                     ErrorMessages.ElementDoesNotExist, "Usuario");
                 throw new RepositoryException(errorMessage);
             }
+        }
+
+        private static void AttemptToSetUserAttributes(User userToModify, UserRoles roleToSet, string firstNameToSet,
+            string lastNameToSet, string usernameToSet, string passwordToSet, string phoneNumberToSet)
+        {
+            using (var context = new VTSystemContext())
+            {
+                EntityFrameworkUtilities<User>.AttachIfIsValid(context, userToModify);
+                if (ChangeCausesRepeatedUsernames(userToModify, usernameToSet))
+                {
+                    throw new RepositoryException(ErrorMessages.UsernameMustBeUnique);
+                }
+                else
+                {
+                    SetUserAttributes(userToModify, roleToSet, firstNameToSet, lastNameToSet,
+                        usernameToSet, passwordToSet, phoneNumberToSet);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        private static bool ChangeCausesRepeatedUsernames(User userToModify, string usernameToSet)
+        {
+            bool usernameChanges = userToModify.Username != usernameToSet;
+            return usernameChanges && ExistsUserWithUsername(usernameToSet);
+        }
+
+        private static void SetUserAttributes(User userToModify, UserRoles roleToSet, string firstNameToSet, string lastNameToSet,
+            string usernameToSet, string passwordToSet, string phoneNumberToSet)
+        {
+            userToModify.Role = roleToSet;
+            userToModify.FirstName = firstNameToSet;
+            userToModify.LastName = lastNameToSet;
+            userToModify.Username = usernameToSet;
+            userToModify.Password = passwordToSet;
+            userToModify.PhoneNumber = phoneNumberToSet;
         }
     }
 }
