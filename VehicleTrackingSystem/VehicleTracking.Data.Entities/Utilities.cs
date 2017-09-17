@@ -39,5 +39,10 @@ namespace Domain
         {
             return IsNotNull(value) && phoneFormat.IsMatch(value);
         }
+
+        public static bool ValidYear(int value)
+        {
+            return value <= System.DateTime.Now.Year && value > 1900;
+        }
     }
 }
