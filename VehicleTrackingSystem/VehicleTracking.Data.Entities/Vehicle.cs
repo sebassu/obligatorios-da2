@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 namespace Domain
 {
 
     public enum VehicleType { CAR, TRUCK, SUV, VAN, MINI_VAN }
 
-    class Vehicle
+    public class Vehicle
     {
         public int Id { get; set; }
 
@@ -35,7 +30,7 @@ namespace Domain
             }
         }
 
-        private bool IsValidBrand(string value)
+        protected virtual bool IsValidBrand(string value)
         {
             return Utilities.ContainsLettersOrSpacesOnly(value);
         }
@@ -59,7 +54,7 @@ namespace Domain
             }
         }
 
-        private bool IsValidModel(string value)
+        protected virtual bool IsValidModel(string value)
         {
             return Utilities.ContainsLettersOrDigitsOnly(value) || Utilities.ContainsLettersOrSpacesOnly(value);
         }
@@ -83,7 +78,7 @@ namespace Domain
             }
         }
 
-        public bool IsValidYear(int value)
+        protected virtual bool IsValidYear(int value)
         {
             return Utilities.ValidYear(value);
         }
