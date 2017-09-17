@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 namespace Domain
 {
-
     public enum VehicleType { CAR, TRUCK, SUV, VAN, MINI_VAN }
 
-    class Vehicle
+    public class Vehicle
     {
+        protected const short VINLength = 17;
+
         public int Id { get; set; }
 
         public VehicleType Type { get; set; } = VehicleType.CAR;
@@ -29,13 +25,13 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.BrandIsInvalid, "Marca", value);
+                        ErrorMessages.BrandIsInvalid, value);
                     throw new VehicleException(errorMessage);
                 }
             }
         }
 
-        private bool IsValidBrand(string value)
+        protected virtual bool IsValidBrand(string value)
         {
             return Utilities.ContainsLettersOrSpacesOnly(value);
         }
@@ -53,19 +49,19 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.ModelIsInvalid, "Modelo", value);
+                        ErrorMessages.ModelIsInvalid, value);
                     throw new VehicleException(errorMessage);
                 }
             }
         }
 
-        private bool IsValidModel(string value)
+        protected virtual bool IsValidModel(string value)
         {
             return Utilities.ContainsLettersOrDigitsOnly(value) || Utilities.ContainsLettersOrSpacesOnly(value);
         }
 
-        private int year;
-        public int Year
+        private short year;
+        public short Year
         {
             get { return year; }
             set
@@ -77,13 +73,13 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.YearIsInvalid, "Año", value);
+                        ErrorMessages.YearIsInvalid, value);
                     throw new VehicleException(errorMessage);
                 }
             }
         }
 
-        public bool IsValidYear(int value)
+        protected virtual bool IsValidYear(int value)
         {
             return Utilities.ValidYear(value);
         }
@@ -101,7 +97,7 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.ColorIsInvalid, "", value);
+                        ErrorMessages.ColorIsInvalid, value);
                     throw new VehicleException(errorMessage);
                 }
             }
@@ -113,28 +109,27 @@ namespace Domain
         }
 
         private string vin;
-        public string Vin
+        public string VIN
         {
             get { return vin; }
             set
             {
-                if (IsValidVin(value))
+                if (IsValidVIN(value))
                 {
-                    color = value.Trim();
+                    vin = value.Trim();
                 }
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.VinIsInvalid, "", value);
+                        ErrorMessages.VINIsInvalid, value);
                     throw new VehicleException(errorMessage);
                 }
             }
         }
 
-        private int VinLength = 17;
-        private bool IsValidVin(string value)
+        protected virtual bool IsValidVIN(string value)
         {
-            return Utilities.ContainsLettersOrDigitsOnly(value) && value.Length == VinLength;
+            return Utilities.ContainsLettersOrDigitsOnly(value) && value.Length == VINLength;
         }
 
         internal static Vehicle InstanceForTestingPurposes()
@@ -152,20 +147,20 @@ namespace Domain
         }
 
         public static Vehicle CreateNewVehicle(VehicleType type, string brand, string model,
-           int year, string color, string vin)
+           short year, string color, string vin)
         {
             return new Vehicle(type, brand, model, year, color, vin);
         }
 
         protected Vehicle(VehicleType typeToSet, string brandToSet, string modelToSet,
-            int yearToSet, string colorToSet, string vinToSet)
+            short yearToSet, string colorToSet, string vinToSet)
         {
             Type = typeToSet;
             Brand = brandToSet;
             Model = modelToSet;
             Year = yearToSet;
             Color = colorToSet;
-            Vin = vinToSet;
+            VIN = vinToSet;
         }
 
         public override bool Equals(object obj)

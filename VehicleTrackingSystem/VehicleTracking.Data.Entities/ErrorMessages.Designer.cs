@@ -61,7 +61,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} inválida: &quot;{1}&quot;. Solo se permite ingresar caracteres alfabéticos o espacios para este campo..
+        ///   Looks up a localized string similar to Marca inválida: &quot;{0}&quot;. Solo se permite ingresar caracteres alfabéticos o espacios para este campo..
         /// </summary>
         internal static string BrandIsInvalid {
             get {
@@ -70,7 +70,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El color &quot;{1}&quot;  no es valido. Solo se permite ingresar caracteres alfabéticos o espacios para este campo..
+        ///   Looks up a localized string similar to El color &quot;{0}&quot;  no es valido. Solo se permite ingresar caracteres alfabéticos o espacios para este campo..
         /// </summary>
         internal static string ColorIsInvalid {
             get {
@@ -79,7 +79,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. Solo se permiten ingresar caracteres alfabéticos, numéricos o espacios para este campo..
+        ///   Looks up a localized string similar to Modelo inválido: &quot;{0}&quot;. Solo se permiten ingresar caracteres alfabéticos, numéricos o espacios para este campo..
         /// </summary>
         internal static string ModelIsInvalid {
             get {
@@ -124,16 +124,16 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El vin &quot;{1}&quot; es inválido. Solo se permite ingresar caracteres alfabéticos y numéricos para este campo y el largo debe ser de 17 caracteres..
+        ///   Looks up a localized string similar to El VIN &quot;{0}&quot; es inválido. Sólo se permite ingresar caracteres alfabéticos y numéricos para este campo, y el largo debe ser de exactamente 17 caracteres..
         /// </summary>
-        internal static string VinIsInvalid {
+        internal static string VINIsInvalid {
             get {
-                return ResourceManager.GetString("VinIsInvalid", resourceCulture);
+                return ResourceManager.GetString("VINIsInvalid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. El año no puede ser mayor al actual ni menor a 1900..
+        ///   Looks up a localized string similar to Año inválido: &quot;{0}&quot;. El año no puede ser mayor al actual ni menor a 1900..
         /// </summary>
         internal static string YearIsInvalid {
             get {

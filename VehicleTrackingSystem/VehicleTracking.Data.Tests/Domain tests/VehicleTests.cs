@@ -1,9 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Domain;
 using System.Diagnostics.CodeAnalysis;
-using Domain;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Tests.Domain_tests
 {
@@ -22,16 +19,15 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void VehicleForTestingPurposesTest()
         {
+            Assert.AreEqual(0, testingVehicle.Id);
             Assert.AreEqual("Audi", testingVehicle.Brand);
             Assert.AreEqual("Q5", testingVehicle.Model);
             Assert.AreEqual(2016, testingVehicle.Year);
             Assert.AreEqual("Blue", testingVehicle.Color);
-            Assert.AreEqual("QWERTYUI123456789", testingVehicle.Vin);
-            Assert.AreEqual(1, testingVehicle.Id);
+            Assert.AreEqual("QWERTYUI123456789", testingVehicle.VIN);
             Assert.AreEqual(VehicleType.CAR, testingVehicle.Type);
         }
 
-        //Vehicle Brand
         [TestMethod]
         public void VehicleSetValidBrandTest()
         {
@@ -64,7 +60,7 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(VehicleException))]
         public void VehicleSetInvalidBrandOnlySpacesTest()
         {
-            testingVehicle.Brand = "     ";
+            testingVehicle.Brand = " \n\n\n   \t ";
         }
 
         [TestMethod]
@@ -81,7 +77,6 @@ namespace Data.Tests.Domain_tests
             testingVehicle.Brand = "!@$#%^";
         }
 
-        //Vehicle model
         [TestMethod]
         public void VehicleSetValidModelTest()
         {
@@ -100,7 +95,7 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(VehicleException))]
         public void VehicleSetInvalidModelOnlySpacesTest()
         {
-            testingVehicle.Model = "     ";
+            testingVehicle.Model = " \t\t  \n\t  ";
         }
 
         [TestMethod]
@@ -117,7 +112,6 @@ namespace Data.Tests.Domain_tests
             testingVehicle.Model = "!@$#%^";
         }
 
-        //Vehicle Year
         [TestMethod]
         public void VehicleSetValidYearTest()
         {
@@ -139,7 +133,6 @@ namespace Data.Tests.Domain_tests
             testingVehicle.Year = 1500;
         }
 
-        //Vehicle Color
         [TestMethod]
         public void VehicleSetValidColorTest()
         {
@@ -189,57 +182,55 @@ namespace Data.Tests.Domain_tests
             testingVehicle.Color = "!@$#%^";
         }
 
-        //Vehicle Vin
         [TestMethod]
-        public void VehicleSetVinModelTest()
+        public void VehicleSetVINValidTest()
         {
-            testingVehicle.Vin = "12345678ASDFGHJKL";
-            Assert.AreEqual("12345678ASDFGHJKL", testingVehicle.Vin);
+            testingVehicle.VIN = "12345678ASDFGHJKL";
+            Assert.AreEqual("12345678ASDFGHJKL", testingVehicle.VIN);
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVinEmptyTest()
+        public void VehicleSetInvalidVINEmptyTest()
         {
-            testingVehicle.Vin = "";
+            testingVehicle.VIN = "";
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVinOnlySpacesTest()
+        public void VehicleSetInvalidVINOnlySpacesTest()
         {
-            testingVehicle.Vin = "     ";
+            testingVehicle.VIN = "   \n\n\t  ";
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVinNullTest()
+        public void VehicleSetInvalidVINNullTest()
         {
-            testingVehicle.Vin = null;
+            testingVehicle.VIN = null;
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVinPunctuationTest()
+        public void VehicleSetInvalidVINPunctuationTest()
         {
-            testingVehicle.Vin = "!@$#%^";
+            testingVehicle.VIN = "!@$#%^";
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVinLongerTest()
+        public void VehicleSetInvalidVINLongerTest()
         {
-            testingVehicle.Vin = "ASDFGHJKL123456789";
+            testingVehicle.VIN = "ASDFGHJKL123456789";
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVinShorterTest()
+        public void VehicleSetInvalidVINShorterTest()
         {
-            testingVehicle.Vin = "ASDFGH12345";
+            testingVehicle.VIN = "ASDFGH12345";
         }
 
-        //Vehicle id
         [TestMethod]
         public void VehicleSetIdValidTest()
         {
@@ -247,7 +238,6 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(42, testingVehicle.Id);
         }
 
-        //Vehicle Factory method
         [TestMethod]
         public void VehicleParameterFactoryMethodValidTest()
         {
@@ -259,7 +249,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual("Onix", testingVehicle.Model);
             Assert.AreEqual(2016, testingVehicle.Year);
             Assert.AreEqual("Green", testingVehicle.Color);
-            Assert.AreEqual("QWERTYUIO12345678", testingVehicle.Vin);
+            Assert.AreEqual("QWERTYUIO12345678", testingVehicle.VIN);
         }
 
         [TestMethod]
@@ -296,13 +286,12 @@ namespace Data.Tests.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void UserParameterFactoryMethodInvalidVinTest()
+        public void UserParameterFactoryMethodInvalidVINTest()
         {
             testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
                 2016, "Green", "QWERTYUIO123");
         }
 
-        //Equals
         [TestMethod]
         public void VehicleEqualsNullTest()
         {
@@ -330,7 +319,6 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(secondTestingVehicle, testingVehicle);
         }
 
-        //Vehicle GetHashCode
         [TestMethod]
         public void UserGetHashCodeTest()
         {
@@ -338,7 +326,6 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(testingVehicleAsObject.GetHashCode(), testingVehicle.GetHashCode());
         }
 
-        //Vehicle ToString
         [TestMethod]
         public void UserToStringTest1()
         {
@@ -349,11 +336,11 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void UserToStringTest2()
         {
-            testingVehicle.Vin = "ZXCVBNM1234567890";
+            testingVehicle.VIN = "ZXCVBNM1234567890";
             testingVehicle.Brand = "Fiat";
             testingVehicle.Model = "1";
             testingVehicle.Year = 2017;
-            Assert.AreEqual("ZXCVBNM1234567890. Fiat 1. 2017 ", testingVehicle.ToString());
+            Assert.AreEqual("ZXCVBNM1234567890. Fiat 1. 2017", testingVehicle.ToString());
         }
     }
 }
