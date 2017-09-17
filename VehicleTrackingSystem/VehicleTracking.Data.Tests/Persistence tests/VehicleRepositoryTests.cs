@@ -11,7 +11,7 @@ namespace Data.Persistence.Tests
     public class VehicleRepositoryTests
     {
    
-
+        //AddNewVehicle
         [TestMethod]
         public void VRepositoryAddNewVehicleValidTest()
         {
@@ -100,5 +100,30 @@ namespace Data.Persistence.Tests
                 2015, "Red", "ZXCVBNM");
         }
 
+        //RemoveVehicle
+        [TestMethod]
+        public void VRepositoryRemoveVehicleValidTest()
+        {
+            Vehicle vehicleToVerify = VehicleRepository.AddNewVehicle(VehicleType.CAR, "Chevrolet", "Onix",
+                2015, "Red", "1A2S3D4F5G6H7J8K9");
+            VehicleRepository.Remove(vehicleToVerify);
+            CollectionAssert.DoesNotContain(VehicleRepository.Elements.ToList(), vehicleToVerify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void VRepositoryRemoveVehicleNotInRepositoryInvalidTest()
+        {
+            Vehicle vehicleToVerify = Vehicle.CreateNewVehicle(VehicleType.CAR, "Chevrolet", "Onix",
+                2015, "Red", "1234567890ZAXSCDV");
+            VehicleRepository.Remove(vehicleToVerify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void VRepositoryRemoveNullVehicleInvalidTest()
+        {
+            VehicleRepository.Remove(null);
+        }
     }
 }
