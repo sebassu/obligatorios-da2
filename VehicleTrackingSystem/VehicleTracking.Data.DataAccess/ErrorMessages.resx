@@ -120,7 +120,10 @@
   <data name="CannotRemoveAllAdministrators" xml:space="preserve">
     <value>Acción inválida: no es posible eliminar a todos los administradores del sistema.</value>
   </data>
+  <data name="ElementDoesNotExist" xml:space="preserve">
+    <value>{0} inválido recibido: no se encuentra registrado en el sistema.</value>
+  </data>
   <data name="UsernameMustBeUnique" xml:space="preserve">
-    <value>No es posible crear al usuario: el nombre de usuario ingresado ya se encuentra registrado en el sistema.</value>
+    <value>No es posible completar la acción: el nombre de usuario ingresado ya se encuentra registrado en el sistema.</value>
   </data>
 </root>

@@ -1,5 +1,7 @@
 ﻿using Domain;
+using System.Data;
 using System.Linq;
+using System.Globalization;
 using System.Collections.Generic;
 
 namespace Persistence
@@ -58,13 +60,45 @@ namespace Persistence
             }
         }
 
-
         private static bool IsTheOnlyAdministratorLeft(User elementToRemove)
         {
             using (var context = new VTSystemContext())
             {
                 var administrators = context.Users.Where(u => u.Role == UserRoles.ADMINISTRATOR).ToList();
                 return administrators.Count == 1 && administrators.Single().Equals(elementToRemove);
+            }
+        }
+
+        public static void ModifyUser(User userToModify, UserRoles roleToSet, string firstNameToSet,
+            string lastNameToSet, string usernameToSet, string passwordToSet, string phoneNumberToSet)
+        {
+            try
+            {
+                using (var context = new VTSystemContext())
+                {
+                    EntityFrameworkUtilities<User>.AttachIfIsValid(context, userToModify);
+                    bool usernameChanges = userToModify.Username != usernameToSet;
+                    if (usernameChanges && ExistsUserWithUsername(usernameToSet))
+                    {
+                        throw new RepositoryException(ErrorMessages.UsernameMustBeUnique);
+                    }
+                    else
+                    {
+                        userToModify.Role = roleToSet;
+                        userToModify.FirstName = firstNameToSet;
+                        userToModify.LastName = lastNameToSet;
+                        userToModify.Username = usernameToSet;
+                        userToModify.Password = passwordToSet;
+                        userToModify.PhoneNumber = phoneNumberToSet;
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch (DataException)
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.ElementDoesNotExist, "Usuario");
+                throw new RepositoryException(errorMessage);
             }
         }
     }

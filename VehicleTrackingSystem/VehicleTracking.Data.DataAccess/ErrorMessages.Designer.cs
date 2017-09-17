@@ -70,7 +70,16 @@ namespace Persistence {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No es posible crear al usuario: el nombre de usuario ingresado ya se encuentra registrado en el sistema..
+        ///   Looks up a localized string similar to {0} inválido recibido: no se encuentra registrado en el sistema..
+        /// </summary>
+        internal static string ElementDoesNotExist {
+            get {
+                return ResourceManager.GetString("ElementDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No es posible completar la acción: el nombre de usuario ingresado ya se encuentra registrado en el sistema..
         /// </summary>
         internal static string UsernameMustBeUnique {
             get {

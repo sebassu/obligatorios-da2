@@ -172,7 +172,7 @@ namespace Data.Persistence.Tests
         public void URepositoryModifyUserValidTest()
         {
             User userToVerify = UserRepository.AddNewUser(UserRoles.YARD_OPERATOR,
-                "Algún tipo", "X", "tipo123", "vuelveLaX", "aaa123");
+                "Algún tipo", "X", "tipo123", "vuelveLaX", "099999999");
             UserRepository.ModifyUser(userToVerify, UserRoles.PORT_OPERATOR, "Gabriel David",
                 "Medina", "gdMedina7", "MúsicaSuperDivertida", "096869689");
             Assert.AreEqual(UserRoles.PORT_OPERATOR, userToVerify.Role);
