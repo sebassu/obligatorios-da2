@@ -41,5 +41,19 @@ namespace Web.API.Controllers
                 return BadRequest(exception.Message);
             }
         }
+
+        // DELETE: api/Users/5
+        public IHttpActionResult RemoveUserWithId(int id)
+        {
+            try
+            {
+                model.Remove(id);
+                return Ok();
+            }
+            catch (VTSystemException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }
