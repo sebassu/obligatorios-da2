@@ -327,14 +327,14 @@ namespace Data.Domain_Tests
         }
 
         [TestMethod]
-        public void UserToStringTest1()
+        public void VehicleToStringTest1()
         {
             Assert.AreEqual("QWERTYUI123456789. Audi Q5. 2016",
                 testingVehicle.ToString());
         }
 
         [TestMethod]
-        public void UserToStringTest2()
+        public void VehicleToStringTest2()
         {
             testingVehicle.VIN = "ZXCVBNM1234567890";
             testingVehicle.Brand = "Fiat";

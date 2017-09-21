@@ -9,6 +9,8 @@ namespace Persistence
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Vehicle> Vehicles { get; set; }
+
         public VTSystemContext() : base()
         {
             var defaultInitializer = new DropCreateDatabaseIfModelChanges<VTSystemContext>();
@@ -24,6 +26,7 @@ namespace Persistence
         internal void DeleteAllData()
         {
             Database.ExecuteSqlCommand("delete from users");
+            Database.ExecuteSqlCommand("delete from vehicles");
         }
     }
 }

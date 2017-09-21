@@ -59,6 +59,7 @@
     <Compile Include="Exceptions\RepositoryException.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VehicleRepository.cs" />
     <Compile Include="VTSystemContext.cs" />
   </ItemGroup>
   <ItemGroup>

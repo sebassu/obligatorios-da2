@@ -147,20 +147,20 @@ namespace Domain
         }
 
         public static Vehicle CreateNewVehicle(VehicleType type, string brand, string model,
-           short year, string color, string vin)
+           short year, string color, string VIN)
         {
-            return new Vehicle(type, brand, model, year, color, vin);
+            return new Vehicle(type, brand, model, year, color, VIN);
         }
 
         protected Vehicle(VehicleType typeToSet, string brandToSet, string modelToSet,
-            short yearToSet, string colorToSet, string vinToSet)
+            short yearToSet, string colorToSet, string VINToSet)
         {
             Type = typeToSet;
             Brand = brandToSet;
             Model = modelToSet;
             Year = yearToSet;
             Color = colorToSet;
-            VIN = vinToSet;
+            VIN = VINToSet;
         }
 
         public override bool Equals(object obj)

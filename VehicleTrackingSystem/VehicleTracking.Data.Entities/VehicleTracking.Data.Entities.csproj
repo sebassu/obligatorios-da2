@@ -40,11 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Damage.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\DamageException.cs" />
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\VehicleException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
