@@ -14,10 +14,41 @@ namespace Web.API.Controllers
             model = someModel;
         }
 
+        // POST: api/Users
+        public IHttpActionResult AddNewUserFromDTO(
+            [FromBody]UserDTO userToAdd)
+        {
+            try
+            {
+                int addedUsersId = model.Add(userToAdd);
+                return CreatedAtRoute("DefaultApi",
+                    new { id = addedUsersId }, userToAdd);
+            }
+            catch (VTSystemException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        // PUT: api/Users/5
+        public IHttpActionResult UpdateUserWithId(int id,
+            [FromBody]UserDTO userDataToSet)
+        {
+            try
+            {
+                model.UpdateUserWithId(id, userDataToSet);
+                return Ok();
+            }
+            catch (VTSystemException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
         // GET: api/Users
         public IHttpActionResult GetRegisteredUsers()
         {
-            IReadOnlyCollection<UserDTO> users = model.GetAllUsers();
+            IReadOnlyCollection<UserDTO> users = model.GetRegisteredUsers();
             if (Utilities.IsNotNull(users))
             {
                 return Ok(users);
@@ -25,20 +56,6 @@ namespace Web.API.Controllers
             else
             {
                 return NotFound();
-            }
-        }
-
-        // POST: api/Users
-        public IHttpActionResult AddNewUserFromDTO([FromBody]UserDTO userToAdd)
-        {
-            try
-            {
-                int addedUsersId = model.Add(userToAdd);
-                return CreatedAtRoute("DefaultApi", new { id = addedUsersId }, userToAdd);
-            }
-            catch (VTSystemException exception)
-            {
-                return BadRequest(exception.Message);
             }
         }
 
