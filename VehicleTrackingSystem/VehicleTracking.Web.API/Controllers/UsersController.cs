@@ -27,5 +27,19 @@ namespace Web.API.Controllers
                 return NotFound();
             }
         }
+
+        // POST: api/Users
+        public IHttpActionResult AddNewUserFromDTO([FromBody]UserDTO userToAdd)
+        {
+            try
+            {
+                int addedUsersId = model.Add(userToAdd);
+                return CreatedAtRoute("DefaultApi", new { id = addedUsersId }, userToAdd);
+            }
+            catch (VTSystemException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }
