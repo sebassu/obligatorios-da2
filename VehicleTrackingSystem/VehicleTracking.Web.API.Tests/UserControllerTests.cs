@@ -14,16 +14,16 @@ namespace Web.API.Tests
     public class UserControllerTests
     {
         [TestMethod]
-        public void UControllerGetRegisteredUsersWithDataOkTest()
+        public void UControllerGetRegisteredUsersWithDataValidTest()
         {
             var expectedUsers = GetCollectionOfFakeUsers();
-            var mockUserServices = new Mock<IUsersServices>();
-            mockUserServices.Setup(u => u.GetAllUsers()).Returns(expectedUsers);
-            var controller = new UsersController(mockUserServices.Object);
+            var mockUsersServices = new Mock<IUsersServices>();
+            mockUsersServices.Setup(u => u.GetRegisteredUsers()).Returns(expectedUsers);
+            var controller = new UsersController(mockUsersServices.Object);
             IHttpActionResult obtainedResult = controller.GetRegisteredUsers();
             var contentResult = obtainedResult as
                 OkNegotiatedContentResult<IReadOnlyCollection<UserDTO>>;
-            mockUserServices.VerifyAll();
+            mockUsersServices.VerifyAll();
             Assert.IsNotNull(contentResult);
             Assert.IsNotNull(contentResult.Content);
             CollectionAssert.AreEqual(expectedUsers.ToList(),
@@ -43,16 +43,16 @@ namespace Web.API.Tests
         }
 
         [TestMethod]
-        public void UControllerGetRegisteredUsersNoDataOkTest()
+        public void UControllerGetRegisteredUsersNoDataValidTest()
         {
             var expectedUsers = new List<UserDTO>().AsReadOnly();
-            var mockUserServices = new Mock<IUsersServices>();
-            mockUserServices.Setup(u => u.GetAllUsers()).Returns(expectedUsers);
-            var controller = new UsersController(mockUserServices.Object);
+            var mockUsersServices = new Mock<IUsersServices>();
+            mockUsersServices.Setup(u => u.GetRegisteredUsers()).Returns(expectedUsers);
+            var controller = new UsersController(mockUsersServices.Object);
             IHttpActionResult obtainedResult = controller.GetRegisteredUsers();
             var contentResult = obtainedResult as
                 OkNegotiatedContentResult<IReadOnlyCollection<UserDTO>>;
-            mockUserServices.VerifyAll();
+            mockUsersServices.VerifyAll();
             Assert.IsNotNull(contentResult);
             Assert.IsNotNull(contentResult.Content);
             CollectionAssert.AreEqual(expectedUsers.ToList(),
@@ -60,30 +60,30 @@ namespace Web.API.Tests
         }
 
         [TestMethod]
-        public void UControllerGetRegisteredUsersNullResponseNotFoundTest()
+        public void UControllerGetRegisteredUsersNullResponseInvalidTest()
         {
             IReadOnlyCollection<UserDTO> unexpectedUsers = null;
-            var mockUserServices = new Mock<IUsersServices>();
-            mockUserServices.Setup(u => u.GetAllUsers()).Returns(unexpectedUsers);
-            var controller = new UsersController(mockUserServices.Object);
+            var mockUsersServices = new Mock<IUsersServices>();
+            mockUsersServices.Setup(u => u.GetRegisteredUsers()).Returns(unexpectedUsers);
+            var controller = new UsersController(mockUsersServices.Object);
             IHttpActionResult obtainedResult = controller.GetRegisteredUsers();
-            mockUserServices.VerifyAll();
+            mockUsersServices.VerifyAll();
             Assert.IsNotNull(obtainedResult);
             Assert.IsInstanceOfType(obtainedResult, typeof(NotFoundResult));
         }
 
         [TestMethod]
-        public void UControllerAddValidNewUserOkTest()
+        public void UControllerAddValidNewUserValidTest()
         {
-            var fakeUser = UserDTO.FromUser(User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
-                "mSantos", "DisculpeFuegoTiene", "099424242"));
+            var fakeUser = UserDTO.FromUser(User.CreateNewUser(UserRoles.ADMINISTRATOR,
+                "Mario", "Santos", "mSantos", "DisculpeFuegoTiene", "099424242"));
             fakeUser.Id = 42;
-            var mockUserServices = new Mock<IUsersServices>();
-            mockUserServices.Setup(u => u.Add(fakeUser)).Returns(fakeUser.Id);
-            var controller = new UsersController(mockUserServices.Object);
+            var mockUsersServices = new Mock<IUsersServices>();
+            mockUsersServices.Setup(u => u.Add(fakeUser)).Returns(fakeUser.Id);
+            var controller = new UsersController(mockUsersServices.Object);
             IHttpActionResult obtainedResult = controller.AddNewUserFromDTO(fakeUser);
             var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<UserDTO>;
-            mockUserServices.VerifyAll();
+            mockUsersServices.VerifyAll();
             Assert.IsNotNull(result);
             Assert.AreEqual("DefaultApi", result.RouteName);
             Assert.AreEqual(fakeUser.Id, result.RouteValues["id"]);
@@ -91,44 +91,96 @@ namespace Web.API.Tests
         }
 
         [TestMethod]
-        public void UControllerCreateNullUserBadRequestTest()
+        public void UControllerAddNullUserInvalidTest()
         {
             var expectedErrorMessage = "Some error message";
-            var mockUserServices = new Mock<IUsersServices>();
-            mockUserServices.Setup(u => u.Add(null)).Throws(
+            var mockUsersServices = new Mock<IUsersServices>();
+            mockUsersServices.Setup(u => u.Add(null)).Throws(
                 new VTSystemException(expectedErrorMessage));
-            var controller = new UsersController(mockUserServices.Object);
+            var controller = new UsersController(mockUsersServices.Object);
             IHttpActionResult obtainedResult = controller.AddNewUserFromDTO(null);
             var result = obtainedResult as BadRequestErrorMessageResult;
-            mockUserServices.VerifyAll();
+            mockUsersServices.VerifyAll();
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedErrorMessage, result.Message);
         }
 
 
         [TestMethod]
-        public void UControllerDeleteUserValidTest()
+        public void UControllerDeleteUserWithIdValidTest()
         {
-            var mockUserServices = new Mock<IUsersServices>();
-            mockUserServices.Setup(u => u.Remove(It.IsAny<int>()));
-            var controller = new UsersController(mockUserServices.Object);
+            var mockUsersServices = new Mock<IUsersServices>();
+            mockUsersServices.Setup(u => u.Remove(It.IsAny<int>()));
+            var controller = new UsersController(mockUsersServices.Object);
             IHttpActionResult obtainedResult = controller.RemoveUserWithId(42);
-            mockUserServices.VerifyAll();
+            mockUsersServices.VerifyAll();
             Assert.IsNotNull(obtainedResult);
             Assert.IsInstanceOfType(obtainedResult, typeof(OkResult));
         }
 
         [TestMethod]
-        public void UControllerDeleteUserInvalidTest()
+        public void UControllerDeleteUserWithUnregisteredIdInvalidTest()
         {
             var expectedErrorMessage = "Some other error message";
-            var mockUserServices = new Mock<IUsersServices>();
-            mockUserServices.Setup(u => u.Remove(It.IsAny<int>())).Throws(
+            var mockUsersServices = new Mock<IUsersServices>();
+            mockUsersServices.Setup(u => u.Remove(It.IsAny<int>())).Throws(
                 new VTSystemException(expectedErrorMessage));
-            var controller = new UsersController(mockUserServices.Object);
+            var controller = new UsersController(mockUsersServices.Object);
             IHttpActionResult obtainedResult = controller.RemoveUserWithId(42);
             var result = obtainedResult as BadRequestErrorMessageResult;
-            mockUserServices.VerifyAll();
+            mockUsersServices.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedErrorMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void UControllerUpdateUserWithIdValidTest()
+        {
+            var fakeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR,
+                "Mario", "Santos", "mSantos", "DisculpeFuegoTiene", "099424242");
+            fakeUser.Id = 42;
+            var fakeUserDataToSet = UserDTO.FromUser(User.CreateNewUser(UserRoles.TRANSPORTER,
+                "Pablo", "Lamponne", "pLamponne", "NoHaceFalta", "099212121"));
+            var mockUsersServices = new Mock<IUsersServices>();
+            mockUsersServices.Setup(u => u.UpdateUserWithId(fakeUser.Id, It.IsAny<UserDTO>()));
+            var controller = new UsersController(mockUsersServices.Object);
+            IHttpActionResult result = controller.UpdateUserWithId(42, fakeUserDataToSet);
+            mockUsersServices.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+        }
+
+        [TestMethod]
+        public void UControllerUpdateUserWithIdNullDataInvalidTest()
+        {
+            var expectedErrorMessage = "A third error message.";
+            var fakeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR,
+                "Mario", "Santos", "mSantos", "DisculpeFuegoTiene", "099424242");
+            fakeUser.Id = 42;
+            var mockUsersServices = new Mock<IUsersServices>();
+            mockUsersServices.Setup(u => u.UpdateUserWithId(fakeUser.Id, null)).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new UsersController(mockUsersServices.Object);
+            IHttpActionResult obtainedResult = controller.UpdateUserWithId(42, null);
+            var result = obtainedResult as BadRequestErrorMessageResult;
+            mockUsersServices.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedErrorMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void UControllerUpdateUserWithUnregisteredIdTest()
+        {
+            var expectedErrorMessage = "Fourth error message.";
+            var fakeUserDataToSet = UserDTO.FromUser(User.CreateNewUser(UserRoles.TRANSPORTER,
+                "Pablo", "Lamponne", "pLamponne", "NoHaceFalta", "099212121"));
+            var mockUsersServices = new Mock<IUsersServices>();
+            mockUsersServices.Setup(u => u.UpdateUserWithId(It.IsAny<int>(), It.IsAny<UserDTO>())).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new UsersController(mockUsersServices.Object);
+            IHttpActionResult obtainedResult = controller.UpdateUserWithId(42, fakeUserDataToSet);
+            var result = obtainedResult as BadRequestErrorMessageResult;
+            mockUsersServices.VerifyAll();
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedErrorMessage, result.Message);
         }
