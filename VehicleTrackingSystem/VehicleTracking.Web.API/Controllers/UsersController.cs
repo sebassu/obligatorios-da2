@@ -30,6 +30,34 @@ namespace Web.API.Controllers
             }
         }
 
+        // GET: api/Users
+        public IHttpActionResult GetRegisteredUsers()
+        {
+            IReadOnlyCollection<UserDTO> users = model.GetRegisteredUsers();
+            if (Utilities.IsNotNull(users))
+            {
+                return Ok(users);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        // GET: api/Users/5
+        public IHttpActionResult GetUserById(int id)
+        {
+            try
+            {
+                UserDTO requestedUser = model.GetUserByUd(id);
+                return Ok(requestedUser);
+            }
+            catch (VTSystemException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
         // PUT: api/Users/5
         public IHttpActionResult UpdateUserWithId(int id,
             [FromBody]UserDTO userDataToSet)
@@ -42,20 +70,6 @@ namespace Web.API.Controllers
             catch (VTSystemException exception)
             {
                 return BadRequest(exception.Message);
-            }
-        }
-
-        // GET: api/Users
-        public IHttpActionResult GetRegisteredUsers()
-        {
-            IReadOnlyCollection<UserDTO> users = model.GetRegisteredUsers();
-            if (Utilities.IsNotNull(users))
-            {
-                return Ok(users);
-            }
-            else
-            {
-                return NotFound();
             }
         }
 
