@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Data.Entiti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Data.DataAccess", "VehicleTracking.Data.DataAccess\VehicleTracking.Data.DataAccess.csproj", "{F3DCC088-C021-4233-9C82-9B1A3461A7B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Web.API.Models", "VehicleTracking.Web.API.Models\VehicleTracking.Web.API.Models.csproj", "{869D99F0-4C71-476C-ADAA-82DEBD18B7BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Web.API.Services", "VehicleTracking.Web.API.Models\VehicleTracking.Web.API.Services.csproj", "{869D99F0-4C71-476C-ADAA-82DEBD18B7BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Web.API", "VehicleTracking.Web.API\VehicleTracking.Web.API.csproj", "{56C0705B-38BD-41D9-8886-FACEE1437203}"
 EndProject
