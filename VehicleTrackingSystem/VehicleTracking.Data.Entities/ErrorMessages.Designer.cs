@@ -88,6 +88,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La ruta de imagen ingresada no es válida..
+        /// </summary>
+        internal static string ImageIsInvalid {
+            get {
+                return ResourceManager.GetString("ImageIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. Solo se permiten ingresar caracteres alfabéticos, numéricos o espacios para este campo..
         /// </summary>
         internal static string ModelIsInvalid {

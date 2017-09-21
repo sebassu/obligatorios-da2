@@ -34,14 +34,7 @@ namespace Data.Tests.Domain_tests
             testingDamage.Description = "This damage has a new description";
             Assert.AreEqual("This damage has a new description", testingDamage.Description);
         }
-
-        [TestMethod]
-        public void DamageSetValidDescriptionCompoundTest()
-        {
-            testingDamage.Description = "  The new description. ";
-            Assert.AreEqual("The new description.", testingDamage.Description);
-        }
-
+        
         [TestMethod]
         public void DamageSetValidDescriptionNumbersTest()
         {
@@ -74,8 +67,8 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void DamageAddValidImageTest()
         {
-            string img = "newImageString";
-            testingDamage.Images.Add(img);
+            string img = "anotherNewImage";
+            testingDamage.AddImage(img);
             Assert.IsTrue(testingDamage.Images.Contains(img));
         }
 
@@ -83,28 +76,28 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(DamageException))]
         public void DamageAddInvalidImageEmptyTest()
         {
-            testingDamage.Image = "";
+            testingDamage.AddImage("");
         }
 
         [TestMethod]
         [ExpectedException(typeof(DamageException))]
         public void DamageAddInvalidImageOnlySpacesTest()
         {
-            testingDamage.Image = "     ";
+            testingDamage.AddImage("    ");
         }
 
         [TestMethod]
         [ExpectedException(typeof(DamageException))]
         public void DamageAddInvalidImageNullTest()
         {
-            testingDamage.Image = null;
+            testingDamage.AddImage(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(DamageException))]
         public void DamageAddRepeatedImageInvalidTest()
         {
-            testingDamage.Image = "imageString";
+            testingDamage.AddImage("newImage");
         }
     }
 }

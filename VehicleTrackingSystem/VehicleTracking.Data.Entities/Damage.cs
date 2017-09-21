@@ -30,8 +30,28 @@ namespace Domain
 
         protected virtual bool IsValidDescription(string value)
         {
-            return Utilities.IsNotNull(value) && Utilities.IsNotEmpty(value);
+            return Utilities.IsNotEmpty(value) && Utilities.IsNotNull(value);
         }
+
+        public List<string> Images {get; } = new List<string>();
+
+        public void AddImage(string source)
+        {
+            if (IsValidImage(source))
+            {
+                Images.Add(source);
+            }else
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.ImageIsInvalid, "", source);
+                throw new DamageException(errorMessage);
+            }
+        }
+
+        protected virtual bool IsValidImage(string source)
+        {
+            return Utilities.IsNotEmpty(source) && Utilities.IsNotNull(source) && !Images.Contains(source);
+        } 
 
         internal static Damage InstanceForTestingPurposes()
         {
@@ -41,6 +61,7 @@ namespace Domain
         protected Damage()
         {
             description = "This damage has a description";
+            Images.Add("newImage");
         }
     }
 }

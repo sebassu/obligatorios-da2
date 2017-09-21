@@ -10,7 +10,7 @@ namespace Domain
 
         public static bool IsNotEmpty(string value)
         {
-            return string.IsNullOrWhiteSpace(value);
+            return !string.IsNullOrWhiteSpace(value);
         }
 
         public static bool IsNotNull(object value)
