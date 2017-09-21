@@ -70,6 +70,15 @@ namespace Persistence {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: el elemento recibido a eliminar no se encontraba registrado en el sistema..
+        /// </summary>
+        internal static string CouldNotRemoveElement {
+            get {
+                return ResourceManager.GetString("CouldNotRemoveElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} inválido recibido: no se encuentra registrado en el sistema..
         /// </summary>
         internal static string ElementDoesNotExist {

@@ -120,6 +120,9 @@
   <data name="CannotRemoveAllAdministrators" xml:space="preserve">
     <value>Acción inválida: no es posible eliminar a todos los administradores del sistema.</value>
   </data>
+  <data name="CouldNotRemoveElement" xml:space="preserve">
+    <value>Error: el elemento recibido a eliminar no se encontraba registrado en el sistema.</value>
+  </data>
   <data name="ElementDoesNotExist" xml:space="preserve">
     <value>{0} inválido recibido: no se encuentra registrado en el sistema.</value>
   </data>
