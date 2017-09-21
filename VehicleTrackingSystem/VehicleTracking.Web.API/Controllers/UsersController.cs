@@ -2,6 +2,7 @@
 using API.Services;
 using System.Web.Http;
 using System.Collections.Generic;
+using System;
 
 namespace Web.API.Controllers
 {
@@ -18,16 +19,13 @@ namespace Web.API.Controllers
         public IHttpActionResult AddNewUserFromDTO(
             [FromBody]UserDTO userToAdd)
         {
-            try
-            {
-                int addedUsersId = model.Add(userToAdd);
-                return CreatedAtRoute("DefaultApi",
-                    new { id = addedUsersId }, userToAdd);
-            }
-            catch (VTSystemException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    int addedUsersId = model.Add(userToAdd);
+                    return CreatedAtRoute("DefaultApi",
+                        new { id = addedUsersId }, userToAdd);
+                });
         }
 
         // GET: api/Users
@@ -47,39 +45,43 @@ namespace Web.API.Controllers
         // GET: api/Users/5
         public IHttpActionResult GetUserById(int id)
         {
-            try
-            {
-                UserDTO requestedUser = model.GetUserByUd(id);
-                return Ok(requestedUser);
-            }
-            catch (VTSystemException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    UserDTO requestedUser = model.GetUserByUd(id);
+                    return Ok(requestedUser);
+                });
         }
 
         // PUT: api/Users/5
         public IHttpActionResult UpdateUserWithId(int id,
             [FromBody]UserDTO userDataToSet)
         {
-            try
-            {
-                model.UpdateUserWithId(id, userDataToSet);
-                return Ok();
-            }
-            catch (VTSystemException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    model.UpdateUserWithId(id, userDataToSet);
+                    return Ok();
+                });
         }
 
         // DELETE: api/Users/5
         public IHttpActionResult RemoveUserWithId(int id)
         {
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    model.Remove(id);
+                    return Ok();
+                });
+        }
+
+        private IHttpActionResult ExecuteActionAndReturnOutcome(
+            Func<IHttpActionResult> actionToExecute)
+        {
             try
             {
-                model.Remove(id);
-                return Ok();
+                return actionToExecute.Invoke();
             }
             catch (VTSystemException exception)
             {
