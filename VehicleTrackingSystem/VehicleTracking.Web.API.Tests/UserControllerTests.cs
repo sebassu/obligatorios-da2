@@ -104,5 +104,33 @@ namespace Web.API.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedErrorMessage, result.Message);
         }
+
+
+        [TestMethod]
+        public void UControllerDeleteUserValidTest()
+        {
+            var mockUserServices = new Mock<IUsersServices>();
+            mockUserServices.Setup(u => u.Remove(It.IsAny<int>()));
+            var controller = new UsersController(mockUserServices.Object);
+            IHttpActionResult obtainedResult = controller.RemoveUserWithId(42);
+            mockUserServices.VerifyAll();
+            Assert.IsNotNull(obtainedResult);
+            Assert.IsInstanceOfType(obtainedResult, typeof(OkResult));
+        }
+
+        [TestMethod]
+        public void UControllerDeleteUserInvalidTest()
+        {
+            var expectedErrorMessage = "Some other error message";
+            var mockUserServices = new Mock<IUsersServices>();
+            mockUserServices.Setup(u => u.Remove(It.IsAny<int>())).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new UsersController(mockUserServices.Object);
+            IHttpActionResult obtainedResult = controller.RemoveUserWithId(42);
+            var result = obtainedResult as BadRequestErrorMessageResult;
+            mockUserServices.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedErrorMessage, result.Message);
+        }
     }
 }
