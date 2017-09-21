@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Resources;
 using System.Data.Entity;
-
+using System.Data.Entity.Infrastructure;
 
 [assembly: NeutralResourcesLanguage("es")]
 namespace Persistence
@@ -35,6 +35,10 @@ namespace Persistence
                     AttachIfIsValid(context, elementToRemove);
                     elements.Remove(elementToRemove);
                     context.SaveChanges();
+                }
+                catch (DbUpdateException)
+                {
+                    throw new RepositoryException(ErrorMessages.CouldNotRemoveElement);
                 }
                 catch (DataException exception)
                 {
