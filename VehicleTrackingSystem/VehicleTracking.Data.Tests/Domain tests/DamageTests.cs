@@ -24,6 +24,7 @@ namespace Data.Tests.Domain_tests
         public void DamageForTestingPurposesTest()
         {
             Assert.AreEqual("This damage has a description", testingDamage.Description);
+            Assert.IsTrue(testingDamage.Images.Contains("newImage"));
         }
 
         //Damage Description
@@ -67,6 +68,43 @@ namespace Data.Tests.Domain_tests
         public void DamageSetInvalidDescriptionNullTest()
         {
             testingDamage.Description = null;
+        }
+
+        //Damage Images
+        [TestMethod]
+        public void DamageAddValidImageTest()
+        {
+            string img = "newImageString";
+            testingDamage.Images.Add(img);
+            Assert.IsTrue(testingDamage.Images.Contains(img));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageAddInvalidImageEmptyTest()
+        {
+            testingDamage.Image = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageAddInvalidImageOnlySpacesTest()
+        {
+            testingDamage.Image = "     ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageAddInvalidImageNullTest()
+        {
+            testingDamage.Image = null;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageAddRepeatedImageInvalidTest()
+        {
+            testingDamage.Image = "imageString";
         }
     }
 }
