@@ -213,7 +213,7 @@ namespace Data.Persistence.Tests
         public void VRepositoryModifyVehicleInvalidColorTest()
         {
             Vehicle addedVehicle = VehicleRepository.Elements.FirstOrDefault();
-            VehicleException.ModifyVehicle(addedVehicle, addedVehicle.Type, addedVehicle.Brand, addedVehicle.Model,
+            VehicleRepository.ModifyVehicle(addedVehicle, addedVehicle.Type, addedVehicle.Brand, addedVehicle.Model,
                 addedVehicle.Year, "!@#$%", addedVehicle.Vin);
         }
 
