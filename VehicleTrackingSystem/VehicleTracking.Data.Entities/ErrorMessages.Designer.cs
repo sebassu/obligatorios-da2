@@ -79,6 +79,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La descripción no es válida, no puede ser vacia..
+        /// </summary>
+        internal static string DescriptionIsInvalid {
+            get {
+                return ResourceManager.GetString("DescriptionIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. Solo se permiten ingresar caracteres alfabéticos, numéricos o espacios para este campo..
         /// </summary>
         internal static string ModelIsInvalid {

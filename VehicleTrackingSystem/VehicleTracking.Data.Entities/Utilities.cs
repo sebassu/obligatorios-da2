@@ -8,6 +8,11 @@ namespace Domain
         private static readonly Regex phoneFormat =
             new Regex("^(?!00)[0-9]{8,9}$");
 
+        public static bool IsNotEmpty(string value)
+        {
+            return string.IsNullOrWhiteSpace(value);
+        }
+
         public static bool IsNotNull(object value)
         {
             return value != null;

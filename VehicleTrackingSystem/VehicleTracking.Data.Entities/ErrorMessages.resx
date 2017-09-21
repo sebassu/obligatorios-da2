@@ -123,6 +123,9 @@
   <data name="ColorIsInvalid" xml:space="preserve">
     <value>El color "{1}"  no es valido. Solo se permite ingresar caracteres alfabéticos o espacios para este campo.</value>
   </data>
+  <data name="DescriptionIsInvalid" xml:space="preserve">
+    <value>La descripción no es válida, no puede ser vacia.</value>
+  </data>
   <data name="ModelIsInvalid" xml:space="preserve">
     <value>{0} inválido: "{1}". Solo se permiten ingresar caracteres alfabéticos, numéricos o espacios para este campo.</value>
   </data>
