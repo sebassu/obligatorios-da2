@@ -1,5 +1,4 @@
-﻿using System;
-using Domain;
+﻿using Domain;
 using Persistence;
 using System.Collections.Generic;
 
@@ -51,11 +50,6 @@ namespace API.Services
             }
         }
 
-        public void RemoveUserWithUsername(string usernameToRemove)
-        {
-            throw new NotImplementedException();
-        }
-
         public void ModifyUserWithUsername(string usernameToModify, UserDTO userData)
         {
             ServicesUtilities.CheckParameterIsNotNullAndExecute(userData,
@@ -69,6 +63,11 @@ namespace API.Services
             User userFound = Users.GetUserByUsername(usernameToModify);
             userData.SetDataToUser(userFound);
             Users.UpdateUser(userFound);
+        }
+
+        public void RemoveUserWithUsername(string usernameToRemove)
+        {
+            Users.Remove(usernameToRemove);
         }
     }
 }
