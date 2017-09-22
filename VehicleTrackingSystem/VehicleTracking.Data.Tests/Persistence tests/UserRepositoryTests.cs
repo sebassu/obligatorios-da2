@@ -10,6 +10,7 @@ namespace Data.Persistence_Tests
     [ExcludeFromCodeCoverage]
     public class UserRepositoryTests
     {
+        private string unaddedUsername = "Wololo";
         private static UserRepository testingUserRepository;
 
         [AssemblyInitialize]
@@ -221,7 +222,24 @@ namespace Data.Persistence_Tests
         [ExpectedException(typeof(RepositoryException))]
         public void URepositoryGetUserByUnaddedUsernameInvalidTest()
         {
-            testingUserRepository.GetUserByUsername("Wololo");
+            testingUserRepository.GetUserByUsername(unaddedUsername);
+        }
+
+        [TestMethod]
+        public void URepositoryExistsUserWithUsernameAddedTest()
+        {
+            User userToVerify = testingUserRepository.Elements.First();
+            bool result = testingUserRepository.ExistsUserWithUsername(
+                userToVerify.Username);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void URepositoryExistsUserWithUsernameUnaddedTest()
+        {
+            bool result = testingUserRepository.ExistsUserWithUsername(
+                unaddedUsername);
+            Assert.IsFalse(result);
         }
     }
 }

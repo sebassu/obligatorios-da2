@@ -50,7 +50,7 @@ namespace Domain
             }
         }
 
-        protected virtual bool IsValidName(string value)
+        protected bool IsValidName(string value)
         {
             return Utilities.ContainsLettersOrSpacesOnly(value);
         }
@@ -74,7 +74,7 @@ namespace Domain
             }
         }
 
-        protected virtual bool IsValidUsername(string value)
+        protected bool IsValidUsername(string value)
         {
             return Utilities.ContainsLettersOrDigitsOnly(value);
         }
@@ -96,7 +96,7 @@ namespace Domain
             }
         }
 
-        protected virtual bool IsValidPassword(string value)
+        protected bool IsValidPassword(string value)
         {
             return !string.IsNullOrWhiteSpace(value);
         }
@@ -120,7 +120,7 @@ namespace Domain
             }
         }
 
-        protected virtual bool IsValidPhoneNumber(string value)
+        protected bool IsValidPhoneNumber(string value)
         {
             return Utilities.HasValidPhoneFormat(value);
         }

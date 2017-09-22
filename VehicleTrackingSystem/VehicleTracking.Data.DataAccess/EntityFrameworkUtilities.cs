@@ -35,7 +35,8 @@ namespace Persistence
             }
         }
 
-        private static void AttemptToRemove(VTSystemContext context, DbSet<TEntity> elements, TEntity elementToRemove)
+        private static void AttemptToRemove(VTSystemContext context,
+            DbSet<TEntity> elements, TEntity elementToRemove)
         {
             try
             {
