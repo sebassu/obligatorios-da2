@@ -13,7 +13,8 @@ namespace Domain
         public int Id { get; set; }
 
         private DateTime dateTime;
-        public DateTime DateTime {
+        public DateTime DateTime
+        {
             get { return dateTime; }
             set {
                 if (IsValidDate(value))
@@ -23,7 +24,7 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.DateIsInvalid, value);
+                        ErrorMessages.DateIsInvalid, "", value);
                     throw new InspectionException(errorMessage);
                 }
             }
@@ -34,6 +35,32 @@ namespace Domain
             return Utilities.IsValidDate(value);
         }
 
+        private User responsibleUser;
+        public User ResponsibleUser
+        {
+            get { return responsibleUser; }
+            set
+            {
+                if (IsValidUser(value))
+                {
+                    responsibleUser = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                       ErrorMessages.ResponsibleUserIsInvalid, "", null);
+                    throw new InspectionException(errorMessage);
+                }
+            }
+        }
+
+        private UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR, UserRoles.YARD_OPERATOR };
+
+        protected bool IsValidUser(User user)
+        {
+            return Utilities.IsNotNull(user) ? allowedUserRoles.Contains(user.Role): false;
+        }
+
         internal static Inspection InstanceForTestingPurposes()
         {
             return new Inspection();
@@ -42,6 +69,9 @@ namespace Domain
         protected Inspection()
         {
             dateTime = new DateTime(2017, 9, 22, 10, 8, 0);
+            responsibleUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376");
         }
+
+
     }
 }

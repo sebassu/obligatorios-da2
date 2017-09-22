@@ -23,15 +23,15 @@ namespace Data.Tests.Domain_tests
         {
             Assert.AreEqual(0, testingInspection.Id);
             Assert.AreEqual(new DateTime(2017, 9, 22, 10, 8, 0), testingInspection.DateTime);
+            Assert.AreEqual(User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376"),
+                testingInspection.ResponsibleUser);
         }
 
         [TestMethod]
         public void InspectionSetValidDateTimeTest()
         {
-            testingInspection.DateTime = DateTime.Now;
-            Assert.AreEqual(DateTime.Now, testingInspection.DateTime);
-            Assert.AreEqual(User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "1239456"),
-                testingInspection.ResponsibleUser);
+            testingInspection.DateTime = DateTime.Today;
+            Assert.AreEqual(DateTime.Today, testingInspection.DateTime);
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace Data.Tests.Domain_tests
         public void InspectionSetInvalidResponsibleUserTransporterTest()
         {
             User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan", "Perez", "miUsuario", "pass",
-               "097364857");
+               "26061199");
             testingInspection.ResponsibleUser = alternativeUser;
             Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
         }
