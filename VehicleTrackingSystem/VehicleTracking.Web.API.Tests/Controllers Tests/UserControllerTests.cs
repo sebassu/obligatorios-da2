@@ -7,10 +7,12 @@ using System.Web.Http.Results;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Web.API.Controllers_Tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class UserControllerTests
     {
         [TestMethod]
