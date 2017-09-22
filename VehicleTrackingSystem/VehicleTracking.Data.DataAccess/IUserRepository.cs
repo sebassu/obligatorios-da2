@@ -6,7 +6,7 @@ namespace Persistence
     public interface IUserRepository
     {
         IEnumerable<User> Elements { get; }
-        User GetUserById(string usernameToLookup);
+        User GetUserByUsername(string usernameToLookup);
         void AddNewUser(User userToAdd);
         void UpdateUser(User userToModify);
         void Remove(string usernameToRemove);

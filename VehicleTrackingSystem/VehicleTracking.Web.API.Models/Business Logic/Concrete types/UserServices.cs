@@ -26,7 +26,8 @@ namespace API.Services
 
         public UserDTO GetUserByUsername(string usernameToLookup)
         {
-            throw new NotImplementedException();
+            User userFound = Users.GetUserByUsername(usernameToLookup);
+            return UserDTO.FromUser(userFound);
         }
 
         public void AddNewUserFromData(UserDTO userDataToAdd)

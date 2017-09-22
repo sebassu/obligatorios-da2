@@ -59,7 +59,7 @@ namespace Persistence
             }
         }
 
-        public User GetUserById(string usernameToRemove)
+        public User GetUserByUsername(string usernameToRemove)
         {
             User foundEntity;
             using (var context = new VTSystemContext())
@@ -75,7 +75,7 @@ namespace Persistence
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
                     ErrorMessages.CouldNotFindUser, usernameToRemove);
-                throw new UserException(errorMessage);
+                throw new RepositoryException(errorMessage);
             }
         }
 
