@@ -29,8 +29,8 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void LocationSetValidNameTest()
         {
-            testingLocation.Name = "Another name";
-            Assert.AreEqual("Another name", testingLocation.Name);
+            testingLocation.Name = "Another place";
+            Assert.AreEqual("Another place", testingLocation.Name);
         }
 
         [TestMethod]
@@ -75,12 +75,29 @@ namespace Data.Tests.Domain_tests
             testingLocation.Name = "!@$#%^";
         }
 
-        //Vehicle id
+        //Location id
         [TestMethod]
         public void LocationSetIdValidTest()
         {
             testingLocation.Id = 3;
             Assert.AreEqual(3, testingLocation.Id);
+        }
+
+        //Location Factory method
+        [TestMethod]
+        public void LocationParameterFactoryMethodValidTest()
+        {
+            testingLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
+            Assert.AreEqual(0, testingLocation.Id);
+            Assert.AreEqual(LocationType.PORT, testingLocation.Type);
+            Assert.AreEqual("Puerto de Punta del Este", testingLocation.Name);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LocationException))]
+        public void LocationParameterFactoryMethodInvalidNameTest()
+        {
+            testingLocation = Location.CreateNewLocation(LocationType.PORT, "!@#$%^");
         }
     }
 }

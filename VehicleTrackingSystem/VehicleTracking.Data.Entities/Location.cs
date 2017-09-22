@@ -51,5 +51,15 @@ namespace Domain
         {
             name = "Location name";
         }
+        public static Location CreateNewLocation(LocationType type, string name)
+        {
+            return new Location(type, name);
         }
+
+        protected Location(LocationType typeToSet, string nameToSet)
+        {
+            Type = typeToSet;
+            Name = nameToSet;
+        }
+    }
 }
