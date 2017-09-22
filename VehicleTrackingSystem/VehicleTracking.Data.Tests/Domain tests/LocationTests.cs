@@ -22,6 +22,8 @@ namespace Data.Tests.Domain_tests
         public void LocationForTestingPurposesTest()
         {
             Assert.AreEqual("Location name", testingLocation.Name);
+            Assert.AreEqual(LocationType.PORT, testingLocation.Type);
+            Assert.AreEqual(0, testingLocation.Id);
         }
 
         [TestMethod]
@@ -71,6 +73,14 @@ namespace Data.Tests.Domain_tests
         public void LocationSetInvalidNamePunctuationTest()
         {
             testingLocation.Name = "!@$#%^";
+        }
+
+        //Vehicle id
+        [TestMethod]
+        public void VehicleSetIdValidTest()
+        {
+            testingLocation.Id = 3;
+            Assert.AreEqual(3, testingLocation.Id);
         }
     }
 }
