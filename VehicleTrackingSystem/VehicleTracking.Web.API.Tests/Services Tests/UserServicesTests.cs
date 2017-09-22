@@ -141,5 +141,27 @@ namespace Web.API.Services_Tests
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.AddNewUserFromData(testUserData);
         }
+
+        [TestMethod]
+        public void UServicesGetUserByUsernameValidTest()
+        {
+            UserDTO expectedData = UserDTO.FromUser(testingUser);
+            var mockUserRepository = new Mock<IUserRepository>();
+            mockUserRepository.Setup(u => u.GetUserByUsername(testingUser.Username)).Returns(testingUser);
+            var userServices = new UserServices(mockUserRepository.Object);
+            var result = userServices.GetUserByUsername(testingUser.Username);
+            mockUserRepository.VerifyAll();
+            Assert.AreEqual(expectedData, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void UServicesGetUserByUsernameInvalidTest()
+        {
+            var mockUserRepository = new Mock<IUserRepository>();
+            mockUserRepository.Setup(u => u.GetUserByUsername(It.IsAny<string>())).Throws<RepositoryException>();
+            var userServices = new UserServices(mockUserRepository.Object);
+            userServices.GetUserByUsername(testingUser.Username);
+        }
     }
 }

@@ -3,13 +3,12 @@ using Persistence;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace Data.Persistence_Tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class testingUserRepositoryTests
+    public class UserRepositoryTests
     {
         private static UserRepository testingUserRepository;
 
@@ -206,6 +205,23 @@ namespace Data.Persistence_Tests
             testingUserRepository.AddNewUser(userToModify);
             userToModify.Username = "algunUsuarioNuevo";
             testingUserRepository.UpdateUser(userToModify);
+        }
+
+        [TestMethod]
+        public void URepositoryGetUserByUsernameValidTest()
+        {
+            User addedUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario",
+                "Santos", "mSantos42", "DisculpeFuegoTiene", "099424242");
+            testingUserRepository.AddNewUser(addedUser);
+            User result = testingUserRepository.GetUserByUsername("mSantos42");
+            Assert.AreEqual(addedUser, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void URepositoryGetUserByUnaddedUsernameInvalidTest()
+        {
+            testingUserRepository.GetUserByUsername("Wololo");
         }
     }
 }
