@@ -51,7 +51,6 @@ namespace API.Services
             userToModify.Role = Role;
             userToModify.FirstName = FirstName;
             userToModify.LastName = LastName;
-            userToModify.Username = Username;
             userToModify.Password = Password;
             userToModify.PhoneNumber = PhoneNumber;
         }

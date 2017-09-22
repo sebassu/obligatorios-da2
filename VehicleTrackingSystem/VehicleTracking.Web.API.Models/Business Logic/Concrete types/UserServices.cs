@@ -56,9 +56,19 @@ namespace API.Services
             throw new NotImplementedException();
         }
 
-        public void ModifyUserWithUsername(string usernameToModify, UserDTO userDataToSet)
+        public void ModifyUserWithUsername(string usernameToModify, UserDTO userData)
         {
-            throw new NotImplementedException();
+            ServicesUtilities.CheckParameterIsNotNullAndExecute(userData,
+            delegate { AttemptToPerformModification(usernameToModify, userData); });
+
+        }
+
+        private void AttemptToPerformModification(string usernameToModify,
+            UserDTO userData)
+        {
+            User userFound = Users.GetUserByUsername(usernameToModify);
+            userData.SetDataToUser(userFound);
+            Users.UpdateUser(userFound);
         }
     }
 }
