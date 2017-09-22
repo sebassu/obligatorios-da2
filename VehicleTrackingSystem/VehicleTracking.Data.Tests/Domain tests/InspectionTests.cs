@@ -44,13 +44,6 @@ namespace Data.Tests.Domain_tests
         public void InspectionSetInvalidDateTimeOldTest()
         {
             testingInspection.DateTime = new DateTime(1856, 8, 30, 12, 8, 9);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(InspectionException))]
-        public void InspectionSetInvalidDateTimeEmptyTest()
-        {
-            testingInspection.DateTime = null;
-        }
+        }        
     }
 }

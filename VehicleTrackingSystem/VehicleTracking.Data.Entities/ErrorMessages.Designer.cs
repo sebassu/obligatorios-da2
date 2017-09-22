@@ -79,6 +79,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fecha inválida. No puede ser mayor a la fecha actual ni menor a 01/01/1900..
+        /// </summary>
+        internal static string DateIsInvalid {
+            get {
+                return ResourceManager.GetString("DateIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La descripción no es válida, no puede ser vacia..
         /// </summary>
         internal static string DescriptionIsInvalid {

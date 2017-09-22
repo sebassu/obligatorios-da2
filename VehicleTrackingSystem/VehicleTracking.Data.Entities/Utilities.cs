@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Domain
@@ -47,7 +48,12 @@ namespace Domain
 
         public static bool ValidYear(int value)
         {
-            return value <= System.DateTime.Now.Year && value > 1900;
+            return value <= DateTime.Now.Year && value > 1900;
+        }
+
+        public static bool IsValidDate(DateTime value)
+        {
+            return ValidYear((int)value.Year);
         }
     }
 }

@@ -123,6 +123,9 @@
   <data name="ColorIsInvalid" xml:space="preserve">
     <value>El color "{0}"  no es valido. Solo se permite ingresar caracteres alfabéticos o espacios para este campo.</value>
   </data>
+  <data name="DateIsInvalid" xml:space="preserve">
+    <value>Fecha inválida. No puede ser mayor a la fecha actual ni menor a 01/01/1900.</value>
+  </data>
   <data name="DescriptionIsInvalid" xml:space="preserve">
     <value>La descripción no es válida, no puede ser vacia.</value>
   </data>
