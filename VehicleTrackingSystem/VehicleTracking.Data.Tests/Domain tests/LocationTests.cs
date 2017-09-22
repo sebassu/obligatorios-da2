@@ -127,5 +127,13 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(testingLocation, secondTestingLocation);
             Assert.AreEqual(secondTestingLocation, testingLocation);
         }
+
+        //Location GetHashCode
+        [TestMethod]
+        public void UserGetHashCodeTest()
+        {
+            object testingLocationAsObject = testingLocation;
+            Assert.AreEqual(testingLocationAsObject.GetHashCode(), testingLocation.GetHashCode());
+        }
     }
 }
