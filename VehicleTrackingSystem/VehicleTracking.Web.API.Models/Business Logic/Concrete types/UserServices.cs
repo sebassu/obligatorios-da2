@@ -31,7 +31,7 @@ namespace API.Services
 
         public void AddNewUserFromData(UserDTO userDataToAdd)
         {
-            ServicesUtilities.CheckParameterIsNotNullAndExecute(userDataToAdd,
+            ServiceUtilities.CheckParameterIsNotNullAndExecute(userDataToAdd,
                 delegate { AttemptToAddUser(userDataToAdd); });
         }
 
@@ -52,7 +52,7 @@ namespace API.Services
 
         public void ModifyUserWithUsername(string usernameToModify, UserDTO userData)
         {
-            ServicesUtilities.CheckParameterIsNotNullAndExecute(userData,
+            ServiceUtilities.CheckParameterIsNotNullAndExecute(userData,
             delegate { AttemptToPerformModification(usernameToModify, userData); });
 
         }
