@@ -61,5 +61,18 @@ namespace Domain
             Type = typeToSet;
             Name = nameToSet;
         }
+
+        public override bool Equals(object obj)
+        {
+            Location locationToCompareAgainst = obj as Location;
+            if (Utilities.IsNotNull(locationToCompareAgainst))
+            {
+                return Id.Equals(locationToCompareAgainst.Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
