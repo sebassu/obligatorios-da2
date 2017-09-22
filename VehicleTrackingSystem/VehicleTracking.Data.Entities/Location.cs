@@ -10,7 +10,7 @@ namespace Domain
 
     public enum LocationType { PORT, YARD }
 
-    class Location
+    public class Location
     {
 
         public int Id { get; set; }
