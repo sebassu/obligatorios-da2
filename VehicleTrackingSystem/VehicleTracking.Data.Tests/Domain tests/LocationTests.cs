@@ -130,7 +130,7 @@ namespace Data.Tests.Domain_tests
 
         //Location GetHashCode
         [TestMethod]
-        public void UserGetHashCodeTest()
+        public void LocationGetHashCodeTest()
         {
             object testingLocationAsObject = testingLocation;
             Assert.AreEqual(testingLocationAsObject.GetHashCode(), testingLocation.GetHashCode());
