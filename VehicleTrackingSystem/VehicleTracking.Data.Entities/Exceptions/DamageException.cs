@@ -6,7 +6,5 @@ namespace Domain
     public class DamageException : VTSystemException
     {
         public DamageException(string message) : base(message) { }
-
     }
-
 }

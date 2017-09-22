@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CannotRemoveAllAdministrators" xml:space="preserve">
-    <value>Acción inválida: no es posible eliminar a todos los administradores del sistema.</value>
+  <data name="NullDTOReference" xml:space="preserve">
+    <value>Se recibió una referencia nula a un Data Transfer Object.</value>
   </data>
-  <data name="CouldNotFindElement" xml:space="preserve">
-    <value>Error: No se pudo encontrar al {0} con ID {1}.</value>
-  </data>
-  <data name="CouldNotFindUser" xml:space="preserve">
-    <value>El nombre de usuario "{0}" no se encuentra registrado en el sistema.</value>
-  </data>
-  <data name="CouldNotRemoveElement" xml:space="preserve">
-    <value>Error: el elemento recibido a eliminar no se encontraba registrado en el sistema.</value>
-  </data>
-  <data name="ElementDoesNotExist" xml:space="preserve">
-    <value>Elemento inválido recibido: no se encuentra registrado en el sistema.</value>
-  </data>
-  <data name="NullIDRecieved" xml:space="preserve">
-    <value>Se recibió una ID nula de elemento a eliminar.</value>
-  </data>
-  <data name="VINMustBeUnique" xml:space="preserve">
-    <value>No es posible completar la acción. El VIN ingresado ya se encuentra registrado en el sistema.</value>
+  <data name="UsernameMustBeUnique" xml:space="preserve">
+    <value>No es posible completar la acción: el nombre de usuario ingresado ya se encuentra registrado en el sistema.</value>
   </data>
 </root>

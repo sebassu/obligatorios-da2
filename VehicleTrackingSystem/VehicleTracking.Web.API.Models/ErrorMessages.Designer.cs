@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Persistence {
+namespace API.Services {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Persistence {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Persistence.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("API.Services.ErrorMessages", typeof(ErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,20 @@ namespace Persistence {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Acción inválida: no es posible eliminar a todos los administradores del sistema..
+        ///   Looks up a localized string similar to Se recibió una referencia nula a un Data Transfer Object..
         /// </summary>
-        internal static string CannotRemoveAllAdministrators {
+        internal static string NullDTOReference {
             get {
-                return ResourceManager.GetString("CannotRemoveAllAdministrators", resourceCulture);
+                return ResourceManager.GetString("NullDTOReference", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: No se pudo encontrar al {0} con ID {1}..
+        ///   Looks up a localized string similar to No es posible completar la acción: el nombre de usuario ingresado ya se encuentra registrado en el sistema..
         /// </summary>
-        internal static string CouldNotFindElement {
+        internal static string UsernameMustBeUnique {
             get {
-                return ResourceManager.GetString("CouldNotFindElement", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El nombre de usuario &quot;{0}&quot; no se encuentra registrado en el sistema..
-        /// </summary>
-        internal static string CouldNotFindUser {
-            get {
-                return ResourceManager.GetString("CouldNotFindUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error: el elemento recibido a eliminar no se encontraba registrado en el sistema..
-        /// </summary>
-        internal static string CouldNotRemoveElement {
-            get {
-                return ResourceManager.GetString("CouldNotRemoveElement", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Elemento inválido recibido: no se encuentra registrado en el sistema..
-        /// </summary>
-        internal static string ElementDoesNotExist {
-            get {
-                return ResourceManager.GetString("ElementDoesNotExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Se recibió una ID nula de elemento a eliminar..
-        /// </summary>
-        internal static string NullIDRecieved {
-            get {
-                return ResourceManager.GetString("NullIDRecieved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No es posible completar la acción. El VIN ingresado ya se encuentra registrado en el sistema..
-        /// </summary>
-        internal static string VINMustBeUnique {
-            get {
-                return ResourceManager.GetString("VINMustBeUnique", resourceCulture);
+                return ResourceManager.GetString("UsernameMustBeUnique", resourceCulture);
             }
         }
     }

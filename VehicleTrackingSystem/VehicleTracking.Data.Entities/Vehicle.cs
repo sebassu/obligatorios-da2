@@ -6,7 +6,7 @@ namespace Domain
 
     public class Vehicle
     {
-        protected const short VINLength = 17;
+        protected const ushort VINLength = 17;
 
         public int Id { get; set; }
 
@@ -31,7 +31,7 @@ namespace Domain
             }
         }
 
-        protected virtual bool IsValidBrand(string value)
+        protected bool IsValidBrand(string value)
         {
             return Utilities.ContainsLettersOrSpacesOnly(value);
         }
@@ -55,7 +55,7 @@ namespace Domain
             }
         }
 
-        protected virtual bool IsValidModel(string value)
+        protected bool IsValidModel(string value)
         {
             return Utilities.ContainsLettersOrDigitsOnly(value) || Utilities.ContainsLettersOrSpacesOnly(value);
         }
@@ -79,7 +79,7 @@ namespace Domain
             }
         }
 
-        protected virtual bool IsValidYear(int value)
+        protected bool IsValidYear(int value)
         {
             return Utilities.ValidYear(value);
         }
@@ -127,7 +127,7 @@ namespace Domain
             }
         }
 
-        protected virtual bool IsValidVIN(string value)
+        protected bool IsValidVIN(string value)
         {
             return Utilities.ContainsLettersOrDigitsOnly(value) && value.Length == VINLength;
         }

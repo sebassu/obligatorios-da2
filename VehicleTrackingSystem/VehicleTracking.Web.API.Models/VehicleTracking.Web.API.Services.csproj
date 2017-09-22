@@ -40,15 +40,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business Logic\IUsersServices.cs" />
+    <Compile Include="Business Logic\Concrete types\UserServices.cs" />
+    <Compile Include="Business Logic\Interfaces\IUsersServices.cs" />
+    <Compile Include="Business Logic\ServiceException.cs" />
     <Compile Include="Data Transfer Objects\UserDTO.cs" />
+    <Compile Include="ErrorMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Business Logic\ServicesUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VehicleTracking.Data.DataAccess\VehicleTracking.Data.DataAccess.csproj">
+      <Project>{F3DCC088-C021-4233-9C82-9B1A3461A7B2}</Project>
+      <Name>VehicleTracking.Data.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VehicleTracking.Data.Entities\VehicleTracking.Data.Entities.csproj">
       <Project>{39b5263b-309e-423a-a4d0-b198180ef4aa}</Project>
       <Name>VehicleTracking.Data.Entities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ErrorMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,12 +3,14 @@ using System.Data;
 using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 namespace Persistence
 {
-    public class UserRepository
+    internal class UserRepository : IUserRepository
     {
-        public static IReadOnlyCollection<User> Elements
+        public IEnumerable<User> Elements
         {
             get
             {
@@ -20,27 +22,15 @@ namespace Persistence
             }
         }
 
-        public static User AddNewUser(UserRoles role, string firstName, string lastName,
-            string username, string password, string phoneNumber)
+        public void AddNewUser(User userToAdd)
         {
             using (var context = new VTSystemContext())
             {
-                bool usernameIsNotRegistered = !ExistsUserWithUsername(username);
-                if (usernameIsNotRegistered)
-                {
-                    User userToAdd = User.CreateNewUser(role, firstName, lastName,
-                        username, password, phoneNumber);
-                    EntityFrameworkUtilities<User>.Add(context, userToAdd);
-                    return userToAdd;
-                }
-                else
-                {
-                    throw new RepositoryException(ErrorMessages.UsernameMustBeUnique);
-                }
+                EntityFrameworkUtilities<User>.Add(context, userToAdd);
             }
         }
 
-        private static bool ExistsUserWithUsername(string usernameToLookup)
+        public bool ExistsUserWithUsername(string usernameToLookup)
         {
             using (var context = new VTSystemContext())
             {
@@ -48,77 +38,50 @@ namespace Persistence
             }
         }
 
-        public static void Remove(User elementToRemove)
+        public void Remove(string usernameToRemove)
         {
-            if (IsTheOnlyAdministratorLeft(elementToRemove))
+            if (IdBelongsToLastAdministrator(usernameToRemove))
             {
                 throw new RepositoryException(ErrorMessages.CannotRemoveAllAdministrators);
             }
             else
             {
-                EntityFrameworkUtilities<User>.Remove(elementToRemove);
+                EntityFrameworkUtilities<User>.Remove(usernameToRemove);
             }
         }
 
-        private static bool IsTheOnlyAdministratorLeft(User elementToRemove)
+        private bool IdBelongsToLastAdministrator(string usernameToRemove)
         {
             using (var context = new VTSystemContext())
             {
                 var administrators = context.Users.Where(u => u.Role == UserRoles.ADMINISTRATOR).ToList();
-                return administrators.Count == 1 && administrators.Single().Equals(elementToRemove);
+                return administrators.Count == 1 && administrators.Single().Username == usernameToRemove;
             }
         }
 
-        public static void ModifyUser(User userToModify, UserRoles roleToSet, string firstNameToSet,
-            string lastNameToSet, string usernameToSet, string passwordToSet, string phoneNumberToSet)
+        public User GetUserByUsername(string usernameToRemove)
         {
-            try
+            User foundEntity;
+            using (var context = new VTSystemContext())
             {
-                AttemptToSetUserAttributes(userToModify, roleToSet, firstNameToSet, lastNameToSet,
-                    usernameToSet, passwordToSet, phoneNumberToSet);
+                var elements = context.Set<User>();
+                foundEntity = elements.Find(usernameToRemove);
             }
-            catch (DataException)
+            if (Utilities.IsNotNull(foundEntity))
+            {
+                return foundEntity;
+            }
+            else
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.ElementDoesNotExist, "Usuario");
+                    ErrorMessages.CouldNotFindUser, usernameToRemove);
                 throw new RepositoryException(errorMessage);
             }
         }
 
-        private static void AttemptToSetUserAttributes(User userToModify, UserRoles roleToSet, string firstNameToSet,
-            string lastNameToSet, string usernameToSet, string passwordToSet, string phoneNumberToSet)
+        public void UpdateUser(User userToModify)
         {
-            using (var context = new VTSystemContext())
-            {
-                EntityFrameworkUtilities<User>.AttachIfIsValid(context, userToModify);
-                if (ChangeCausesRepeatedUsernames(userToModify, usernameToSet))
-                {
-                    throw new RepositoryException(ErrorMessages.UsernameMustBeUnique);
-                }
-                else
-                {
-                    SetUserAttributes(userToModify, roleToSet, firstNameToSet, lastNameToSet,
-                        usernameToSet, passwordToSet, phoneNumberToSet);
-                    context.SaveChanges();
-                }
-            }
-        }
-
-        private static bool ChangeCausesRepeatedUsernames(User userToModify, string usernameToSet)
-        {
-            bool usernameChanges = userToModify.Username != usernameToSet;
-            return usernameChanges && ExistsUserWithUsername(usernameToSet);
-        }
-
-        private static void SetUserAttributes(User userToModify, UserRoles roleToSet, string firstNameToSet, string lastNameToSet,
-            string usernameToSet, string passwordToSet, string phoneNumberToSet)
-        {
-            userToModify.Role = roleToSet;
-            userToModify.FirstName = firstNameToSet;
-            userToModify.LastName = lastNameToSet;
-            userToModify.Username = usernameToSet;
-            userToModify.Password = passwordToSet;
-            userToModify.PhoneNumber = phoneNumberToSet;
+            EntityFrameworkUtilities<User>.Update(userToModify);
         }
     }
 }
