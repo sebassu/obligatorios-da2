@@ -1,6 +1,7 @@
-﻿using Persistence;
+﻿using System;
+using Domain;
+using Persistence;
 using System.Collections.Generic;
-using System;
 
 namespace API.Services
 {
@@ -28,9 +29,25 @@ namespace API.Services
             throw new NotImplementedException();
         }
 
-        public void AddNewUserFromData(UserDTO userToAdd)
+        public void AddNewUserFromData(UserDTO userDataToAdd)
         {
-            throw new NotImplementedException();
+            ServicesUtilities.CheckParameterIsNotNullAndExecute(userDataToAdd,
+                delegate { AttemptToAddUser(userDataToAdd); });
+        }
+
+        private void AttemptToAddUser(UserDTO userDataToAdd)
+        {
+            bool usernameIsNotRegistered =
+                !Users.ExistsUserWithUsername(userDataToAdd.Username);
+            if (usernameIsNotRegistered)
+            {
+                User userToAdd = userDataToAdd.ToUser();
+                Users.AddNewUser(userToAdd);
+            }
+            else
+            {
+                throw new ServiceException(ErrorMessages.UsernameMustBeUnique);
+            }
         }
 
         public void RemoveUserWithUsername(string usernameToRemove)
