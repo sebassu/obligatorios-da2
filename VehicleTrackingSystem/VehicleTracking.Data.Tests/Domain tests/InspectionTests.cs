@@ -19,7 +19,7 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        public void VehicleForTestingPurposesTest()
+        public void InspectionForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingInspection.Id);
             Assert.AreEqual(new DateTime(2017, 9, 22, 10, 8, 0), testingInspection.DateTime);
@@ -30,6 +30,8 @@ namespace Data.Tests.Domain_tests
         {
             testingInspection.DateTime = DateTime.Now;
             Assert.AreEqual(DateTime.Now, testingInspection.DateTime);
+            Assert.AreEqual(User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "1239456"),
+                testingInspection.ResponsibleUser);
         }
 
         [TestMethod]
@@ -44,6 +46,32 @@ namespace Data.Tests.Domain_tests
         public void InspectionSetInvalidDateTimeOldTest()
         {
             testingInspection.DateTime = new DateTime(1856, 8, 30, 12, 8, 9);
-        }        
+        }
+        
+        [TestMethod]
+        public void InspectionSetValidResponsibleUserTest()
+        {
+            User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
+                "097364857");
+            testingInspection.ResponsibleUser = alternativeUser;
+            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
+        }
+
+        [ExpectedException(typeof(InspectionException))]
+        [TestMethod]
+        public void InspectionSetInvalidResponsibleUserEmptyTest()
+        {
+            testingInspection.ResponsibleUser = null;
+        }
+
+        [ExpectedException(typeof(InspectionException))]
+        [TestMethod]
+        public void InspectionSetInvalidResponsibleUserTransporterTest()
+        {
+            User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan", "Perez", "miUsuario", "pass",
+               "097364857");
+            testingInspection.ResponsibleUser = alternativeUser;
+            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
+        }
     }
 }
