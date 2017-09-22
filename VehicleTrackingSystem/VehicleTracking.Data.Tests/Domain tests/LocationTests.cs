@@ -99,5 +99,33 @@ namespace Data.Tests.Domain_tests
         {
             testingLocation = Location.CreateNewLocation(LocationType.PORT, "!@#$%^");
         }
+
+        //Equals
+        [TestMethod]
+        public void LocationEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingLocation, null);
+        }
+
+        [TestMethod]
+        public void LocationEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingLocation, someRandomObject);
+        }
+
+        [TestMethod]
+        public void LocationEqualsReflexiveTest()
+        {
+            Assert.AreEqual(testingLocation, testingLocation);
+        }
+
+        [TestMethod]
+        public void LocationEqualsSymmetricTest()
+        {
+            Location secondTestingLocation = Location.InstanceForTestingPurposes();
+            Assert.AreEqual(testingLocation, secondTestingLocation);
+            Assert.AreEqual(secondTestingLocation, testingLocation);
+        }
     }
 }
