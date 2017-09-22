@@ -73,5 +73,13 @@ namespace Data.Tests.Domain_tests
             testingInspection.ResponsibleUser = alternativeUser;
             Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
         }
+
+        [TestMethod]
+        public void InspectionSetLocationValidTest()
+        {
+            Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
+            testingInspection.Location = alternativeLocation;
+            Assert.AreEqual(alternativeLocation, testingInspection.Location);
+        }
     }
 }
