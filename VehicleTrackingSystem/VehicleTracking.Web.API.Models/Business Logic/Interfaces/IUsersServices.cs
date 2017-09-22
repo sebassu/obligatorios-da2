@@ -2,7 +2,7 @@
 
 namespace API.Services
 {
-    public interface IUsersServices
+    public interface IUserServices
     {
         IEnumerable<UserDTO> GetRegisteredUsers();
         UserDTO GetUserByUsername(string usernameToLookup);

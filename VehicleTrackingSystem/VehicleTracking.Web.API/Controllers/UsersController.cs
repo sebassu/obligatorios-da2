@@ -8,9 +8,9 @@ namespace Web.API.Controllers
 {
     public class UsersController : ApiController
     {
-        private readonly IUsersServices model;
+        private readonly IUserServices model;
 
-        public UsersController(IUsersServices someModel)
+        public UsersController(IUserServices someModel)
         {
             model = someModel;
         }

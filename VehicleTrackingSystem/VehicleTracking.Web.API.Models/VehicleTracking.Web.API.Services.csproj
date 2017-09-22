@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business Logic\Concrete types\UsersServices.cs" />
+    <Compile Include="Business Logic\Concrete types\UserServices.cs" />
     <Compile Include="Business Logic\Interfaces\IUsersServices.cs" />
     <Compile Include="Data Transfer Objects\UserDTO.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
@@ -66,5 +66,6 @@
       <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

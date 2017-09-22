@@ -61,6 +61,15 @@ namespace API.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se recibió una referencia nula a un Data Transfer Object..
+        /// </summary>
+        internal static string NullDTOReference {
+            get {
+                return ResourceManager.GetString("NullDTOReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No es posible completar la acción: el nombre de usuario ingresado ya se encuentra registrado en el sistema..
         /// </summary>
         internal static string UsernameMustBeUnique {
