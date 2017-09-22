@@ -77,7 +77,7 @@ namespace Data.Tests.Domain_tests
 
         //Vehicle id
         [TestMethod]
-        public void VehicleSetIdValidTest()
+        public void LocationSetIdValidTest()
         {
             testingLocation.Id = 3;
             Assert.AreEqual(3, testingLocation.Id);

@@ -7,8 +7,15 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
+
+    public enum LocationType { PORT, YARD }
+
     class Location
     {
+
+        public int Id { get; set; }
+
+        public LocationType Type { get; set; } = LocationType.PORT;
 
         private string name;
         public string Name

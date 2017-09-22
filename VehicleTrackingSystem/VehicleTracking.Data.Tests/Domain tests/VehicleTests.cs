@@ -353,7 +353,7 @@ namespace Data.Tests.Domain_tests
             testingVehicle.Brand = "Fiat";
             testingVehicle.Model = "1";
             testingVehicle.Year = 2017;
-            Assert.AreEqual("QWERTYUI123456789. Fiat 1. 2017 ", testingVehicle.ToString());
+            Assert.AreEqual("QWERTYUI123456789. Fiat 1. 2017", testingVehicle.ToString());
         }
     }
 }
