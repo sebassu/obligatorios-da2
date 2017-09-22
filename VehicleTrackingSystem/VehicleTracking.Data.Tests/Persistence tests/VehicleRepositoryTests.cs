@@ -116,12 +116,12 @@ namespace Data.Persistence.Tests
             VehicleRepository.Remove(vehicleToVerify);
         }
 
-        [TestMethod]
+        /*[TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void VRepositoryRemoveNullVehicleInvalidTest()
         {
             VehicleRepository.Remove(null);
-        }
+        }*/
 
         [TestMethod]
         public void VRepositoryModifyVehicleValidTest()

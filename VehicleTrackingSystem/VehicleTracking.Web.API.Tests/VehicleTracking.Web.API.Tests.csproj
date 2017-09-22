@@ -65,8 +65,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserControllerTests.cs" />
+    <Compile Include="Controllers Tests\UserControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services Tests\UsersServicesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
