@@ -16,6 +16,8 @@ namespace Web.API.Services_Tests
         private static UserServices testingUserServices = new UserServices();
         private static User testingUser = User.CreateNewUser(UserRoles.PORT_OPERATOR, "Emilio",
             "Ravenna", "eRavenna", "HablarUnasPalabritas", "091696969");
+        private static UserDTO testingUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
+            "Ravenna", "eRavenna", "HablarUnasPalabritas", "091696969");
 
         [TestMethod]
         public void UServicesGetRegisteredUsersWithDataTest()
@@ -83,7 +85,7 @@ namespace Web.API.Services_Tests
         {
             UserDTO testUserData = UserDTO.FromData(UserRoles.YARD_OPERATOR, "1d2@#!9 #(", "Medina",
                 "gdMedina1", "MusicaSuperDivertida", "096869689");
-            RunTestWithInvalidUserDataOnDTO(testUserData);
+            RunAddNewUserTestWithInvalidDataOnDTO(testUserData);
         }
 
         [TestMethod]
@@ -92,7 +94,7 @@ namespace Web.API.Services_Tests
         {
             UserDTO testUserData = UserDTO.FromData(UserRoles.YARD_OPERATOR, "Gabriel David",
                 "*$ 563a%7*//*0&d!@", "gdMedina2", "MusicaSuperDivertida", "096869689");
-            RunTestWithInvalidUserDataOnDTO(testUserData);
+            RunAddNewUserTestWithInvalidDataOnDTO(testUserData);
         }
 
         [TestMethod]
@@ -101,7 +103,7 @@ namespace Web.API.Services_Tests
         {
             UserDTO testUserData = UserDTO.FromData(UserRoles.YARD_OPERATOR, "Gabriel David", "Medina",
                 "Ceci n'est pas un nom d'utilisateur.", "MusicaSuperDivertida", "096869689");
-            RunTestWithInvalidUserDataOnDTO(testUserData);
+            RunAddNewUserTestWithInvalidDataOnDTO(testUserData);
         }
 
         [TestMethod]
@@ -110,7 +112,7 @@ namespace Web.API.Services_Tests
         {
             UserDTO testUserData = UserDTO.FromData(UserRoles.YARD_OPERATOR, "Gabriel David",
                 "Medina", "gdMedina3", "  \n \t \t\t\n ", "096869689");
-            RunTestWithInvalidUserDataOnDTO(testUserData);
+            RunAddNewUserTestWithInvalidDataOnDTO(testUserData);
         }
 
         [TestMethod]
@@ -119,10 +121,10 @@ namespace Web.API.Services_Tests
         {
             UserDTO testUserData = UserDTO.FromData(UserRoles.YARD_OPERATOR, "Gabriel David", "Medina",
                 "gdMedina4", "MusicaSuperDivertida", "La juguetería del Señor Simón.");
-            RunTestWithInvalidUserDataOnDTO(testUserData);
+            RunAddNewUserTestWithInvalidDataOnDTO(testUserData);
         }
 
-        private static void RunTestWithInvalidUserDataOnDTO(UserDTO testUserData)
+        private static void RunAddNewUserTestWithInvalidDataOnDTO(UserDTO testUserData)
         {
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.ExistsUserWithUsername(It.IsAny<string>())).Returns(false);
@@ -152,6 +154,7 @@ namespace Web.API.Services_Tests
             var result = userServices.GetUserByUsername(testingUser.Username);
             mockUserRepository.VerifyAll();
             Assert.AreEqual(expectedData, result);
+            Assert.AreNotEqual(testingUser.Password, result.Password);
         }
 
         [TestMethod]
@@ -159,9 +162,90 @@ namespace Web.API.Services_Tests
         public void UServicesGetUserByUsernameInvalidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.GetUserByUsername(It.IsAny<string>())).Throws<RepositoryException>();
+            mockUserRepository.Setup(u => u.GetUserByUsername(It.IsAny<string>()))
+                .Throws<RepositoryException>();
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.GetUserByUsername(testingUser.Username);
+        }
+
+        [TestMethod]
+        public void UServicesModifyUserWithUsernameValidTest()
+        {
+            User userToModify = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
+                "mSantos", "DisculpeFuegoTiene", "099424242");
+            var mockUserRepository = new Mock<IUserRepository>();
+            mockUserRepository.Setup(u => u.GetUserByUsername(userToModify.Username)).Returns(userToModify);
+            var userServices = new UserServices(mockUserRepository.Object);
+            userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
+            mockUserRepository.VerifyAll();
+            Assert.AreEqual(testingUser.Role, userToModify.Role);
+            Assert.AreEqual(testingUser.FirstName, userToModify.FirstName);
+            Assert.AreEqual(testingUser.LastName, userToModify.LastName);
+            Assert.AreEqual(testingUser.Password, userToModify.Password);
+            Assert.AreEqual(testingUser.PhoneNumber, userToModify.PhoneNumber);
+
+            Assert.AreNotEqual(testingUser.Username, userToModify.Username);
+            Assert.AreEqual("mSantos", userToModify.Username);
+        }
+
+        [TestMethod]
+        public void UServicesModifyUserWithUsernameDoesNotModifyUsernameTest()
+        {
+            User userToModify = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
+                "mSantos", "DisculpeFuegoTiene", "099424242");
+            var mockUserRepository = new Mock<IUserRepository>();
+            mockUserRepository.Setup(u => u.GetUserByUsername(userToModify.Username)).Returns(userToModify);
+            var userServices = new UserServices(mockUserRepository.Object);
+            var userData = UserDTO.FromUser(testingUser);
+            userData.Username = "3* $ @!#$ 72"; // Does not fail with invalid username.
+            userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
+            mockUserRepository.VerifyAll();
+            Assert.AreNotEqual(testingUser.Username, userToModify.Username);
+            Assert.AreEqual("mSantos", userToModify.Username);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void URepositoryModifyUserInvalidFirstNameTest()
+        {
+            UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "4%# !sf*!@#9",
+                "Ravenna", "eRavenna", "HablarUnasPalabritas", "091696969");
+            RunModifyUserTestWithInvalidDataOnDTO(someUserData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void URepositoryModifyUserInvalidLastNameTest()
+        {
+            UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
+                "a#$%s 9 $^!!12", "eRavenna", "HablarUnasPalabritas", "091696969");
+            RunModifyUserTestWithInvalidDataOnDTO(someUserData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void URepositoryModifyUserInvalidPasswordTest()
+        {
+            UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
+                "Ravenna", "eRavenna", " \t\t\n \n\n  ", "091696969");
+            RunModifyUserTestWithInvalidDataOnDTO(someUserData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void URepositoryModifyUserInvalidPhoneNumberTest()
+        {
+            UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
+                "Ravenna", "eRavenna", "eRavenna", "a &#^ 12&$!!/*- ");
+            RunModifyUserTestWithInvalidDataOnDTO(someUserData);
+        }
+
+        private static void RunModifyUserTestWithInvalidDataOnDTO(UserDTO someUserData)
+        {
+            var mockUserRepository = new Mock<IUserRepository>();
+            mockUserRepository.Setup(u => u.GetUserByUsername(testingUser.Username)).Returns(testingUser);
+            var userServices = new UserServices(mockUserRepository.Object);
+            userServices.ModifyUserWithUsername(testingUser.Username, someUserData);
         }
     }
 }
