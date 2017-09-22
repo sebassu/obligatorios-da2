@@ -135,5 +135,21 @@ namespace Data.Tests.Domain_tests
             object testingLocationAsObject = testingLocation;
             Assert.AreEqual(testingLocationAsObject.GetHashCode(), testingLocation.GetHashCode());
         }
+
+
+        //Location ToString
+        [TestMethod]
+        public void LocationToStringTest1()
+        {
+            Assert.AreEqual("Location name.",
+                testingLocation.ToString());
+        }
+
+        [TestMethod]
+        public void LocationToStringTest2()
+        {
+            testingLocation.Name = "Puerto de Montevideo";
+            Assert.AreEqual("Puerto de Montevideo.", testingLocation.ToString());
+        }
     }
 }
