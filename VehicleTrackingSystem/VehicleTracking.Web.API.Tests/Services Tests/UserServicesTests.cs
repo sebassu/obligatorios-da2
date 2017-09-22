@@ -163,7 +163,7 @@ namespace Web.API.Services_Tests
         {
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.GetUserByUsername(It.IsAny<string>()))
-                .Throws<RepositoryException>();
+                .Throws(new RepositoryException(""));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.GetUserByUsername(testingUser.Username);
         }
@@ -246,6 +246,34 @@ namespace Web.API.Services_Tests
             mockUserRepository.Setup(u => u.GetUserByUsername(testingUser.Username)).Returns(testingUser);
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.ModifyUserWithUsername(testingUser.Username, someUserData);
+        }
+
+        [TestMethod]
+        public void UServicesRemoveUserWithUsernameValidTest()
+        {
+            var mockUserRepository = new Mock<IUserRepository>();
+            mockUserRepository.Setup(u => u.Remove(It.IsAny<string>()));
+            var userServices = new UserServices(mockUserRepository.Object);
+            userServices.RemoveUserWithUsername("mSantos");
+            mockUserRepository.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void UServicesRemoveUserWithUsernameInvalidTest()
+        {
+            var mockUserRepository = new Mock<IUserRepository>();
+            mockUserRepository.Setup(u => u.Remove(It.IsAny<string>()))
+                .Throws(new RepositoryException(""));
+            var userServices = new UserServices(mockUserRepository.Object);
+            userServices.RemoveUserWithUsername(null);
+        }
+
+        [TestMethod]
+        public void UserDTOEqualsWithDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingUserData, someRandomObject);
         }
     }
 }
