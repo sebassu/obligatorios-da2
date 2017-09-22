@@ -1,10 +1,11 @@
 ﻿using Domain;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace API.Services
 {
     public class UserDTO
     {
-        public int Id { get; set; }
         public UserRoles Role { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -12,20 +13,35 @@ namespace API.Services
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
 
-        public static UserDTO FromUser(User someUser)
+        internal static UserDTO FromUser(User someUser)
         {
             return new UserDTO(someUser);
         }
 
         protected UserDTO(User someUser)
         {
-            Id = someUser.Id;
             Role = someUser.Role;
             FirstName = someUser.FirstName;
             LastName = someUser.LastName;
             Username = someUser.Username;
             Password = someUser.Password.Length.ToString();
             PhoneNumber = someUser.PhoneNumber;
+        }
+
+        internal User ToUser()
+        {
+            return User.CreateNewUser(Role, FirstName, LastName,
+                Username, Password, PhoneNumber);
+        }
+
+        internal void SetDataToUser(User userToModify)
+        {
+            userToModify.Role = Role;
+            userToModify.FirstName = FirstName;
+            userToModify.LastName = LastName;
+            userToModify.Username = Username;
+            userToModify.Password = Password;
+            userToModify.PhoneNumber = PhoneNumber;
         }
     }
 }

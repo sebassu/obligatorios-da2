@@ -1,11 +1,8 @@
 ﻿using Domain;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Persistence
 {
@@ -53,7 +50,7 @@ namespace Persistence
 
         public static void Remove(Vehicle elementToRemove)
         {
-            EntityFrameworkUtilities<Vehicle>.Remove(elementToRemove);
+            EntityFrameworkUtilities<Vehicle>.Remove(elementToRemove.Id);
         }
 
         public static void ModifyVehicle(Vehicle vehicleToModify, VehicleType typeToSet, string brandToSet,

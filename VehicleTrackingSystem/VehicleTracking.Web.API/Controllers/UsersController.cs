@@ -22,16 +22,16 @@ namespace Web.API.Controllers
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    int addedUsersId = model.Add(userToAdd);
+                    model.AddNewUserFromData(userToAdd);
                     return CreatedAtRoute("DefaultApi",
-                        new { id = addedUsersId }, userToAdd);
+                        new { id = userToAdd.Username }, userToAdd);
                 });
         }
 
         // GET: api/Users
         public IHttpActionResult GetRegisteredUsers()
         {
-            IReadOnlyCollection<UserDTO> users = model.GetRegisteredUsers();
+            IEnumerable<UserDTO> users = model.GetRegisteredUsers();
             if (Utilities.IsNotNull(users))
             {
                 return Ok(users);
@@ -43,35 +43,35 @@ namespace Web.API.Controllers
         }
 
         // GET: api/Users/5
-        public IHttpActionResult GetUserById(int id)
+        public IHttpActionResult GetUserById(string usernameToLookup)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    UserDTO requestedUser = model.GetUserByUd(id);
+                    UserDTO requestedUser = model.GetUserByUsername(usernameToLookup);
                     return Ok(requestedUser);
                 });
         }
 
-        // PUT: api/Users/5
-        public IHttpActionResult UpdateUserWithId(int id,
+        // PUT: api/Users/mSantos
+        public IHttpActionResult UpdateUserWithId(string usernameToModify,
             [FromBody]UserDTO userDataToSet)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    model.UpdateUserWithId(id, userDataToSet);
+                    model.ModifyUserWithUsername(usernameToModify, userDataToSet);
                     return Ok();
                 });
         }
 
         // DELETE: api/Users/5
-        public IHttpActionResult RemoveUserWithId(int id)
+        public IHttpActionResult RemoveUserWithId(string usernameToRemove)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    model.Remove(id);
+                    model.RemoveUserWithUsername(usernameToRemove);
                     return Ok();
                 });
         }
