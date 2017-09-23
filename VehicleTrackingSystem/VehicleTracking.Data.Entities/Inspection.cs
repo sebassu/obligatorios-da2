@@ -16,7 +16,8 @@ namespace Domain
         public DateTime DateTime
         {
             get { return dateTime; }
-            set {
+            set
+            {
                 if (IsValidDate(value))
                 {
                     dateTime = value;
@@ -58,7 +59,31 @@ namespace Domain
 
         protected bool IsValidUser(User user)
         {
-            return Utilities.IsNotNull(user) ? allowedUserRoles.Contains(user.Role): false;
+            return Utilities.IsNotNull(user) ? allowedUserRoles.Contains(user.Role) : false;
+        }
+
+        private Location location;
+        public Location Location
+        {
+            get { return location; }
+            set
+            {
+                if (IsValidLocation(value))
+                {
+                    location = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                       ErrorMessages.LocationIsInvalid, "", null);
+                    throw new InspectionException(errorMessage);
+                }
+            }
+        }
+
+        protected bool IsValidLocation(Location value)
+        {
+            return Utilities.IsNotNull(value);
         }
 
         internal static Inspection InstanceForTestingPurposes()
@@ -70,8 +95,7 @@ namespace Domain
         {
             dateTime = new DateTime(2017, 9, 22, 10, 8, 0);
             responsibleUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376");
+
         }
-
-
     }
 }

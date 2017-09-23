@@ -106,6 +106,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se debe seleccionar un lugar para poder proceder..
+        /// </summary>
+        internal static string LocationIsInvalid {
+            get {
+                return ResourceManager.GetString("LocationIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modelo inválido: &quot;{0}&quot;. Solo se permiten ingresar caracteres alfabéticos, numéricos o espacios para este campo..
         /// </summary>
         internal static string ModelIsInvalid {

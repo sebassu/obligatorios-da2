@@ -59,7 +59,7 @@ namespace Data.Tests.Domain_tests
 
         [ExpectedException(typeof(InspectionException))]
         [TestMethod]
-        public void InspectionSetInvalidResponsibleUserEmptyTest()
+        public void InspectionSetInvalidResponsibleUserNullTest()
         {
             testingInspection.ResponsibleUser = null;
         }
@@ -80,6 +80,13 @@ namespace Data.Tests.Domain_tests
             Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
             testingInspection.Location = alternativeLocation;
             Assert.AreEqual(alternativeLocation, testingInspection.Location);
+        }
+
+        [ExpectedException(typeof(InspectionException))]
+        [TestMethod]
+        public void InspectionSetInvalidLocationNulTest()
+        {
+            testingInspection.Location = null;
         }
     }
 }
