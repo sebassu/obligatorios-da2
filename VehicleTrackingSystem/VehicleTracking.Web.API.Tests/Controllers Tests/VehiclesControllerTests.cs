@@ -106,6 +106,39 @@ namespace Web.API.Controllers_Tests
         }
         #endregion
 
+        #region RemoveVehicleWithVIN tests
+        [TestMethod]
+        public void VControllerRemoveVehicleWithVINValidTest()
+        {
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.RemoveVehicleWithVIN(It.IsAny<string>()));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            VerifyMethodReturnsOkResponse(delegate { return controller.RemoveVehicleWithVIN("SOMEUNRGSTEREDVIN"); },
+                mockVehicleServices);
+        }
+
+        [TestMethod]
+        public void VControllerRemoveVehicleWithUnregisteredVINInvalidTest()
+        {
+            var expectedErrorMessage = "Some other error message";
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.RemoveVehicleWithVIN(It.IsAny<string>())).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            VerifyMethodReturnsBadRequestResponse(delegate { return controller.RemoveVehicleWithVIN("SOMEUNRGSTEREDVIN"); },
+                mockVehicleServices, expectedErrorMessage);
+        }
+        #endregion
+
+        private static void VerifyMethodReturnsOkResponse(Func<IHttpActionResult> methodToTest,
+            Mock<IVehicleServices> mockVehicleServices)
+        {
+            IHttpActionResult result = methodToTest.Invoke();
+            mockVehicleServices.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+        }
+
         private static void VerifyMethodReturnsBadRequestResponse(Func<IHttpActionResult> methodToTest,
             Mock<IVehicleServices> mockVehicleServices, string expectedErrorMessage)
         {
