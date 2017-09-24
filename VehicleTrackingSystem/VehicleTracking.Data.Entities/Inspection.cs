@@ -108,6 +108,30 @@ namespace Domain
             return Utilities.IsNotNull(value) ? value.Count > 0 : false;
         }
 
+        private string vehicleVIN;
+        public string VehicleVIN
+        {
+            get { return vehicleVIN; }
+            set
+            {
+                if (IsValidVIN(value))
+                {
+                    vehicleVIN = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                       ErrorMessages.VINIsInvalid, "VIN", value);
+                    throw new InspectionException(errorMessage);
+                }
+            }
+        }
+
+        protected bool IsValidVIN(string value)
+        {
+            return Utilities.IsValidVIN(value);
+        }
+
         internal static Inspection InstanceForTestingPurposes()
         {
             return new Inspection();
