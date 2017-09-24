@@ -99,6 +99,29 @@ namespace Data.Tests.Domain_tests
             testingDamage.AddImage("newImage");
         }
 
+        [TestMethod]
+        public void DamageSetValidImagesListTest()
+        {
+            List<string> aux = new List<string>();
+            aux.Add("Image1");
+            aux.Add("Image2");
+            testingDamage.Images = aux;
+            Assert.IsTrue(testingDamage.Images.SequenceEqual(aux));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageSetInvalidImagesListEmptyTest()
+        {
+            testingDamage.Images = new List<string>();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageSetInvalidImagesNullTest()
+        {
+            testingDamage.Images = null;
+        }
 
         [TestMethod]
         public void DamageParameterFactoryMethodValidTest()

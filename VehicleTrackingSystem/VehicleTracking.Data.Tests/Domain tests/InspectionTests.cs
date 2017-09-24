@@ -10,11 +10,19 @@ namespace Data.Tests.Domain_tests
     public class InspectionTests
     {
         private static Inspection testingInspection;
+        private static List<string> imagesList;
+        private static List<Damage> damageList;
+        private static Damage fstDamage;
+        private static Damage sndDamage;
 
         [TestInitialize]
         public void TestSetup()
         {
             testingInspection = Inspection.InstanceForTestingPurposes();
+            imagesList = new List<string>();
+            imagesList.Add("image1");
+            fstDamage = Damage.CreateNewDamage("One Description", imagesList);
+            sndDamage = Damage.CreateNewDamage("Another description", imagesList);
 
         }
 
@@ -87,6 +95,27 @@ namespace Data.Tests.Domain_tests
         public void InspectionSetInvalidLocationNulTest()
         {
             testingInspection.Location = null;
+        }
+
+        [TestMethod]
+        public void InspectionSetValidDamagesListTest()
+        {
+            testingInspection.Damages = damageList;
+            Assert.IsTrue(testingInspection.Damages.SequenceEqual(damageList));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspecionSetInvalidDamagesListEmptyTest()
+        {
+            testingInspection.Damages = new List<Damage>();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void DamageSetInvalidImagesNullTest()
+        {
+            testingInspection.Damages = null;
         }
     }
 }
