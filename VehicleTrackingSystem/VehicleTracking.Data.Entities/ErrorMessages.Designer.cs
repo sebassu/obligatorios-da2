@@ -79,6 +79,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fecha inválida. No puede ser mayor a la fecha actual ni menor a 01/01/1900..
+        /// </summary>
+        internal static string DateIsInvalid {
+            get {
+                return ResourceManager.GetString("DateIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La descripción no es válida, no puede ser vacia..
         /// </summary>
         internal static string DescriptionIsInvalid {
@@ -93,6 +102,24 @@ namespace Domain {
         internal static string ImageIsInvalid {
             get {
                 return ResourceManager.GetString("ImageIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La lista no puede ser vacia. Debe contener al menos un objeto..
+        /// </summary>
+        internal static string ListIsInvalid {
+            get {
+                return ResourceManager.GetString("ListIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se debe seleccionar un lugar para poder proceder..
+        /// </summary>
+        internal static string LocationIsInvalid {
+            get {
+                return ResourceManager.GetString("LocationIsInvalid", resourceCulture);
             }
         }
         
@@ -129,6 +156,15 @@ namespace Domain {
         internal static string PhoneNumberIsInvalid {
             get {
                 return ResourceManager.GetString("PhoneNumberIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuario inválido. Los usuarios de tipo &quot;{1}&quot; no pueden realizar inspecciones en la etapa actual..
+        /// </summary>
+        internal static string ResponsibleUserIsInvalid {
+            get {
+                return ResourceManager.GetString("ResponsibleUserIsInvalid", resourceCulture);
             }
         }
         
