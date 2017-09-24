@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: NeutralResourcesLanguage("es")]
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
+[assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace Domain
 {
     public enum UserRoles { ADMINISTRATOR, PORT_OPERATOR, TRANSPORTER, YARD_OPERATOR }

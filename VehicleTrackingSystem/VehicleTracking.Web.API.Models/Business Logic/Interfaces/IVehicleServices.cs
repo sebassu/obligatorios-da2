@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace API.Services
 {
     public interface IVehicleServices

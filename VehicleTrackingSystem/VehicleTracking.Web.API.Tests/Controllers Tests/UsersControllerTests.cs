@@ -16,9 +16,17 @@ namespace Web.API.Controllers_Tests
     [ExcludeFromCodeCoverage]
     public class UsersControllerTests
     {
-        private static UserDTO fakeUser = UserDTO.FromUser(User.CreateNewUser(UserRoles.ADMINISTRATOR,
-            "Mario", "Santos", "mSantos", "DisculpeFuegoTiene", "099424242"));
+        private static UserDTO fakeUser = UserDTO.FromData(UserRoles.ADMINISTRATOR,
+            "Mario", "Santos", "mSantos", "DisculpeFuegoTiene", "099424242");
 
+        [TestMethod]
+        public void UControllerDefaultParameterlessConstructorTest()
+        {
+            var controllerToVerify = new UsersController();
+            Assert.IsNotNull(controllerToVerify.Model);
+        }
+
+        #region GetRegisteredUsers tests
         [TestMethod]
         public void UControllerGetRegisteredUsersWithDataValidTest()
         {
@@ -30,11 +38,10 @@ namespace Web.API.Controllers_Tests
         {
             return new List<UserDTO>
             {
-                UserDTO.FromUser(
-                    User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos", "mSantos",
-                    "DisculpeFuegoTiene", "099424242")),
-                UserDTO.FromUser(User.CreateNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
-                    "pLamponne", "NoHaceFalta", "099212121"))
+                UserDTO.FromData(UserRoles.ADMINISTRATOR, "Mario", "Santos", "mSantos",
+                    "DisculpeFuegoTiene", "099424242"),
+                UserDTO.FromData(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
+                    "pLamponne", "NoHaceFalta", "099212121")
             }.AsReadOnly();
         }
 
@@ -72,9 +79,11 @@ namespace Web.API.Controllers_Tests
             Assert.IsNotNull(obtainedResult);
             Assert.IsInstanceOfType(obtainedResult, typeof(NotFoundResult));
         }
+        #endregion
 
+        #region AddNewUserFromData tests
         [TestMethod]
-        public void UControllerAddValidNewUserValidTest()
+        public void UControllerAddNewUserFromDataValidTest()
         {
             var mockUsersServices = new Mock<IUserServices>();
             mockUsersServices.Setup(u => u.AddNewUserFromData(fakeUser));
@@ -89,7 +98,7 @@ namespace Web.API.Controllers_Tests
         }
 
         [TestMethod]
-        public void UControllerAddNullUserInvalidTest()
+        public void UControllerAddNewUserFromNullDataInvalidTest()
         {
             var expectedErrorMessage = "Some error message";
             var mockUsersServices = new Mock<IUserServices>();
@@ -99,40 +108,100 @@ namespace Web.API.Controllers_Tests
             VerifyMethodReturnsBadRequestResponse(delegate { return controller.AddNewUserFromDTO(null); },
                 mockUsersServices, expectedErrorMessage);
         }
+        #endregion
 
+        #region RemoveUserWithUsername tests
         [TestMethod]
-        public void UControllerDeleteUserWithIdValidTest()
+        public void UControllerRemoveUserWithUsernameValidTest()
         {
             var mockUsersServices = new Mock<IUserServices>();
             mockUsersServices.Setup(u => u.RemoveUserWithUsername(It.IsAny<string>()));
             var controller = new UsersController(mockUsersServices.Object);
-            VerifyMethodReturnsOkResponse(delegate { return controller.RemoveUserWithId("eRavenna"); },
+            VerifyMethodReturnsOkResponse(delegate { return controller.RemoveUserWithUsername("eRavenna"); },
                 mockUsersServices);
         }
 
         [TestMethod]
-        public void UControllerDeleteUserWithUnregisteredIdInvalidTest()
+        public void UControllerRemoveUserWithUnregisteredUsernameInvalidTest()
         {
             var expectedErrorMessage = "Some other error message";
             var mockUsersServices = new Mock<IUserServices>();
             mockUsersServices.Setup(u => u.RemoveUserWithUsername(It.IsAny<string>())).Throws(
                 new VTSystemException(expectedErrorMessage));
             var controller = new UsersController(mockUsersServices.Object);
-            VerifyMethodReturnsBadRequestResponse(delegate { return controller.RemoveUserWithId("eRavenna"); },
+            VerifyMethodReturnsBadRequestResponse(delegate { return controller.RemoveUserWithUsername("eRavenna"); },
                 mockUsersServices, expectedErrorMessage);
         }
+        #endregion
 
+        #region ModifyUserWithUsername tests
         [TestMethod]
-        public void UControllerUpdateUserWithIdValidTest()
+        public void UControllerModifyUserWithUsernameValidTest()
         {
-            var fakeUserDataToSet = UserDTO.FromUser(User.CreateNewUser(UserRoles.TRANSPORTER,
-                "Pablo", "Lamponne", "pLamponne", "NoHaceFalta", "099212121"));
+            var fakeUserDataToSet = UserDTO.FromData(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
+                "pLamponne", "NoHaceFalta", "099212121");
             var mockUsersServices = new Mock<IUserServices>();
             mockUsersServices.Setup(u => u.ModifyUserWithUsername(fakeUser.Username, It.IsAny<UserDTO>()));
             var controller = new UsersController(mockUsersServices.Object);
-            VerifyMethodReturnsOkResponse(delegate { return controller.UpdateUserWithId("mSantos", fakeUserDataToSet); },
+            VerifyMethodReturnsOkResponse(delegate { return controller.ModifyUserWithUsername("mSantos", fakeUserDataToSet); },
                 mockUsersServices);
         }
+
+        [TestMethod]
+        public void UControllerModifyUserWithUsernameNullDataInvalidTest()
+        {
+            var expectedErrorMessage = "A third error message.";
+            var mockUsersServices = new Mock<IUserServices>();
+            mockUsersServices.Setup(u => u.ModifyUserWithUsername(fakeUser.Username, null)).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new UsersController(mockUsersServices.Object);
+            VerifyMethodReturnsBadRequestResponse(
+                delegate { return controller.ModifyUserWithUsername("mSantos", null); }, mockUsersServices,
+                expectedErrorMessage);
+        }
+
+        [TestMethod]
+        public void UControllerUpdateUserWithUnregisteredUsernameInvalidTest()
+        {
+            var expectedErrorMessage = "Fourth error message.";
+            var fakeUserDataToSet = UserDTO.FromData(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
+                "pLamponne", "NoHaceFaltaSaleSolo", "099212121");
+            var mockUsersServices = new Mock<IUserServices>();
+            mockUsersServices.Setup(u => u.ModifyUserWithUsername(It.IsAny<string>(), It.IsAny<UserDTO>())).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new UsersController(mockUsersServices.Object);
+            VerifyMethodReturnsBadRequestResponse(delegate
+                { return controller.ModifyUserWithUsername("eRavenna", fakeUserDataToSet); },
+                mockUsersServices, expectedErrorMessage);
+        }
+        #endregion
+
+        #region GetUserWithUsername tests
+        [TestMethod]
+        public void UControllerGetUserWithUsernameValidTest()
+        {
+            var mockUsersServices = new Mock<IUserServices>();
+            mockUsersServices.Setup(u => u.GetUserByUsername("mSantos")).Returns(fakeUser);
+            var controller = new UsersController(mockUsersServices.Object);
+            IHttpActionResult obtainedResult = controller.GetUserByUsername("mSantos");
+            var result = obtainedResult as OkNegotiatedContentResult<UserDTO>;
+            mockUsersServices.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(fakeUser, result.Content);
+        }
+
+        [TestMethod]
+        public void UControllerGetUserWithUnregisteredUsernameInvalidTest()
+        {
+            string expectedErrorMessage = "Some fourth exception message";
+            var mockUsersServices = new Mock<IUserServices>();
+            mockUsersServices.Setup(u => u.GetUserByUsername(It.IsAny<string>())).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new UsersController(mockUsersServices.Object);
+            VerifyMethodReturnsBadRequestResponse(delegate { return controller.GetUserByUsername("eRavenna"); },
+                mockUsersServices, expectedErrorMessage);
+        }
+        #endregion
 
         private static void VerifyMethodReturnsOkResponse(Func<IHttpActionResult> methodToTest,
             Mock<IUserServices> mockUsersServices)
@@ -141,59 +210,6 @@ namespace Web.API.Controllers_Tests
             mockUsersServices.VerifyAll();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkResult));
-        }
-
-        [TestMethod]
-        public void UControllerUpdateUserWithIdNullDataInvalidTest()
-        {
-            var expectedErrorMessage = "A third error message.";
-            var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.ModifyUserWithUsername(fakeUser.Username, null)).Throws(
-                new VTSystemException(expectedErrorMessage));
-            var controller = new UsersController(mockUsersServices.Object);
-            VerifyMethodReturnsBadRequestResponse(
-                delegate { return controller.UpdateUserWithId("mSantos", null); }, mockUsersServices,
-                expectedErrorMessage);
-        }
-
-        [TestMethod]
-        public void UControllerUpdateUserWithUnregisteredIdTest()
-        {
-            var expectedErrorMessage = "Fourth error message.";
-            var fakeUserDataToSet = UserDTO.FromUser(User.CreateNewUser(UserRoles.TRANSPORTER,
-                "Pablo", "Lamponne", "pLamponne", "NoHaceFaltaSaleSolo", "099212121"));
-            var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.ModifyUserWithUsername(It.IsAny<string>(), It.IsAny<UserDTO>())).Throws(
-                new VTSystemException(expectedErrorMessage));
-            var controller = new UsersController(mockUsersServices.Object);
-            VerifyMethodReturnsBadRequestResponse(delegate
-                { return controller.UpdateUserWithId("eRavenna", fakeUserDataToSet); },
-                mockUsersServices, expectedErrorMessage);
-        }
-
-        [TestMethod]
-        public void UControllerGetUserByIdValidTest()
-        {
-            var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.GetUserByUsername("mSantos")).Returns(fakeUser);
-            var controller = new UsersController(mockUsersServices.Object);
-            IHttpActionResult obtainedResult = controller.GetUserById("mSantos");
-            var result = obtainedResult as OkNegotiatedContentResult<UserDTO>;
-            mockUsersServices.VerifyAll();
-            Assert.IsNotNull(result);
-            Assert.AreEqual(fakeUser, result.Content);
-        }
-
-        [TestMethod]
-        public void UControllerGetUserByUnregisteredIdInvalidTest()
-        {
-            string expectedErrorMessage = "Some fourth exception message";
-            var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.GetUserByUsername(It.IsAny<string>())).Throws(
-                new VTSystemException(expectedErrorMessage));
-            var controller = new UsersController(mockUsersServices.Object);
-            VerifyMethodReturnsBadRequestResponse(delegate { return controller.GetUserById("eRavenna"); },
-                mockUsersServices, expectedErrorMessage);
         }
 
         private static void VerifyMethodReturnsBadRequestResponse(Func<IHttpActionResult> methodToTest,

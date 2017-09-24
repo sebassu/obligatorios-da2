@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
-using System;
 
 namespace Web.API.Controllers_Tests
 {
@@ -19,6 +18,7 @@ namespace Web.API.Controllers_Tests
         private static VehicleDTO fakeVehicle = VehicleDTO.FromVehicle(Vehicle.CreateNewVehicle(
             VehicleType.CAR, "Ferrari", "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS"));
 
+        #region GetRegisteredVehicles tests
         [TestMethod]
         public void VControllerGetRegisteredVehiclesWithDataValidTest()
         {
@@ -73,5 +73,6 @@ namespace Web.API.Controllers_Tests
             Assert.IsNotNull(obtainedResult);
             Assert.IsInstanceOfType(obtainedResult, typeof(NotFoundResult));
         }
+        #endregion
     }
 }

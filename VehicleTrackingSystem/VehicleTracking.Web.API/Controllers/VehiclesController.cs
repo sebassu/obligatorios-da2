@@ -7,17 +7,17 @@ namespace Web.API.Controllers
 {
     public class VehiclesController : ApiController
     {
-        private readonly IVehicleServices model;
+        internal IVehicleServices Model { get; }
 
         public VehiclesController(IVehicleServices someModel)
         {
-            model = someModel;
+            Model = someModel;
         }
 
         // GET: api/Vehicles
         public IHttpActionResult GetRegisteredVehicles()
         {
-            IEnumerable<VehicleDTO> vehicles = model.GetRegisteredVehicles();
+            IEnumerable<VehicleDTO> vehicles = Model.GetRegisteredVehicles();
             if (Utilities.IsNotNull(vehicles))
             {
                 return Ok(vehicles);

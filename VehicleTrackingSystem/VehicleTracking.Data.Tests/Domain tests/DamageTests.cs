@@ -1,11 +1,8 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using Domain;
 
-namespace Data.Tests.Domain_tests
+namespace Data.Domain_Tests
 {
 
     [TestClass]
@@ -34,7 +31,7 @@ namespace Data.Tests.Domain_tests
             testingDamage.Description = "This damage has a new description";
             Assert.AreEqual("This damage has a new description", testingDamage.Description);
         }
-        
+
         [TestMethod]
         public void DamageSetValidDescriptionNumbersTest()
         {
