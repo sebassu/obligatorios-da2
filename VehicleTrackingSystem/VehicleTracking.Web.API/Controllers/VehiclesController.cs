@@ -42,14 +42,14 @@ namespace Web.API.Controllers
             }
         }
 
-        // DELETE: api/Vehicles/QWERTYU12345678AS
-        public IHttpActionResult RemoveVehicleWithVIN(string vinToRemove)
+        // GET: api/Vehicles/QWERTYU12345678AS
+        public IHttpActionResult GetVehicleWithVIN(string vinToLookup)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    Model.RemoveVehicleWithVIN(vinToRemove);
-                    return Ok();
+                    VehicleDTO requestedVehicle = Model.GetVehicleWithVIN(vinToLookup);
+                    return Ok(requestedVehicle);
                 });
         }
 
@@ -61,6 +61,17 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.ModifyVehicleWithVIN(vinToModify, vehicleDataToSet);
+                    return Ok();
+                });
+        }
+
+        // DELETE: api/Vehicles/QWERTYU12345678AS
+        public IHttpActionResult RemoveVehicleWithVIN(string vinToRemove)
+        {
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    Model.RemoveVehicleWithVIN(vinToRemove);
                     return Ok();
                 });
         }
