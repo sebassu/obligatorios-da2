@@ -42,7 +42,7 @@ namespace Web.API.Controllers
             }
         }
 
-        // GET: api/Users/5
+        // GET: api/Users/mSantos
         public IHttpActionResult GetUserById(string usernameToLookup)
         {
             return ExecuteActionAndReturnOutcome(
@@ -65,7 +65,7 @@ namespace Web.API.Controllers
                 });
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Users/mSantos
         public IHttpActionResult RemoveUserWithId(string usernameToRemove)
         {
             return ExecuteActionAndReturnOutcome(
