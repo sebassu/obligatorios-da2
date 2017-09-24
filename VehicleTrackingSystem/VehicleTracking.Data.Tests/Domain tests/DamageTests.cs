@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using Domain;
+using System.Linq;
 
 namespace Data.Tests.Domain_tests
 {
@@ -26,8 +27,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual("This damage has a description", testingDamage.Description);
             Assert.IsTrue(testingDamage.Images.Contains("newImage"));
         }
-
-        //Damage Description
+        
         [TestMethod]
         public void DamageSetValidDescriptionTest()
         {
@@ -62,8 +62,7 @@ namespace Data.Tests.Domain_tests
         {
             testingDamage.Description = null;
         }
-
-        //Damage Images
+        
         [TestMethod]
         public void DamageAddValidImageTest()
         {
@@ -98,6 +97,65 @@ namespace Data.Tests.Domain_tests
         public void DamageAddRepeatedImageInvalidTest()
         {
             testingDamage.AddImage("newImage");
+        }
+
+        [TestMethod]
+        public void DamageSetValidImagesListTest()
+        {
+            List<string> aux = new List<string>();
+            aux.Add("Image1");
+            aux.Add("Image2");
+            testingDamage.Images = aux;
+            Assert.IsTrue(testingDamage.Images.SequenceEqual(aux));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageSetInvalidImagesListEmptyTest()
+        {
+            testingDamage.Images = new List<string>();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageSetInvalidImagesNullTest()
+        {
+            testingDamage.Images = null;
+        }
+
+        [TestMethod]
+        public void DamageParameterFactoryMethodValidTest()
+        {
+            List<string> aux = new List<string>();
+            aux.Add("Image1");
+            aux.Add("Image2");
+            testingDamage = Damage.CreateNewDamage("A description", aux);
+            Assert.AreEqual("A description", testingDamage.Description);
+            Assert.IsTrue(aux.SequenceEqual(testingDamage.Images));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageParameterFactoryMethodInvalidDescriptionTest()
+        {
+            List<string> aux = new List<string>();
+            aux.Add("Image1");
+            aux.Add("Image2");
+            testingDamage = Damage.CreateNewDamage("", aux);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageParameterFactoryMethodInvalidNullTest()
+        {
+            testingDamage = Damage.CreateNewDamage("Some description", null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DamageException))]
+        public void DamageParameterFactoryMethodInvalidImagesEmptyTest()
+        {
+            testingDamage = Damage.CreateNewDamage("Some description", new List<string>());
         }
     }
 }
