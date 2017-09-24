@@ -96,7 +96,7 @@ namespace Data.Tests.Domain_tests
 
         [ExpectedException(typeof(InspectionException))]
         [TestMethod]
-        public void InspectionSetInvalidLocationNulTest()
+        public void InspectionSetInvalidLocationNullTest()
         {
             testingInspection.Location = null;
         }
@@ -121,5 +121,67 @@ namespace Data.Tests.Domain_tests
         {
             testingInspection.Damages = null;
         }
+
+        [TestMethod]
+        public void InspectionParameterFactoryMethodValidTest()
+        {
+            Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
+            User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
+               "097364857");
+            DateTime alternativeDateTime = DateTime.Today;
+            testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation, 
+                alternativeDateTime, damageList);
+            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
+            Assert.AreEqual(alternativeLocation, testingInspection.Location);
+            Assert.AreEqual(alternativeDateTime, testingInspection.DateTime);
+            Assert.IsTrue(damageList.SequenceEqual(testingInspection.Damages));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionParameterFactoryMethodInvalidResponsibleUserTest()
+        {
+            Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
+            DateTime alternativeDateTime = DateTime.Today;
+            testingInspection = Inspection.CreateNewInspection(null, alternativeLocation,
+                alternativeDateTime, damageList);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionParameterFactoryMethodInvalidLocationTest()
+        {
+            User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
+               "097364857");
+            DateTime alternativeDateTime = DateTime.Today;
+            testingInspection = Inspection.CreateNewInspection(alternativeUser, null,
+                alternativeDateTime, damageList);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionParameterFactoryMethodInvalidDateTimeTest()
+        {
+            Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
+            User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
+               "097364857");
+            DateTime alternativeDateTime = new DateTime(1856, 8, 30, 12, 8, 9);
+            testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
+                alternativeDateTime, damageList);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionParameterFactoryMethodInvalidDamagesTest()
+        {
+            Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
+            User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
+               "097364857");
+            DateTime alternativeDateTime = DateTime.Today;
+            testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
+                alternativeDateTime, null);
+        }
     }
+}
 }
