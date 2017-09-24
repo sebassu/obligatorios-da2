@@ -14,7 +14,6 @@ namespace Data.Tests.Domain_tests
         private static List<string> imagesList;
         private static List<Damage> damageList;
         private static Damage fstDamage;
-        private static Damage sndDamage;
 
         [TestInitialize]
         public void TestSetup()
@@ -25,7 +24,6 @@ namespace Data.Tests.Domain_tests
             fstDamage = Damage.CreateNewDamage("One Description", imagesList);
             damageList = new List<Damage>();
             damageList.Add(fstDamage);
-
         }
 
         [TestMethod]
@@ -117,9 +115,30 @@ namespace Data.Tests.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void DamageSetInvalidImagesNullTest()
+        public void InspectionSetInvalidDamagesNullTest()
         {
             testingInspection.Damages = null;
+        }
+
+        [TestMethod]
+        public void InspectionSetValidVINTest()
+        {
+            testingInspection.VehicleVIN = "QAZWSXEDCRFV12345";
+            Assert.AreEqual("QAZWSXEDCRFV12345", testingInspection.VehicleVIN);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionSetInvalidVINShortTest()
+        {
+            testingInspection.VehicleVIN = "QWERT12345";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionSetInvalidVINLongTest()
+        {
+            testingInspection.VehicleVIN = "QWERTY1234567890QWERTY";
         }
 
         [TestMethod]

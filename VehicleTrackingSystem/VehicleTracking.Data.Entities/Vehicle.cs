@@ -6,7 +6,6 @@ namespace Domain
 
     public class Vehicle
     {
-        protected const ushort VINLength = 17;
 
         public int Id { get; set; }
 
@@ -129,7 +128,7 @@ namespace Domain
 
         protected bool IsValidVIN(string value)
         {
-            return Utilities.ContainsLettersOrDigitsOnly(value) && value.Length == VINLength;
+            return Utilities.IsValidVIN(value);
         }
 
         internal static Vehicle InstanceForTestingPurposes()

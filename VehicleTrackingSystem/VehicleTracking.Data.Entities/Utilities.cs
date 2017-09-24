@@ -80,5 +80,12 @@ namespace Domain
         {
             return IsNotNull(user) ? allowedUserRoles.Contains(user.Role) : false;
         }
+
+        private const ushort VINLength = 17;
+
+        public static bool IsValidVIN(string value)
+        {
+            return ContainsLettersOrDigitsOnly(value) && value.Length == VINLength;
+        }
     }
 }
