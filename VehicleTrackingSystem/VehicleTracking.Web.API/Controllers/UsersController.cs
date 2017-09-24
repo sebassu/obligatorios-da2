@@ -23,15 +23,15 @@ namespace Web.API.Controllers
         }
 
         // POST: api/Users
-        public IHttpActionResult AddNewUserFromDTO(
-            [FromBody]UserDTO userToAdd)
+        public IHttpActionResult AddNewUserFromData(
+            [FromBody]UserDTO userDataToAdd)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    Model.AddNewUserFromData(userToAdd);
+                    Model.AddNewUserFromData(userDataToAdd);
                     return CreatedAtRoute("DefaultApi",
-                        new { id = userToAdd.Username }, userToAdd);
+                        new { id = userDataToAdd.Username }, userDataToAdd);
                 });
         }
 

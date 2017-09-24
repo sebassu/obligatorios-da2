@@ -88,7 +88,7 @@ namespace Web.API.Controllers_Tests
             var mockUsersServices = new Mock<IUserServices>();
             mockUsersServices.Setup(u => u.AddNewUserFromData(fakeUser));
             var controller = new UsersController(mockUsersServices.Object);
-            IHttpActionResult obtainedResult = controller.AddNewUserFromDTO(fakeUser);
+            IHttpActionResult obtainedResult = controller.AddNewUserFromData(fakeUser);
             var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<UserDTO>;
             mockUsersServices.VerifyAll();
             Assert.IsNotNull(result);
@@ -105,7 +105,7 @@ namespace Web.API.Controllers_Tests
             mockUsersServices.Setup(u => u.AddNewUserFromData(null)).Throws(
                 new VTSystemException(expectedErrorMessage));
             var controller = new UsersController(mockUsersServices.Object);
-            VerifyMethodReturnsBadRequestResponse(delegate { return controller.AddNewUserFromDTO(null); },
+            VerifyMethodReturnsBadRequestResponse(delegate { return controller.AddNewUserFromData(null); },
                 mockUsersServices, expectedErrorMessage);
         }
         #endregion

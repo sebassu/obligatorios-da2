@@ -84,7 +84,7 @@ namespace Web.API.Controllers_Tests
             var mockVehicleServices = new Mock<IVehicleServices>();
             mockVehicleServices.Setup(v => v.AddNewVehicleFromData(fakeVehicle)).Returns(idToVerify); ;
             var controller = new VehiclesController(mockVehicleServices.Object);
-            IHttpActionResult obtainedResult = controller.AddNewVehicleFromDTO(fakeVehicle);
+            IHttpActionResult obtainedResult = controller.AddNewVehicleFromData(fakeVehicle);
             var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<VehicleDTO>;
             mockVehicleServices.VerifyAll();
             Assert.IsNotNull(result);
@@ -101,7 +101,7 @@ namespace Web.API.Controllers_Tests
             mockVehicleServices.Setup(v => v.AddNewVehicleFromData(null)).Throws(
                 new VTSystemException(expectedErrorMessage));
             var controller = new VehiclesController(mockVehicleServices.Object);
-            VerifyMethodReturnsBadRequestResponse(delegate { return controller.AddNewVehicleFromDTO(null); },
+            VerifyMethodReturnsBadRequestResponse(delegate { return controller.AddNewVehicleFromData(null); },
                 mockVehicleServices, expectedErrorMessage);
         }
         #endregion
