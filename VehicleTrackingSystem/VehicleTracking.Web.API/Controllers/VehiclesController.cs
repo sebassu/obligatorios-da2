@@ -2,6 +2,7 @@
 using API.Services;
 using System.Web.Http;
 using System.Collections.Generic;
+using System;
 
 namespace Web.API.Controllers
 {
@@ -12,6 +13,19 @@ namespace Web.API.Controllers
         public VehiclesController(IVehicleServices someModel)
         {
             Model = someModel;
+        }
+
+        // POST: api/Vehicles
+        public IHttpActionResult AddNewVehicleFromData(
+            [FromBody]VehicleDTO vehicleDataToAdd)
+        {
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    int additionId = Model.AddNewVehicleFromData(vehicleDataToAdd);
+                    return CreatedAtRoute("DefaultApi", new { id = additionId },
+                        vehicleDataToAdd);
+                });
         }
 
         // GET: api/Vehicles
@@ -25,6 +39,19 @@ namespace Web.API.Controllers
             else
             {
                 return NotFound();
+            }
+        }
+
+        private IHttpActionResult ExecuteActionAndReturnOutcome(
+            Func<IHttpActionResult> actionToExecute)
+        {
+            try
+            {
+                return actionToExecute.Invoke();
+            }
+            catch (VTSystemException exception)
+            {
+                return BadRequest(exception.Message);
             }
         }
     }
