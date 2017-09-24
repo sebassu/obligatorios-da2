@@ -9,6 +9,8 @@ namespace Domain
 {
     class Damage
     {
+        public int Id { get; set; }
+
         private string description;
         public string Description
         {
@@ -99,6 +101,19 @@ namespace Domain
         {
             Description = descriptionToSet;
             Images = imagesToSet;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Damage DamageToCompareAgainst = obj as Damage;
+            if (Utilities.IsNotNull(DamageToCompareAgainst))
+            {
+                return Id.Equals(DamageToCompareAgainst.Id);
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
