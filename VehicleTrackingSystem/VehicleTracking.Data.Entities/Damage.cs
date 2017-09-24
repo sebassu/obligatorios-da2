@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Damage
+    public class Damage
     {
         public int Id { get; set; }
 
@@ -32,7 +28,7 @@ namespace Domain
 
         protected virtual bool IsValidDescription(string value)
         {
-            return Utilities.IsNotEmpty(value) && Utilities.IsNotNull(value);
+            return Utilities.IsNotEmpty(value);
         }
 
         private List<string> images;
@@ -67,15 +63,13 @@ namespace Domain
             }
             else
             {
-                string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.ImageIsInvalid, "", source);
-                throw new DamageException(errorMessage);
+                throw new DamageException(ErrorMessages.ImageIsInvalid);
             }
         }
 
         protected virtual bool IsValidImage(string source)
         {
-            return Utilities.IsNotEmpty(source) && Utilities.IsNotNull(source) && !Images.Contains(source);
+            return Utilities.IsNotEmpty(source) && !Images.Contains(source);
         }
 
         internal static Damage InstanceForTestingPurposes()
@@ -83,13 +77,10 @@ namespace Domain
             return new Damage();
         }
 
-        List<string> DefaultList = new List<string>();
-        
         protected Damage()
         {
             description = "This damage has a description";
-            DefaultList.Add("newImage");
-            images = DefaultList;
+            images = new List<string>() { "newImage" };
         }
 
         public static Damage CreateNewDamage(string description, List<string> images)

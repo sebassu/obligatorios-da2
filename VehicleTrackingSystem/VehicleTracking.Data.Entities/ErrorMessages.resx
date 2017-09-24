@@ -130,7 +130,7 @@
     <value>La descripción no es válida, no puede ser vacia.</value>
   </data>
   <data name="ImageIsInvalid" xml:space="preserve">
-    <value>La ruta de imagen ingresada no es válida.</value>
+    <value>La imagen recibida no es válida.</value>
   </data>
   <data name="ListIsInvalid" xml:space="preserve">
     <value>La lista no puede ser vacia. Debe contener al menos un objeto.</value>

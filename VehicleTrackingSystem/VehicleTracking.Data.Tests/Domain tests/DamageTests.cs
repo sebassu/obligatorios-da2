@@ -2,10 +2,10 @@
 using System.Diagnostics.CodeAnalysis;
 using Domain;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Data.Domain_Tests
 {
-
     [TestClass]
     [ExcludeFromCodeCoverage]
     public class DamageTests
@@ -24,7 +24,7 @@ namespace Data.Domain_Tests
             Assert.AreEqual("This damage has a description", testingDamage.Description);
             Assert.IsTrue(testingDamage.Images.Contains("newImage"));
         }
-        
+
         [TestMethod]
         public void DamageSetValidDescriptionTest()
         {
@@ -59,7 +59,7 @@ namespace Data.Domain_Tests
         {
             testingDamage.Description = null;
         }
-        
+
         [TestMethod]
         public void DamageAddValidImageTest()
         {
