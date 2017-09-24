@@ -172,6 +172,33 @@ namespace Web.API.Controllers_Tests
         }
         #endregion
 
+        #region GetVehicleWithVIN tests
+        [TestMethod]
+        public void VContollerGetVehicleWithVINValidTest()
+        {
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.GetVehicleWithVIN("REGISTEREDVIN1245")).Returns(fakeVehicle);
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            IHttpActionResult obtainedResult = controller.GetVehicleWithVIN("REGISTEREDVIN1245");
+            var result = obtainedResult as OkNegotiatedContentResult<VehicleDTO>;
+            mockVehicleServices.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(fakeVehicle, result.Content);
+        }
+
+        [TestMethod]
+        public void VControllerGetVehicleWithUnregisteredVINInvalidTest()
+        {
+            string expectedErrorMessage = "Some fourth exception message";
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.GetVehicleWithVIN(It.IsAny<string>())).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            VerifyMethodReturnsBadRequestResponse(delegate { return controller.GetVehicleWithVIN("SOMEUNRGSTEREDVIN"); },
+                mockVehicleServices, expectedErrorMessage);
+        }
+        #endregion
+
         private static void VerifyMethodReturnsOkResponse(Func<IHttpActionResult> methodToTest,
             Mock<IVehicleServices> mockVehicleServices)
         {
