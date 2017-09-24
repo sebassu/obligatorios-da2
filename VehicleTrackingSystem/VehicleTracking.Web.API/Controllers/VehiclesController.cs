@@ -42,6 +42,17 @@ namespace Web.API.Controllers
             }
         }
 
+        // DELETE: api/Vehicles/QWERTYU12345678AS
+        public IHttpActionResult RemoveVehicleWithVIN(string vinToRemove)
+        {
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    Model.RemoveVehicleWithVIN(vinToRemove);
+                    return Ok();
+                });
+        }
+
         private IHttpActionResult ExecuteActionAndReturnOutcome(
             Func<IHttpActionResult> actionToExecute)
         {
