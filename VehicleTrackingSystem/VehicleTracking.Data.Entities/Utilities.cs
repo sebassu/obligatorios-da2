@@ -55,5 +55,30 @@ namespace Domain
         {
             return ValidYear((int)value.Year);
         }
+
+        public static bool ValidateInspection(User user, Location location)
+        {
+            if (IsValidUserInspection(user) && IsNotNull(location))
+            {
+                if (location.Type == LocationType.PORT)
+                {
+                    return user.Role == UserRoles.ADMINISTRATOR || user.Role == UserRoles.PORT_OPERATOR;
+                }
+                else
+                {
+                    return user.Role == UserRoles.ADMINISTRATOR || user.Role == UserRoles.YARD_OPERATOR;
+                }
+            }else
+            {
+                return false;
+            }
+        }
+
+        private static UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR, UserRoles.YARD_OPERATOR };
+
+        public static bool IsValidUserInspection(User user)
+        {
+            return IsNotNull(user) ? allowedUserRoles.Contains(user.Role) : false;
+        }
     }
 }

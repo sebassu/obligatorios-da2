@@ -184,6 +184,18 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionParameterFactoryMethodUserRoleLocationTypeInvalidTest()
+        {
+            Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
+            User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan", "Perez", "miUsuario", "pass",
+               "097364857");
+            DateTime alternativeDateTime = DateTime.Today;
+            testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
+                alternativeDateTime, damageList);
+        }
+
+        [TestMethod]
         public void InspectionEqualsNullTest()
         {
             Assert.AreNotEqual(testingInspection, null);

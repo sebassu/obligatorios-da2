@@ -156,6 +156,9 @@
   <data name="UsernameIsInvalid" xml:space="preserve">
     <value>El usuario "{0}" es inválido: se permiten únicamente aquellos con letras o números, sin espacios.</value>
   </data>
+  <data name="UserRoleLocationTypeInvalid" xml:space="preserve">
+    <value>La combinación rol de usuario-ubicación seleccionada no es válida.</value>
+  </data>
   <data name="VINIsInvalid" xml:space="preserve">
     <value>El VIN "{0}" es inválido. Sólo se permite ingresar caracteres alfabéticos y numéricos para este campo, y el largo debe ser de exactamente 17 caracteres.</value>
   </data>

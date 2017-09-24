@@ -55,11 +55,9 @@ namespace Domain
             }
         }
 
-        private UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR, UserRoles.YARD_OPERATOR };
-
         protected bool IsValidUser(User user)
         {
-            return Utilities.IsNotNull(user) ? allowedUserRoles.Contains(user.Role) : false;
+            return Utilities.IsValidUserInspection(user) && Utilities.ValidateInspection(user, location);
         }
 
         private Location location;
@@ -83,7 +81,7 @@ namespace Domain
 
         protected bool IsValidLocation(Location value)
         {
-            return Utilities.IsNotNull(value);
+            return Utilities.IsNotNull(value) && Utilities.ValidateInspection(responsibleUser, value);
         }
 
         private List<Damage> damages;
@@ -134,10 +132,23 @@ namespace Domain
 
         protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet, List<Damage> damagesToSet)
         {
-            ResponsibleUser = userToSet;
-            Location = locationToSet;
-            DateTime = dateTimeToSet;
-            Damages = damagesToSet;
+            if (ValidParameters(userToSet, locationToSet))
+            {
+                responsibleUser = userToSet;
+                location = locationToSet;
+                DateTime = dateTimeToSet;
+                Damages = damagesToSet;
+            }else
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                       ErrorMessages.UserRoleLocationTypeInvalid);
+                throw new InspectionException(errorMessage);
+            }
+        }
+
+        protected bool ValidParameters(User user, Location location)
+        {
+            return Utilities.ValidateInspection(user, location);
         }
 
         public override bool Equals(object obj)

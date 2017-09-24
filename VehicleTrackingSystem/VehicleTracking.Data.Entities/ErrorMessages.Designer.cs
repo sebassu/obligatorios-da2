@@ -178,6 +178,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La combinación rol de usuario-ubicación seleccionada no es válida..
+        /// </summary>
+        internal static string UserRoleLocationTypeInvalid {
+            get {
+                return ResourceManager.GetString("UserRoleLocationTypeInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El VIN &quot;{0}&quot; es inválido. Sólo se permite ingresar caracteres alfabéticos y numéricos para este campo, y el largo debe ser de exactamente 17 caracteres..
         /// </summary>
         internal static string VINIsInvalid {
