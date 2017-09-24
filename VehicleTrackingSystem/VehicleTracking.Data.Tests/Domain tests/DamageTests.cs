@@ -184,5 +184,11 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(testingDamage, secondTestingDamage);
             Assert.AreEqual(secondTestingDamage, testingDamage);
         }
+        [TestMethod]
+        public void UserGetHashCodeTest()
+        {
+            object testingDamageAsObject = testingDamage;
+            Assert.AreEqual(testingDamageAsObject.GetHashCode(), testingDamage.GetHashCode());
+        }
     }
 }
