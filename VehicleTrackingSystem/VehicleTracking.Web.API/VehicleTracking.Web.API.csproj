@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -105,6 +106,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VehicleTracking.Data.DataAccess\VehicleTracking.Data.DataAccess.csproj">
+      <Project>{F3DCC088-C021-4233-9C82-9B1A3461A7B2}</Project>
+      <Name>VehicleTracking.Data.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VehicleTracking.Data.Entities\VehicleTracking.Data.Entities.csproj">
       <Project>{39b5263b-309e-423a-a4d0-b198180ef4aa}</Project>
       <Name>VehicleTracking.Data.Entities</Name>
