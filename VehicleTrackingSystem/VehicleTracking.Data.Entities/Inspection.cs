@@ -121,5 +121,17 @@ namespace Domain
             responsibleUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376");
 
         }
+        public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages)
+        {
+            return new Inspection(user, location, dateTime, damages);
+        }
+
+        protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet, List<Damage> damagesToSet)
+        {
+            ResponsibleUser = userToSet;
+            Location = locationToSet;
+            DateTime = dateTimeToSet;
+            Damages = damagesToSet;
+        }
     }
 }

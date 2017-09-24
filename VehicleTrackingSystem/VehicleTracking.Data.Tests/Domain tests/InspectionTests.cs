@@ -59,7 +59,7 @@ namespace Data.Tests.Domain_tests
         {
             testingInspection.DateTime = new DateTime(1856, 8, 30, 12, 8, 9);
         }
-        
+
         [TestMethod]
         public void InspectionSetValidResponsibleUserTest()
         {
@@ -129,7 +129,7 @@ namespace Data.Tests.Domain_tests
             User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
                "097364857");
             DateTime alternativeDateTime = DateTime.Today;
-            testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation, 
+            testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
                 alternativeDateTime, damageList);
             Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
             Assert.AreEqual(alternativeLocation, testingInspection.Location);
@@ -183,5 +183,4 @@ namespace Data.Tests.Domain_tests
                 alternativeDateTime, null);
         }
     }
-}
 }
