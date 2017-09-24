@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
+using System.Linq;
 
 namespace Data.Tests.Domain_tests
 {
@@ -23,6 +24,9 @@ namespace Data.Tests.Domain_tests
             imagesList.Add("image1");
             fstDamage = Damage.CreateNewDamage("One Description", imagesList);
             sndDamage = Damage.CreateNewDamage("Another description", imagesList);
+            damageList = new List<Damage>();
+            damageList.Add(fstDamage);
+            damageList.Add(sndDamage);
 
         }
 

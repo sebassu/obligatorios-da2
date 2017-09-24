@@ -86,6 +86,30 @@ namespace Domain
             return Utilities.IsNotNull(value);
         }
 
+        private List<Damage> damages;
+        public List<Damage> Damages
+        {
+            get { return damages; }
+            set
+            {
+                if (IsValidList(value))
+                {
+                    damages = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                       ErrorMessages.ListIsInvalid, value);
+                    throw new InspectionException(errorMessage);
+                }
+            }
+        }
+
+        protected bool IsValidList(List<Damage> value)
+        {
+            return Utilities.IsNotNull(value) ? value.Count > 0 : false;
+        }
+
         internal static Inspection InstanceForTestingPurposes()
         {
             return new Inspection();
