@@ -106,6 +106,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La lista no puede ser vacia. Debe contener al menos un objeto..
+        /// </summary>
+        internal static string ListIsInvalid {
+            get {
+                return ResourceManager.GetString("ListIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se debe seleccionar un lugar para poder proceder..
         /// </summary>
         internal static string LocationIsInvalid {

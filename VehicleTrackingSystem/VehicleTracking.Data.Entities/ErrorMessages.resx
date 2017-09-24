@@ -132,6 +132,9 @@
   <data name="ImageIsInvalid" xml:space="preserve">
     <value>La ruta de imagen ingresada no es válida.</value>
   </data>
+  <data name="ListIsInvalid" xml:space="preserve">
+    <value>La lista no puede ser vacia. Debe contener al menos un objeto.</value>
+  </data>
   <data name="LocationIsInvalid" xml:space="preserve">
     <value>Se debe seleccionar un lugar para poder proceder.</value>
   </data>
