@@ -1,14 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using Domain;
 using System.Linq;
+using System.Collections.Generic;
 
-namespace Data.Tests.Domain_tests
+namespace Data.Domain_Tests
 {
-
     [TestClass]
     [ExcludeFromCodeCoverage]
     public class DamageTests
@@ -27,14 +24,14 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual("This damage has a description", testingDamage.Description);
             Assert.IsTrue(testingDamage.Images.Contains("newImage"));
         }
-        
+
         [TestMethod]
         public void DamageSetValidDescriptionTest()
         {
             testingDamage.Description = "This damage has a new description";
             Assert.AreEqual("This damage has a new description", testingDamage.Description);
         }
-        
+
         [TestMethod]
         public void DamageSetValidDescriptionNumbersTest()
         {
@@ -62,7 +59,7 @@ namespace Data.Tests.Domain_tests
         {
             testingDamage.Description = null;
         }
-        
+
         [TestMethod]
         public void DamageAddValidImageTest()
         {

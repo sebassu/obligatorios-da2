@@ -3,35 +3,42 @@ using API.Services;
 using System.Web.Http;
 using System.Collections.Generic;
 using System;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace Web.API.Controllers
 {
     public class UsersController : ApiController
     {
-        private readonly IUserServices model;
+        internal IUserServices Model { get; }
+
+        public UsersController()
+        {
+            Model = new UserServices();
+        }
 
         public UsersController(IUserServices someModel)
         {
-            model = someModel;
+            Model = someModel;
         }
 
         // POST: api/Users
-        public IHttpActionResult AddNewUserFromDTO(
-            [FromBody]UserDTO userToAdd)
+        public IHttpActionResult AddNewUserFromData(
+            [FromBody]UserDTO userDataToAdd)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    model.AddNewUserFromData(userToAdd);
+                    Model.AddNewUserFromData(userDataToAdd);
                     return CreatedAtRoute("DefaultApi",
-                        new { id = userToAdd.Username }, userToAdd);
+                        new { id = userDataToAdd.Username }, userDataToAdd);
                 });
         }
 
         // GET: api/Users
         public IHttpActionResult GetRegisteredUsers()
         {
-            IEnumerable<UserDTO> users = model.GetRegisteredUsers();
+            IEnumerable<UserDTO> users = Model.GetRegisteredUsers();
             if (Utilities.IsNotNull(users))
             {
                 return Ok(users);
@@ -42,36 +49,36 @@ namespace Web.API.Controllers
             }
         }
 
-        // GET: api/Users/5
-        public IHttpActionResult GetUserById(string usernameToLookup)
+        // GET: api/Users/mSantos
+        public IHttpActionResult GetUserByUsername(string usernameToLookup)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    UserDTO requestedUser = model.GetUserByUsername(usernameToLookup);
+                    UserDTO requestedUser = Model.GetUserByUsername(usernameToLookup);
                     return Ok(requestedUser);
                 });
         }
 
         // PUT: api/Users/mSantos
-        public IHttpActionResult UpdateUserWithId(string usernameToModify,
+        public IHttpActionResult ModifyUserWithUsername(string usernameToModify,
             [FromBody]UserDTO userDataToSet)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    model.ModifyUserWithUsername(usernameToModify, userDataToSet);
+                    Model.ModifyUserWithUsername(usernameToModify, userDataToSet);
                     return Ok();
                 });
         }
 
-        // DELETE: api/Users/5
-        public IHttpActionResult RemoveUserWithId(string usernameToRemove)
+        // DELETE: api/Users/mSantos
+        public IHttpActionResult RemoveUserWithUsername(string usernameToRemove)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    model.RemoveUserWithUsername(usernameToRemove);
+                    Model.RemoveUserWithUsername(usernameToRemove);
                     return Ok();
                 });
         }

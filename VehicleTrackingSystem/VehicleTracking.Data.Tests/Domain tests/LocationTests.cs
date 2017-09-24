@@ -1,10 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
 
-namespace Data.Tests.Domain_tests
+namespace Data.Domain_Tests
 {
     [TestClass]
     public class LocationTests

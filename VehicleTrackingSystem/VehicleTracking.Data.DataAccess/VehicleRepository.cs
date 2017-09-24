@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("VehicleTracking.Web.API.Services")]
 namespace Persistence
 {
     class VehicleRepository

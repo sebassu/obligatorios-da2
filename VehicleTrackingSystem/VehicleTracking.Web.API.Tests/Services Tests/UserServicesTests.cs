@@ -20,6 +20,14 @@ namespace Web.API.Services_Tests
             "Ravenna", "eRavenna", "HablarUnasPalabritas", "091696969");
 
         [TestMethod]
+        public void UServicesDefaultParameterlessConstructorTest()
+        {
+            var controllerToVerify = new UserServices();
+            Assert.IsNotNull(controllerToVerify.Model);
+        }
+
+        #region GetRegisteredUsers tests
+        [TestMethod]
         public void UServicesGetRegisteredUsersWithDataTest()
         {
             var someUsers = GetCollectionOfFakeUsers();
@@ -61,7 +69,9 @@ namespace Web.API.Services_Tests
             CollectionAssert.AreEqual(new List<UserDTO>(),
                 userServices.GetRegisteredUsers().ToList());
         }
+        #endregion
 
+        #region AddNewUserFromData tests
         [TestMethod]
         public void UServicesAddNewUserFromDataValidTest()
         {
@@ -143,9 +153,11 @@ namespace Web.API.Services_Tests
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.AddNewUserFromData(testUserData);
         }
+        #endregion
 
+        #region GetUserWithUsername tests
         [TestMethod]
-        public void UServicesGetUserByUsernameValidTest()
+        public void UServicesGetUserWithUsernameValidTest()
         {
             UserDTO expectedData = UserDTO.FromUser(testingUser);
             var mockUserRepository = new Mock<IUserRepository>();
@@ -159,7 +171,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void UServicesGetUserByUsernameInvalidTest()
+        public void UServicesGetUserWithUsernameInvalidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.GetUserByUsername(It.IsAny<string>()))
@@ -167,7 +179,9 @@ namespace Web.API.Services_Tests
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.GetUserByUsername(testingUser.Username);
         }
+        #endregion
 
+        #region ModifyUserWithUsername tests
         [TestMethod]
         public void UServicesModifyUserWithUsernameValidTest()
         {
@@ -206,7 +220,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserInvalidFirstNameTest()
+        public void URepositoryModifyUserWithUsernameInvalidFirstNameTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "4%# !sf*!@#9",
                 "Ravenna", "eRavenna", "HablarUnasPalabritas", "091696969");
@@ -215,7 +229,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserInvalidLastNameTest()
+        public void URepositoryModifyUserWithUsernameInvalidLastNameTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
                 "a#$%s 9 $^!!12", "eRavenna", "HablarUnasPalabritas", "091696969");
@@ -224,7 +238,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserInvalidPasswordTest()
+        public void URepositoryModifyUserWithUsernameInvalidPasswordTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
                 "Ravenna", "eRavenna", " \t\t\n \n\n  ", "091696969");
@@ -233,7 +247,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserInvalidPhoneNumberTest()
+        public void URepositoryModifyUserWithUsernameInvalidPhoneNumberTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
                 "Ravenna", "eRavenna", "eRavenna", "a &#^ 12&$!!/*- ");
@@ -247,7 +261,9 @@ namespace Web.API.Services_Tests
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.ModifyUserWithUsername(testingUser.Username, someUserData);
         }
+        #endregion
 
+        #region RemoveUserWithUsername tests
         [TestMethod]
         public void UServicesRemoveUserWithUsernameValidTest()
         {
@@ -268,6 +284,7 @@ namespace Web.API.Services_Tests
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.RemoveUserWithUsername(null);
         }
+        #endregion
 
         [TestMethod]
         public void UserDTOEqualsWithDifferentTypesTest()

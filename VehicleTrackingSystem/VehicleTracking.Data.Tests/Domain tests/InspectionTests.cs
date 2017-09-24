@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
@@ -11,19 +10,17 @@ namespace Data.Tests.Domain_tests
     public class InspectionTests
     {
         private static Inspection testingInspection;
-        private static List<string> imagesList;
+        private static List<string> testImageList;
         private static List<Damage> damageList;
-        private static Damage fstDamage;
+        private static Damage testingDamage;
 
         [TestInitialize]
         public void TestSetup()
         {
             testingInspection = Inspection.InstanceForTestingPurposes();
-            imagesList = new List<string>();
-            imagesList.Add("image1");
-            fstDamage = Damage.CreateNewDamage("One Description", imagesList);
-            damageList = new List<Damage>();
-            damageList.Add(fstDamage);
+            testImageList = new List<string> { "image1" };
+            testingDamage = Damage.InstanceForTestingPurposes();
+            damageList = new List<Damage> { testingDamage };
         }
 
         [TestMethod]

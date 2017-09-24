@@ -42,8 +42,10 @@
   <ItemGroup>
     <Compile Include="Business Logic\Concrete types\UserServices.cs" />
     <Compile Include="Business Logic\Interfaces\IUserServices.cs" />
+    <Compile Include="Business Logic\Interfaces\IVehicleServices.cs" />
     <Compile Include="Business Logic\ServiceException.cs" />
     <Compile Include="Data Transfer Objects\UserDTO.cs" />
+    <Compile Include="Data Transfer Objects\VehicleDTO.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -6,17 +6,22 @@ namespace API.Services
 {
     public class UserServices : IUserServices
     {
-        private IUserRepository Users { get; }
+        internal IUserRepository Model { get; }
+
+        public UserServices()
+        {
+            Model = new UserRepository();
+        }
 
         public UserServices(IUserRepository someRepository = null)
         {
-            Users = someRepository;
+            Model = someRepository;
         }
 
         public IEnumerable<UserDTO> GetRegisteredUsers()
         {
-            List<UserDTO> result = new List<UserDTO>();
-            foreach (var user in Users.Elements)
+            var result = new List<UserDTO>();
+            foreach (var user in Model.Elements)
             {
                 result.Add(UserDTO.FromUser(user));
             }
@@ -25,7 +30,7 @@ namespace API.Services
 
         public UserDTO GetUserByUsername(string usernameToLookup)
         {
-            User userFound = Users.GetUserByUsername(usernameToLookup);
+            User userFound = Model.GetUserByUsername(usernameToLookup);
             return UserDTO.FromUser(userFound);
         }
 
@@ -38,11 +43,11 @@ namespace API.Services
         private void AttemptToAddUser(UserDTO userDataToAdd)
         {
             bool usernameIsNotRegistered =
-                !Users.ExistsUserWithUsername(userDataToAdd.Username);
+                !Model.ExistsUserWithUsername(userDataToAdd.Username);
             if (usernameIsNotRegistered)
             {
                 User userToAdd = userDataToAdd.ToUser();
-                Users.AddNewUser(userToAdd);
+                Model.AddNewUser(userToAdd);
             }
             else
             {
@@ -60,14 +65,14 @@ namespace API.Services
         private void AttemptToPerformModification(string usernameToModify,
             UserDTO userData)
         {
-            User userFound = Users.GetUserByUsername(usernameToModify);
+            User userFound = Model.GetUserByUsername(usernameToModify);
             userData.SetDataToUser(userFound);
-            Users.UpdateUser(userFound);
+            Model.UpdateUser(userFound);
         }
 
         public void RemoveUserWithUsername(string usernameToRemove)
         {
-            Users.Remove(usernameToRemove);
+            Model.Remove(usernameToRemove);
         }
     }
 }
