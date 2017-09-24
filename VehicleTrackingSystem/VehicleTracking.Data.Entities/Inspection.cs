@@ -139,5 +139,18 @@ namespace Domain
             DateTime = dateTimeToSet;
             Damages = damagesToSet;
         }
+
+        public override bool Equals(object obj)
+        {
+            Inspection InspectionToCompareAgainst = obj as Inspection;
+            if (Utilities.IsNotNull(InspectionToCompareAgainst))
+            {
+                return Id.Equals(InspectionToCompareAgainst.Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376"),
                 testingInspection.ResponsibleUser);
             Assert.AreEqual(Location.CreateNewLocation(LocationType.PORT, "Puerto de Montevideo"), testingInspection.Location);
-            Assert.AreEqual(damageList, testingInspection.Damages);
+            Assert.IsTrue(damageList.SequenceEqual(testingInspection.Damages));
         }
 
         [TestMethod]
