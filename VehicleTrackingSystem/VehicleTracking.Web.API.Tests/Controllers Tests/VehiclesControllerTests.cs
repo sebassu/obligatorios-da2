@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
+using System;
 
 namespace Web.API.Controllers_Tests
 {
@@ -74,5 +75,45 @@ namespace Web.API.Controllers_Tests
             Assert.IsInstanceOfType(obtainedResult, typeof(NotFoundResult));
         }
         #endregion
+
+        #region AddNewVehicleFromData tests
+        [TestMethod]
+        public void VControllerAddNewVehicleFromDataValidTest()
+        {
+            int idToVerify = 42;
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.AddNewVehicleFromData(fakeVehicle)).Returns(idToVerify); ;
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            IHttpActionResult obtainedResult = controller.AddNewVehicleFromDTO(fakeVehicle);
+            var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<VehicleDTO>;
+            mockVehicleServices.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.AreEqual("DefaultApi", result.RouteName);
+            Assert.AreEqual(idToVerify, result.RouteValues["id"]);
+            Assert.AreEqual(fakeVehicle, result.Content);
+        }
+
+        [TestMethod]
+        public void VControllerAddNewVehicleFromNullDataInvalidTest()
+        {
+            var expectedErrorMessage = "Some error message";
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.AddNewVehicleFromData(null)).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            VerifyMethodReturnsBadRequestResponse(delegate { return controller.AddNewVehicleFromDTO(null); },
+                mockVehicleServices, expectedErrorMessage);
+        }
+        #endregion
+
+        private static void VerifyMethodReturnsBadRequestResponse(Func<IHttpActionResult> methodToTest,
+            Mock<IVehicleServices> mockVehicleServices, string expectedErrorMessage)
+        {
+            IHttpActionResult obtainedResult = methodToTest.Invoke();
+            var result = obtainedResult as BadRequestErrorMessageResult;
+            mockVehicleServices.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedErrorMessage, result.Message);
+        }
     }
 }
