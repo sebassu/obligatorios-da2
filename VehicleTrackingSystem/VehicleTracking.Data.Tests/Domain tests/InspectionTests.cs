@@ -23,10 +23,8 @@ namespace Data.Tests.Domain_tests
             imagesList = new List<string>();
             imagesList.Add("image1");
             fstDamage = Damage.CreateNewDamage("One Description", imagesList);
-            sndDamage = Damage.CreateNewDamage("Another description", imagesList);
             damageList = new List<Damage>();
             damageList.Add(fstDamage);
-            damageList.Add(sndDamage);
 
         }
 
@@ -37,6 +35,8 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(new DateTime(2017, 9, 22, 10, 8, 0), testingInspection.DateTime);
             Assert.AreEqual(User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376"),
                 testingInspection.ResponsibleUser);
+            Assert.AreEqual(Location.CreateNewLocation(LocationType.PORT, "Puerto de Montevideo"), testingInspection.Location);
+            Assert.AreEqual(damageList, testingInspection.Damages);
         }
 
         [TestMethod]
@@ -181,6 +181,33 @@ namespace Data.Tests.Domain_tests
             DateTime alternativeDateTime = DateTime.Today;
             testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
                 alternativeDateTime, null);
+        }
+
+        [TestMethod]
+        public void InspectionEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingInspection, null);
+        }
+
+        [TestMethod]
+        public void InspectionEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingInspection, someRandomObject);
+        }
+
+        [TestMethod]
+        public void InspectionEqualsReflexiveTest()
+        {
+            Assert.AreEqual(testingInspection, testingInspection);
+        }
+
+        [TestMethod]
+        public void InspectionEqualsSymmetricTest()
+        {
+            Inspection secondTestingInspection = Inspection.InstanceForTestingPurposes();
+            Assert.AreEqual(testingInspection, secondTestingInspection);
+            Assert.AreEqual(secondTestingInspection, testingInspection);
         }
     }
 }

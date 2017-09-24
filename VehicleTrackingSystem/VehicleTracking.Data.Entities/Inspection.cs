@@ -119,6 +119,12 @@ namespace Domain
         {
             dateTime = new DateTime(2017, 9, 22, 10, 8, 0);
             responsibleUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376");
+            location = Location.CreateNewLocation(LocationType.PORT, "Puerto de Montevideo");
+            List<Damage> damagesList = new List<Damage>();
+            List<string> imagesList = new List<string>();
+            imagesList.Add("image1");
+            damagesList.Add(Damage.CreateNewDamage("One Description", imagesList));
+            damages = damagesList;
 
         }
         public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages)
