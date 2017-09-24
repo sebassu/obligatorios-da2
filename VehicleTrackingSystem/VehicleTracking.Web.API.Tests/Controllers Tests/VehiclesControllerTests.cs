@@ -130,6 +130,48 @@ namespace Web.API.Controllers_Tests
         }
         #endregion
 
+        #region ModifyVehicleWithVIN tests
+        [TestMethod]
+        public void VControllerModifyVehicleWithVINValidTest()
+        {
+            var fakeVehicleDataToSet = VehicleDTO.FromData(VehicleType.MINI_VAN, "Renault", "Megane",
+                1996, "DarkGray", "AJSNDQ122345MANSD");
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(fakeVehicle.VIN, It.IsAny<VehicleDTO>()));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            VerifyMethodReturnsOkResponse(delegate { return controller.ModifyVehicleWithVIN("RUSH2112MVNGPICRS", fakeVehicleDataToSet); },
+                mockVehicleServices);
+        }
+
+        [TestMethod]
+        public void VControllerModifyVehicleWithVINNullDataInvalidTest()
+        {
+            var expectedErrorMessage = "A third error message.";
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(fakeVehicle.VIN, null)).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            VerifyMethodReturnsBadRequestResponse(
+                delegate { return controller.ModifyVehicleWithVIN("RUSH2112MVNGPICRS", null); }, mockVehicleServices,
+                expectedErrorMessage);
+        }
+
+        [TestMethod]
+        public void VControllerModifyVehicleWithUnregisteredVINInvalidTest()
+        {
+            var expectedErrorMessage = "Fourth error message.";
+            var fakeVehicleDataToSet = VehicleDTO.FromData(VehicleType.TRUCK, "Mercedes Benz",
+                "MV 123", 1980, "Black", "POIMAS123IKS91345");
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(It.IsAny<string>(), It.IsAny<VehicleDTO>())).Throws(
+                new VTSystemException(expectedErrorMessage));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            VerifyMethodReturnsBadRequestResponse(delegate
+            { return controller.ModifyVehicleWithVIN("POIMAS123IKS91345", fakeVehicleDataToSet); },
+                mockVehicleServices, expectedErrorMessage);
+        }
+        #endregion
+
         private static void VerifyMethodReturnsOkResponse(Func<IHttpActionResult> methodToTest,
             Mock<IVehicleServices> mockVehicleServices)
         {
