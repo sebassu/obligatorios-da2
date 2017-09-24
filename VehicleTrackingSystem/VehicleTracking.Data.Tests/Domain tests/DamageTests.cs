@@ -157,5 +157,32 @@ namespace Data.Tests.Domain_tests
         {
             testingDamage = Damage.CreateNewDamage("Some description", new List<string>());
         }
+
+        [TestMethod]
+        public void DamageEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingDamage, null);
+        }
+
+        [TestMethod]
+        public void DamageEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingDamage, someRandomObject);
+        }
+
+        [TestMethod]
+        public void InspectionEqualsReflexiveTest()
+        {
+            Assert.AreEqual(testingDamage, testingDamage);
+        }
+
+        [TestMethod]
+        public void InspectionEqualsSymmetricTest()
+        {
+            Damage secondTestingDamage = Damage.InstanceForTestingPurposes();
+            Assert.AreEqual(testingDamage, secondTestingDamage);
+            Assert.AreEqual(secondTestingDamage, testingDamage);
+        }
     }
 }
