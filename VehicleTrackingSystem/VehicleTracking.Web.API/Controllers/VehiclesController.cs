@@ -53,6 +53,18 @@ namespace Web.API.Controllers
                 });
         }
 
+        // PUT: api/Vehicles/QWERTYU12345678AS
+        public IHttpActionResult ModifyVehicleWithVIN(string vinToModify,
+            [FromBody]VehicleDTO vehicleDataToSet)
+        {
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    Model.ModifyVehicleWithVIN(vinToModify, vehicleDataToSet);
+                    return Ok();
+                });
+        }
+
         private IHttpActionResult ExecuteActionAndReturnOutcome(
             Func<IHttpActionResult> actionToExecute)
         {
