@@ -22,7 +22,7 @@ namespace Web.API.Tests.Services_Tests
         {
             var someVehicles = GetCollectionOfFakeVehicles();
             var mockVehicleRepository = new Mock<IVehicleRepository>();
-            mockVehicleRepository.Setup(u => u.Elements).Returns(someVehicles);
+            mockVehicleRepository.Setup(v => v.Elements).Returns(someVehicles);
             var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
             var result = vehicleServices.GetRegisteredVehicles().ToList();
             mockVehicleRepository.VerifyAll();
@@ -51,13 +51,38 @@ namespace Web.API.Tests.Services_Tests
         }
 
         [TestMethod]
-        public void UServicesGetRegisteredUsersNoDataTest()
+        public void VServicesGetRegisteredVehiclesNoDataTest()
         {
             var mockVehicleRepository = new Mock<IVehicleRepository>();
-            mockVehicleRepository.Setup(u => u.Elements).Returns(new List<Vehicle>());
+            mockVehicleRepository.Setup(v => v.Elements).Returns(new List<Vehicle>());
             var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
             CollectionAssert.AreEqual(new List<VehicleDTO>(),
                 vehicleServices.GetRegisteredVehicles().ToList());
+        }
+        #endregion
+
+        #region GetVehicleWithVIN tests
+        [TestMethod]
+        public void VServicesGetVehicleWithVINValidTest()
+        {
+            VehicleDTO expectedData = VehicleDTO.FromVehicle(testingVehicle);
+            var mockVehicleRepository = new Mock<IVehicleRepository>();
+            mockVehicleRepository.Setup(v => v.GetVehicleByVIN(testingVehicle.VIN)).Returns(testingVehicle);
+            var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
+            var result = vehicleServices.GetVehicleWithVIN(testingVehicle.VIN);
+            mockVehicleRepository.VerifyAll();
+            Assert.AreEqual(expectedData, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void VServicesGetVehicleWithVINNotFoundInvalidTest()
+        {
+            var mockVehicleRepository = new Mock<IVehicleRepository>();
+            mockVehicleRepository.Setup(v => v.GetVehicleByVIN(It.IsAny<string>()))
+                .Throws(new RepositoryException(""));
+            var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
+            vehicleServices.GetVehicleWithVIN(testingVehicle.VIN);
         }
         #endregion
     }

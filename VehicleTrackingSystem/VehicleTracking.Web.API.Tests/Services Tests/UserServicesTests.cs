@@ -170,7 +170,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void UServicesGetUserWithUsernameInvalidTest()
+        public void UServicesGetUserWithUsernameNotFoundInvalidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.GetUserByUsername(It.IsAny<string>()))
