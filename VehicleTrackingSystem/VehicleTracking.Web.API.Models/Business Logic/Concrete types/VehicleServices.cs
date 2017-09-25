@@ -1,4 +1,5 @@
-﻿using Persistence;
+﻿using Domain;
+using Persistence;
 using System;
 using System.Collections.Generic;
 
@@ -13,6 +14,11 @@ namespace API.Services
             Model = someRepository;
         }
 
+        public int AddNewVehicleFromData(VehicleDTO vehicleToAdd)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<VehicleDTO> GetRegisteredVehicles()
         {
             var result = new List<VehicleDTO>();
@@ -23,14 +29,10 @@ namespace API.Services
             return result.AsReadOnly();
         }
 
-        public int AddNewVehicleFromData(VehicleDTO vehicleToAdd)
-        {
-            throw new NotImplementedException();
-        }
-
         public VehicleDTO GetVehicleWithVIN(string vinToLookup)
         {
-            throw new NotImplementedException();
+            Vehicle vehicleFound = Model.GetVehicleByVIN(vinToLookup);
+            return VehicleDTO.FromVehicle(vehicleFound);
         }
 
         public void ModifyVehicleWithVIN(string vinToModify, VehicleDTO vehicleDataToSet)

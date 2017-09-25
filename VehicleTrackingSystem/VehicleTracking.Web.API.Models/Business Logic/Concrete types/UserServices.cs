@@ -18,6 +18,12 @@ namespace API.Services
             Model = someRepository;
         }
 
+        public void AddNewUserFromData(UserDTO userDataToAdd)
+        {
+            ServiceUtilities.CheckParameterIsNotNullAndExecute(userDataToAdd,
+                delegate { AttemptToAddUser(userDataToAdd); });
+        }
+
         public IEnumerable<UserDTO> GetRegisteredUsers()
         {
             var result = new List<UserDTO>();
@@ -32,12 +38,6 @@ namespace API.Services
         {
             User userFound = Model.GetUserByUsername(usernameToLookup);
             return UserDTO.FromUser(userFound);
-        }
-
-        public void AddNewUserFromData(UserDTO userDataToAdd)
-        {
-            ServiceUtilities.CheckParameterIsNotNullAndExecute(userDataToAdd,
-                delegate { AttemptToAddUser(userDataToAdd); });
         }
 
         private void AttemptToAddUser(UserDTO userDataToAdd)
