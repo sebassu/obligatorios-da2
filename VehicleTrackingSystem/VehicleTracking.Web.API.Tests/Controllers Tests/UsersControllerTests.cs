@@ -16,7 +16,7 @@ namespace Web.API.Controllers_Tests
     [ExcludeFromCodeCoverage]
     public class UsersControllerTests
     {
-        private static UserDTO fakeUser = UserDTO.FromData(UserRoles.ADMINISTRATOR,
+        private static UserDTO fakeUserData = UserDTO.FromData(UserRoles.ADMINISTRATOR,
             "Mario", "Santos", "mSantos", "DisculpeFuegoTiene", "099424242");
 
         [TestMethod]
@@ -86,15 +86,15 @@ namespace Web.API.Controllers_Tests
         public void UControllerAddNewUserFromDataValidTest()
         {
             var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.AddNewUserFromData(fakeUser));
+            mockUsersServices.Setup(u => u.AddNewUserFromData(fakeUserData));
             var controller = new UsersController(mockUsersServices.Object);
-            IHttpActionResult obtainedResult = controller.AddNewUserFromData(fakeUser);
+            IHttpActionResult obtainedResult = controller.AddNewUserFromData(fakeUserData);
             var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<UserDTO>;
             mockUsersServices.VerifyAll();
             Assert.IsNotNull(result);
             Assert.AreEqual("DefaultApi", result.RouteName);
-            Assert.AreEqual(fakeUser.Username, result.RouteValues["id"]);
-            Assert.AreEqual(fakeUser, result.Content);
+            Assert.AreEqual(fakeUserData.Username, result.RouteValues["id"]);
+            Assert.AreEqual(fakeUserData, result.Content);
         }
 
         [TestMethod]
@@ -141,7 +141,7 @@ namespace Web.API.Controllers_Tests
             var fakeUserDataToSet = UserDTO.FromData(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
                 "pLamponne", "NoHaceFalta", "099212121");
             var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.ModifyUserWithUsername(fakeUser.Username, It.IsAny<UserDTO>()));
+            mockUsersServices.Setup(u => u.ModifyUserWithUsername(fakeUserData.Username, It.IsAny<UserDTO>()));
             var controller = new UsersController(mockUsersServices.Object);
             VerifyMethodReturnsOkResponse(delegate { return controller.ModifyUserWithUsername("mSantos", fakeUserDataToSet); },
                 mockUsersServices);
@@ -152,7 +152,7 @@ namespace Web.API.Controllers_Tests
         {
             var expectedErrorMessage = "A third error message.";
             var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.ModifyUserWithUsername(fakeUser.Username, null)).Throws(
+            mockUsersServices.Setup(u => u.ModifyUserWithUsername(fakeUserData.Username, null)).Throws(
                 new VTSystemException(expectedErrorMessage));
             var controller = new UsersController(mockUsersServices.Object);
             VerifyMethodReturnsBadRequestResponse(
@@ -181,13 +181,13 @@ namespace Web.API.Controllers_Tests
         public void UControllerGetUserWithUsernameValidTest()
         {
             var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.GetUserByUsername("mSantos")).Returns(fakeUser);
+            mockUsersServices.Setup(u => u.GetUserByUsername("mSantos")).Returns(fakeUserData);
             var controller = new UsersController(mockUsersServices.Object);
             IHttpActionResult obtainedResult = controller.GetUserByUsername("mSantos");
             var result = obtainedResult as OkNegotiatedContentResult<UserDTO>;
             mockUsersServices.VerifyAll();
             Assert.IsNotNull(result);
-            Assert.AreEqual(fakeUser, result.Content);
+            Assert.AreEqual(fakeUserData, result.Content);
         }
 
         [TestMethod]

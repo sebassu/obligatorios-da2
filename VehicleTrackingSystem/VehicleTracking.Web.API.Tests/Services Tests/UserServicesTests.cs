@@ -22,8 +22,7 @@ namespace Web.API.Services_Tests
         [TestMethod]
         public void UServicesDefaultParameterlessConstructorTest()
         {
-            var controllerToVerify = new UserServices();
-            Assert.IsNotNull(controllerToVerify.Model);
+            Assert.IsNotNull(testingUserServices.Model);
         }
 
         #region GetRegisteredUsers tests
@@ -268,7 +267,7 @@ namespace Web.API.Services_Tests
         public void UServicesRemoveUserWithUsernameValidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.Remove(It.IsAny<string>()));
+            mockUserRepository.Setup(u => u.RemoveUserWithUsername(It.IsAny<string>()));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.RemoveUserWithUsername("mSantos");
             mockUserRepository.VerifyAll();
@@ -279,7 +278,7 @@ namespace Web.API.Services_Tests
         public void UServicesRemoveUserWithUsernameInvalidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.Remove(It.IsAny<string>()))
+            mockUserRepository.Setup(u => u.RemoveUserWithUsername(It.IsAny<string>()))
                 .Throws(new RepositoryException(""));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.RemoveUserWithUsername(null);

@@ -72,7 +72,7 @@ namespace API.Services
 
         public void RemoveUserWithUsername(string usernameToRemove)
         {
-            Model.Remove(usernameToRemove);
+            Model.RemoveUserWithUsername(usernameToRemove);
         }
     }
 }

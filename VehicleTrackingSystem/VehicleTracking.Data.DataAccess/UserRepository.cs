@@ -38,7 +38,7 @@ namespace Persistence
             }
         }
 
-        public void Remove(string usernameToRemove)
+        public void RemoveUserWithUsername(string usernameToRemove)
         {
             if (IdBelongsToLastAdministrator(usernameToRemove))
             {

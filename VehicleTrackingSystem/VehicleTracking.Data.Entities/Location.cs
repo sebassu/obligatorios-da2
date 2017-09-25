@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 namespace Domain
 {
-
     public enum LocationType { PORT, YARD }
 
     public class Location
     {
-
         public int Id { get; set; }
 
         public LocationType Type { get; set; } = LocationType.PORT;
