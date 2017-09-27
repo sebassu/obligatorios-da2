@@ -16,6 +16,89 @@ namespace Web.API.Tests.Services_Tests
             "Ferrari", "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS");
         private static VehicleDTO testingVehicleData = VehicleDTO.FromVehicle(testingVehicle);
 
+        #region AddNewVehicleFromData tests
+        [TestMethod]
+        public void VServicesAddNewVehicleFromDataValidTest()
+        {
+            var mockVehicleRepository = new Mock<IVehicleRepository>();
+            mockVehicleRepository.Setup(v => v.AddNewVehicle(It.IsAny<Vehicle>()));
+            var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
+            vehicleServices.AddNewVehicleFromData(testingVehicleData);
+            mockVehicleRepository.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException))]
+        public void VServicesAddNewVehicleFromNullDataInvalidTest()
+        {
+            testingVehicleServices.AddNewVehicleFromData(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VServicesAddNewVehicleFromDataInvalidBrandTest()
+        {
+            VehicleDTO testVehicleData = VehicleDTO.FromData(VehicleType.CAR,
+                "12 #% --*.@%", "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS");
+            RunAddNewVehicleTestWithInvalidDataOnDTO(testVehicleData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VServicesAddNewVehicleFromDataInvalidModelTest()
+        {
+            VehicleDTO testVehicleData = VehicleDTO.FromData(VehicleType.CAR, "Ferrari",
+                "!! 12.@%#%. -", 1985, "Red", "RUSH2112MVNGPICRS");
+            RunAddNewVehicleTestWithInvalidDataOnDTO(testVehicleData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VServicesAddNewVehicleFromDataInvalidYearTest()
+        {
+            VehicleDTO testVehicleData = VehicleDTO.FromData(VehicleType.CAR,
+                "Ferrari", "Barchetta", 2112, "Red", "RUSH2112MVNGPICRS");
+            RunAddNewVehicleTestWithInvalidDataOnDTO(testVehicleData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VServicesAddNewVehicleFromDataInvalidColorTest()
+        {
+            VehicleDTO testVehicleData = VehicleDTO.FromData(VehicleType.CAR,
+                "Ferrari", "Barchetta", 1985, "13# ;%!)($%", "RUSH2112MVNGPICRS");
+            RunAddNewVehicleTestWithInvalidDataOnDTO(testVehicleData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VServicesAddNewVehicleFromDataInvalidVINTest()
+        {
+            VehicleDTO testVehicleData = VehicleDTO.FromData(VehicleType.CAR,
+                "Ferrari", "Barchetta", 1985, "Red", "");
+            RunAddNewVehicleTestWithInvalidDataOnDTO(testVehicleData);
+        }
+
+        private static void RunAddNewVehicleTestWithInvalidDataOnDTO(VehicleDTO testVehicleData)
+        {
+            var mockVehicleRepository = new Mock<IVehicleRepository>();
+            mockVehicleRepository.Setup(v => v.ExistsVehicleWithVIN(It.IsAny<string>())).Returns(false);
+            var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
+            vehicleServices.AddNewVehicleFromData(testVehicleData);
+            mockVehicleRepository.VerifyAll();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException))]
+        public void VServicesAddNewVehicleWithRepeatedVINInvalidTest()
+        {
+            var mockVehicleRepository = new Mock<IVehicleRepository>();
+            mockVehicleRepository.Setup(u => u.ExistsVehicleWithVIN(It.IsAny<string>())).Returns(true);
+            var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
+            vehicleServices.AddNewVehicleFromData(testingVehicleData);
+        }
+        #endregion
+
         #region GetRegisteredVehicles tests
         [TestMethod]
         public void VServicesGetRegisteredVehiclesWithDataTest()
