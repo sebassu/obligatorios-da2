@@ -14,9 +14,31 @@ namespace API.Services
             Model = someRepository;
         }
 
-        public int AddNewVehicleFromData(VehicleDTO vehicleToAdd)
+        public int AddNewVehicleFromData(VehicleDTO vehicleDataToAdd)
         {
-            throw new NotImplementedException();
+            if (Utilities.IsNotNull(vehicleDataToAdd))
+            {
+                return AttemptToAddVehicle(vehicleDataToAdd);
+            }
+            else
+            {
+                throw new ServiceException(ErrorMessages.NullDTOReference);
+            }
+        }
+
+        private int AttemptToAddVehicle(VehicleDTO vehicleDataToAdd)
+        {
+            bool vinIsNotRegistered =
+                !Model.ExistsVehicleWithVIN(vehicleDataToAdd.VIN);
+            if (vinIsNotRegistered)
+            {
+                Vehicle vehicleToAdd = vehicleDataToAdd.ToVehicle();
+                return Model.AddNewVehicle(vehicleToAdd);
+            }
+            else
+            {
+                throw new ServiceException("El VIN del vehiculo debe ser único.");
+            }
         }
 
         public IEnumerable<VehicleDTO> GetRegisteredVehicles()
