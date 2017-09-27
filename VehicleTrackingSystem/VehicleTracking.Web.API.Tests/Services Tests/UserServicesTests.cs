@@ -77,7 +77,7 @@ namespace Web.API.Services_Tests
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.AddNewUser(It.IsAny<User>()));
             var userServices = new UserServices(mockUserRepository.Object);
-            userServices.AddNewUserFromData(UserDTO.FromUser(testingUser));
+            userServices.AddNewUserFromData(testingUserData);
             mockUserRepository.VerifyAll();
         }
 
@@ -146,11 +146,10 @@ namespace Web.API.Services_Tests
         [ExpectedException(typeof(ServiceException))]
         public void UServicesAddNewUserWithRepeatedUsernameInvalidTest()
         {
-            UserDTO testUserData = UserDTO.FromUser(testingUser);
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.ExistsUserWithUsername(It.IsAny<string>())).Returns(true);
             var userServices = new UserServices(mockUserRepository.Object);
-            userServices.AddNewUserFromData(testUserData);
+            userServices.AddNewUserFromData(testingUserData);
         }
         #endregion
 

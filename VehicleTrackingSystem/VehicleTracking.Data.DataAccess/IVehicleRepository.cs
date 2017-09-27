@@ -7,7 +7,7 @@ namespace Persistence
     {
         IEnumerable<Vehicle> Elements { get; }
         Vehicle GetVehicleByVIN(string vinToLookup);
-        void AddNewVehicle(Vehicle vehicleToAdd);
+        int AddNewVehicle(Vehicle vehicleToAdd);
         void UpdateVehicle(Vehicle vehicleToModify);
         void RemoveVehicleByVIN(string usernameToRemove);
         bool ExistsVehicleWithVIN(string usernameToLookup);

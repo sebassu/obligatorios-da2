@@ -24,6 +24,21 @@ namespace API.Services
                 delegate { AttemptToAddUser(userDataToAdd); });
         }
 
+        private void AttemptToAddUser(UserDTO userDataToAdd)
+        {
+            bool usernameIsNotRegistered =
+                !Model.ExistsUserWithUsername(userDataToAdd.Username);
+            if (usernameIsNotRegistered)
+            {
+                User userToAdd = userDataToAdd.ToUser();
+                Model.AddNewUser(userToAdd);
+            }
+            else
+            {
+                throw new ServiceException(ErrorMessages.UsernameMustBeUnique);
+            }
+        }
+
         public IEnumerable<UserDTO> GetRegisteredUsers()
         {
             var result = new List<UserDTO>();
@@ -38,21 +53,6 @@ namespace API.Services
         {
             User userFound = Model.GetUserByUsername(usernameToLookup);
             return UserDTO.FromUser(userFound);
-        }
-
-        private void AttemptToAddUser(UserDTO userDataToAdd)
-        {
-            bool usernameIsNotRegistered =
-                !Model.ExistsUserWithUsername(userDataToAdd.Username);
-            if (usernameIsNotRegistered)
-            {
-                User userToAdd = userDataToAdd.ToUser();
-                Model.AddNewUser(userToAdd);
-            }
-            else
-            {
-                throw new ServiceException(ErrorMessages.UsernameMustBeUnique);
-            }
         }
 
         public void ModifyUserWithUsername(string usernameToModify, UserDTO userData)
