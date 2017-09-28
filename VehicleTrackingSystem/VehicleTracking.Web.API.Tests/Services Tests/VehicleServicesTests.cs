@@ -118,7 +118,7 @@ namespace Web.API.Tests.Services_Tests
             {
                 Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
                     2016, "Green", "QWERTYUIO12345678"),
-                Vehicle.CreateNewVehicle(VehicleType.MINI_VAN, "Renault",
+                Vehicle.CreateNewVehicle(VehicleType.CAR, "Renault",
                     "Megane", 1996, "DarkGray", "AJSNDQ122345MANSD")
             }.AsReadOnly();
         }
@@ -166,6 +166,109 @@ namespace Web.API.Tests.Services_Tests
                 .Throws(new RepositoryException(""));
             var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
             vehicleServices.GetVehicleWithVIN(testingVehicle.VIN);
+        }
+        #endregion
+
+        #region ModifyVehicleWithVIN tests
+        [TestMethod]
+        public void VServicesModifyVehicleWithVINValidTest()
+        {
+            Vehicle vehicleToModify = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet",
+                "Onix", 2016, "Green", "QWERTYUIO12345678");
+            var mockVehicleRepository = new Mock<IVehicleRepository>();
+            mockVehicleRepository.Setup(u => u.GetVehicleByVIN(vehicleToModify.VIN)).Returns(vehicleToModify);
+            var userServices = new VehicleServices(mockVehicleRepository.Object);
+            userServices.ModifyVehicleWithVIN(vehicleToModify.VIN, testingVehicleData);
+            mockVehicleRepository.VerifyAll();
+            Assert.AreEqual(testingVehicleData.VIN, vehicleToModify.VIN);
+            Assert.AreEqual(testingVehicleData.Type, vehicleToModify.Type);
+            Assert.AreEqual(testingVehicleData.Model, vehicleToModify.Model);
+            Assert.AreEqual(testingVehicleData.Brand, vehicleToModify.Brand);
+            Assert.AreEqual(testingVehicleData.Year, vehicleToModify.Year);
+            Assert.AreEqual(testingVehicleData.Color, vehicleToModify.Color);
+        }
+
+        [TestMethod]
+        public void VServicesModifyVehicleWithVINSetSameVINValidTest()
+        {
+            Vehicle vehicleToModify = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet",
+                "Onix", 2016, "Green", "QWERTYUIO12345678");
+            var mockVehicleRepository = new Mock<IVehicleRepository>();
+            mockVehicleRepository.Setup(u => u.GetVehicleByVIN(vehicleToModify.VIN)).Returns(vehicleToModify);
+            var userServices = new VehicleServices(mockVehicleRepository.Object);
+            var dataToSet = VehicleDTO.FromVehicle(testingVehicle);
+            dataToSet.VIN = vehicleToModify.VIN;
+            userServices.ModifyVehicleWithVIN(vehicleToModify.VIN, dataToSet);
+            mockVehicleRepository.VerifyAll();
+            Assert.AreEqual(dataToSet.VIN, vehicleToModify.VIN);
+        }
+
+        [TestMethod]
+        public void VServicesModifyVehicleWithVINSetRepeatedVINInvalidTest()
+        {
+            Vehicle vehicleToModify = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet",
+                "Onix", 2016, "Green", "QWERTYUIO12345678");
+            var mockVehicleRepository = new Mock<IVehicleRepository>();
+            mockVehicleRepository.Setup(u => u.GetVehicleByVIN(vehicleToModify.VIN)).Returns(vehicleToModify);
+            var userServices = new VehicleServices(mockVehicleRepository.Object);
+            var dataToSet = VehicleDTO.FromVehicle(testingVehicle);
+            dataToSet.VIN = vehicleToModify.VIN;
+            userServices.ModifyVehicleWithVIN(vehicleToModify.VIN, dataToSet);
+            mockVehicleRepository.VerifyAll();
+            Assert.AreEqual(dataToSet.VIN, vehicleToModify.VIN);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VServicesModifyVehicleWithVINInvalidModelTest()
+        {
+            VehicleDTO someVehicleData = VehicleDTO.FromData(VehicleType.CAR, "2# -!@#-#3",
+                "Megane", 1996, "DarkGray", "AJSNDQ122345MANSD");
+            RunModifyVehicleTestWithInvalidDataOnDTO(someVehicleData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VServicesModifyVehicleWithVINInvalidBrandTest()
+        {
+            VehicleDTO someVehicleData = VehicleDTO.FromData(VehicleType.CAR, "Renault",
+                "&*(( ,...?89", 1996, "DarkGray", "AJSNDQ122345MANSD");
+            RunModifyVehicleTestWithInvalidDataOnDTO(someVehicleData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VServicesModifyVehicleWithVINInvalidTearTest()
+        {
+            VehicleDTO someVehicleData = VehicleDTO.FromData(VehicleType.CAR, "Renault",
+                "Megane", 2112, "DarkGray", "AJSNDQ122345MANSD");
+            RunModifyVehicleTestWithInvalidDataOnDTO(someVehicleData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VServicesModifyVehicleWithVINInvalidColorTest()
+        {
+            VehicleDTO someVehicleData = VehicleDTO.FromData(VehicleType.CAR, "Renault",
+                "Megane", 1996, "!@#$%^&*++", "AJSNDQ122345MANSD");
+            RunModifyVehicleTestWithInvalidDataOnDTO(someVehicleData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VServicesModifyVehicleWithVINInvalidVINTest()
+        {
+            VehicleDTO someVehicleData = VehicleDTO.FromData(VehicleType.CAR, "Renault",
+                "Megane", 1996, "DarkGray", "Maybe(Typ->Top->Maybe Trop)");
+            RunModifyVehicleTestWithInvalidDataOnDTO(someVehicleData);
+        }
+
+        private static void RunModifyVehicleTestWithInvalidDataOnDTO(VehicleDTO vehicleData)
+        {
+            var mockVehicleRepository = new Mock<IVehicleRepository>();
+            mockVehicleRepository.Setup(u => u.GetVehicleByVIN(testingVehicle.VIN)).Returns(testingVehicle);
+            var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
+            vehicleServices.ModifyVehicleWithVIN(testingVehicle.VIN, vehicleData);
         }
         #endregion
     }
