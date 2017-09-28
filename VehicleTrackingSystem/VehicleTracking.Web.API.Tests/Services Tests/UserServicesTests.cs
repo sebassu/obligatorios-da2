@@ -274,7 +274,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void UServicesRemoveUserWithUsernameInvalidTest()
+        public void UServicesRemoveUserWithUnregisteredUsernameInvalidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.RemoveUserWithUsername(It.IsAny<string>()))
