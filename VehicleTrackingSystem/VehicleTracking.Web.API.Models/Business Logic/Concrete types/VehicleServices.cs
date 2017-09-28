@@ -59,7 +59,17 @@ namespace API.Services
 
         public void ModifyVehicleWithVIN(string vinToModify, VehicleDTO vehicleDataToSet)
         {
-            throw new NotImplementedException();
+            ServiceUtilities.CheckParameterIsNotNullAndExecute(vehicleDataToSet,
+            delegate { AttemptToPerformModification(vinToModify, vehicleDataToSet); });
+
+        }
+
+        private void AttemptToPerformModification(string vinToModify,
+            VehicleDTO vehicleData)
+        {
+            Vehicle vehicleFound = Model.GetVehicleByVIN(vinToModify);
+            vehicleData.SetDataToVehicle(vehicleFound);
+            Model.UpdateVehicle(vehicleFound);
         }
 
         public void RemoveVehicleWithVIN(string vinToRemove)
