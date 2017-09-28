@@ -6,10 +6,11 @@ namespace API.Services
 {
     public interface IVehicleServices
     {
+        int AddNewVehicleFromData(VehicleDTO vehicleToAdd);
         IEnumerable<VehicleDTO> GetRegisteredVehicles();
         VehicleDTO GetVehicleWithVIN(string vinToLookup);
-        int AddNewVehicleFromData(VehicleDTO vehicleToAdd);
+        void ModifyVehicleWithVIN(string vinToModify,
+            VehicleDTO vehicleDataToSet);
         void RemoveVehicleWithVIN(string vinToRemove);
-        void ModifyVehicleWithVIN(string vinToModify, VehicleDTO vehicleDataToSet);
     }
 }

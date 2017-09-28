@@ -16,8 +16,8 @@ namespace Web.API.Controllers_Tests
     [ExcludeFromCodeCoverage]
     public class VehiclesControllerTests
     {
-        private static VehicleDTO fakeVehicle = VehicleDTO.FromVehicle(Vehicle.CreateNewVehicle(
-            VehicleType.CAR, "Ferrari", "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS"));
+        private static VehicleDTO fakeVehicleData = VehicleDTO.FromData(VehicleType.CAR,
+            "Ferrari", "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS");
 
         #region GetRegisteredVehicles tests
         [TestMethod]
@@ -31,12 +31,10 @@ namespace Web.API.Controllers_Tests
         {
             return new List<VehicleDTO>
             {
-                VehicleDTO.FromVehicle(
-                    Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
-                    2016, "Green", "QWERTYUIO12345678")),
-                VehicleDTO.FromVehicle(
-                    Vehicle.CreateNewVehicle(VehicleType.MINI_VAN, "Renault", "Megane",
-                    1996, "DarkGray", "AJSNDQ122345MANSD")),
+                VehicleDTO.FromData(VehicleType.SUV, "Chevrolet", "Onix",
+                    2016, "Green", "QWERTYUIO12345678"),
+                VehicleDTO.FromData(VehicleType.MINI_VAN, "Renault",
+                    "Megane", 1996, "DarkGray", "AJSNDQ122345MANSD"),
             }.AsReadOnly();
         }
 
@@ -82,15 +80,15 @@ namespace Web.API.Controllers_Tests
         {
             int idToVerify = 42;
             var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.AddNewVehicleFromData(fakeVehicle)).Returns(idToVerify); ;
+            mockVehicleServices.Setup(v => v.AddNewVehicleFromData(fakeVehicleData)).Returns(idToVerify); ;
             var controller = new VehiclesController(mockVehicleServices.Object);
-            IHttpActionResult obtainedResult = controller.AddNewVehicleFromData(fakeVehicle);
+            IHttpActionResult obtainedResult = controller.AddNewVehicleFromData(fakeVehicleData);
             var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<VehicleDTO>;
             mockVehicleServices.VerifyAll();
             Assert.IsNotNull(result);
             Assert.AreEqual("DefaultApi", result.RouteName);
             Assert.AreEqual(idToVerify, result.RouteValues["id"]);
-            Assert.AreEqual(fakeVehicle, result.Content);
+            Assert.AreEqual(fakeVehicleData, result.Content);
         }
 
         [TestMethod]
@@ -137,7 +135,7 @@ namespace Web.API.Controllers_Tests
             var fakeVehicleDataToSet = VehicleDTO.FromData(VehicleType.MINI_VAN, "Renault", "Megane",
                 1996, "DarkGray", "AJSNDQ122345MANSD");
             var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(fakeVehicle.VIN, It.IsAny<VehicleDTO>()));
+            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(fakeVehicleData.VIN, It.IsAny<VehicleDTO>()));
             var controller = new VehiclesController(mockVehicleServices.Object);
             VerifyMethodReturnsOkResponse(delegate { return controller.ModifyVehicleWithVIN("RUSH2112MVNGPICRS", fakeVehicleDataToSet); },
                 mockVehicleServices);
@@ -148,7 +146,7 @@ namespace Web.API.Controllers_Tests
         {
             var expectedErrorMessage = "A third error message.";
             var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(fakeVehicle.VIN, null)).Throws(
+            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(fakeVehicleData.VIN, null)).Throws(
                 new VTSystemException(expectedErrorMessage));
             var controller = new VehiclesController(mockVehicleServices.Object);
             VerifyMethodReturnsBadRequestResponse(
@@ -177,13 +175,13 @@ namespace Web.API.Controllers_Tests
         public void VContollerGetVehicleWithVINValidTest()
         {
             var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.GetVehicleWithVIN("REGISTEREDVIN1245")).Returns(fakeVehicle);
+            mockVehicleServices.Setup(v => v.GetVehicleWithVIN("REGISTEREDVIN1245")).Returns(fakeVehicleData);
             var controller = new VehiclesController(mockVehicleServices.Object);
             IHttpActionResult obtainedResult = controller.GetVehicleWithVIN("REGISTEREDVIN1245");
             var result = obtainedResult as OkNegotiatedContentResult<VehicleDTO>;
             mockVehicleServices.VerifyAll();
             Assert.IsNotNull(result);
-            Assert.AreEqual(fakeVehicle, result.Content);
+            Assert.AreEqual(fakeVehicleData, result.Content);
         }
 
         [TestMethod]

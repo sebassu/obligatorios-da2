@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Services")]
 namespace Persistence
 {
-    class VehicleRepository
+    internal class VehicleRepository
     {
         public static IReadOnlyCollection<Vehicle> Elements
         {
