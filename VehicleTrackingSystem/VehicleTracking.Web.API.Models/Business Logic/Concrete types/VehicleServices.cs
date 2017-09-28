@@ -1,6 +1,5 @@
 ﻿using Domain;
 using Persistence;
-using System;
 using System.Collections.Generic;
 
 namespace API.Services
@@ -74,7 +73,7 @@ namespace API.Services
 
         public void RemoveVehicleWithVIN(string vinToRemove)
         {
-            throw new NotImplementedException();
+            Model.RemoveVehicleByVIN(vinToRemove);
         }
     }
 }
