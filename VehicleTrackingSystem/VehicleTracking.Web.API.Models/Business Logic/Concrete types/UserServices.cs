@@ -55,10 +55,10 @@ namespace API.Services
             return UserDTO.FromUser(userFound);
         }
 
-        public void ModifyUserWithUsername(string usernameToModify, UserDTO userData)
+        public void ModifyUserWithUsername(string usernameToModify, UserDTO userDataToSet)
         {
-            ServiceUtilities.CheckParameterIsNotNullAndExecute(userData,
-            delegate { AttemptToPerformModification(usernameToModify, userData); });
+            ServiceUtilities.CheckParameterIsNotNullAndExecute(userDataToSet,
+            delegate { AttemptToPerformModification(usernameToModify, userDataToSet); });
 
         }
 

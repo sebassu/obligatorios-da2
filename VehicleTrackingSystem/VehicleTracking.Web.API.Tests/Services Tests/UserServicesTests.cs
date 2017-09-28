@@ -173,7 +173,7 @@ namespace Web.API.Services_Tests
         {
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.GetUserByUsername(It.IsAny<string>()))
-                .Throws(new RepositoryException(""));
+                .Throws(new RepositoryException("Message."));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.GetUserByUsername(testingUser.Username);
         }
@@ -218,7 +218,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserWithUsernameInvalidFirstNameTest()
+        public void UServicesModifyUserWithUsernameInvalidFirstNameTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "4%# !sf*!@#9",
                 "Ravenna", "eRavenna", "HablarUnasPalabritas", "091696969");
@@ -227,7 +227,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserWithUsernameInvalidLastNameTest()
+        public void UServicesModifyUserWithUsernameInvalidLastNameTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
                 "a#$%s 9 $^!!12", "eRavenna", "HablarUnasPalabritas", "091696969");
@@ -236,7 +236,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserWithUsernameInvalidPasswordTest()
+        public void UServicesModifyUserWithUsernameInvalidPasswordTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
                 "Ravenna", "eRavenna", " \t\t\n \n\n  ", "091696969");
@@ -245,7 +245,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserWithUsernameInvalidPhoneNumberTest()
+        public void UServicesModifyUserWithUsernameInvalidPhoneNumberTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
                 "Ravenna", "eRavenna", "eRavenna", "a &#^ 12&$!!/*- ");
@@ -278,7 +278,7 @@ namespace Web.API.Services_Tests
         {
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.RemoveUserWithUsername(It.IsAny<string>()))
-                .Throws(new RepositoryException(""));
+                .Throws(new RepositoryException("Message."));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.RemoveUserWithUsername(null);
         }

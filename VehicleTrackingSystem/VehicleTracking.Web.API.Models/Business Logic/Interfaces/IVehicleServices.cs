@@ -9,7 +9,8 @@ namespace API.Services
         int AddNewVehicleFromData(VehicleDTO vehicleToAdd);
         IEnumerable<VehicleDTO> GetRegisteredVehicles();
         VehicleDTO GetVehicleWithVIN(string vinToLookup);
-        void ModifyVehicleWithVIN(string vinToModify, VehicleDTO vehicleDataToSet);
+        void ModifyVehicleWithVIN(string vinToModify,
+            VehicleDTO vehicleDataToSet);
         void RemoveVehicleWithVIN(string vinToRemove);
     }
 }
