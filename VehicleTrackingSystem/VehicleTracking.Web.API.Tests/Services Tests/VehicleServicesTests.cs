@@ -296,6 +296,18 @@ namespace Web.API.Tests.Services_Tests
         #endregion
 
         [TestMethod]
+        public void VehicleDTODefaultInternalConstructorTest()
+        {
+            var defaultVehicleDTO = new VehicleDTO();
+            Assert.IsNull(defaultVehicleDTO.VIN);
+            Assert.IsNull(defaultVehicleDTO.Model);
+            Assert.IsNull(defaultVehicleDTO.Color);
+            Assert.IsNull(defaultVehicleDTO.Brand);
+            Assert.AreEqual(0, defaultVehicleDTO.Year);
+            Assert.AreEqual(VehicleType.CAR, defaultVehicleDTO.Type);
+        }
+
+        [TestMethod]
         public void VehicleDTOEqualsWithDifferentTypesTest()
         {
             object someRandomObject = new object();
