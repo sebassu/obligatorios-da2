@@ -3,8 +3,8 @@
 namespace Domain
 {
     [Serializable]
-    public class VTSystemException : ArgumentException
+    public class VehicleTrackingException : ArgumentException
     {
-        public VTSystemException(string message) : base(message) { }
+        public VehicleTrackingException(string message) : base(message) { }
     }
 }

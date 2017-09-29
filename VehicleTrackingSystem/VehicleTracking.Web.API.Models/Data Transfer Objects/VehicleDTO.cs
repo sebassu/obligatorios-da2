@@ -13,6 +13,8 @@ namespace API.Services
         public string Color { get; set; }
         public short Year { get; set; }
 
+        internal VehicleDTO() { }
+
         internal static VehicleDTO FromVehicle(Vehicle someVehicle)
         {
             return new VehicleDTO(someVehicle);

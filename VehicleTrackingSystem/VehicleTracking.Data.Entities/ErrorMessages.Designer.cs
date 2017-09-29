@@ -61,7 +61,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Marca inválida: &quot;{0}&quot;. Solo se permite ingresar caracteres alfabéticos o espacios para este campo..
+        ///   Looks up a localized string similar to Marca inválida: &quot;{0}&quot;. Solo se permite ingresar caracteres alfabéticos o espacios para este campo requerido..
         /// </summary>
         internal static string BrandIsInvalid {
             get {
@@ -70,7 +70,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El color &quot;{0}&quot;  no es valido. Solo se permite ingresar caracteres alfabéticos o espacios para este campo..
+        ///   Looks up a localized string similar to El color &quot;{0}&quot;  no es valido. Solo se permite ingresar caracteres alfabéticos o espacios para este campo requerido..
         /// </summary>
         internal static string ColorIsInvalid {
             get {
@@ -133,7 +133,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. Solamente se permite ingresar caracteres alfabéticos o espacios para este campo..
+        ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. Solamente se permite ingresar caracteres alfabéticos o espacios para este campo requerido..
         /// </summary>
         internal static string NameIsInvalid {
             get {
@@ -169,7 +169,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El usuario &quot;{0}&quot; es inválido: se permiten únicamente aquellos con letras o números, sin espacios..
+        ///   Looks up a localized string similar to El usuario &quot;{0}&quot; es inválido: se permiten únicamente aquellos no vacíos con letras o números, sin espacios..
         /// </summary>
         internal static string UsernameIsInvalid {
             get {
@@ -178,7 +178,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La combinación rol de usuario-ubicación seleccionada no es válida..
+        ///   Looks up a localized string similar to La combinación Rol de Usuario-Ubicación recibida no es válida..
         /// </summary>
         internal static string UserRoleLocationTypeInvalid {
             get {

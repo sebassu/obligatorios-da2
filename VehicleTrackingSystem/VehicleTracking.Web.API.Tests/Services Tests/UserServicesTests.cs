@@ -285,6 +285,18 @@ namespace Web.API.Services_Tests
         #endregion
 
         [TestMethod]
+        public void UserDTODefaultInternalConstructorTest()
+        {
+            var defaultUserDTO = new UserDTO();
+            Assert.IsNull(defaultUserDTO.Username);
+            Assert.IsNull(defaultUserDTO.Password);
+            Assert.IsNull(defaultUserDTO.FirstName);
+            Assert.IsNull(defaultUserDTO.LastName);
+            Assert.IsNull(defaultUserDTO.PhoneNumber);
+            Assert.AreEqual(UserRoles.ADMINISTRATOR, defaultUserDTO.Role);
+        }
+
+        [TestMethod]
         public void UserDTOEqualsWithDifferentTypesTest()
         {
             object someRandomObject = new object();

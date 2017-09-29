@@ -3,7 +3,7 @@
 namespace Domain
 {
     [Serializable]
-    public class RepositoryException : VTSystemException
+    public class RepositoryException : VehicleTrackingException
     {
         public RepositoryException(string message) : base(message) { }
     }

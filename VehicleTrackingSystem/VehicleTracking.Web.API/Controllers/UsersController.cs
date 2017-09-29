@@ -2,13 +2,13 @@
 using API.Services;
 using System.Web.Http;
 using System.Collections.Generic;
-using System;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace Web.API.Controllers
 {
-    public class UsersController : ApiController
+    [RoutePrefix("api/Users")]
+    public class UsersController : BaseController
     {
         internal IUserServices Model { get; }
 
@@ -22,7 +22,7 @@ namespace Web.API.Controllers
             Model = someModel;
         }
 
-        // POST: api/Users
+        [HttpPost]
         public IHttpActionResult AddNewUserFromData(
             [FromBody]UserDTO userDataToAdd)
         {
@@ -35,8 +35,13 @@ namespace Web.API.Controllers
                 });
         }
 
-        // GET: api/Users
+        [HttpGet]
         public IHttpActionResult GetRegisteredUsers()
+        {
+            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredUsers);
+        }
+
+        private IHttpActionResult AttemptToGetRegisteredUsers()
         {
             IEnumerable<UserDTO> users = Model.GetRegisteredUsers();
             if (Utilities.IsNotNull(users))
@@ -49,7 +54,8 @@ namespace Web.API.Controllers
             }
         }
 
-        // GET: api/Users/mSantos
+        [HttpGet]
+        [Route("{usernameToLookup}")]
         public IHttpActionResult GetUserByUsername(string usernameToLookup)
         {
             return ExecuteActionAndReturnOutcome(
@@ -60,7 +66,8 @@ namespace Web.API.Controllers
                 });
         }
 
-        // PUT: api/Users/mSantos
+        [HttpPut]
+        [Route("{usernameToModify}")]
         public IHttpActionResult ModifyUserWithUsername(string usernameToModify,
             [FromBody]UserDTO userDataToSet)
         {
@@ -72,7 +79,8 @@ namespace Web.API.Controllers
                 });
         }
 
-        // DELETE: api/Users/mSantos
+        [HttpDelete]
+        [Route("{usernameToRemove}")]
         public IHttpActionResult RemoveUserWithUsername(string usernameToRemove)
         {
             return ExecuteActionAndReturnOutcome(
@@ -81,19 +89,6 @@ namespace Web.API.Controllers
                     Model.RemoveUserWithUsername(usernameToRemove);
                     return Ok();
                 });
-        }
-
-        private IHttpActionResult ExecuteActionAndReturnOutcome(
-            Func<IHttpActionResult> actionToExecute)
-        {
-            try
-            {
-                return actionToExecute.Invoke();
-            }
-            catch (VTSystemException exception)
-            {
-                return BadRequest(exception.Message);
-            }
         }
     }
 }

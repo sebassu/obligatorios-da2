@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using System;
+using Web.API.Tests;
 
 namespace Web.API.Controllers_Tests
 {
@@ -18,6 +19,49 @@ namespace Web.API.Controllers_Tests
     {
         private static VehicleDTO fakeVehicleData = VehicleDTO.FromData(VehicleType.CAR,
             "Ferrari", "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS");
+
+        #region AddNewVehicleFromData tests
+        [TestMethod]
+        public void VControllerAddNewVehicleFromDataValidTest()
+        {
+            int idToVerify = 42;
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.AddNewVehicleFromData(fakeVehicleData)).Returns(idToVerify); ;
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            IHttpActionResult obtainedResult = controller.AddNewVehicleFromData(fakeVehicleData);
+            var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<VehicleDTO>;
+            mockVehicleServices.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.AreEqual("DefaultApi", result.RouteName);
+            Assert.AreEqual(idToVerify, result.RouteValues["id"]);
+            Assert.AreEqual(fakeVehicleData, result.Content);
+        }
+
+        [TestMethod]
+        public void VControllerAddNewVehicleFromNullDataInvalidTest()
+        {
+            var expectedErrorMessage = "Some error message";
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.AddNewVehicleFromData(null)).Throws(
+                new VehicleTrackingException(expectedErrorMessage));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            ControllerTestsUtilities.VerifyMethodReturnsBadRequestResponse(delegate
+            { return controller.AddNewVehicleFromData(null); },
+                mockVehicleServices, expectedErrorMessage);
+        }
+
+        [TestMethod]
+        public void VControllerAddNewVehicleFromDataUnexpectedErrorInvalidTest()
+        {
+            SystemException expectedException = new SystemException();
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(u => u.AddNewVehicleFromData(fakeVehicleData)).Throws(expectedException);
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            ControllerTestsUtilities.VerifyMethodReturnsServerErrorResponse(delegate
+            { return controller.AddNewVehicleFromData(fakeVehicleData); }, mockVehicleServices,
+            expectedException);
+        }
+        #endregion
 
         #region GetRegisteredVehicles tests
         [TestMethod]
@@ -45,7 +89,8 @@ namespace Web.API.Controllers_Tests
             VerifyMethodReturnsExpectedVehicles(expectedVehicles);
         }
 
-        private static void VerifyMethodReturnsExpectedVehicles(IEnumerable<VehicleDTO> expectedVehicles)
+        private static void VerifyMethodReturnsExpectedVehicles(
+            IEnumerable<VehicleDTO> expectedVehicles)
         {
             var mockVehicleServices = new Mock<IVehicleServices>();
             mockVehicleServices.Setup(v => v.GetRegisteredVehicles()).Returns(expectedVehicles);
@@ -72,101 +117,16 @@ namespace Web.API.Controllers_Tests
             Assert.IsNotNull(obtainedResult);
             Assert.IsInstanceOfType(obtainedResult, typeof(NotFoundResult));
         }
-        #endregion
-
-        #region AddNewVehicleFromData tests
-        [TestMethod]
-        public void VControllerAddNewVehicleFromDataValidTest()
-        {
-            int idToVerify = 42;
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.AddNewVehicleFromData(fakeVehicleData)).Returns(idToVerify); ;
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            IHttpActionResult obtainedResult = controller.AddNewVehicleFromData(fakeVehicleData);
-            var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<VehicleDTO>;
-            mockVehicleServices.VerifyAll();
-            Assert.IsNotNull(result);
-            Assert.AreEqual("DefaultApi", result.RouteName);
-            Assert.AreEqual(idToVerify, result.RouteValues["id"]);
-            Assert.AreEqual(fakeVehicleData, result.Content);
-        }
 
         [TestMethod]
-        public void VControllerAddNewVehicleFromNullDataInvalidTest()
+        public void VControllerGetRegisteredVehiclesUnexpectedErrorInvalidTest()
         {
-            var expectedErrorMessage = "Some error message";
+            SystemException expectedException = new SystemException();
             var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.AddNewVehicleFromData(null)).Throws(
-                new VTSystemException(expectedErrorMessage));
+            mockVehicleServices.Setup(v => v.GetRegisteredVehicles()).Throws(expectedException);
             var controller = new VehiclesController(mockVehicleServices.Object);
-            VerifyMethodReturnsBadRequestResponse(delegate { return controller.AddNewVehicleFromData(null); },
-                mockVehicleServices, expectedErrorMessage);
-        }
-        #endregion
-
-        #region RemoveVehicleWithVIN tests
-        [TestMethod]
-        public void VControllerRemoveVehicleWithVINValidTest()
-        {
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.RemoveVehicleWithVIN(It.IsAny<string>()));
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            VerifyMethodReturnsOkResponse(delegate { return controller.RemoveVehicleWithVIN("SOMEUNRGSTEREDVIN"); },
-                mockVehicleServices);
-        }
-
-        [TestMethod]
-        public void VControllerRemoveVehicleWithUnregisteredVINInvalidTest()
-        {
-            var expectedErrorMessage = "Some other error message";
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.RemoveVehicleWithVIN(It.IsAny<string>())).Throws(
-                new VTSystemException(expectedErrorMessage));
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            VerifyMethodReturnsBadRequestResponse(delegate { return controller.RemoveVehicleWithVIN("SOMEUNRGSTEREDVIN"); },
-                mockVehicleServices, expectedErrorMessage);
-        }
-        #endregion
-
-        #region ModifyVehicleWithVIN tests
-        [TestMethod]
-        public void VControllerModifyVehicleWithVINValidTest()
-        {
-            var fakeVehicleDataToSet = VehicleDTO.FromData(VehicleType.MINI_VAN, "Renault", "Megane",
-                1996, "DarkGray", "AJSNDQ122345MANSD");
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(fakeVehicleData.VIN, It.IsAny<VehicleDTO>()));
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            VerifyMethodReturnsOkResponse(delegate { return controller.ModifyVehicleWithVIN("RUSH2112MVNGPICRS", fakeVehicleDataToSet); },
-                mockVehicleServices);
-        }
-
-        [TestMethod]
-        public void VControllerModifyVehicleWithVINNullDataInvalidTest()
-        {
-            var expectedErrorMessage = "A third error message.";
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(fakeVehicleData.VIN, null)).Throws(
-                new VTSystemException(expectedErrorMessage));
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            VerifyMethodReturnsBadRequestResponse(
-                delegate { return controller.ModifyVehicleWithVIN("RUSH2112MVNGPICRS", null); }, mockVehicleServices,
-                expectedErrorMessage);
-        }
-
-        [TestMethod]
-        public void VControllerModifyVehicleWithUnregisteredVINInvalidTest()
-        {
-            var expectedErrorMessage = "Fourth error message.";
-            var fakeVehicleDataToSet = VehicleDTO.FromData(VehicleType.TRUCK, "Mercedes Benz",
-                "MV 123", 1980, "Black", "POIMAS123IKS91345");
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(It.IsAny<string>(), It.IsAny<VehicleDTO>())).Throws(
-                new VTSystemException(expectedErrorMessage));
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            VerifyMethodReturnsBadRequestResponse(delegate
-            { return controller.ModifyVehicleWithVIN("POIMAS123IKS91345", fakeVehicleDataToSet); },
-                mockVehicleServices, expectedErrorMessage);
+            ControllerTestsUtilities.VerifyMethodReturnsServerErrorResponse(delegate { return controller.GetRegisteredVehicles(); },
+                mockVehicleServices, expectedException);
         }
         #endregion
 
@@ -190,30 +150,120 @@ namespace Web.API.Controllers_Tests
             string expectedErrorMessage = "Some fourth exception message";
             var mockVehicleServices = new Mock<IVehicleServices>();
             mockVehicleServices.Setup(v => v.GetVehicleWithVIN(It.IsAny<string>())).Throws(
-                new VTSystemException(expectedErrorMessage));
+                new VehicleTrackingException(expectedErrorMessage));
             var controller = new VehiclesController(mockVehicleServices.Object);
-            VerifyMethodReturnsBadRequestResponse(delegate { return controller.GetVehicleWithVIN("SOMEUNRGSTEREDVIN"); },
+            ControllerTestsUtilities.VerifyMethodReturnsBadRequestResponse(delegate
+            { return controller.GetVehicleWithVIN("SOMEUNRGSTEREDVIN"); },
                 mockVehicleServices, expectedErrorMessage);
+        }
+
+        [TestMethod]
+        public void VControllerGetVehicleWithVINUnexpectedErrorInvalidTest()
+        {
+            SystemException expectedException = new SystemException();
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.GetVehicleWithVIN(It.IsAny<string>()))
+                .Throws(expectedException);
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            ControllerTestsUtilities.VerifyMethodReturnsServerErrorResponse(delegate
+            { return controller.GetVehicleWithVIN("SOMEREGISTEREDVIN"); },
+            mockVehicleServices, expectedException);
         }
         #endregion
 
-        private static void VerifyMethodReturnsOkResponse(Func<IHttpActionResult> methodToTest,
-            Mock<IVehicleServices> mockVehicleServices)
+        #region ModifyVehicleWithVIN tests
+        [TestMethod]
+        public void VControllerModifyVehicleWithVINValidTest()
         {
-            IHttpActionResult result = methodToTest.Invoke();
-            mockVehicleServices.VerifyAll();
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(OkResult));
+            var fakeVehicleDataToSet = VehicleDTO.FromData(VehicleType.MINI_VAN, "Renault", "Megane",
+                1996, "DarkGray", "AJSNDQ122345MANSD");
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(fakeVehicleData.VIN, It.IsAny<VehicleDTO>()));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            ControllerTestsUtilities.VerifyMethodReturnsOkResponse(delegate
+            { return controller.ModifyVehicleWithVIN("RUSH2112MVNGPICRS", fakeVehicleDataToSet); },
+                mockVehicleServices);
         }
 
-        private static void VerifyMethodReturnsBadRequestResponse(Func<IHttpActionResult> methodToTest,
-            Mock<IVehicleServices> mockVehicleServices, string expectedErrorMessage)
+        [TestMethod]
+        public void VControllerModifyVehicleWithVINNullDataInvalidTest()
         {
-            IHttpActionResult obtainedResult = methodToTest.Invoke();
-            var result = obtainedResult as BadRequestErrorMessageResult;
-            mockVehicleServices.VerifyAll();
-            Assert.IsNotNull(result);
-            Assert.AreEqual(expectedErrorMessage, result.Message);
+            var expectedErrorMessage = "A third error message.";
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(fakeVehicleData.VIN, null)).Throws(
+                new VehicleTrackingException(expectedErrorMessage));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            ControllerTestsUtilities.VerifyMethodReturnsBadRequestResponse(
+                delegate { return controller.ModifyVehicleWithVIN("RUSH2112MVNGPICRS", null); }, mockVehicleServices,
+                expectedErrorMessage);
         }
+
+        [TestMethod]
+        public void VControllerModifyVehicleWithUnregisteredVINInvalidTest()
+        {
+            var expectedErrorMessage = "Fourth error message.";
+            var fakeVehicleDataToSet = VehicleDTO.FromData(VehicleType.TRUCK, "Mercedes Benz",
+                "MV 123", 1980, "Black", "POIMAS123IKS91345");
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(It.IsAny<string>(),
+                It.IsAny<VehicleDTO>())).Throws(new VehicleTrackingException(expectedErrorMessage));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            ControllerTestsUtilities.VerifyMethodReturnsBadRequestResponse(delegate
+            { return controller.ModifyVehicleWithVIN("POIMAS123IKS91345", fakeVehicleDataToSet); },
+                mockVehicleServices, expectedErrorMessage);
+        }
+
+        [TestMethod]
+        public void VControllerModifyVehicleWithVINUnexpectedErrorInvalidTest()
+        {
+            SystemException expectedException = new SystemException();
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.ModifyVehicleWithVIN(It.IsAny<string>(),
+                It.IsAny<VehicleDTO>())).Throws(expectedException);
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            ControllerTestsUtilities.VerifyMethodReturnsServerErrorResponse(delegate
+            { return controller.ModifyVehicleWithVIN("SOMEREGISTEREDVIN", new VehicleDTO()); },
+            mockVehicleServices, expectedException);
+        }
+        #endregion
+
+        #region RemoveVehicleWithVIN tests
+        [TestMethod]
+        public void VControllerRemoveVehicleWithVINValidTest()
+        {
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.RemoveVehicleWithVIN(It.IsAny<string>()));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            ControllerTestsUtilities.VerifyMethodReturnsOkResponse(delegate
+            { return controller.RemoveVehicleWithVIN("SOMEREGISTEREDVIN"); },
+                mockVehicleServices);
+        }
+
+        [TestMethod]
+        public void VControllerRemoveVehicleWithUnregisteredVINInvalidTest()
+        {
+            var expectedErrorMessage = "Some other error message";
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.RemoveVehicleWithVIN(It.IsAny<string>())).Throws(
+                new VehicleTrackingException(expectedErrorMessage));
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            ControllerTestsUtilities.VerifyMethodReturnsBadRequestResponse(delegate
+            { return controller.RemoveVehicleWithVIN("SOMEUNRGSTEREDVIN"); },
+                mockVehicleServices, expectedErrorMessage);
+        }
+
+        [TestMethod]
+        public void VControllerRemoveVehicleWithVINUnexpectedErrorInvalidTest()
+        {
+            SystemException expectedException = new SystemException();
+            var mockVehicleServices = new Mock<IVehicleServices>();
+            mockVehicleServices.Setup(v => v.RemoveVehicleWithVIN(It.IsAny<string>()))
+                .Throws(expectedException);
+            var controller = new VehiclesController(mockVehicleServices.Object);
+            ControllerTestsUtilities.VerifyMethodReturnsServerErrorResponse(delegate
+            { return controller.RemoveVehicleWithVIN("SOMEREGISTEREDVIN"); }, mockVehicleServices,
+            expectedException);
+        }
+        #endregion
     }
 }

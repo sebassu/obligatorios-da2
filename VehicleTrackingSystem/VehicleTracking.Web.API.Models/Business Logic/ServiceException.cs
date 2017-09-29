@@ -4,7 +4,7 @@ using System;
 namespace API.Services
 {
     [Serializable]
-    public class ServiceException : VTSystemException
+    public class ServiceException : VehicleTrackingException
     {
         public ServiceException(string message) : base(message) { }
     }
