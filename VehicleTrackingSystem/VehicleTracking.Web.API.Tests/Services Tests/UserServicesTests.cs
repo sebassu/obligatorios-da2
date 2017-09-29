@@ -22,8 +22,7 @@ namespace Web.API.Services_Tests
         [TestMethod]
         public void UServicesDefaultParameterlessConstructorTest()
         {
-            var controllerToVerify = new UserServices();
-            Assert.IsNotNull(controllerToVerify.Model);
+            Assert.IsNotNull(testingUserServices.Model);
         }
 
         #region GetRegisteredUsers tests
@@ -78,7 +77,7 @@ namespace Web.API.Services_Tests
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.AddNewUser(It.IsAny<User>()));
             var userServices = new UserServices(mockUserRepository.Object);
-            userServices.AddNewUserFromData(UserDTO.FromUser(testingUser));
+            userServices.AddNewUserFromData(testingUserData);
             mockUserRepository.VerifyAll();
         }
 
@@ -147,11 +146,10 @@ namespace Web.API.Services_Tests
         [ExpectedException(typeof(ServiceException))]
         public void UServicesAddNewUserWithRepeatedUsernameInvalidTest()
         {
-            UserDTO testUserData = UserDTO.FromUser(testingUser);
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.ExistsUserWithUsername(It.IsAny<string>())).Returns(true);
             var userServices = new UserServices(mockUserRepository.Object);
-            userServices.AddNewUserFromData(testUserData);
+            userServices.AddNewUserFromData(testingUserData);
         }
         #endregion
 
@@ -171,11 +169,11 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void UServicesGetUserWithUsernameInvalidTest()
+        public void UServicesGetUserWithUsernameNotFoundInvalidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository.Setup(u => u.GetUserByUsername(It.IsAny<string>()))
-                .Throws(new RepositoryException(""));
+                .Throws(new RepositoryException("Message."));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.GetUserByUsername(testingUser.Username);
         }
@@ -220,7 +218,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserWithUsernameInvalidFirstNameTest()
+        public void UServicesModifyUserWithUsernameInvalidFirstNameTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "4%# !sf*!@#9",
                 "Ravenna", "eRavenna", "HablarUnasPalabritas", "091696969");
@@ -229,7 +227,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserWithUsernameInvalidLastNameTest()
+        public void UServicesModifyUserWithUsernameInvalidLastNameTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
                 "a#$%s 9 $^!!12", "eRavenna", "HablarUnasPalabritas", "091696969");
@@ -238,7 +236,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserWithUsernameInvalidPasswordTest()
+        public void UServicesModifyUserWithUsernameInvalidPasswordTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
                 "Ravenna", "eRavenna", " \t\t\n \n\n  ", "091696969");
@@ -247,7 +245,7 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(UserException))]
-        public void URepositoryModifyUserWithUsernameInvalidPhoneNumberTest()
+        public void UServicesModifyUserWithUsernameInvalidPhoneNumberTest()
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
                 "Ravenna", "eRavenna", "eRavenna", "a &#^ 12&$!!/*- ");
@@ -268,7 +266,7 @@ namespace Web.API.Services_Tests
         public void UServicesRemoveUserWithUsernameValidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.Remove(It.IsAny<string>()));
+            mockUserRepository.Setup(u => u.RemoveUserWithUsername(It.IsAny<string>()));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.RemoveUserWithUsername("mSantos");
             mockUserRepository.VerifyAll();
@@ -276,11 +274,11 @@ namespace Web.API.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void UServicesRemoveUserWithUsernameInvalidTest()
+        public void UServicesRemoveUserWithUnregisteredUsernameInvalidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.Remove(It.IsAny<string>()))
-                .Throws(new RepositoryException(""));
+            mockUserRepository.Setup(u => u.RemoveUserWithUsername(It.IsAny<string>()))
+                .Throws(new RepositoryException("Message."));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.RemoveUserWithUsername(null);
         }

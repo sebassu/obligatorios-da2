@@ -18,22 +18,6 @@ namespace API.Services
             Model = someRepository;
         }
 
-        public IEnumerable<UserDTO> GetRegisteredUsers()
-        {
-            var result = new List<UserDTO>();
-            foreach (var user in Model.Elements)
-            {
-                result.Add(UserDTO.FromUser(user));
-            }
-            return result.AsReadOnly();
-        }
-
-        public UserDTO GetUserByUsername(string usernameToLookup)
-        {
-            User userFound = Model.GetUserByUsername(usernameToLookup);
-            return UserDTO.FromUser(userFound);
-        }
-
         public void AddNewUserFromData(UserDTO userDataToAdd)
         {
             ServiceUtilities.CheckParameterIsNotNullAndExecute(userDataToAdd,
@@ -55,10 +39,26 @@ namespace API.Services
             }
         }
 
-        public void ModifyUserWithUsername(string usernameToModify, UserDTO userData)
+        public IEnumerable<UserDTO> GetRegisteredUsers()
         {
-            ServiceUtilities.CheckParameterIsNotNullAndExecute(userData,
-            delegate { AttemptToPerformModification(usernameToModify, userData); });
+            var result = new List<UserDTO>();
+            foreach (var user in Model.Elements)
+            {
+                result.Add(UserDTO.FromUser(user));
+            }
+            return result.AsReadOnly();
+        }
+
+        public UserDTO GetUserByUsername(string usernameToLookup)
+        {
+            User userFound = Model.GetUserByUsername(usernameToLookup);
+            return UserDTO.FromUser(userFound);
+        }
+
+        public void ModifyUserWithUsername(string usernameToModify, UserDTO userDataToSet)
+        {
+            ServiceUtilities.CheckParameterIsNotNullAndExecute(userDataToSet,
+            delegate { AttemptToPerformModification(usernameToModify, userDataToSet); });
 
         }
 
@@ -72,7 +72,7 @@ namespace API.Services
 
         public void RemoveUserWithUsername(string usernameToRemove)
         {
-            Model.Remove(usernameToRemove);
+            Model.RemoveUserWithUsername(usernameToRemove);
         }
     }
 }

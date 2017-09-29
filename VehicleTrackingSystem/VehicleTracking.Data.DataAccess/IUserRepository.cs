@@ -9,7 +9,7 @@ namespace Persistence
         User GetUserByUsername(string usernameToLookup);
         void AddNewUser(User userToAdd);
         void UpdateUser(User userToModify);
-        void Remove(string usernameToRemove);
+        void RemoveUserWithUsername(string usernameToRemove);
         bool ExistsUserWithUsername(string usernameToLookup);
     }
 }

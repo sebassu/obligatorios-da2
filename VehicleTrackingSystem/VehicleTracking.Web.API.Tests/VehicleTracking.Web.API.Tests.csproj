@@ -69,6 +69,7 @@
     <Compile Include="Controllers Tests\VehiclesControllerTests.cs" />
     <Compile Include="Controllers Tests\UsersControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services Tests\VehicleServicesTests.cs" />
     <Compile Include="Services Tests\UserServicesTests.cs" />
   </ItemGroup>
   <ItemGroup>

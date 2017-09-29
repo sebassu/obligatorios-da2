@@ -87,7 +87,7 @@ namespace Data.Persistence_Tests
             User userToVerify = User.CreateNewUser(UserRoles.YARD_OPERATOR, "Gabriel David",
                 "Medina", "gdMedina5", "MusicaSuperDivertida", "096869689");
             testingUserRepository.AddNewUser(userToVerify);
-            testingUserRepository.Remove(userToVerify.Username);
+            testingUserRepository.RemoveUserWithUsername(userToVerify.Username);
             CollectionAssert.DoesNotContain(testingUserRepository.Elements.ToList(), userToVerify);
         }
 
@@ -97,14 +97,14 @@ namespace Data.Persistence_Tests
         {
             User userToVerify = User.CreateNewUser(UserRoles.YARD_OPERATOR, "Gabriel David",
                 "Medina", "gdMedina6", "MusicaSuperDivertida", "096869689");
-            testingUserRepository.Remove(userToVerify.Username);
+            testingUserRepository.RemoveUserWithUsername(userToVerify.Username);
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void URepositoryRemoveUserNullUsernameInvalidTest()
         {
-            testingUserRepository.Remove(null);
+            testingUserRepository.RemoveUserWithUsername(null);
         }
 
         [TestMethod]
@@ -116,7 +116,7 @@ namespace Data.Persistence_Tests
             User secondAdministrator = User.CreateNewUser(UserRoles.ADMINISTRATOR, "John", "Smith", "hannibal",
                 "theresNoPlanBOnlyPlanA", "099111111");
             testingUserRepository.AddNewUser(secondAdministrator);
-            testingUserRepository.Remove(administratorToVerify.Username);
+            testingUserRepository.RemoveUserWithUsername(administratorToVerify.Username);
             CollectionAssert.DoesNotContain(testingUserRepository.Elements.ToList(), administratorToVerify);
         }
 
@@ -131,7 +131,7 @@ namespace Data.Persistence_Tests
                 u.Role == UserRoles.ADMINISTRATOR).ToList();
             foreach (var administrator in administrators)
             {
-                testingUserRepository.Remove(administrator.Username);
+                testingUserRepository.RemoveUserWithUsername(administrator.Username);
             }
         }
 
