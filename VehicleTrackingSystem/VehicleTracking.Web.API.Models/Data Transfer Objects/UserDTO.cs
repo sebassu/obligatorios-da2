@@ -13,6 +13,8 @@ namespace API.Services
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
 
+        internal UserDTO() { }
+
         internal static UserDTO FromUser(User someUser)
         {
             return new UserDTO(someUser);

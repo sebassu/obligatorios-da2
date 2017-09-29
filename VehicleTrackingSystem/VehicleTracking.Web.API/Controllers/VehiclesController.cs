@@ -2,11 +2,11 @@
 using API.Services;
 using System.Web.Http;
 using System.Collections.Generic;
-using System;
 
 namespace Web.API.Controllers
 {
-    public class VehiclesController : ApiController
+    [RoutePrefix("api/Vehicles")]
+    public class VehiclesController : BaseController
     {
         internal IVehicleServices Model { get; }
 
@@ -15,7 +15,7 @@ namespace Web.API.Controllers
             Model = someModel;
         }
 
-        // POST: api/Vehicles
+        [HttpPost]
         public IHttpActionResult AddNewVehicleFromData(
             [FromBody]VehicleDTO vehicleDataToAdd)
         {
@@ -28,8 +28,13 @@ namespace Web.API.Controllers
                 });
         }
 
-        // GET: api/Vehicles
+        [HttpGet]
         public IHttpActionResult GetRegisteredVehicles()
+        {
+            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredVehicles);
+        }
+
+        private IHttpActionResult AttemptToGetRegisteredVehicles()
         {
             IEnumerable<VehicleDTO> vehicles = Model.GetRegisteredVehicles();
             if (Utilities.IsNotNull(vehicles))
@@ -42,7 +47,8 @@ namespace Web.API.Controllers
             }
         }
 
-        // GET: api/Vehicles/QWERTYU12345678AS
+        [HttpGet]
+        [Route("{vinToLookup}")]
         public IHttpActionResult GetVehicleWithVIN(string vinToLookup)
         {
             return ExecuteActionAndReturnOutcome(
@@ -53,7 +59,8 @@ namespace Web.API.Controllers
                 });
         }
 
-        // PUT: api/Vehicles/QWERTYU12345678AS
+        [HttpPut]
+        [Route("{vinToModify}")]
         public IHttpActionResult ModifyVehicleWithVIN(string vinToModify,
             [FromBody]VehicleDTO vehicleDataToSet)
         {
@@ -65,7 +72,8 @@ namespace Web.API.Controllers
                 });
         }
 
-        // DELETE: api/Vehicles/QWERTYU12345678AS
+        [HttpPut]
+        [Route("{vinToRemove}")]
         public IHttpActionResult RemoveVehicleWithVIN(string vinToRemove)
         {
             return ExecuteActionAndReturnOutcome(
@@ -74,19 +82,6 @@ namespace Web.API.Controllers
                     Model.RemoveVehicleWithVIN(vinToRemove);
                     return Ok();
                 });
-        }
-
-        private IHttpActionResult ExecuteActionAndReturnOutcome(
-            Func<IHttpActionResult> actionToExecute)
-        {
-            try
-            {
-                return actionToExecute.Invoke();
-            }
-            catch (VTSystemException exception)
-            {
-                return BadRequest(exception.Message);
-            }
         }
     }
 }

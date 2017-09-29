@@ -3,7 +3,7 @@
 namespace Domain
 {
     [Serializable]
-    public class InspectionException : VTSystemException
+    public class InspectionException : VehicleTrackingException
     {
         public InspectionException(string message) : base(message) { }
 
