@@ -149,12 +149,14 @@ namespace Domain
             damages = damagesList;
 
         }
-        public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages)
+        public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages, 
+            Vehicle vehicle)
         {
-            return new Inspection(user, location, dateTime, damages);
+            return new Inspection(user, location, dateTime, damages, vehicle);
         }
 
-        protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet, List<Damage> damagesToSet)
+        protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet, List<Damage> damagesToSet, 
+            Vehicle vehicleToSet)
         {
             if (ValidParameters(userToSet, locationToSet))
             {
@@ -162,6 +164,7 @@ namespace Domain
                 location = locationToSet;
                 DateTime = dateTimeToSet;
                 Damages = damagesToSet;
+                VehicleVIN = vehicleToSet.VIN;
             }else
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,

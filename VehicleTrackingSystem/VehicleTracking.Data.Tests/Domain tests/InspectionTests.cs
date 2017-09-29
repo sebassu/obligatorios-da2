@@ -146,11 +146,12 @@ namespace Data.Tests.Domain_tests
                "097364857");
             DateTime alternativeDateTime = DateTime.Today;
             testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
-                alternativeDateTime, damageList);
+                alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
             Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
             Assert.AreEqual(alternativeLocation, testingInspection.Location);
             Assert.AreEqual(alternativeDateTime, testingInspection.DateTime);
             Assert.IsTrue(damageList.SequenceEqual(testingInspection.Damages));
+            Assert.AreEqual(Vehicle.InstanceForTestingPurposes().VIN, testingInspection.VehicleVIN);
         }
 
         [TestMethod]
@@ -160,7 +161,7 @@ namespace Data.Tests.Domain_tests
             Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
             DateTime alternativeDateTime = DateTime.Today;
             testingInspection = Inspection.CreateNewInspection(null, alternativeLocation,
-                alternativeDateTime, damageList);
+                alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
         }
 
         [TestMethod]
@@ -171,7 +172,7 @@ namespace Data.Tests.Domain_tests
                "097364857");
             DateTime alternativeDateTime = DateTime.Today;
             testingInspection = Inspection.CreateNewInspection(alternativeUser, null,
-                alternativeDateTime, damageList);
+                alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
         }
 
 
@@ -184,7 +185,7 @@ namespace Data.Tests.Domain_tests
                "097364857");
             DateTime alternativeDateTime = new DateTime(1856, 8, 30, 12, 8, 9);
             testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
-                alternativeDateTime, damageList);
+                alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
         }
 
         [TestMethod]
@@ -196,7 +197,7 @@ namespace Data.Tests.Domain_tests
                "097364857");
             DateTime alternativeDateTime = DateTime.Today;
             testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
-                alternativeDateTime, null);
+                alternativeDateTime, null, Vehicle.InstanceForTestingPurposes());
         }
 
         [TestMethod]
@@ -208,7 +209,7 @@ namespace Data.Tests.Domain_tests
                "097364857");
             DateTime alternativeDateTime = DateTime.Today;
             testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
-                alternativeDateTime, damageList);
+                alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
         }
 
         [TestMethod]
