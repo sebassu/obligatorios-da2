@@ -32,7 +32,7 @@ namespace Web.API.Controllers_Tests
             var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<VehicleDTO>;
             mockVehicleServices.VerifyAll();
             Assert.IsNotNull(result);
-            Assert.AreEqual("DefaultApi", result.RouteName);
+            Assert.AreEqual("VTSystemAPI", result.RouteName);
             Assert.AreEqual(idToVerify, result.RouteValues["id"]);
             Assert.AreEqual(fakeVehicleData, result.Content);
         }

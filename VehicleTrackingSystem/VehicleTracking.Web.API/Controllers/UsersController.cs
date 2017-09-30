@@ -30,7 +30,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.AddNewUserFromData(userDataToAdd);
-                    return CreatedAtRoute("DefaultApi",
+                    return CreatedAtRoute("VTSystemAPI",
                         new { id = userDataToAdd.Username }, userDataToAdd);
                 });
         }

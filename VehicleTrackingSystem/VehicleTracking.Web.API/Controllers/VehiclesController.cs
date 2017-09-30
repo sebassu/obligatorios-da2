@@ -23,7 +23,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     int additionId = Model.AddNewVehicleFromData(vehicleDataToAdd);
-                    return CreatedAtRoute("DefaultApi", new { id = additionId },
+                    return CreatedAtRoute("VTSystemAPI", new { id = additionId },
                         vehicleDataToAdd);
                 });
         }

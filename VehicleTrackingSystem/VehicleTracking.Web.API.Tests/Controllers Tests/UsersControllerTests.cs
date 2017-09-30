@@ -38,7 +38,7 @@ namespace Web.API.Controllers_Tests
             var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<UserDTO>;
             mockUsersServices.VerifyAll();
             Assert.IsNotNull(result);
-            Assert.AreEqual("DefaultApi", result.RouteName);
+            Assert.AreEqual("VTSystemAPI", result.RouteName);
             Assert.AreEqual(fakeUserData.Username, result.RouteValues["id"]);
             Assert.AreEqual(fakeUserData, result.Content);
         }
