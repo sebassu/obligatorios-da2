@@ -88,6 +88,20 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
+        public void ZoneoneSetValidCapacityTest()
+        {
+            testingZone.Capacity = 23;
+            Assert.AreEqual(23, testingZone.Capacity);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZoneSetInvalidCapacityLessThanMinimumTest()
+        {
+            testingZone.Capacity = 0;
+        }
+
+        [TestMethod]
         public void ZoneSetValidSubzoneListTest()
         {
             testingZone.Subzones = subzoneList;
