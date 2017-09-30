@@ -107,5 +107,18 @@ namespace Domain
             Capacity = capacityToSet;
             Subzones = subzonesToSet;
         }
+
+        public override bool Equals(object obj)
+        {
+            Zone zoneToCompareAgainst = obj as Zone;
+            if (Utilities.IsNotNull(zoneToCompareAgainst))
+            {
+                return Id.Equals(zoneToCompareAgainst.Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
