@@ -51,6 +51,7 @@
     <Compile Include="Exceptions\LocatinException.cs" />
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\VehicleException.cs" />
+    <Compile Include="Exceptions\ZoneException.cs" />
     <Compile Include="Inspection.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Exceptions\VTSystemException.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Vehicle.cs" />
+    <Compile Include="Zone.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ErrorMessages.resx">

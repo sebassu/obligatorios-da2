@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
+using Domain;
 
 namespace Data.Tests.Domain_tests
 {
@@ -29,13 +30,6 @@ namespace Data.Tests.Domain_tests
         {
             testingZone.Name = "A zone";
             Assert.AreEqual("A zone", testingZone.Name);
-        }
-
-        [TestMethod]
-        public void ZoneSetValidNameCompoundTest()
-        {
-            testingZone.Name = "  Some zone  ";
-            Assert.AreEqual("Some zone", testingZone.Name);
         }
 
         [TestMethod]
@@ -70,7 +64,7 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(ZoneException))]
         public void ZoneSetInvalidNameNullTest()
         {
-            testingZone.NAme = null;
+            testingZone.Name = null;
         }
     }
 }

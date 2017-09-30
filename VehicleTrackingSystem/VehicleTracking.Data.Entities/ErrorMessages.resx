@@ -165,4 +165,7 @@
   <data name="YearIsInvalid" xml:space="preserve">
     <value>Año inválido: "{0}". El año no puede ser mayor al actual ni menor a 1900.</value>
   </data>
+  <data name="ZoneNameIsInvalid" xml:space="preserve">
+    <value>{0} inválido: "{1}". Solamente se permite ingresar caracteres alfabéticos con espacios y números para este campo requerido.</value>
+  </data>
 </root>
