@@ -134,7 +134,7 @@ namespace Data.Tests.Domain_tests
         {
             Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
             Subzone alternativeSubzoneArrival = alternativeSubzone;
-            DateTime alternativeDateTime = new DateTime (2017, 12, 11, 12, 34, 66);
+            DateTime alternativeDateTime = new DateTime (2017, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
                 alternativeSubzoneDeparture, alternativeSubzoneArrival);
             Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
@@ -149,7 +149,7 @@ namespace Data.Tests.Domain_tests
         {
             Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
             Subzone alternativeSubzoneArrival = alternativeSubzone;
-            DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 66);
+            DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(null, alternativeDateTime,
                 alternativeSubzoneDeparture, alternativeSubzoneArrival);
         }
@@ -160,7 +160,7 @@ namespace Data.Tests.Domain_tests
         {
             Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
             Subzone alternativeSubzoneArrival = alternativeSubzone;
-            DateTime alternativeDateTime = new DateTime(2019, 12, 11, 12, 34, 66);
+            DateTime alternativeDateTime = new DateTime(2019, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
                 alternativeSubzoneDeparture, alternativeSubzoneArrival);
         }
@@ -171,7 +171,7 @@ namespace Data.Tests.Domain_tests
         public void MovementParameterFactoryMethodInvalidSubzoneDepartureTest()
         {
             Subzone alternativeSubzoneArrival = alternativeSubzone;
-            DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 66);
+            DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
                 null, alternativeSubzoneArrival);
         }
@@ -181,7 +181,7 @@ namespace Data.Tests.Domain_tests
         public void MovementParameterFactoryMethodInvalidSubzoneArrivalTest()
         {
             Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
-            DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 66);
+            DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
                 alternativeSubzoneDeparture, null);
         }

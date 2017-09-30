@@ -132,5 +132,20 @@ namespace Domain
             alternativeSubzone.Id = 2;
             subzoneArrival = alternativeSubzone;
         }
+
+        public static Movement CreateNewMovement(User user, DateTime dateTime, Subzone subzoneDeparture,
+            Subzone subzoneArrival)
+        {
+            return new Movement(user, dateTime, subzoneDeparture, subzoneArrival);
+        }
+
+        protected Movement(User userToSet, DateTime dateTimeToSet, Subzone subzoneDepartureToSet,
+            Subzone subzoneArrivalToSet)
+        {
+            ResponsibleUser = userToSet;
+            DateTime = dateTimeToSet;
+            SubzoneDeparture = subzoneDepartureToSet;
+            SubzoneArrival = subzoneArrivalToSet;
+        }
     }
 }

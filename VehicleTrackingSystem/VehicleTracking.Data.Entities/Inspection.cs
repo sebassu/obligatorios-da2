@@ -151,6 +151,7 @@ namespace Domain
             damages = damagesList;
 
         }
+
         public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages, 
             Vehicle vehicle)
         {
