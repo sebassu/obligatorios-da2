@@ -92,7 +92,8 @@ namespace Data.Tests.Domain_tests
             testingSubzone.Capacity = 0;
         }
 
-        public void SubzoneSetLocationContainerZoneTest()
+        [TestMethod]
+        public void SubzoneSetValidContainerZoneTest()
         {
             Zone alternativeZone = Zone.CreateNewZone("Alternative zone", 3, subzoneList);
             testingSubzone.ContainerZone = alternativeZone;

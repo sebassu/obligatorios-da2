@@ -59,6 +59,30 @@ namespace Domain
             return Utilities.ValidMinimumCapacity(value);
         }
 
+        private Zone containerZone;
+        public Zone ContainerZone
+        {
+            get { return containerZone; }
+            set
+            {
+                if (IsValidZone(value))
+                {
+                    containerZone = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                       ErrorMessages.ZoneIsInvalid, "", null);
+                    throw new SubzoneException(errorMessage);
+                }
+            }
+        }
+
+        protected bool IsValidZone(Zone value)
+        {
+            return Utilities.IsNotNull(value);
+        }
+
         internal static Subzone InstanceForTestingPurposes()
         {
             return new Subzone();

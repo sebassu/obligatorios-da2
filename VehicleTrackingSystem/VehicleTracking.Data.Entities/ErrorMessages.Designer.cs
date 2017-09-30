@@ -214,6 +214,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La zona no puede ser nula..
+        /// </summary>
+        internal static string ZoneIsInvalid {
+            get {
+                return ResourceManager.GetString("ZoneIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. Solamente se permite ingresar caracteres alfabéticos con espacios y/o números para este campo..
         /// </summary>
         internal static string ZoneNameIsInvalid {

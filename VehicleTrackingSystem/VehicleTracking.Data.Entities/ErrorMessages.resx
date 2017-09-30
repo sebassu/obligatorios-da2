@@ -171,4 +171,7 @@
   <data name="CapacityIsInvalid" xml:space="preserve">
     <value>{0} "{1}" inválida. La misma debe ser mayor o igual a 1.</value>
   </data>
+  <data name="ZoneIsInvalid" xml:space="preserve">
+    <value>La zona no puede ser nula.</value>
+  </data>
 </root>
