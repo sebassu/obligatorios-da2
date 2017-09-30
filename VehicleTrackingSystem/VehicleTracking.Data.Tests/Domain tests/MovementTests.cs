@@ -245,5 +245,11 @@ namespace Data.Tests.Domain_tests
             Assert.AreNotEqual(testingMovement, someRandomObject);
         }
 
+        [TestMethod]
+        public void MovementGetHashCodeTest()
+        {
+            object testingMovementAsObject = testingMovement;
+            Assert.AreEqual(testingMovementAsObject.GetHashCode(), testingMovement.GetHashCode());
+        }
     }
 }
