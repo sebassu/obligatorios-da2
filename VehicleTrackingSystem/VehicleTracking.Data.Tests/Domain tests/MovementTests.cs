@@ -51,5 +51,27 @@ namespace Data.Tests.Domain_tests
                "26061199");
             testingMovement.ResponsibleUser = alternativeUser;
         }
+
+        [TestMethod]
+        public void MovementSetValidDateTimeTest()
+        {
+            DateTime alternativeDateTime = new DateTime(2017, 8, 24, 10, 9, 0);
+            testingMovement.DateTime = alternativeDateTime;
+            Assert.AreEqual(alternativeDateTime, testingMovement.DateTime);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MovementException))]
+        public void MovementSetInvalidDatePassTodayTest()
+        {
+            testingMovement.DateTime = new DateTime(2019, 9, 24, 10, 9, 0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MovementException))]
+        public void MovementSetInvalidDateTimeOldTest()
+        {
+            testingMovement.DateTime = new DateTime(1856, 8, 30, 12, 8, 9);
+        }
     }
 }
