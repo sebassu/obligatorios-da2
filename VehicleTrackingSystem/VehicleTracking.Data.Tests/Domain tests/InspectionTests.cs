@@ -32,6 +32,7 @@ namespace Data.Tests.Domain_tests
                 testingInspection.ResponsibleUser);
             Assert.AreEqual(Location.CreateNewLocation(LocationType.PORT, "Puerto de Montevideo"), testingInspection.Location);
             Assert.IsTrue(damageList.SequenceEqual(testingInspection.Damages));
+            Assert.AreEqual("QWERTYUI123456789", testingInspection.VehicleVIN);
         }
 
         [TestMethod]
@@ -136,6 +137,22 @@ namespace Data.Tests.Domain_tests
         public void InspectionSetInvalidVINLongTest()
         {
             testingInspection.VehicleVIN = "QWERTY1234567890QWERTY";
+        }
+
+        [TestMethod]
+        public void InspectionSetValidStageIdTest()
+        {                                
+                User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
+                    "097364857");
+                testingInspection.ResponsibleUser = alternativeUser;
+            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
+        }
+
+        [ExpectedException(typeof(InspectionException))]
+        [TestMethod]
+        public void InspectionSetInvalidStageIdNullTest()
+        {
+            testingInspection.ResponsibleUser = null;
         }
 
         [TestMethod]
