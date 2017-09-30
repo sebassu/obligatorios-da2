@@ -187,7 +187,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usuario inválido. Los usuarios de tipo &quot;{1}&quot; no pueden realizar inspecciones en la etapa actual..
+        ///   Looks up a localized string similar to Usuario inválido. Los usuarios de tipo &quot;{1}&quot; no pueden realizar la acción deseada..
         /// </summary>
         internal static string ResponsibleUserIsInvalid {
             get {

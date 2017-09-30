@@ -55,9 +55,11 @@ namespace Domain
             }
         }
 
+        private static UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR, UserRoles.YARD_OPERATOR };
+
         protected bool IsValidUser(User user)
         {
-            return Utilities.IsValidUserInspection(user) && Utilities.ValidateInspection(user, location);
+            return Utilities.IsValidUser(user, allowedUserRoles) && Utilities.ValidateInspection(user, location);
         }
 
         private Location location;

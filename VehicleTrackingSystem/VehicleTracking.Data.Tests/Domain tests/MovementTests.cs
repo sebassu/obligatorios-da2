@@ -23,7 +23,9 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void MovementInstanceForTestingPurposesTest()
         {
-            Assert.IsNull(testingMovement.ResponsibleUser);
+            User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", 
+                "password", "26010376");
+            Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
         }
 
         [TestMethod]
