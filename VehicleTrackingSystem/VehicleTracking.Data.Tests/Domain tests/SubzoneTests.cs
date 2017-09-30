@@ -67,5 +67,18 @@ namespace Data.Tests.Domain_tests
             testingSubzone.Name = null;
         }
 
+        [TestMethod]
+        public void SubzoneSetValidCapacityTest()
+        {
+            testingSubzone.Capacity = 20;
+            Assert.AreEqual(20, testingSubzone.Capacity);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SubzoneException))]
+        public void SubzoneSetInvalidCapacityLessThanMinimumTest()
+        {
+            testingSubzone.Capacity = 0;
+        }
     }
 }
