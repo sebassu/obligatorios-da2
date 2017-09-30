@@ -80,5 +80,18 @@ namespace Domain
             Name = nameToSet;
             Capacity = capacityToSet;
         }
+
+        public override bool Equals(object obj)
+        {
+            Subzone subzoneToCompareAgainst = obj as Subzone;
+            if (Utilities.IsNotNull(subzoneToCompareAgainst))
+            {
+                return Id.Equals(subzoneToCompareAgainst.Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

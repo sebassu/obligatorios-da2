@@ -142,7 +142,9 @@ namespace Data.Tests.Domain_tests
         public void SubzoneEqualsDifferentSubzonesTest()
         {
             testingSubzone = Subzone.CreateNewSubzone("Subzone1", 8);
-            Subzone secondTestingSubzone = Subzone.CreateNewSubzone("Subzone2", 9);
+            testingSubzone.Id = 1;
+            Subzone secondTestingSubzone = Subzone.CreateNewSubzone("Subzone1", 8);
+            secondTestingSubzone.Id = 2;
             Assert.AreNotEqual(testingSubzone, secondTestingSubzone);
         }
 
