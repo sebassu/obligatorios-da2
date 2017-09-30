@@ -97,5 +97,29 @@ namespace Data.Tests.Domain_tests
         {
             testingMovement.SubzoneDeparture = null;
         }
+
+        [TestMethod]
+        public void MovementSetSubzoneArivalValidTest()
+        {
+            Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7, Zone.InstanceForTestingPurposes());
+            testingMovement.SubzoneArrival = alternativeSubzone;
+            Assert.AreEqual(alternativeSubzone, testingMovement.SubzoneArrival);
+        }
+
+        [ExpectedException(typeof(MovementException))]
+        [TestMethod]
+        public void MovementSetInvalidSubzoneArrivalNullTest()
+        {
+            testingMovement.SubzoneArrival = null;
+        }
+
+        [ExpectedException(typeof(MovementException))]
+        [TestMethod]
+        public void MovementSetInvalidSubzoneArrivalEqualsDepartureTest()
+        {
+            Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7, Zone.InstanceForTestingPurposes());
+            testingMovement.SubzoneDeparture = alternativeSubzone;
+            testingMovement.SubzoneArrival = alternativeSubzone;
+        }
     }
 }
