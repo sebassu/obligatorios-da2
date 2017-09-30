@@ -7,6 +7,15 @@ namespace Domain
 {
     public class Lot
     {
+        private static readonly IReadOnlyCollection<UserRoles> ValidCreatorRoles =
+            new ReadOnlyCollection<UserRoles>(new UserRoles[]
+            {
+                UserRoles.ADMINISTRATOR,
+                UserRoles.PORT_OPERATOR
+            });
+
+        public User Creator { get; }
+
         private string name;
         public string Name
         {
@@ -104,6 +113,34 @@ namespace Domain
         {
             Name = "Lote inválido";
             Description = "Descripción inválida";
+        }
+
+        public static Lot CreatorNameDescriptionVehicles(User creator, string name,
+            string description, ICollection<Vehicle> vehicles)
+        {
+            return new Lot(creator, name, description, vehicles);
+        }
+
+        protected Lot(User someUser, string nameToSet,
+            string descriptionToSet, ICollection<Vehicle> vehiclesToSet)
+        {
+            if (CreatorIsValid(someUser))
+            {
+                Creator = someUser;
+                Name = nameToSet;
+                Description = descriptionToSet;
+                Vehicles = vehiclesToSet;
+            }
+            else
+            {
+                throw new LotException(ErrorMessages.LotUnauthorizedUserType);
+            }
+        }
+
+        private bool CreatorIsValid(User someUser)
+        {
+            return Utilities.IsNotNull(someUser) &&
+                ValidCreatorRoles.Contains(someUser.Role);
         }
     }
 }

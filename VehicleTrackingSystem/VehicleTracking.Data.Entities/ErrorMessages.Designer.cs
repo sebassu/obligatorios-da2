@@ -133,6 +133,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Es necesario estar registrado como &quot;Operario de Puerto&quot; o &quot;Administrador&quot; para poder registrar Lotes..
+        /// </summary>
+        internal static string LotUnauthorizedUserType {
+            get {
+                return ResourceManager.GetString("LotUnauthorizedUserType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modelo inválido: &quot;{0}&quot;. Solo se permiten ingresar caracteres alfabéticos, numéricos o espacios para este campo..
         /// </summary>
         internal static string ModelIsInvalid {
