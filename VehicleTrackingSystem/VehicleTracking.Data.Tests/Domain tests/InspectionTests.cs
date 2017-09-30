@@ -24,7 +24,7 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        public void InspectionForTestingPurposesTest()
+        public void InspectionInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingInspection.Id);
             Assert.AreEqual(new DateTime(2017, 9, 22, 10, 8, 0), testingInspection.DateTime);

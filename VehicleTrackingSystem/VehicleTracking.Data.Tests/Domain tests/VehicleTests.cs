@@ -17,7 +17,7 @@ namespace Data.Domain_Tests
         }
 
         [TestMethod]
-        public void VehicleForTestingPurposesTest()
+        public void VehicleInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingVehicle.Id);
             Assert.AreEqual("Audi", testingVehicle.Brand);

@@ -9,23 +9,34 @@ namespace Domain
         private static readonly Regex phoneFormat =
             new Regex("^(?!00)[0-9]{8,9}$");
 
-        public static bool IsNotEmpty(string value)
-        {
-            return !string.IsNullOrWhiteSpace(value);
-        }
-
         public static bool IsNotNull(object value)
         {
             return value != null;
         }
 
+        public static bool IsNotEmpty(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value);
+        }
+
+        public static bool ContainsLettersDigitsOrSpacesOnly(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value) &&
+                value.ToCharArray().All(c => IsLetterDigitOrSpace(c));
+        }
+
+        private static bool IsLetterDigitOrSpace(char value)
+        {
+            return IsLetterOrDigit(value) || char.IsWhiteSpace(value);
+        }
+
         public static bool ContainsLettersOrDigitsOnly(string value)
         {
             return !string.IsNullOrWhiteSpace(value) &&
-                value.ToCharArray().All(c => IsLetterOrNumber(c));
+                value.ToCharArray().All(c => IsLetterOrDigit(c));
         }
 
-        private static bool IsLetterOrNumber(char value)
+        private static bool IsLetterOrDigit(char value)
         {
             return char.IsLetter(value) || char.IsNumber(value);
         }
@@ -68,7 +79,8 @@ namespace Domain
                 {
                     return user.Role == UserRoles.ADMINISTRATOR || user.Role == UserRoles.YARD_OPERATOR;
                 }
-            }else
+            }
+            else
             {
                 return false;
             }

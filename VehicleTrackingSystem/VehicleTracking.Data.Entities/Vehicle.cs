@@ -6,7 +6,6 @@ namespace Domain
 
     public class Vehicle
     {
-
         public int Id { get; set; }
 
         public VehicleType Type { get; set; } = VehicleType.CAR;
@@ -125,6 +124,8 @@ namespace Domain
                 }
             }
         }
+
+        public bool IsLotted { get; internal set; }
 
         protected bool IsValidVIN(string value)
         {

@@ -16,7 +16,7 @@ namespace Data.Domain_Tests
 
         //Location Name
         [TestMethod]
-        public void LocationForTestingPurposesTest()
+        public void LocationInstanceForTestingPurposesTest()
         {
             Assert.AreEqual("Location name", testingLocation.Name);
             Assert.AreEqual(LocationType.PORT, testingLocation.Type);

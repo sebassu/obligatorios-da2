@@ -165,4 +165,10 @@
   <data name="YearIsInvalid" xml:space="preserve">
     <value>Año inválido: "{0}". El año no puede ser mayor al actual ni menor a 1900.</value>
   </data>
+  <data name="InvalidVehicleCollectionForLot" xml:space="preserve">
+    <value>Error: la colección de vehículos a agregar al lote no puede ser vacía, ni puede contener vehículos ya asociados a otros lotes.</value>
+  </data>
+  <data name="LotUnauthorizedUserType" xml:space="preserve">
+    <value>Es necesario estar registrado como "Operario de Puerto" o "Administrador" para poder registrar Lotes.</value>
+  </data>
 </root>

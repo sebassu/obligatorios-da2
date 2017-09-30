@@ -106,6 +106,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: la colección de vehículos a agregar al lote no puede ser vacía, ni puede contener vehículos ya asociados a otros lotes..
+        /// </summary>
+        internal static string InvalidVehicleCollectionForLot {
+            get {
+                return ResourceManager.GetString("InvalidVehicleCollectionForLot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La lista no puede ser vacia. Debe contener al menos un objeto..
         /// </summary>
         internal static string ListIsInvalid {
@@ -120,6 +129,15 @@ namespace Domain {
         internal static string LocationIsInvalid {
             get {
                 return ResourceManager.GetString("LocationIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Es necesario estar registrado como &quot;Operario de Puerto&quot; o &quot;Administrador&quot; para poder registrar Lotes..
+        /// </summary>
+        internal static string LotUnauthorizedUserType {
+            get {
+                return ResourceManager.GetString("LotUnauthorizedUserType", resourceCulture);
             }
         }
         
