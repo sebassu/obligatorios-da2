@@ -19,7 +19,7 @@ namespace Data.Domain_Tests
         }
 
         [TestMethod]
-        public void DamageForTestingPurposesTest()
+        public void DamageInstanceForTestingPurposesTest()
         {
             Assert.AreEqual("This damage has a description", testingDamage.Description);
             Assert.IsTrue(testingDamage.Images.Contains("newImage"));

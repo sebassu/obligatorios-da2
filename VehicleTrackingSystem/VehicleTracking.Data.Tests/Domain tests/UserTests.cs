@@ -17,7 +17,7 @@ namespace Data.Domain_Tests
         }
 
         [TestMethod]
-        public void UserForTestingPurposesTest()
+        public void UserInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(UserRoles.ADMINISTRATOR, testingUser.Role);
             Assert.AreEqual("Usuario", testingUser.FirstName);
@@ -140,9 +140,10 @@ namespace Data.Domain_Tests
         }
 
         [TestMethod]
-        public void UserSetValidUsernameNumbersTest()
+        public void UserSetValidUsernameOnlyNumbersTest()
         {
             testingUser.Username = "5218048";
+            Assert.AreEqual("5218048", testingUser.Username);
         }
 
         [TestMethod]
