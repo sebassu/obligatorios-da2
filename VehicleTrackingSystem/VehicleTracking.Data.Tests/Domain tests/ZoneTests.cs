@@ -151,5 +151,53 @@ namespace Data.Tests.Domain_tests
         {
             testingZone = Zone.CreateNewZone("Another subzone", 0, null);
         }
+
+        [TestMethod]
+        public void ZoneEqualsReflexiveTest()
+        {
+            Assert.AreEqual(testingZone, testingZone);
+        }
+
+        [TestMethod]
+        public void ZoneEqualsSymmetricTest()
+        {
+            Zone secondTestingZone = Zone.InstanceForTestingPurposes();
+            Assert.AreEqual(testingZone, secondTestingZone);
+            Assert.AreEqual(secondTestingZone, testingZone);
+        }
+
+        [TestMethod]
+        public void ZoneEqualsTransitiveTest()
+        {
+            testingZone = Zone.CreateNewZone("Zone2", 4, subzoneList);
+            Zone secondTestingZone = Zone.CreateNewZone("Zone2", 4, subzoneList);
+            Zone thirdTestingZone = Zone.CreateNewZone("Zone2", 4, subzoneList);
+            Assert.AreEqual(testingZone, secondTestingZone);
+            Assert.AreEqual(secondTestingZone , thirdTestingZone);
+            Assert.AreEqual(testingZone, thirdTestingZone);
+        }
+
+        [TestMethod]
+        public void ZoneEqualsDifferentSubzonesTest()
+        {
+            testingZone = Zone.CreateNewZone("Zone1", 8, subzoneList);
+            testingZone.Id = 1;
+            Zone secondTestingZone = Zone.CreateNewZone("Zone1", 8, subzoneList);
+            secondTestingZone.Id = 2;
+            Assert.AreNotEqual(testingZone, secondTestingZone);
+        }
+
+        [TestMethod]
+        public void ZoneEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingZone, null);
+        }
+
+        [TestMethod]
+        public void ZoneEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingZone, someRandomObject);
+        }
     }
 }
