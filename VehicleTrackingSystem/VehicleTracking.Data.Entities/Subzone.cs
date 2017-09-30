@@ -92,17 +92,19 @@ namespace Domain
         {
             name = "Subzone 1";
             capacity = 3;
+            containerZone = Zone.InstanceForTestingPurposes();
         }
 
-        public static Subzone CreateNewSubzone(String name, int capacity)
+        public static Subzone CreateNewSubzone(String name, int capacity, Zone zone)
         {
-            return new Subzone(name, capacity);
+            return new Subzone(name, capacity, zone);
         }
 
-        protected Subzone(string nameToSet, int capacityToSet)
+        protected Subzone(string nameToSet, int capacityToSet, Zone zoneToSet)
         {
             Name = nameToSet;
             Capacity = capacityToSet;
+            ContainerZone = zoneToSet;
         }
 
         public override bool Equals(object obj)

@@ -101,30 +101,9 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        public void ZoneSetValidSubzoneListTest()
-        {
-            testingZone.Subzones = subzoneList;
-            Assert.IsTrue(testingZone.Subzones.SequenceEqual(subzoneList));
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ZoneException))]
-        public void ZoneSetInvalidSubzoneListEmptyTest()
-        {
-            testingZone.Subzones = new List<Subzone>();
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ZoneException))]
-        public void ZoneSetInvalidSubzoneListNullTest()
-        {
-            testingZone.Subzones = null;
-        }
-
-        [TestMethod]
         public void ZoneParameterFactoryMethodValidTest()
         {
-            testingZone = Zone.CreateNewZone("Zone 1", 5, subzoneList);
+            testingZone = Zone.CreateNewZone("Zone 1", 5);
             Assert.AreEqual(0, testingZone.Id);
             Assert.AreEqual("Zone 1", testingZone.Name);
             Assert.AreEqual(5, testingZone.Capacity);
@@ -134,23 +113,16 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(ZoneException))]
         public void ZoneParameterFactoryMethodInvalidNameTest()
         {
-            testingZone= Zone.CreateNewZone("!@#$%", 23, subzoneList);
+            testingZone= Zone.CreateNewZone("!@#$%", 23);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ZoneException))]
         public void ZoneParameterFactoryMethodInvalidCapacityTest()
         {
-            testingZone = Zone.CreateNewZone("Another subzone", 0, subzoneList);
+            testingZone = Zone.CreateNewZone("Another subzone", 0);
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(ZoneException))]
-        public void ZoneParameterFactoryMethodInvaliSubzonesTest()
-        {
-            testingZone = Zone.CreateNewZone("Another subzone", 0, null);
-        }
-
+        
         [TestMethod]
         public void ZoneEqualsReflexiveTest()
         {
@@ -168,9 +140,9 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void ZoneEqualsTransitiveTest()
         {
-            testingZone = Zone.CreateNewZone("Zone2", 4, subzoneList);
-            Zone secondTestingZone = Zone.CreateNewZone("Zone2", 4, subzoneList);
-            Zone thirdTestingZone = Zone.CreateNewZone("Zone2", 4, subzoneList);
+            testingZone = Zone.CreateNewZone("Zone2", 4);
+            Zone secondTestingZone = Zone.CreateNewZone("Zone2", 4);
+            Zone thirdTestingZone = Zone.CreateNewZone("Zone2", 4);
             Assert.AreEqual(testingZone, secondTestingZone);
             Assert.AreEqual(secondTestingZone , thirdTestingZone);
             Assert.AreEqual(testingZone, thirdTestingZone);
@@ -179,9 +151,9 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void ZoneEqualsDifferentSubzonesTest()
         {
-            testingZone = Zone.CreateNewZone("Zone1", 8, subzoneList);
+            testingZone = Zone.CreateNewZone("Zone1", 8);
             testingZone.Id = 1;
-            Zone secondTestingZone = Zone.CreateNewZone("Zone1", 8, subzoneList);
+            Zone secondTestingZone = Zone.CreateNewZone("Zone1", 8);
             secondTestingZone.Id = 2;
             Assert.AreNotEqual(testingZone, secondTestingZone);
         }

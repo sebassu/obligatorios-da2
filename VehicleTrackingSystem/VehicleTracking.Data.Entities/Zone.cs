@@ -59,25 +59,8 @@ namespace Domain
         {
             return Utilities.ValidMinimumCapacity(value);
         }
-
-        private List<Subzone> subzones;
-        public List<Subzone> Subzones
-        {
-            get { return subzones; }
-            set
-            {
-                if (IsValidList(value))
-                {
-                    subzones = value;
-                }
-                else
-                {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.ListIsInvalid, value);
-                    throw new ZoneException(errorMessage);
-                }
-            }
-        }
+        
+        public List<Subzone> Subzones { get; set; }
 
         protected bool IsValidList(List<Subzone> value)
         {
@@ -92,20 +75,19 @@ namespace Domain
         protected Zone()
         {
             name = "Zone 1";
-            List<Subzone> subzoneList = new List<Subzone> { Subzone.InstanceForTestingPurposes() };
-            subzones = subzoneList;
+            capacity = 9;
         }
 
-        public static Zone CreateNewZone(String name, int capacity, List<Subzone> subzones)
+        public static Zone CreateNewZone(String name, int capacity)
         {
-            return new Zone(name, capacity, subzones);
+            return new Zone(name, capacity);
         }
 
-        protected Zone(string nameToSet, int capacityToSet, List<Subzone> subzonesToSet)
+        protected Zone(string nameToSet, int capacityToSet)
         {
             Name = nameToSet;
             Capacity = capacityToSet;
-            Subzones = subzonesToSet;
+            Subzones = new List<Subzone>();
         }
 
         public override bool Equals(object obj)
