@@ -13,21 +13,30 @@ namespace Data.Tests.Domain_tests
     public class ZoneTests
     {
         private static Zone testingZone;
-        private static List<Zone> subzoneList;
-        private static Zone testingSubzone;
+        private static List<Subzone> subzoneList;
+        private static Subzone testingSubzone;
 
         [TestInitialize]
         public void TestSetup()
         {
             testingZone = Zone.InstanceForTestingPurposes();
-            testingSubzone = Zone.SubzoneForTestingPurposes();
-            subzoneList = new List<Zone> { testingSubzone };
+            testingSubzone = Subzone.InstanceForTestingPurposes();
+            subzoneList = new List<Subzone> { testingSubzone };
         }
 
         [TestMethod]
         public void ZoneForTestingPurposesTest()
         {
+            Assert.AreEqual(0, testingZone.Id);
             Assert.AreEqual("Zone 1", testingZone.Name);
+            
+        }
+
+        [TestMethod]
+        public void SubzoneSetIdValidTest()
+        {
+            testingZone.Id = 42;
+            Assert.AreEqual(42, testingZone.Id);
         }
 
         [TestMethod]
@@ -89,7 +98,7 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(ZoneException))]
         public void ZoneSetInvalidSubzoneListEmptyTest()
         {
-            testingZone.Subzones = new List<Zone>();
+            testingZone.Subzones = new List<Subzone>();
         }
 
         [TestMethod]

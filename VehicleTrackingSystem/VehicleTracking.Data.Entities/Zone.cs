@@ -10,6 +10,8 @@ namespace Domain
     class Zone
     {
 
+        public int Id { get; set; }
+
         private string name;
         public string Name
         {
@@ -34,8 +36,8 @@ namespace Domain
             return Utilities.ContainsLettersOrSpacesOrDigitsOnly(value);
         }
 
-        private List<Zone> subzones;
-        public List<Zone> Subzones
+        private List<Subzone> subzones;
+        public List<Subzone> Subzones
         {
             get { return subzones; }
             set
@@ -53,16 +55,9 @@ namespace Domain
             }
         }
 
-        protected bool IsValidList(List<Zone> value)
+        protected bool IsValidList(List<Subzone> value)
         {
             return Utilities.IsNotNull(value) ? value.Count > 0 : false;
-        }
-
-        internal static Zone SubzoneForTestingPurposes()
-        {
-            Zone subzone = InstanceForTestingPurposes();
-            subzone.name = "Subzone 1";
-            return subzone;
         }
 
         internal static Zone InstanceForTestingPurposes()
@@ -73,6 +68,8 @@ namespace Domain
         protected Zone()
         {
             name = "Zone 1";
+            List<Subzone> subzoneList = new List<Subzone> { Subzone.InstanceForTestingPurposes() };
+            subzones = subzoneList;
         }
     }
 }

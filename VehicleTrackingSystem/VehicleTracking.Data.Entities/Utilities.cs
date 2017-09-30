@@ -110,28 +110,6 @@ namespace Domain
             return ContainsLettersOrDigitsOnly(value) && value.Length == VINLength;
         }
 
-        public static bool ContainsLettersOrSpacesOrDigitsOnly(string value)
-        {
-            return !string.IsNullOrWhiteSpace(value) &&
-                value.ToCharArray().All(c => IsLetterOrSpaceOrDigit(c)) &&
-                !ContainsOnlyDigits(value);
-        }
-
-        private static bool ContainsOnlyDigits(string value)
-        {
-            return value.ToCharArray().All(c => IsDigit(c));
-        }
-
-        private static bool IsDigit(char value)
-        {
-            return char.IsDigit(value);
-        }
-
-        private static bool IsLetterOrSpaceOrDigit(char value)
-        {
-            return char.IsLetter(value) || char.IsWhiteSpace(value) || char.IsDigit(value);
-        }
-
         public static bool ValidMinimumCapacity(int value)
         {
             return value > 0;
