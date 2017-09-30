@@ -61,6 +61,30 @@ namespace Domain
             return Utilities.IsValidDate(value);
         }
 
+        private Subzone subzoneDeparture;
+        public Subzone SubzoneDeparture
+        {
+            get { return subzoneDeparture; }
+            set
+            {
+                if (IsValidSubzone(value))
+                {
+                    subzoneDeparture = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                       ErrorMessages.SubzoneIsInvalid, "salida", null);
+                    throw new MovementException(errorMessage);
+                }
+            }
+        }
+
+        protected virtual bool IsValidSubzone(Subzone value)
+        {
+            return Utilities.IsNotNull(value);
+        }
+
         internal static Movement InstanceForTestingPurposes()
         {
             return new Movement();

@@ -180,4 +180,7 @@
   <data name="ZoneIsInvalid" xml:space="preserve">
     <value>La zona no puede ser nula.</value>
   </data>
+  <data name="SubzoneIsInvalid" xml:space="preserve">
+    <value>La zona de {0}  no puede ser nula.</value>
+  </data>
 </root>

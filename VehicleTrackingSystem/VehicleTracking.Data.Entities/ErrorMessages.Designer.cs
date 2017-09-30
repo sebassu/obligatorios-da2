@@ -196,6 +196,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La zona de {0}  no puede ser nula..
+        /// </summary>
+        internal static string SubzoneIsInvalid {
+            get {
+                return ResourceManager.GetString("SubzoneIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El usuario &quot;{0}&quot; es inválido: se permiten únicamente aquellos no vacíos con letras o números, sin espacios..
         /// </summary>
         internal static string UsernameIsInvalid {
