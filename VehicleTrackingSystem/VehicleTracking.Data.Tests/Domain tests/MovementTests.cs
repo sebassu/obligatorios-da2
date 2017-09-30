@@ -26,6 +26,7 @@ namespace Data.Tests.Domain_tests
             User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", 
                 "password", "26010376");
             Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
+            Assert.AreEqual(new DateTime(2017, 9, 22, 10, 8, 0), testingMovement.DateTime);
         }
 
         [TestMethod]
