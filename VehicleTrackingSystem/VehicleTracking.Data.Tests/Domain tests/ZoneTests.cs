@@ -125,7 +125,7 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void ZoneParameterFactoryMethodValidTest()
         {
-            testingZone = Zone.CreateNewSubzone("Zone 1", 5, testingSubzone);
+            testingZone = Zone.CreateNewZone("Zone 1", 5, subzoneList);
             Assert.AreEqual(0, testingZone.Id);
             Assert.AreEqual("Zone 1", testingZone.Name);
             Assert.AreEqual(5, testingZone.Capacity);
@@ -135,14 +135,14 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(ZoneException))]
         public void ZoneParameterFactoryMethodInvalidNameTest()
         {
-            testingZone= Zone.CreateNewZone("!@#$%", 23, testingSubzone);
+            testingZone= Zone.CreateNewZone("!@#$%", 23, subzoneList);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ZoneException))]
         public void ZoneParameterFactoryMethodInvalidCapacityTest()
         {
-            testingZone = Zone.CreateNewZone("Another subzone", 0, testingSubzone);
+            testingZone = Zone.CreateNewZone("Another subzone", 0, subzoneList);
         }
 
         [TestMethod]

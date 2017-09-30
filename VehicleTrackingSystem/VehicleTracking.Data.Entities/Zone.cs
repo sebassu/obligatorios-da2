@@ -95,5 +95,17 @@ namespace Domain
             List<Subzone> subzoneList = new List<Subzone> { Subzone.InstanceForTestingPurposes() };
             subzones = subzoneList;
         }
+
+        public static Zone CreateNewZone(String name, int capacity, List<Subzone> subzones)
+        {
+            return new Zone(name, capacity, subzones);
+        }
+
+        protected Zone(string nameToSet, int capacityToSet, List<Subzone> subzonesToSet)
+        {
+            Name = nameToSet;
+            Capacity = capacityToSet;
+            Subzones = subzonesToSet;
+        }
     }
 }
