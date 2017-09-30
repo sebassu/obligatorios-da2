@@ -147,5 +147,18 @@ namespace Domain
             SubzoneDeparture = subzoneDepartureToSet;
             SubzoneArrival = subzoneArrivalToSet;
         }
+
+        public override bool Equals(object obj)
+        {
+            Movement movementToCompareAgainst = obj as Movement;
+            if (Utilities.IsNotNull(movementToCompareAgainst))
+            {
+                return Id.Equals(movementToCompareAgainst.Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
