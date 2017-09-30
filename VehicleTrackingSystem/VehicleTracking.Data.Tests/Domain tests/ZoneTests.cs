@@ -29,7 +29,6 @@ namespace Data.Tests.Domain_tests
         {
             Assert.AreEqual(0, testingZone.Id);
             Assert.AreEqual("Zone 1", testingZone.Name);
-            
         }
 
         [TestMethod]

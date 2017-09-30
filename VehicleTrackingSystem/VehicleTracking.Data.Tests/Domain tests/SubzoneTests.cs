@@ -12,11 +12,13 @@ namespace Data.Tests.Domain_tests
     public class SubzoneTests
     {
         private static Subzone testingSubzone;
+        private static List<Subzone> subzoneList;
 
         [TestInitialize]
         public void TestSetup()
         {
             testingSubzone = Subzone.InstanceForTestingPurposes();
+            subzoneList = new List<Subzone> { testingSubzone };
         }
 
         [TestMethod]
@@ -88,6 +90,20 @@ namespace Data.Tests.Domain_tests
         public void SubzoneSetInvalidCapacityLessThanMinimumTest()
         {
             testingSubzone.Capacity = 0;
+        }
+
+        public void SubzoneSetLocationContainerZoneTest()
+        {
+            Zone alternativeZone = Zone.CreateNewZone("Alternative zone", 3, subzoneList);
+            testingSubzone.ContainerZone = alternativeZone;
+            Assert.AreEqual(alternativeZone, testingSubzone.ContainerZone);
+        }
+
+        [ExpectedException(typeof(SubzoneException))]
+        [TestMethod]
+        public void SubzoneSetInvalidContainerZoneNullTest()
+        {
+            testingSubzone.ContainerZone = null;
         }
 
         [TestMethod]
