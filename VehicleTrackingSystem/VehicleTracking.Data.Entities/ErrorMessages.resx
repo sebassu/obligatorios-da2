@@ -170,6 +170,7 @@
   </data>
   <data name="LotUnauthorizedUserType" xml:space="preserve">
     <value>Es necesario estar registrado como "Operario de Puerto" o "Administrador" para poder registrar Lotes.</value>
+  </data>  
   <data name="ZoneNameIsInvalid" xml:space="preserve">
     <value>{0} inválido: "{1}". Solamente se permite ingresar caracteres alfabéticos con espacios y/o números para este campo.</value>
   </data>

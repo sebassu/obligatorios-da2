@@ -50,7 +50,6 @@
     <Compile Include="Exceptions\InspectionException.cs" />
     <Compile Include="Exceptions\LocationException.cs" />
     <Compile Include="Exceptions\LotException.cs" />
-    <Compile Include="Exceptions\LocatinException.cs" />
     <Compile Include="Exceptions\SubzoneException.cs" />
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\VehicleException.cs" />
@@ -70,6 +69,7 @@
     <EmbeddedResource Include="ErrorMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
