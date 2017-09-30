@@ -28,9 +28,37 @@ namespace Domain
             return Utilities.ContainsLettersDigitsOrSpacesOnly(value);
         }
 
+        private string description;
+        public string Description
+        {
+            get { return description; }
+            set
+            {
+                if (IsValidDescription(value))
+                {
+                    description = value.Trim();
+                }
+                else
+                {
+                    throw new LotException(ErrorMessages.DescriptionIsInvalid);
+                }
+            }
+        }
+
+        protected bool IsValidDescription(string value)
+        {
+            return Utilities.IsNotEmpty(value);
+        }
+
         internal static Lot InstanceForTestingPurposes()
         {
             return new Lot();
+        }
+
+        protected Lot()
+        {
+            Name = "Lote inválido";
+            Description = "Descripción inválida";
         }
     }
 }
