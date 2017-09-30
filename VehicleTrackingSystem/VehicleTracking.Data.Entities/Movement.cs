@@ -9,6 +9,8 @@ namespace Domain
 {
     class Movement
     {
+        public int Id { get; set; }
+
         private User responsibleUser;
         public User ResponsibleUser
         {

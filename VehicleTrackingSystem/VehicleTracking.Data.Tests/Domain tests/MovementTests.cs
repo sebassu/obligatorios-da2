@@ -23,7 +23,7 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void MovementInstanceForTestingPurposesTest()
         {
-            Assert.AreEqual(0, testingSubzone.Id);
+            Assert.AreEqual(0, testingMovement.Id);
             User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", 
                 "password", "26010376");
             Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
