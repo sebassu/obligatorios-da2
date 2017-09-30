@@ -23,6 +23,7 @@ namespace Data.Tests.Domain_tests
         public void SubzoneForTestingPurposesTest()
         {
             Assert.AreEqual("Subzone 1", testingSubzone.Name);
+            Assert.AreEqual(3, testingSubzone.Capacity);
         }
 
         [TestMethod]

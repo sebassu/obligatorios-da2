@@ -110,5 +110,9 @@ namespace Domain
             return char.IsLetter(value) || char.IsWhiteSpace(value) || char.IsDigit(value);
         }
 
+        public static bool ValidMinimumCapacity(int value)
+        {
+            return value > 0;
+        }
     }
 }

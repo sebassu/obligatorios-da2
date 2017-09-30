@@ -70,6 +70,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} &quot;{1}&quot; inválida. La misma debe ser mayor o igual a 1..
+        /// </summary>
+        internal static string CapacityIsInvalid {
+            get {
+                return ResourceManager.GetString("CapacityIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El color &quot;{0}&quot;  no es valido. Solo se permite ingresar caracteres alfabéticos o espacios para este campo requerido..
         /// </summary>
         internal static string ColorIsInvalid {
