@@ -1,12 +1,20 @@
 ﻿using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Data.Tests.Domain_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class LotTests
     {
         private static Lot testingLot;
+        private static readonly ICollection<Vehicle> testingVehicles = new List<Vehicle>(
+            new Vehicle[] {
+                Vehicle.InstanceForTestingPurposes()
+            });
 
         [TestInitialize]
         public void TestSetup()
@@ -19,6 +27,7 @@ namespace Data.Tests.Domain_tests
         {
             Assert.AreEqual("Lote inválido", testingLot.Name);
             Assert.AreEqual("Descripción inválida", testingLot.Description);
+            Assert.IsFalse(testingLot.Vehicles.Any());
         }
 
         [TestMethod]
@@ -102,7 +111,7 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(LotException))]
         public void LotSetInvalidDescriptionOnlySpacesTest()
         {
-            testingLot.Description = "     ";
+            testingLot.Description = " \n  \n\t\n    ";
         }
 
         [TestMethod]
@@ -110,6 +119,69 @@ namespace Data.Tests.Domain_tests
         public void LotSetInvalidDescriptionNullTest()
         {
             testingLot.Description = null;
+        }
+
+        [TestMethod]
+        public void LotSetVehiclesMarksThemAsLottedTest()
+        {
+            Vehicle testingVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1984, "Red", "RUSH2112RLLTHEBNS");
+            Vehicle[] vehiclesToAdd = new Vehicle[] { testingVehicle };
+            testingLot.Vehicles = vehiclesToAdd;
+            Assert.IsTrue(testingVehicle.IsLotted);
+        }
+
+        [TestMethod]
+        public void LotSetVehiclesUnmarksThemAsLottedTest()
+        {
+            Vehicle vehicleToAddAndRemove = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1984, "Red", "RUSH2112RLLTHEBNS");
+            Vehicle someOtherVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Chevrolet", "Onix",
+                2015, "DarkGray", "ASDFGHJKL12345678");
+            testingLot.Vehicles = new Vehicle[] { vehicleToAddAndRemove };
+            testingLot.Vehicles = new Vehicle[] { someOtherVehicle };
+            Assert.IsFalse(vehicleToAddAndRemove.IsLotted);
+        }
+
+        [TestMethod]
+        public void LotSetVehiclesAddingToLotAlreadyAddedVehicleValidTest()
+        {
+            Vehicle vehicle1 = Vehicle.CreateNewVehicle(VehicleType.SUV, "Renault",
+                "SUVModel", 2001, "DarkGray", "ASMKDJE1224MAKIOP");
+            Vehicle vehicle2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1984, "Red", "RUSH2112RLLTHEBNS");
+            Vehicle vehicle3 = Vehicle.CreateNewVehicle(VehicleType.VAN, "Chevrolet", "Onix",
+                2015, "Blue", "ASDFGHJKL12345678");
+            testingLot.Vehicles = new Vehicle[] { vehicle1, vehicle2 };
+            testingLot.Vehicles = new Vehicle[] { vehicle2, vehicle3 };
+            Assert.IsFalse(vehicle1.IsLotted);
+            Assert.IsTrue(vehicle2.IsLotted);
+            Assert.IsTrue(vehicle3.IsLotted);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LotException))]
+        public void LotSetVehiclesEmptyCollectionInvalidTest()
+        {
+            testingLot.Vehicles = new List<Vehicle>();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LotException))]
+        public void LotSetVehiclesNullVehicleCollectionInvalidTest()
+        {
+            testingLot.Vehicles = null;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LotException))]
+        public void LotSetVehiclesContainsVehicleOnOtherLotInvalidTest()
+        {
+            Vehicle testingVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1984, "Red", "RUSH2112RLLTHEBNS");
+            testingLot.Vehicles = new Vehicle[] { testingVehicle };
+            Lot someOtherLot = Lot.InstanceForTestingPurposes();
+            someOtherLot.Vehicles = new Vehicle[] { testingVehicle };
         }
     }
 }
