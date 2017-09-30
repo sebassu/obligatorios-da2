@@ -9,6 +9,7 @@ namespace Domain
 {
     class Subzone
     {
+        public int Id { get; set; }
 
         private string name;
         public string Name

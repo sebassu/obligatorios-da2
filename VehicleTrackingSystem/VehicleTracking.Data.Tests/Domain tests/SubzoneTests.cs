@@ -22,8 +22,16 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void SubzoneForTestingPurposesTest()
         {
+            Assert.AreEqual(0, testingSubzone.Id);
             Assert.AreEqual("Subzone 1", testingSubzone.Name);
             Assert.AreEqual(3, testingSubzone.Capacity);
+        }
+
+        [TestMethod]
+        public void SubzoneSetIdValidTest()
+        {
+            testingSubzone.Id = 42;
+            Assert.AreEqual(42, testingSubzone.Id);
         }
 
         [TestMethod]
@@ -86,6 +94,7 @@ namespace Data.Tests.Domain_tests
         public void SubzoneParameterFactoryMethodValidTest()
         {
             testingSubzone = Subzone.CreateNewSubzone("Some subzone", 26);
+            Assert.AreEqual(0, testingSubzone.Id);
             Assert.AreEqual("Some subzone", testingSubzone.Name);
             Assert.AreEqual(26, testingSubzone.Capacity);
         }
@@ -104,5 +113,50 @@ namespace Data.Tests.Domain_tests
             testingSubzone = Subzone.CreateNewSubzone("Another subzone", 0);
         }
 
+        [TestMethod]
+        public void SubzoneEqualsReflexiveTest()
+        {
+            Assert.AreEqual(testingSubzone, testingSubzone);
+        }
+
+        [TestMethod]
+        public void SubzoneEqualsSymmetricTest()
+        {
+            Subzone secondTestingSubzone = Subzone.InstanceForTestingPurposes();
+            Assert.AreEqual(testingSubzone, secondTestingSubzone);
+            Assert.AreEqual(secondTestingSubzone, testingSubzone);
+        }
+
+        [TestMethod]
+        public void SubzoneEqualsTransitiveTest()
+        {
+            testingSubzone = Subzone.CreateNewSubzone("Subzone1", 4);
+            Subzone secondTestingSubzone = Subzone.CreateNewSubzone("Subzone1", 4);
+            Subzone thirdTestingSubzone = Subzone.CreateNewSubzone("Subzone1", 4);
+            Assert.AreEqual(testingSubzone, secondTestingSubzone);
+            Assert.AreEqual(secondTestingSubzone, thirdTestingSubzone);
+            Assert.AreEqual(testingSubzone, thirdTestingSubzone);
+        }
+
+        [TestMethod]
+        public void SubzoneEqualsDifferentSubzonesTest()
+        {
+            testingSubzone = Subzone.CreateNewSubzone("Subzone1", 8);
+            Subzone secondTestingSubzone = Subzone.CreateNewSubzone("Subzone2", 9);
+            Assert.AreNotEqual(testingSubzone, secondTestingSubzone);
+        }
+
+        [TestMethod]
+        public void SubzoneEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingSubzone, null);
+        }
+
+        [TestMethod]
+        public void SubzoneEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingSubzone, someRandomObject);
+        }
     }
 }
