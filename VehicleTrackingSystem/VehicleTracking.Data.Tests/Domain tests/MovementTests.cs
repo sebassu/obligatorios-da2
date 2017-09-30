@@ -186,5 +186,64 @@ namespace Data.Tests.Domain_tests
                 alternativeSubzoneDeparture, null);
         }
 
+        [TestMethod]
+        public void MovementEqualsReflexiveTest()
+        {
+            Assert.AreEqual(testingMovement, testingMovement);
+        }
+
+        [TestMethod]
+        public void MovementEqualsSymmetricTest()
+        {
+            Movement secondTestingMovement = Movement.InstanceForTestingPurposes();
+            Assert.AreEqual(testingMovement, secondTestingMovement);
+            Assert.AreEqual(secondTestingMovement, testingMovement);
+        }
+
+        [TestMethod]
+        public void MovementEqualsTransitiveTest()
+        {
+            Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
+            Subzone alternativeSubzoneArrival = alternativeSubzone;
+            DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 11);
+            testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
+                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+            Movement secondTestingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
+                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+            Movement thirdTestingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
+                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+            Assert.AreEqual(testingMovement, secondTestingMovement);
+            Assert.AreEqual(secondTestingMovement, thirdTestingMovement);
+            Assert.AreEqual(testingMovement, thirdTestingMovement);
+        }
+
+        [TestMethod]
+        public void MovementEqualsDifferentMovementTest()
+        {
+            Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
+            Subzone alternativeSubzoneArrival = alternativeSubzone;
+            DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 11);
+            testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
+                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+            testingMovement.Id = 1;
+            Movement secondTestingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
+                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+            secondTestingMovement.Id = 2;
+            Assert.AreNotEqual(testingMovement, secondTestingMovement);
+        }
+
+        [TestMethod]
+        public void MovementEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingMovement, null);
+        }
+
+        [TestMethod]
+        public void MovementEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingMovement, someRandomObject);
+        }
+
     }
 }
