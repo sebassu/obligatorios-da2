@@ -74,7 +74,7 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.SubzoneIsInvalid, "salida", null);
+                       ErrorMessages.SubzoneIsInvalid, "partida", null);
                     throw new MovementException(errorMessage);
                 }
             }
@@ -83,6 +83,39 @@ namespace Domain
         protected virtual bool IsValidSubzone(Subzone value)
         {
             return Utilities.IsNotNull(value);
+        }
+
+        private Subzone subzoneArrival;
+        public Subzone SubzoneArrival
+        {
+            get { return subzoneArrival; }
+            set
+            {
+                if (IsValidSubzone(value))
+                {
+                    if (IsValidSubzoneArrival(subzoneDeparture, value))
+                    {
+                        subzoneArrival = value;
+                    }
+                    else
+                    {
+                        string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                      ErrorMessages.SubzoneArrivalIsInvalid, "", null);
+                        throw new MovementException(errorMessage);
+                    }
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                       ErrorMessages.SubzoneIsInvalid, "llegada", null);
+                    throw new MovementException(errorMessage);
+                }
+            }
+        }
+
+        protected virtual bool IsValidSubzoneArrival(Subzone departure, Subzone arrival)
+        {
+            return Utilities.IsNotNull(departure) && Utilities.IsNotNull(arrival) ? !departure.Equals(arrival) : false;
         }
 
         internal static Movement InstanceForTestingPurposes()
@@ -94,6 +127,10 @@ namespace Domain
         {
             responsibleUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376");
             dateTime = new DateTime(2017, 9, 22, 10, 8, 0);
+            subzoneDeparture = Subzone.InstanceForTestingPurposes();
+            Subzone alternativeSubzone = Subzone.CreateNewSubzone("arrival", 8, Zone.InstanceForTestingPurposes());
+            alternativeSubzone.Id = 2;
+            subzoneArrival = alternativeSubzone;
         }
     }
 }

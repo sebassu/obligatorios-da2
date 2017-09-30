@@ -196,6 +196,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La zona de partida no puede ser nula ni igual a la de llegada..
+        /// </summary>
+        internal static string SubzoneArrivalIsInvalid {
+            get {
+                return ResourceManager.GetString("SubzoneArrivalIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La zona de {0}  no puede ser nula..
         /// </summary>
         internal static string SubzoneIsInvalid {

@@ -13,21 +13,25 @@ namespace Data.Tests.Domain_tests
     {
         private static Movement testingMovement;
         private static User testingUser = User.InstanceForTestingPurposes();
+        private static User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon",
+                "password", "26010376");
+        private static Subzone alternativeSubzone = Subzone.CreateNewSubzone("arrival", 8, Zone.InstanceForTestingPurposes());
 
         [TestInitialize]
         public void TestSetup()
         {
             testingMovement = Movement.InstanceForTestingPurposes();
+            alternativeSubzone.Id = 2;
         }
 
         [TestMethod]
         public void MovementInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingMovement.Id);
-            User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", 
-                "password", "26010376");
             Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
             Assert.AreEqual(new DateTime(2017, 9, 22, 10, 8, 0), testingMovement.DateTime);
+            Assert.AreEqual(Subzone.InstanceForTestingPurposes(), testingMovement.SubzoneDeparture);
+            Assert.AreEqual(alternativeSubzone, testingMovement.SubzoneArrival);
         }
 
         [TestMethod]
@@ -99,11 +103,14 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        public void MovementSetSubzoneArivalValidTest()
+        public void MovementSetSubzoneArrivalValidTest()
         {
-            Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7, Zone.InstanceForTestingPurposes());
-            testingMovement.SubzoneArrival = alternativeSubzone;
-            Assert.AreEqual(alternativeSubzone, testingMovement.SubzoneArrival);
+            Subzone alternativeSubzoneDeparture = Subzone.CreateNewSubzone("subzone1", 7, Zone.InstanceForTestingPurposes());
+            testingMovement.SubzoneDeparture = alternativeSubzoneDeparture;
+            Subzone alternativeSubzoneArrival = Subzone.CreateNewSubzone("subzone1", 7, Zone.InstanceForTestingPurposes());
+            alternativeSubzoneArrival.Id = 9;
+            testingMovement.SubzoneArrival = alternativeSubzoneArrival;
+            Assert.AreEqual(alternativeSubzoneArrival, testingMovement.SubzoneArrival);
         }
 
         [ExpectedException(typeof(MovementException))]
