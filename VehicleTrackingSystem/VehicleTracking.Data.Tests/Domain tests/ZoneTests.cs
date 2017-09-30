@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using Domain;
+using System.Linq;
 
 namespace Data.Tests.Domain_tests
 {
@@ -19,7 +20,7 @@ namespace Data.Tests.Domain_tests
         public void TestSetup()
         {
             testingZone = Zone.InstanceForTestingPurposes();
-            testingSubzone = Damage.SubzoneForTestingPurposes();
+            testingSubzone = Zone.SubzoneForTestingPurposes();
             subzoneList = new List<Zone> { testingSubzone };
         }
 
