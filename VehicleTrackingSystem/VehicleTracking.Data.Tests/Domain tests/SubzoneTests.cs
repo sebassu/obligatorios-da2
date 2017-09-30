@@ -81,5 +81,28 @@ namespace Data.Tests.Domain_tests
         {
             testingSubzone.Capacity = 0;
         }
+
+        [TestMethod]
+        public void SubzoneParameterFactoryMethodValidTest()
+        {
+            testingSubzone = Subzone.CreateNewSubzone("Some subzone", 26);
+            Assert.AreEqual("Some subzone", testingSubzone.Name);
+            Assert.AreEqual(26, testingSubzone.Capacity);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SubzoneException))]
+        public void SubzoneParameterFactoryMethodInvalidNameTest()
+        {
+            testingSubzone = Subzone.CreateNewSubzone("!@#$%", 23);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SubzoneException))]
+        public void SubzoneParameterFactoryMethodInvalidCapacityTest()
+        {
+            testingSubzone = Subzone.CreateNewSubzone("Another subzone", 0);
+        }
+
     }
 }
