@@ -199,5 +199,12 @@ namespace Data.Tests.Domain_tests
             object someRandomObject = new object();
             Assert.AreNotEqual(testingZone, someRandomObject);
         }
+
+        [TestMethod]
+        public void ZoneGetHashCodeTest()
+        {
+            object testingZoneAsObject = testingSubzone;
+            Assert.AreEqual(testingZoneAsObject.GetHashCode(), testingZone.GetHashCode());
+        }
     }
 }
