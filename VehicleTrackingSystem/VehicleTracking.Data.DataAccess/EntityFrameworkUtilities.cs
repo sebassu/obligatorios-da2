@@ -25,21 +25,12 @@ namespace Persistence
             }
         }
 
-        internal static void Remove(object idToRemove)
-        {
-            using (var context = new VTSystemContext())
-            {
-                var elements = context.Set<TEntity>();
-                TEntity elementToRemove = elements.Find(idToRemove);
-                AttemptToRemove(context, elements, elementToRemove);
-            }
-        }
-
-        private static void AttemptToRemove(VTSystemContext context,
-            DbSet<TEntity> elements, TEntity elementToRemove)
+        internal static void AttemptToRemove(TEntity elementToRemove,
+            VTSystemContext context)
         {
             try
             {
+                var elements = context.Set<TEntity>();
                 elements.Remove(elementToRemove);
                 context.SaveChanges();
             }

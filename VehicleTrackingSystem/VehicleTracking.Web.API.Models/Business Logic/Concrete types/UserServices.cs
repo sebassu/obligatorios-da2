@@ -51,7 +51,7 @@ namespace API.Services
 
         public UserDTO GetUserByUsername(string usernameToLookup)
         {
-            User userFound = Model.GetUserByUsername(usernameToLookup);
+            User userFound = Model.GetUserWithUsername(usernameToLookup);
             return UserDTO.FromUser(userFound);
         }
 
@@ -65,7 +65,7 @@ namespace API.Services
         private void AttemptToPerformModification(string usernameToModify,
             UserDTO userData)
         {
-            User userFound = Model.GetUserByUsername(usernameToModify);
+            User userFound = Model.GetUserWithUsername(usernameToModify);
             userData.SetDataToUser(userFound);
             Model.UpdateUser(userFound);
         }

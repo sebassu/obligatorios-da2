@@ -106,20 +106,20 @@ namespace Persistence {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No es posible completar la acción. El {0} ingresado ya se encuentra registrado en el sistema..
+        /// </summary>
+        internal static string FieldMustBeUnique {
+            get {
+                return ResourceManager.GetString("FieldMustBeUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se recibió una ID nula de elemento a eliminar..
         /// </summary>
         internal static string NullIDRecieved {
             get {
                 return ResourceManager.GetString("NullIDRecieved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No es posible completar la acción. El VIN ingresado ya se encuentra registrado en el sistema..
-        /// </summary>
-        internal static string VINMustBeUnique {
-            get {
-                return ResourceManager.GetString("VINMustBeUnique", resourceCulture);
             }
         }
     }
