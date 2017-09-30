@@ -69,5 +69,15 @@ namespace Domain
             capacity = 3;
         }
 
+        public static Subzone CreateNewSubzone(String name, int capacity)
+        {
+            return new Subzone(name, capacity);
+        }
+
+        protected Subzone(string nameToSet, int capacityToSet)
+        {
+            Name = nameToSet;
+            Capacity = capacityToSet;
+        }
     }
 }
