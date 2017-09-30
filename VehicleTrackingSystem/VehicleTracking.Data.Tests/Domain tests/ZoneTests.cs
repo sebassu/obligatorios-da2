@@ -203,7 +203,7 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void ZoneGetHashCodeTest()
         {
-            object testingZoneAsObject = testingSubzone;
+            object testingZoneAsObject = testingZone;
             Assert.AreEqual(testingZoneAsObject.GetHashCode(), testingZone.GetHashCode());
         }
     }
