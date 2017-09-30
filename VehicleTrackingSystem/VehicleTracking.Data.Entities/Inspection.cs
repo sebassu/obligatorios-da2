@@ -147,6 +147,7 @@ namespace Domain
             List<Damage> damagesList = new List<Damage>();
             damagesList.Add(Damage.CreateNewDamage("One Description", imagesList));
             damages = damagesList;
+            vehicleVIN = Vehicle.InstanceForTestingPurposes().VIN;
 
         }
         public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages, 
