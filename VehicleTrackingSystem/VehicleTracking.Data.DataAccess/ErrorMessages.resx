@@ -132,10 +132,10 @@
   <data name="ElementDoesNotExist" xml:space="preserve">
     <value>Elemento inválido recibido: no se encuentra registrado en el sistema.</value>
   </data>
+  <data name="FieldMustBeUnique" xml:space="preserve">
+    <value>No es posible completar la acción. El {0} ingresado ya se encuentra registrado en el sistema.</value>
+  </data>
   <data name="NullIDRecieved" xml:space="preserve">
     <value>Se recibió una ID nula de elemento a eliminar.</value>
-  </data>
-  <data name="VINMustBeUnique" xml:space="preserve">
-    <value>No es posible completar la acción. El VIN ingresado ya se encuentra registrado en el sistema.</value>
   </data>
 </root>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 namespace Persistence
@@ -26,7 +27,16 @@ namespace Persistence
         {
             using (var context = new VTSystemContext())
             {
-                EntityFrameworkUtilities<User>.Add(context, userToAdd);
+                if (ExistsUserWithUsername(userToAdd.Username, context))
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.FieldMustBeUnique, "nombre de usuario");
+                    throw new RepositoryException(errorMessage);
+                }
+                else
+                {
+                    EntityFrameworkUtilities<User>.Add(context, userToAdd);
+                }
             }
         }
 
@@ -34,47 +44,34 @@ namespace Persistence
         {
             using (var context = new VTSystemContext())
             {
-                return context.Users.Any(u => u.Username == usernameToLookup);
+                return ExistsUserWithUsername(usernameToLookup, context);
             }
         }
 
-        public void RemoveUserWithUsername(string usernameToRemove)
+        private static bool ExistsUserWithUsername(string usernameToLookup, VTSystemContext context)
         {
-            if (IdBelongsToLastAdministrator(usernameToRemove))
-            {
-                throw new RepositoryException(ErrorMessages.CannotRemoveAllAdministrators);
-            }
-            else
-            {
-                EntityFrameworkUtilities<User>.Remove(usernameToRemove);
-            }
+            return context.Users.Any(u => u.Username == usernameToLookup);
         }
 
-        private bool IdBelongsToLastAdministrator(string usernameToRemove)
+        public User GetUserWithUsername(string usernameToFind)
         {
             using (var context = new VTSystemContext())
             {
-                var administrators = context.Users.Where(u => u.Role == UserRoles.ADMINISTRATOR).ToList();
-                return administrators.Count == 1 && administrators.Single().Username == usernameToRemove;
+                return AttemptToGetUserWithUsername(usernameToFind, context);
             }
         }
 
-        public User GetUserByUsername(string usernameToRemove)
+        private static User AttemptToGetUserWithUsername(string usernameToFind, VTSystemContext context)
         {
-            User foundEntity;
-            using (var context = new VTSystemContext())
+            try
             {
                 var elements = context.Set<User>();
-                foundEntity = elements.Find(usernameToRemove);
+                return elements.Single(u => u.Username.Equals(usernameToFind));
             }
-            if (Utilities.IsNotNull(foundEntity))
-            {
-                return foundEntity;
-            }
-            else
+            catch (InvalidOperationException)
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.CouldNotFindUser, usernameToRemove);
+                    ErrorMessages.CouldNotFindUser, usernameToFind);
                 throw new RepositoryException(errorMessage);
             }
         }
@@ -82,6 +79,29 @@ namespace Persistence
         public void UpdateUser(User userToModify)
         {
             EntityFrameworkUtilities<User>.Update(userToModify);
+        }
+
+        public void RemoveUserWithUsername(string usernameToRemove)
+        {
+            using (var context = new VTSystemContext())
+            {
+                if (UsernameBelongsToLastAdministrator(usernameToRemove, context))
+                {
+                    throw new RepositoryException(ErrorMessages.CannotRemoveAllAdministrators);
+                }
+                else
+                {
+                    var userToRemove = AttemptToGetUserWithUsername(usernameToRemove, context);
+                    EntityFrameworkUtilities<User>.AttemptToRemove(userToRemove, context);
+                }
+            }
+        }
+
+        private bool UsernameBelongsToLastAdministrator(string usernameToRemove,
+            VTSystemContext context)
+        {
+            var administrators = context.Users.Where(u => u.Role == UserRoles.ADMINISTRATOR).ToList();
+            return administrators.Count == 1 && administrators.Single().Username == usernameToRemove;
         }
     }
 }

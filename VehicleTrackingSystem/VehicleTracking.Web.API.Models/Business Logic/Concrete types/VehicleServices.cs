@@ -52,7 +52,7 @@ namespace API.Services
 
         public VehicleDTO GetVehicleWithVIN(string vinToLookup)
         {
-            Vehicle vehicleFound = Model.GetVehicleByVIN(vinToLookup);
+            Vehicle vehicleFound = Model.GetVehicleWithVIN(vinToLookup);
             return VehicleDTO.FromVehicle(vehicleFound);
         }
 
@@ -66,14 +66,14 @@ namespace API.Services
         private void AttemptToPerformModification(string vinToModify,
             VehicleDTO vehicleData)
         {
-            Vehicle vehicleFound = Model.GetVehicleByVIN(vinToModify);
+            Vehicle vehicleFound = Model.GetVehicleWithVIN(vinToModify);
             vehicleData.SetDataToVehicle(vehicleFound);
             Model.UpdateVehicle(vehicleFound);
         }
 
         public void RemoveVehicleWithVIN(string vinToRemove)
         {
-            Model.RemoveVehicleByVIN(vinToRemove);
+            Model.RemoveVehicleWithVIN(vinToRemove);
         }
     }
 }

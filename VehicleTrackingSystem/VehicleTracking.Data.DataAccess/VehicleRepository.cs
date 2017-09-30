@@ -1,16 +1,34 @@
 ﻿using Domain;
 using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Services")]
 namespace Persistence
 {
-    internal class VehicleRepository
+    internal class VehicleRepository : IVehicleRepository
     {
-        public static IReadOnlyCollection<Vehicle> Elements
+        public int AddNewVehicle(Vehicle vehicleToAdd)
+        {
+            using (var context = new VTSystemContext())
+            {
+                if (ExistsVehicleWithVIN(vehicleToAdd.VIN, context))
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.FieldMustBeUnique, "VIN");
+                    throw new RepositoryException(errorMessage);
+                }
+                else
+                {
+                    EntityFrameworkUtilities<Vehicle>.Add(context, vehicleToAdd);
+                    return vehicleToAdd.Id;
+                }
+            }
+        }
+
+        public IEnumerable<Vehicle> Elements
         {
             get
             {
@@ -22,89 +40,56 @@ namespace Persistence
             }
         }
 
-        public static Vehicle AddNewVehicle(VehicleType type, string brand, string model,
-            short year, string color, string VIN)
+        public bool ExistsVehicleWithVIN(string VINToLookup)
         {
             using (var context = new VTSystemContext())
             {
-                bool vehicleIsNotRegistered = !ExistsVehicleWithVIN(VIN);
-                if (vehicleIsNotRegistered)
-                {
-                    Vehicle vehicleToAdd = Vehicle.CreateNewVehicle(type, brand, model,
-                        year, color, VIN);
-                    EntityFrameworkUtilities<Vehicle>.Add(context, vehicleToAdd);
-                    return vehicleToAdd;
-                }
-                else
-                {
-                    throw new RepositoryException(ErrorMessages.VINMustBeUnique);
-                }
+                return ExistsVehicleWithVIN(VINToLookup, context);
             }
         }
 
-        private static bool ExistsVehicleWithVIN(string VINToLookup)
+        private static bool ExistsVehicleWithVIN(string VINToLookup,
+            VTSystemContext context)
+        {
+            return context.Vehicles.Any(v => v.VIN == VINToLookup);
+        }
+
+        public Vehicle GetVehicleWithVIN(string vinToFind)
         {
             using (var context = new VTSystemContext())
             {
-                return context.Vehicles.Any(v => v.VIN == VINToLookup);
+                return AttemptToGetVehicleWithVIN(vinToFind, context);
             }
         }
 
-        public static void Remove(Vehicle elementToRemove)
-        {
-            EntityFrameworkUtilities<Vehicle>.Remove(elementToRemove.Id);
-        }
-
-        public static void ModifyVehicle(Vehicle vehicleToModify, VehicleType typeToSet, string brandToSet,
-            string modelToSet, short yearToSet, string colorToSet, string VINToSet)
+        private static Vehicle AttemptToGetVehicleWithVIN(string vinToFind,
+            VTSystemContext context)
         {
             try
             {
-                AttemptToSetVehicleAttributes(vehicleToModify, typeToSet, brandToSet, modelToSet,
-                    yearToSet, colorToSet, VINToSet);
+                var elements = context.Set<Vehicle>();
+                return elements.Single(u => u.VIN.Equals(vinToFind));
             }
-            catch (DataException)
+            catch (InvalidOperationException)
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.ElementDoesNotExist, "Vehiculo");
+                    ErrorMessages.CouldNotFindUser, vinToFind);
                 throw new RepositoryException(errorMessage);
             }
         }
 
-        private static void AttemptToSetVehicleAttributes(Vehicle vehicleToModify, VehicleType typeToSet, string brandToSet,
-            string modelToSet, short yearToSet, string colorToSet, string VINToSet)
+        public void UpdateVehicle(Vehicle vehicleToModify)
+        {
+            EntityFrameworkUtilities<Vehicle>.Update(vehicleToModify);
+        }
+
+        public void RemoveVehicleWithVIN(string vinToRemove)
         {
             using (var context = new VTSystemContext())
             {
-                EntityFrameworkUtilities<Vehicle>.AttachIfIsValid(context, vehicleToModify);
-                if (ChangeCausesRepeatedVIN(vehicleToModify, VINToSet))
-                {
-                    throw new RepositoryException(ErrorMessages.VINMustBeUnique);
-                }
-                else
-                {
-                    SetVehicleAttributes(vehicleToModify, typeToSet, brandToSet, modelToSet,
-                        yearToSet, colorToSet, VINToSet);
-                    context.SaveChanges();
-                }
+                var vehicleToRemove = AttemptToGetVehicleWithVIN(vinToRemove, context);
+                EntityFrameworkUtilities<Vehicle>.AttemptToRemove(vehicleToRemove, context);
             }
-        }
-
-        private static bool ChangeCausesRepeatedVIN(Vehicle vehicleToModify, string VINToSet)
-        {
-            bool VINChanges = vehicleToModify.VIN != VINToSet;
-            return VINChanges && ExistsVehicleWithVIN(VINToSet);
-        }
-
-        private static void SetVehicleAttributes(Vehicle vehicleToModify, VehicleType typeToSet, string brandToSet,
-            string modelToSet, short yearToSet, string colorToSet, string VINToSet)
-        {
-            vehicleToModify.Type = typeToSet;
-            vehicleToModify.Brand = brandToSet;
-            vehicleToModify.Model = modelToSet;
-            vehicleToModify.Year = yearToSet;
-            vehicleToModify.Color = colorToSet;
-            vehicleToModify.VIN = VINToSet;
         }
     }
 }

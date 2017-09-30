@@ -5,11 +5,11 @@ namespace Persistence
 {
     public interface IVehicleRepository
     {
-        IEnumerable<Vehicle> Elements { get; }
-        Vehicle GetVehicleByVIN(string vinToLookup);
         int AddNewVehicle(Vehicle vehicleToAdd);
-        void UpdateVehicle(Vehicle vehicleToModify);
-        void RemoveVehicleByVIN(string usernameToRemove);
+        IEnumerable<Vehicle> Elements { get; }
         bool ExistsVehicleWithVIN(string usernameToLookup);
+        Vehicle GetVehicleWithVIN(string vinToLookup);
+        void UpdateVehicle(Vehicle vehicleToModify);
+        void RemoveVehicleWithVIN(string usernameToRemove);
     }
 }
