@@ -36,6 +36,30 @@ namespace Domain
             return Utilities.ContainsLettersOrSpacesOrDigitsOnly(value);
         }
 
+        private int capacity;
+        public int Capacity
+        {
+            get { return capacity; }
+            set
+            {
+                if (IsValidCapacity(value))
+                {
+                    capacity = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.CapacityIsInvalid, "Capacidad", value);
+                    throw new ZoneException(errorMessage);
+                }
+            }
+        }
+
+        protected bool IsValidCapacity(int value)
+        {
+            return Utilities.ValidMinimumCapacity(value);
+        }
+
         private List<Subzone> subzones;
         public List<Subzone> Subzones
         {
