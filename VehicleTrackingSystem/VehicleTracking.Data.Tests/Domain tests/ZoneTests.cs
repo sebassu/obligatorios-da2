@@ -121,5 +121,35 @@ namespace Data.Tests.Domain_tests
         {
             testingZone.Subzones = null;
         }
+
+        [TestMethod]
+        public void ZoneParameterFactoryMethodValidTest()
+        {
+            testingZone = Zone.CreateNewSubzone("Zone 1", 5, testingSubzone);
+            Assert.AreEqual(0, testingZone.Id);
+            Assert.AreEqual("Zone 1", testingZone.Name);
+            Assert.AreEqual(5, testingZone.Capacity);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZoneParameterFactoryMethodInvalidNameTest()
+        {
+            testingZone= Zone.CreateNewZone("!@#$%", 23, testingSubzone);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZoneParameterFactoryMethodInvalidCapacityTest()
+        {
+            testingZone = Zone.CreateNewZone("Another subzone", 0, testingSubzone);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZoneParameterFactoryMethodInvaliSubzonesTest()
+        {
+            testingZone = Zone.CreateNewZone("Another subzone", 0, null);
+        }
     }
 }
