@@ -82,5 +82,20 @@ namespace Data.Tests.Domain_tests
         {
             testingMovement.DateTime = new DateTime(1856, 8, 30, 12, 8, 9);
         }
+
+        [TestMethod]
+        public void MovementSetSubzoneDepartureValidTest()
+        {
+            Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7, Zone.InstanceForTestingPurposes());
+            testingMovement.SubzoneDeparture = alternativeSubzone;
+            Assert.AreEqual(alternativeSubzone, testingMovement.SubzoneDeparture);
+        }
+
+        [ExpectedException(typeof(MovementException))]
+        [TestMethod]
+        public void MovementSetInvalidSubzoneDepartureNullTest()
+        {
+            testingMovement.SubzoneDeparture = null;
+        }
     }
 }
