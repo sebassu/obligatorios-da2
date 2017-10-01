@@ -76,18 +76,6 @@ namespace Data.Tests.Persistence_tests
             Assert.AreEqual(33, zoneToVerify.Capacity);
         }
 
-        [TestMethod]
-        public void ZRepositoryModifyZoneSetSameDataValidTest()
-        {
-            Zone zoneToVerify = testingZoneSubzoneRepository.ZoneElements.First();
-            var previousName = zoneToVerify.Name;
-            var previousCapacity = zoneToVerify.Capacity;
-            SetZoneData(zoneToVerify, previousName, previousCapacity);
-            testingZoneSubzoneRepository.UpdateZone(zoneToVerify);
-            Assert.AreEqual(previousName, zoneToVerify.Name);
-            Assert.AreEqual(previousCapacity, zoneToVerify.Capacity);
-        }
-
         private void SetZoneData(Zone zoneToVerify, string nameToSet, int capacityToSet)
         {
             zoneToVerify.Name = nameToSet;

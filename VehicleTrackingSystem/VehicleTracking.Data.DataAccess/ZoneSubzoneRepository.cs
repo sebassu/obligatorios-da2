@@ -22,15 +22,41 @@ namespace Persistence
         {
             using (var context = new VTSystemContext())
             {
-                bool zoneIsNotRegistered = !ExistsZoneWithName(zoneToAdd.Name);
-                if (zoneIsNotRegistered)
+                if (Utilities.IsNotNull(zoneToAdd))
                 {
-                    EntityFrameworkUtilities<Zone>.Add(context, zoneToAdd);
+                    bool zoneIsNotRegistered = !ExistsZoneWithName(zoneToAdd.Name);
+                    if (zoneIsNotRegistered)
+                    {
+                        EntityFrameworkUtilities<Zone>.Add(context, zoneToAdd);
+                    }
+                    else
+                    {
+                        throw new RepositoryException(ErrorMessages.ZoneNameMustBeUnique);
+                    }
                 }
                 else
                 {
-                    throw new RepositoryException(ErrorMessages.VINMustBeUnique);
+                    throw new RepositoryException(ErrorMessages.NullIDRecieved);
                 }
+            }
+        }
+
+        public void UpdateZone(Zone zoneToModify)
+        {
+            if (Utilities.IsNotNull(zoneToModify))
+            {
+                if (!ExistsZoneWithName(zoneToModify.Name))
+                {
+                    EntityFrameworkUtilities<Zone>.Update(zoneToModify);
+                }
+                else
+                {
+                    throw new RepositoryException(ErrorMessages.ZoneNameMustBeUnique);
+                }
+            }
+            else
+            {
+                throw new RepositoryException(ErrorMessages.NullIDRecieved);
             }
         }
 

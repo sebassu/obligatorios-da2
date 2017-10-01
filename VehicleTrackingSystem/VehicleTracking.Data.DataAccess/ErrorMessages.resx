@@ -138,4 +138,7 @@
   <data name="VINMustBeUnique" xml:space="preserve">
     <value>No es posible completar la acción. El VIN ingresado ya se encuentra registrado en el sistema.</value>
   </data>
+  <data name="ZoneNameMustBeUnique" xml:space="preserve">
+    <value>No es posible completar la acción. El nombre ingresado ya se encuentra registrado en el sistema.</value>
+  </data>
 </root>

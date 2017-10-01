@@ -122,5 +122,14 @@ namespace Persistence {
                 return ResourceManager.GetString("VINMustBeUnique", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No es posible completar la acción. El nombre ingresado ya se encuentra registrado en el sistema..
+        /// </summary>
+        internal static string ZoneNameMustBeUnique {
+            get {
+                return ResourceManager.GetString("ZoneNameMustBeUnique", resourceCulture);
+            }
+        }
     }
 }
