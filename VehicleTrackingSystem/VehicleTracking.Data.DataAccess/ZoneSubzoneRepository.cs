@@ -57,14 +57,7 @@ namespace Persistence
         {
             if (Utilities.IsNotNull(zoneToModify))
             {
-                if (!ExistsZoneWithName(zoneToModify.Name))
-                {
-                    EntityFrameworkUtilities<Zone>.Update(zoneToModify);
-                }
-                else
-                {
-                    throw new RepositoryException(ErrorMessages.ZoneNameMustBeUnique);
-                }
+                EntityFrameworkUtilities<Zone>.Update(zoneToModify);
             }
             else
             {
