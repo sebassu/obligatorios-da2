@@ -13,7 +13,6 @@ namespace Data.Tests.Domain_tests
     public class ZoneTests
     {
         private static Zone testingZone;
-        private static List<Subzone> subzoneList;
         private static Subzone testingSubzone;
 
         [TestInitialize]
@@ -21,7 +20,6 @@ namespace Data.Tests.Domain_tests
         {
             testingZone = Zone.InstanceForTestingPurposes();
             testingSubzone = Subzone.InstanceForTestingPurposes();
-            subzoneList = new List<Subzone> { testingSubzone };
         }
 
         [TestMethod]

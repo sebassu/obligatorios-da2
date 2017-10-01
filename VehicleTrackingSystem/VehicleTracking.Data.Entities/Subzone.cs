@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain
 {
     class Subzone
     {
         public int Id { get; set; }
+
+
+        public List<Vehicle> Vehicles { get; set; }
 
         private string name;
         public string Name
@@ -105,6 +105,7 @@ namespace Domain
             Name = nameToSet;
             Capacity = capacityToSet;
             ContainerZone = zoneToSet;
+            Vehicles = new List<Vehicle>();
         }
 
         public override bool Equals(object obj)
