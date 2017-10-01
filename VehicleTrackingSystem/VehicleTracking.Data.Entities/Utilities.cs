@@ -91,7 +91,7 @@ namespace Domain
 
         public static bool ValidateInspection(User user, Location location)
         {
-            if (IsValidUserInspection(user) && IsNotNull(location))
+            if (IsNotNull(location) && IsNotNull(user))
             {
                 if (location.Type == LocationType.PORT)
                 {
@@ -108,9 +108,7 @@ namespace Domain
             }
         }
 
-        private static UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR, UserRoles.YARD_OPERATOR };
-
-        public static bool IsValidUserInspection(User user)
+        public static bool IsValidUser(User user, UserRoles[] allowedUserRoles)
         {
             return IsNotNull(user) ? allowedUserRoles.Contains(user.Role) : false;
         }

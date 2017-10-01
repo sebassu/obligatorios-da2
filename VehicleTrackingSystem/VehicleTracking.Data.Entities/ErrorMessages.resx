@@ -151,7 +151,7 @@
     <value>Número telefónico inválido: "{0}". Se aceptan únicamente teléfonos siguiendo el formato uruguayo.</value>
   </data>
   <data name="ResponsibleUserIsInvalid" xml:space="preserve">
-    <value>Usuario inválido. Los usuarios de tipo "{1}" no pueden realizar inspecciones en la etapa actual.</value>
+    <value>Usuario inválido. Los usuarios de tipo "{1}" no pueden realizar la acción deseada.</value>
   </data>
   <data name="UsernameIsInvalid" xml:space="preserve">
     <value>El usuario "{0}" es inválido: se permiten únicamente aquellos no vacíos con letras o números, sin espacios.</value>
@@ -170,7 +170,7 @@
   </data>
   <data name="LotUnauthorizedUserType" xml:space="preserve">
     <value>Es necesario estar registrado como "Operario de Puerto" o "Administrador" para poder registrar Lotes.</value>
-  </data>  
+  </data>
   <data name="ZoneNameIsInvalid" xml:space="preserve">
     <value>{0} inválido: "{1}". Solamente se permite ingresar caracteres alfabéticos con espacios y/o números para este campo.</value>
   </data>
@@ -179,5 +179,11 @@
   </data>
   <data name="ZoneIsInvalid" xml:space="preserve">
     <value>La zona no puede ser nula.</value>
+  </data>
+  <data name="SubzoneIsInvalid" xml:space="preserve">
+    <value>La zona de {0}  no puede ser nula.</value>
+  </data>
+  <data name="SubzoneArrivalIsInvalid" xml:space="preserve">
+    <value>La zona de partida no puede ser nula ni igual a la de llegada.</value>
   </data>
 </root>
