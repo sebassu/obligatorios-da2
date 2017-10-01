@@ -63,22 +63,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VehicleRepository.cs" />
     <Compile Include="VTSystemContext.cs" />
+    <Compile Include="ZoneSubzoneRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VehicleTracking.Data.Entities\VehicleTracking.Data.Entities.csproj">
-      <Project>{39b5263b-309e-423a-a4d0-b198180ef4aa}</Project>
-      <Name>VehicleTracking.Data.Entities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="ErrorMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VehicleTracking.Data.Entities\VehicleTracking.Data.Entities.csproj">
+      <Project>{39b5263b-309e-423a-a4d0-b198180ef4aa}</Project>
+      <Name>VehicleTracking.Data.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

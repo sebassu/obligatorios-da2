@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Subzone
+    public class Subzone
     {
         public int Id { get; set; }
 
