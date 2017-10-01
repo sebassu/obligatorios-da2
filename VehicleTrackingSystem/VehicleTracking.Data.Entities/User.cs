@@ -11,6 +11,8 @@ namespace Domain
 
     public class User
     {
+        public int Id { get; set; }
+
         public UserRoles Role { get; set; } = UserRoles.ADMINISTRATOR;
 
         private string firstName;

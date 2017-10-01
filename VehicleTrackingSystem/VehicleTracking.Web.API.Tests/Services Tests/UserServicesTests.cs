@@ -143,11 +143,12 @@ namespace Web.API.Services_Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ServiceException))]
+        [ExpectedException(typeof(RepositoryException))]
         public void UServicesAddNewUserWithRepeatedUsernameInvalidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.ExistsUserWithUsername(It.IsAny<string>())).Returns(true);
+            mockUserRepository.Setup(u => u.AddNewUser(It.IsAny<User>())).
+                Throws(new RepositoryException(""));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.AddNewUserFromData(testingUserData);
         }
@@ -159,7 +160,7 @@ namespace Web.API.Services_Tests
         {
             UserDTO expectedData = UserDTO.FromUser(testingUser);
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.GetUserByUsername(testingUser.Username)).Returns(testingUser);
+            mockUserRepository.Setup(u => u.GetUserWithUsername(testingUser.Username)).Returns(testingUser);
             var userServices = new UserServices(mockUserRepository.Object);
             var result = userServices.GetUserByUsername(testingUser.Username);
             mockUserRepository.VerifyAll();
@@ -172,7 +173,7 @@ namespace Web.API.Services_Tests
         public void UServicesGetUserWithUsernameNotFoundInvalidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.GetUserByUsername(It.IsAny<string>()))
+            mockUserRepository.Setup(u => u.GetUserWithUsername(It.IsAny<string>()))
                 .Throws(new RepositoryException("Message."));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.GetUserByUsername(testingUser.Username);
@@ -186,34 +187,16 @@ namespace Web.API.Services_Tests
             User userToModify = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
                 "mSantos", "DisculpeFuegoTiene", "099424242");
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.GetUserByUsername(userToModify.Username)).Returns(userToModify);
+            mockUserRepository.Setup(u => u.GetUserWithUsername(userToModify.Username)).Returns(userToModify);
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
             mockUserRepository.VerifyAll();
             Assert.AreEqual(testingUser.Role, userToModify.Role);
             Assert.AreEqual(testingUser.FirstName, userToModify.FirstName);
             Assert.AreEqual(testingUser.LastName, userToModify.LastName);
+            Assert.AreEqual(testingUser.Username, userToModify.Username);
             Assert.AreEqual(testingUser.Password, userToModify.Password);
             Assert.AreEqual(testingUser.PhoneNumber, userToModify.PhoneNumber);
-
-            Assert.AreNotEqual(testingUser.Username, userToModify.Username);
-            Assert.AreEqual("mSantos", userToModify.Username);
-        }
-
-        [TestMethod]
-        public void UServicesModifyUserWithUsernameDoesNotModifyUsernameTest()
-        {
-            User userToModify = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
-                "mSantos", "DisculpeFuegoTiene", "099424242");
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.GetUserByUsername(userToModify.Username)).Returns(userToModify);
-            var userServices = new UserServices(mockUserRepository.Object);
-            var userData = UserDTO.FromUser(testingUser);
-            userData.Username = "3* $ @!#$ 72"; // Does not fail with invalid username.
-            userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
-            mockUserRepository.VerifyAll();
-            Assert.AreNotEqual(testingUser.Username, userToModify.Username);
-            Assert.AreEqual("mSantos", userToModify.Username);
         }
 
         [TestMethod]
@@ -231,6 +214,15 @@ namespace Web.API.Services_Tests
         {
             UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
                 "a#$%s 9 $^!!12", "eRavenna", "HablarUnasPalabritas", "091696969");
+            RunModifyUserTestWithInvalidDataOnDTO(someUserData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UserException))]
+        public void UServicesModifyUserWithUsernameInvalidUsernameTest()
+        {
+            UserDTO someUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
+                "Ravenna", "@*&1 /* _+&$", "HablarUnasPalabritas", "091696969");
             RunModifyUserTestWithInvalidDataOnDTO(someUserData);
         }
 
@@ -255,9 +247,22 @@ namespace Web.API.Services_Tests
         private static void RunModifyUserTestWithInvalidDataOnDTO(UserDTO someUserData)
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.GetUserByUsername(testingUser.Username)).Returns(testingUser);
+            mockUserRepository.Setup(u => u.GetUserWithUsername(testingUser.Username)).Returns(testingUser);
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.ModifyUserWithUsername(testingUser.Username, someUserData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException))]
+        public void UServicesModifyUserWithUsernameCausesRepeatedUsernameInvalidTest()
+        {
+            User userToModify = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
+                "mSantos", "DisculpeFuegoTiene", "099424242");
+            var mockUserRepository = new Mock<IUserRepository>();
+            mockUserRepository.Setup(u => u.ExistsUserWithUsername(testingUserData.Username)).
+                Returns(true);
+            var userServices = new UserServices(mockUserRepository.Object);
+            userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
         }
         #endregion
 

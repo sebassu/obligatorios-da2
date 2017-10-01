@@ -62,11 +62,6 @@ namespace Domain
         
         public List<Subzone> Subzones { get; set; }
 
-        protected bool IsValidList(List<Subzone> value)
-        {
-            return Utilities.IsNotNull(value) ? value.Count > 0 : false;
-        }
-
         internal static Zone InstanceForTestingPurposes()
         {
             return new Zone();

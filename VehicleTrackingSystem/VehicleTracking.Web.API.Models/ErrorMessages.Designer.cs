@@ -61,20 +61,20 @@ namespace API.Services {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Se recibió una referencia nula a un Data Transfer Object..
+        ///   Looks up a localized string similar to No es posible completar la acción: el {0} ingresado ya se encuentra registrado en el sistema..
         /// </summary>
-        internal static string NullDTOReference {
+        internal static string FieldMustBeUnique {
             get {
-                return ResourceManager.GetString("NullDTOReference", resourceCulture);
+                return ResourceManager.GetString("FieldMustBeUnique", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No es posible completar la acción: el nombre de usuario ingresado ya se encuentra registrado en el sistema..
+        ///   Looks up a localized string similar to No se recibieron datos en el formato correcto esperado para acceder a esta funcionalidad..
         /// </summary>
-        internal static string UsernameMustBeUnique {
+        internal static string NullDTOReference {
             get {
-                return ResourceManager.GetString("UsernameMustBeUnique", resourceCulture);
+                return ResourceManager.GetString("NullDTOReference", resourceCulture);
             }
         }
     }

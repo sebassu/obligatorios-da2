@@ -141,7 +141,6 @@ namespace Domain
 
         protected Inspection()
         {
-
         }
 
         public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages, 
