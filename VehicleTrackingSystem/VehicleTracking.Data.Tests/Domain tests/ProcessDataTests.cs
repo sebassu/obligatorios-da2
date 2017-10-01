@@ -129,6 +129,7 @@ namespace Data.Tests.Domain_tests
         public void ProcessDataSetTransportEndDataValidTest()
         {
             testingData.SetTransportEndData();
+            Assert.AreEqual(ProcessStages.YARD, testingData.CurrentStage);
             Assert.AreEqual(DateTime.Today, testingData.TransportEnd.Date);
         }
     }

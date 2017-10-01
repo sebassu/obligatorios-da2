@@ -13,6 +13,7 @@ namespace Domain
         public Inspection PortInspection { get; set; }
         public DateTime TransportStart { get; set; }
         public User Transporter { get; set; }
+        public DateTime TransportEnd { get; set; }
 
         public void RegisterPortLot(Lot value)
         {
@@ -53,6 +54,12 @@ namespace Domain
             CurrentStage = ProcessStages.TRANSPORT;
             TransportStart = DateTime.Now;
             Transporter = transporterToSet;
+        }
+
+        internal void SetTransportEndData()
+        {
+            CurrentStage = ProcessStages.YARD;
+            TransportEnd = DateTime.Now;
         }
 
         private void ValidatePropertyWasNotSetPreviously(object propertyToValidate)
