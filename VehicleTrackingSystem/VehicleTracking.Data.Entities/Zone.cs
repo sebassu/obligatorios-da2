@@ -12,6 +12,8 @@ namespace Domain
 
         public int Id { get; set; }
 
+        public List<Subzone> Subzones { get; set; }
+
         private string name;
         public string Name
         {
@@ -59,8 +61,6 @@ namespace Domain
         {
             return Utilities.ValidMinimumCapacity(value);
         }
-        
-        public List<Subzone> Subzones { get; set; }
 
         internal static Zone InstanceForTestingPurposes()
         {

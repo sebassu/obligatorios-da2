@@ -97,6 +97,35 @@ namespace Data.Tests.Persistence_tests
         }
         #endregion
 
+        #region RemoveZone
+        [TestMethod]
+        public void ZRepositoryRemoveZoneValidTest()
+        {
+            Zone zoneToVerify = Zone.CreateNewZone("Delete zone", 6);
+            testingZoneSubzoneRepository.AddNewZone(zoneToVerify);
+            testingZoneSubzoneRepository.RemoveZone(zoneToVerify);
+            CollectionAssert.DoesNotContain(testingZoneSubzoneRepository.ZoneElements.ToList(), zoneToVerify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void ZRepositoryRemoveZoneNotInRepositoryInvalidTest()
+        {
+            Zone zoneToVerify = Zone.CreateNewZone("Some new zone", 8);
+            testingZoneSubzoneRepository.RemoveZone(zoneToVerify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void ZRepositoryRemoveZoneWithVehiclesInvalidTest()
+        {
+            Zone zoneToVerify = Zone.CreateNewZone("Some new zone", 8);
+            Subzone subzoneToAdd = Subzone.InstanceForTestingPurposes();
+            zoneToVerify.Subzones.Add(subzoneToAdd);
+            testingZoneSubzoneRepository.RemoveZone(zoneToVerify);
+        }
+        #endregion
+
         #region AddNewSubzone
         [TestMethod]
         public void ZRepositoryAddNewSubzoneValidTest()
@@ -154,6 +183,8 @@ namespace Data.Tests.Persistence_tests
             testingZoneSubzoneRepository.UpdateSubzone(null);
         }
         #endregion
+
+        
 
     }
 }
