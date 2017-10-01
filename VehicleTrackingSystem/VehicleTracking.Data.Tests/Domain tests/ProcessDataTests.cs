@@ -98,5 +98,31 @@ namespace Data.Tests.Domain_tests
             testingData.RegisterPortInspection(inspectionToSet);
             testingData.RegisterPortInspection(inspectionToSet);
         }
+
+        [TestMethod]
+        public void ProcessDataSetTransportStartDataValidTest()
+        {
+            User transporter = User.InstanceForTestingPurposes();
+            testingData.SetTransportStartData(transporter);
+            Assert.AreEqual(ProcessStages.TRANSPORT, testingData.CurrentStage);
+            Assert.AreEqual(transporter, testingData.Transporter);
+            Assert.AreEqual(DateTime.Today, testingData.TransportStart.Date);
+        }
+
+        [TestMethod]
+        public void ProcessDataSetTransportStartDataUnauthorizedTransporterValidTest()
+        {
+            User transporter = User.InstanceForTestingPurposes();
+            transporter.Role = UserRoles.YARD_OPERATOR;
+            testingData.SetTransportStartData(transporter);
+            Assert.AreEqual(transporter, testingData.Transporter);
+        }
+
+        [TestMethod]
+        public void ProcessDataSetTransportStartDataNullTransporterValidTest()
+        {
+            testingData.SetTransportStartData(null);
+            Assert.IsNull(testingData.Transporter);
+        }
     }
 }
