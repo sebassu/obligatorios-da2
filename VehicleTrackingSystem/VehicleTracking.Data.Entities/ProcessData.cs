@@ -14,6 +14,7 @@ namespace Domain
         public DateTime TransportStart { get; set; }
         public User Transporter { get; set; }
         public DateTime TransportEnd { get; set; }
+        public Inspection YardInspection { get; set; }
 
         public void RegisterPortLot(Lot value)
         {
@@ -60,6 +61,24 @@ namespace Domain
         {
             CurrentStage = ProcessStages.YARD;
             TransportEnd = DateTime.Now;
+        }
+
+        public void RegisterYardInspection(Inspection inspectionToSet)
+        {
+            ValidateVehicleIsInStage(ProcessStages.YARD);
+            ValidatePropertyWasNotSetPreviously(YardInspection);
+            bool isValidYardInspectionToSet = Utilities.IsNotNull(inspectionToSet) &&
+                inspectionToSet.Location.Type == LocationType.YARD;
+            if (isValidYardInspectionToSet)
+            {
+                YardInspection = inspectionToSet;
+            }
+            else
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.InvalidDataOnProcess, "Inspección de Patio");
+                throw new ProcessException(errorMessage);
+            }
         }
 
         private void ValidatePropertyWasNotSetPreviously(object propertyToValidate)
