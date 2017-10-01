@@ -72,7 +72,16 @@ namespace Persistence
             using (var context = new VTSystemContext())
             {
                 var zoneToRemove = AttemptToGetZoneWithName(nameToRemove, context);
-                EntityFrameworkUtilities<Zone>.AttemptToRemove(zoneToRemove, context);
+                if (zoneToRemove.Subzones == null || zoneToRemove.Subzones.Count < 1)
+                {
+                    EntityFrameworkUtilities<Zone>.AttemptToRemove(zoneToRemove, context);
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                                        ErrorMessages.CouldNotFindElement, "");
+                    throw new RepositoryException(errorMessage);
+                }
             }
         }
 
@@ -132,6 +141,40 @@ namespace Persistence
             else
             {
                 throw new RepositoryException(ErrorMessages.NullObjectRecieved);
+            }
+        }
+
+        public void RemoveSubzoneWithId(int id)
+        {
+            using (var context = new VTSystemContext())
+            {
+                var subzoneToRemove = AttemptToGetSubzoneWithId(id, context);
+                if (subzoneToRemove.Subzones == null || subzoneToRemove.Subzones.Count < 1)
+                {
+                    EntityFrameworkUtilities<Zone>.AttemptToRemove(subzoneToRemove, context);
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                                        ErrorMessages.CouldNotFindElement, "");
+                    throw new RepositoryException(errorMessage);
+                }
+            }
+        }
+
+        private static Zone AttemptToGetSubzoneWithId(int id,
+            VTSystemContext context)
+        {
+            try
+            {
+                var elements = context.Set<Zone>();
+                return elements.Single(s => s.Id.Equals(id));
+            }
+            catch (InvalidOperationException)
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.CouldNotFindElement, "");
+                throw new RepositoryException(errorMessage);
             }
         }
     }

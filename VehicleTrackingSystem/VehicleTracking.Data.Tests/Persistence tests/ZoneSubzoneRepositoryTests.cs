@@ -118,7 +118,7 @@ namespace Data.Tests.Persistence_tests
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void ZRepositoryRemoveZoneWithVehiclesInvalidTest()
+        public void ZRepositoryRemoveZoneWithSubzonesInvalidTest()
         {
             Zone zoneToVerify = Zone.CreateNewZone("Some new zone", 8);
             Subzone subzoneToAdd = Subzone.InstanceForTestingPurposes();
@@ -189,7 +189,41 @@ namespace Data.Tests.Persistence_tests
         }
         #endregion
 
-        
+        #region RemoveSubzone
+        //[TestMethod]
+        //public void ZRepositoryRemoveSubzoneValidTest()
+        //{
+        //    Zone testingZone = Zone.CreateNewZone("Some new zone", 8);
+        //    testingZoneSubzoneRepository.AddNewZone(testingZone);
+        //    Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone", 6, testingZone);
+        //    testingZoneSubzoneRepository.AddNewSubzone(subzoneToVerify);
+        //    testingZoneSubzoneRepository.RemoveSubzoneWithId(subzoneToVerify.Id);
+        //    CollectionAssert.DoesNotContain(testingZoneSubzoneRepository.SubzoneElements.ToList(), subzoneToVerify);
+        //}
+
+        //[TestMethod]
+        //[ExpectedException(typeof(RepositoryException))]
+        //public void ZRepositoryRemoveSubzoneNotInRepositoryInvalidTest()
+        //{
+        //    Zone testingZone = Zone.CreateNewZone("Zone20", 8);
+        //    testingZoneSubzoneRepository.AddNewZone(testingZone);
+        //    Subzone subzoneToVerify = Subzone.CreateNewSubzone("A new subzone", 8, testingZone);
+        //    testingZoneSubzoneRepository.RemoveSubzoneWithId(subzoneToVerify.Id);
+        //}
+
+        //[TestMethod]
+        //[ExpectedException(typeof(RepositoryException))]
+        //public void ZRepositoryRemoveSubzoneWithVehiclesInvalidTest()
+        //{
+        //    Zone testingZone = Zone.CreateNewZone("Zone21", 8);
+        //    testingZoneSubzoneRepository.AddNewZone(testingZone);
+        //    Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone 2", 6, testingZone);
+        //    Vehicle vehicleToAdd = Vehicle.InstanceForTestingPurposes();
+        //    subzoneToVerify.Vehicles.Add(vehicleToAdd);
+        //    testingZoneSubzoneRepository.AddNewSubzone(subzoneToVerify);
+        //    testingZoneSubzoneRepository.RemoveSubzoneWithId(subzoneToVerify.Id);
+        //}
+        #endregion
 
     }
 }
