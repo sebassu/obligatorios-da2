@@ -122,5 +122,14 @@ namespace Persistence {
                 return ResourceManager.GetString("NullIDRecieved", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se recibió una referencia a objeto nula con la que interactuar en un Repository..
+        /// </summary>
+        internal static string NullObjectRecieved {
+            get {
+                return ResourceManager.GetString("NullObjectRecieved", resourceCulture);
+            }
+        }
     }
 }

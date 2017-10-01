@@ -3,9 +3,11 @@ using System;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Web.API.Tests
 {
+    [ExcludeFromCodeCoverage]
     public static class ControllerTestsUtilities
     {
         public static void VerifyMethodReturnsOkResponse(Func<IHttpActionResult> methodToTest,

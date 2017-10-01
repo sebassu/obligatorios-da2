@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Persistence;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace API.Services
 {
@@ -27,17 +28,8 @@ namespace API.Services
 
         private int AttemptToAddVehicle(VehicleDTO vehicleDataToAdd)
         {
-            bool vinIsNotRegistered =
-                !Model.ExistsVehicleWithVIN(vehicleDataToAdd.VIN);
-            if (vinIsNotRegistered)
-            {
-                Vehicle vehicleToAdd = vehicleDataToAdd.ToVehicle();
-                return Model.AddNewVehicle(vehicleToAdd);
-            }
-            else
-            {
-                throw new ServiceException("El VIN del vehiculo debe ser único.");
-            }
+            Vehicle vehicleToAdd = vehicleDataToAdd.ToVehicle();
+            return Model.AddNewVehicle(vehicleToAdd);
         }
 
         public IEnumerable<VehicleDTO> GetRegisteredVehicles()
@@ -66,9 +58,24 @@ namespace API.Services
         private void AttemptToPerformModification(string vinToModify,
             VehicleDTO vehicleData)
         {
-            Vehicle vehicleFound = Model.GetVehicleWithVIN(vinToModify);
-            vehicleData.SetDataToVehicle(vehicleFound);
-            Model.UpdateVehicle(vehicleFound);
+            if (ChangeCausesRepeatedVINs(vinToModify, vehicleData))
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.FieldMustBeUnique, "VIN");
+                throw new ServiceException(errorMessage);
+            }
+            else
+            {
+                Vehicle vehicleFound = Model.GetVehicleWithVIN(vinToModify);
+                vehicleData.SetDataToVehicle(vehicleFound);
+                Model.UpdateVehicle(vehicleFound);
+            }
+        }
+
+        private bool ChangeCausesRepeatedVINs(string currentVIN, VehicleDTO vehicleData)
+        {
+            bool usernameChanges = !currentVIN.Equals(vehicleData.VIN);
+            return usernameChanges && Model.ExistsVehicleWithVIN(vehicleData.VIN);
         }
 
         public void RemoveVehicleWithVIN(string vinToRemove)
