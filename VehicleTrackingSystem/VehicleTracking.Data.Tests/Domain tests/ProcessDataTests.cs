@@ -124,5 +124,12 @@ namespace Data.Tests.Domain_tests
             testingData.SetTransportStartData(null);
             Assert.IsNull(testingData.Transporter);
         }
+
+        [TestMethod]
+        public void ProcessDataSetTransportEndDataValidTest()
+        {
+            testingData.SetTransportEndData();
+            Assert.AreEqual(DateTime.Today, testingData.TransportEnd.Date);
+        }
     }
 }
