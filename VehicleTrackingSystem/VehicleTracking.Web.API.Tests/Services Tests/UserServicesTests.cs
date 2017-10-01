@@ -143,11 +143,12 @@ namespace Web.API.Services_Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ServiceException))]
+        [ExpectedException(typeof(RepositoryException))]
         public void UServicesAddNewUserWithRepeatedUsernameInvalidTest()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.ExistsUserWithUsername(It.IsAny<string>())).Returns(true);
+            mockUserRepository.Setup(u => u.AddNewUser(It.IsAny<User>())).
+                Throws(new RepositoryException(""));
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.AddNewUserFromData(testingUserData);
         }
@@ -249,6 +250,19 @@ namespace Web.API.Services_Tests
             mockUserRepository.Setup(u => u.GetUserWithUsername(testingUser.Username)).Returns(testingUser);
             var userServices = new UserServices(mockUserRepository.Object);
             userServices.ModifyUserWithUsername(testingUser.Username, someUserData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException))]
+        public void UServicesModifyUserWithUsernameCausesRepeatedUsernameInvalidTest()
+        {
+            User userToModify = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
+                "mSantos", "DisculpeFuegoTiene", "099424242");
+            var mockUserRepository = new Mock<IUserRepository>();
+            mockUserRepository.Setup(u => u.ExistsUserWithUsername(testingUserData.Username)).
+                Returns(true);
+            var userServices = new UserServices(mockUserRepository.Object);
+            userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
         }
         #endregion
 

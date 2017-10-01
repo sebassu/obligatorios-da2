@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using Persistence;
 using System.Linq;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Web.API.Tests.Services_Tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class VehicleServicesTests
     {
         private static VehicleServices testingVehicleServices = new VehicleServices();
@@ -89,11 +91,12 @@ namespace Web.API.Tests.Services_Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ServiceException))]
+        [ExpectedException(typeof(RepositoryException))]
         public void VServicesAddNewVehicleWithRepeatedVINInvalidTest()
         {
             var mockVehicleRepository = new Mock<IVehicleRepository>();
-            mockVehicleRepository.Setup(v => v.ExistsVehicleWithVIN(It.IsAny<string>())).Returns(true);
+            mockVehicleRepository.Setup(v => v.AddNewVehicle(It.IsAny<Vehicle>())).
+                Throws(new RepositoryException(""));
             var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
             vehicleServices.AddNewVehicleFromData(testingVehicleData);
         }
@@ -269,6 +272,18 @@ namespace Web.API.Tests.Services_Tests
             mockVehicleRepository.Setup(v => v.GetVehicleWithVIN(testingVehicle.VIN)).Returns(testingVehicle);
             var vehicleServices = new VehicleServices(mockVehicleRepository.Object);
             vehicleServices.ModifyVehicleWithVIN(testingVehicle.VIN, vehicleData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException))]
+        public void VServicesModifyVehicleWithVINCausesRepeatedVINInvalidTest()
+        {
+            Vehicle vehicleToModify = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet",
+                "Onix", 2016, "Green", "QWERTYUIO12345678");
+            var mockVehicleRepository = new Mock<IVehicleRepository>();
+            mockVehicleRepository.Setup(v => v.ExistsVehicleWithVIN(testingVehicleData.VIN)).Returns(true);
+            var userServices = new VehicleServices(mockVehicleRepository.Object);
+            userServices.ModifyVehicleWithVIN(vehicleToModify.VIN, testingVehicleData);
         }
         #endregion
 
