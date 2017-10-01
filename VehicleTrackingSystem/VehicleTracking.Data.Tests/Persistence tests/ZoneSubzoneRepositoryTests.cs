@@ -19,6 +19,7 @@ namespace Data.Tests.Persistence_tests
             testingZoneSubzoneRepository = new ZoneSubzoneRepository();
         }
 
+        #region AddNewZone
         [TestMethod]
         public void ZRepositoryAddNewZoneValidTest()
         {
@@ -61,5 +62,82 @@ namespace Data.Tests.Persistence_tests
             Zone testingZone = Zone.CreateNewZone("Valid name", 0);
             testingZoneSubzoneRepository.AddNewZone(testingZone);
         }
+        #endregion
+
+        #region UpdateZone
+        [TestMethod]
+        public void ZRepositoryModifyZoneValidTest()
+        {
+            Zone zoneToVerify = Zone.CreateNewZone("Some zone", 11);
+            testingZoneSubzoneRepository.AddNewZone(zoneToVerify);
+            SetZoneData(zoneToVerify, "One zone", 33);
+            testingZoneSubzoneRepository.UpdateZone(zoneToVerify);
+            Assert.AreEqual("One zone", zoneToVerify.Name);
+            Assert.AreEqual(33, zoneToVerify.Capacity);
+        }
+
+        [TestMethod]
+        public void ZRepositoryModifyZoneSetSameDataValidTest()
+        {
+            Zone zoneToVerify = testingZoneSubzoneRepository.ZoneElements.First();
+            var previousName = zoneToVerify.Name;
+            var previousCapacity = zoneToVerify.Capacity;
+            SetZoneData(zoneToVerify, previousName, previousCapacity);
+            testingZoneSubzoneRepository.UpdateZone(zoneToVerify);
+            Assert.AreEqual(previousName, zoneToVerify.Name);
+            Assert.AreEqual(previousCapacity, zoneToVerify.Capacity);
+        }
+
+        private void SetZoneData(Zone zoneToVerify, string nameToSet, int capacityToSet)
+        {
+            zoneToVerify.Name = nameToSet;
+            zoneToVerify.Capacity = capacityToSet;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void ZRepositoryModifyNullZoneInvalidTest()
+        {
+            testingZoneSubzoneRepository.UpdateZone(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void ZRepositoryModifyNotAddedZoneInvalidTest()
+        {
+            Zone notAddedZone = Zone.CreateNewZone("New name", 2);
+            testingZoneSubzoneRepository.UpdateZone(notAddedZone);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZRepositoryModifyZoneNameInvalidTest()
+        {
+            Zone zoneToModify = Zone.CreateNewZone("Zone 3", 5);
+            testingZoneSubzoneRepository.AddNewZone(zoneToModify);
+            zoneToModify.Name = "!@#$%";
+            testingZoneSubzoneRepository.UpdateZone(zoneToModify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZRepositoryModifyZoneCapacityInvalidTest()
+        {
+            Zone zoneToModify = Zone.CreateNewZone("Zone 0", 5);
+            testingZoneSubzoneRepository.AddNewZone(zoneToModify);
+            zoneToModify.Capacity = 0;
+            testingZoneSubzoneRepository.UpdateZone(zoneToModify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void ZRepositoryModifyZoneAlreadyExistingNameInvalidTest()
+        {
+            Zone zoneToModify = Zone.CreateNewZone("Zone 4", 5);
+            testingZoneSubzoneRepository.AddNewZone(zoneToModify);
+            zoneToModify.Name = "Zone 0";
+            testingZoneSubzoneRepository.UpdateZone(zoneToModify);
+        }
+        #endregion
     }
 }
