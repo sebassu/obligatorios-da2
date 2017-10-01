@@ -103,16 +103,17 @@ namespace Data.Tests.Persistence_tests
         {
             Zone zoneToVerify = Zone.CreateNewZone("Delete zone", 6);
             testingZoneSubzoneRepository.AddNewZone(zoneToVerify);
-            testingZoneSubzoneRepository.RemoveZone(zoneToVerify);
+            testingZoneSubzoneRepository.RemoveZoneWithName(zoneToVerify.Name);
             CollectionAssert.DoesNotContain(testingZoneSubzoneRepository.ZoneElements.ToList(), zoneToVerify);
         }
 
+        //No funciona
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void ZRepositoryRemoveZoneNotInRepositoryInvalidTest()
         {
             Zone zoneToVerify = Zone.CreateNewZone("Some new zone", 8);
-            testingZoneSubzoneRepository.RemoveZone(zoneToVerify);
+            testingZoneSubzoneRepository.RemoveZoneWithName(zoneToVerify.Name);
         }
 
         [TestMethod]
@@ -121,8 +122,12 @@ namespace Data.Tests.Persistence_tests
         {
             Zone zoneToVerify = Zone.CreateNewZone("Some new zone", 8);
             Subzone subzoneToAdd = Subzone.InstanceForTestingPurposes();
+            Zone zoneForSubzone = Zone.CreateNewZone("Some new zone", 8);
+            testingZoneSubzoneRepository.AddNewZone(zoneForSubzone);
+            subzoneToAdd.ContainerZone = zoneForSubzone;
             zoneToVerify.Subzones.Add(subzoneToAdd);
-            testingZoneSubzoneRepository.RemoveZone(zoneToVerify);
+            testingZoneSubzoneRepository.AddNewZone(zoneToVerify);
+            testingZoneSubzoneRepository.RemoveZoneWithName(zoneToVerify.Name);
         }
         #endregion
 

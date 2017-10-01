@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Domain;
+using System;
+using System.Globalization;
 
 namespace Persistence
 {
@@ -62,6 +64,31 @@ namespace Persistence
             else
             {
                 throw new RepositoryException(ErrorMessages.NullObjectRecieved);
+            }
+        }
+
+        public void RemoveZoneWithName(string nameToRemove)
+        {
+            using (var context = new VTSystemContext())
+            {
+                var zoneToRemove = AttemptToGetZoneWithName(nameToRemove, context);
+                EntityFrameworkUtilities<Zone>.AttemptToRemove(zoneToRemove, context);
+            }
+        }
+
+        private static Zone AttemptToGetZoneWithName(string nameToFind,
+            VTSystemContext context)
+        {
+            try
+            {
+                var elements = context.Set<Zone>();
+                return elements.Single(z => z.Name.Equals(nameToFind));
+            }
+            catch (InvalidOperationException)
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.CouldNotFindElement, nameToFind);
+                throw new RepositoryException(errorMessage);
             }
         }
 
