@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Zone
+    public class Zone
     {
-
         public int Id { get; set; }
 
         private string name;
@@ -59,7 +55,7 @@ namespace Domain
         {
             return Utilities.ValidMinimumCapacity(value);
         }
-        
+
         public List<Subzone> Subzones { get; set; }
 
         internal static Zone InstanceForTestingPurposes()

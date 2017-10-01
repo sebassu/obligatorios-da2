@@ -4,10 +4,9 @@ using System.Globalization;
 
 namespace Domain
 {
-    class Subzone
+    public class Subzone
     {
         public int Id { get; set; }
-
 
         public List<Vehicle> Vehicles { get; set; }
 
@@ -59,21 +58,19 @@ namespace Domain
             return Utilities.ValidMinimumCapacity(value);
         }
 
-        private Zone containerZone;
-        public Zone ContainerZone
+        private Zone container;
+        public Zone Container
         {
-            get { return containerZone; }
+            get { return container; }
             set
             {
                 if (IsValidZone(value))
                 {
-                    containerZone = value;
+                    container = value;
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.ZoneIsInvalid, "", null);
-                    throw new SubzoneException(errorMessage);
+                    throw new SubzoneException(ErrorMessages.ZoneIsInvalid);
                 }
             }
         }
@@ -85,26 +82,30 @@ namespace Domain
 
         internal static Subzone InstanceForTestingPurposes()
         {
-            return new Subzone();
+            return new Subzone()
+            {
+                container = Zone.InstanceForTestingPurposes()
+            };
         }
 
         protected Subzone()
         {
             name = "Subzone 1";
             capacity = 3;
-            containerZone = Zone.InstanceForTestingPurposes();
         }
 
-        public static Subzone CreateNewSubzone(String name, int capacity, Zone zone)
+        public static Subzone CreateNewSubzone(String name,
+            int capacity, Zone zone)
         {
             return new Subzone(name, capacity, zone);
         }
 
-        protected Subzone(string nameToSet, int capacityToSet, Zone zoneToSet)
+        protected Subzone(string nameToSet, int capacityToSet,
+            Zone zoneToSet)
         {
             Name = nameToSet;
             Capacity = capacityToSet;
-            ContainerZone = zoneToSet;
+            Container = zoneToSet;
             Vehicles = new List<Vehicle>();
         }
 

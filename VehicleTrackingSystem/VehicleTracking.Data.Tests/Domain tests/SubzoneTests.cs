@@ -29,7 +29,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(0, testingSubzone.Id);
             Assert.AreEqual("Subzone 1", testingSubzone.Name);
             Assert.AreEqual(3, testingSubzone.Capacity);
-            Assert.AreEqual(testingZone, testingSubzone.ContainerZone);
+            Assert.AreEqual(testingZone, testingSubzone.Container);
         }
 
         [TestMethod]
@@ -99,15 +99,15 @@ namespace Data.Tests.Domain_tests
         public void SubzoneSetValidContainerZoneTest()
         {
             Zone alternativeZone = Zone.CreateNewZone("Alternative zone", 3);
-            testingSubzone.ContainerZone = alternativeZone;
-            Assert.AreEqual(alternativeZone, testingSubzone.ContainerZone);
+            testingSubzone.Container = alternativeZone;
+            Assert.AreEqual(alternativeZone, testingSubzone.Container);
         }
 
         [ExpectedException(typeof(SubzoneException))]
         [TestMethod]
         public void SubzoneSetInvalidContainerZoneNullTest()
         {
-            testingSubzone.ContainerZone = null;
+            testingSubzone.Container = null;
         }
 
         [TestMethod]
@@ -117,7 +117,7 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(0, testingSubzone.Id);
             Assert.AreEqual("Some subzone", testingSubzone.Name);
             Assert.AreEqual(26, testingSubzone.Capacity);
-            Assert.AreEqual(testingZone, testingSubzone.ContainerZone);
+            Assert.AreEqual(testingZone, testingSubzone.Container);
         }
 
         [TestMethod]

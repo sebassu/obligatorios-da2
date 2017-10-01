@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Movement
+    public class Movement
     {
+        private static UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR,
+            UserRoles.YARD_OPERATOR };
+
         public int Id { get; set; }
 
         private User responsibleUser;
@@ -24,17 +24,16 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.ResponsibleUserIsInvalid, "", null);
+                       ErrorMessages.ResponsibleUserIsInvalid, value);
                     throw new MovementException(errorMessage);
                 }
             }
         }
 
-        private static UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR };
-
         protected bool IsValidUser(User user)
         {
-            return Utilities.IsValidUser(user, allowedUserRoles);
+            return Utilities.IsNotNull(user) &&
+                allowedUserRoles.Contains(user.Role);
         }
 
         private DateTime dateTime;
@@ -43,20 +42,18 @@ namespace Domain
             get { return dateTime; }
             set
             {
-                if (IsValidDate(value))
+                if (IsValidMovementDate(value))
                 {
                     dateTime = value;
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.DateIsInvalid, "", value);
-                    throw new MovementException(errorMessage);
+                    throw new MovementException(ErrorMessages.DateIsInvalid);
                 }
             }
         }
 
-        protected virtual bool IsValidDate(DateTime value)
+        protected virtual bool IsValidMovementDate(DateTime value)
         {
             return Utilities.IsValidDate(value);
         }
@@ -115,7 +112,8 @@ namespace Domain
 
         protected virtual bool IsValidSubzoneArrival(Subzone departure, Subzone arrival)
         {
-            return Utilities.IsNotNull(departure) && Utilities.IsNotNull(arrival) ? !departure.Equals(arrival) : false;
+            return Utilities.IsNotNull(departure) && Utilities.IsNotNull(arrival) ?
+                !departure.Equals(arrival) : false;
         }
 
         internal static Movement InstanceForTestingPurposes()
@@ -123,24 +121,16 @@ namespace Domain
             return new Movement();
         }
 
-        protected Movement()
-        {
-            responsibleUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376");
-            dateTime = new DateTime(2017, 9, 22, 10, 8, 0);
-            subzoneDeparture = Subzone.InstanceForTestingPurposes();
-            Subzone alternativeSubzone = Subzone.CreateNewSubzone("arrival", 8, Zone.InstanceForTestingPurposes());
-            alternativeSubzone.Id = 2;
-            subzoneArrival = alternativeSubzone;
-        }
+        protected Movement() { }
 
-        public static Movement CreateNewMovement(User user, DateTime dateTime, Subzone subzoneDeparture,
-            Subzone subzoneArrival)
+        public static Movement CreateNewMovement(User user, DateTime dateTime,
+            Subzone subzoneDeparture, Subzone subzoneArrival)
         {
             return new Movement(user, dateTime, subzoneDeparture, subzoneArrival);
         }
 
-        protected Movement(User userToSet, DateTime dateTimeToSet, Subzone subzoneDepartureToSet,
-            Subzone subzoneArrivalToSet)
+        protected Movement(User userToSet, DateTime dateTimeToSet,
+            Subzone subzoneDepartureToSet, Subzone subzoneArrivalToSet)
         {
             ResponsibleUser = userToSet;
             DateTime = dateTimeToSet;

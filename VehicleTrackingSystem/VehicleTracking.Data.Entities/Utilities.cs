@@ -6,6 +6,8 @@ namespace Domain
 {
     public static class Utilities
     {
+        public const short minimumValidYear = 1900;
+
         private static readonly Regex phoneFormat =
             new Regex("^(?!00)[0-9]{8,9}$");
 
@@ -39,6 +41,11 @@ namespace Domain
         private static bool IsLetterOrDigit(char value)
         {
             return char.IsLetter(value) || char.IsNumber(value);
+        }
+
+        internal static bool IsValidDate(DateTime value)
+        {
+            return value < DateTime.Now && value.Year > minimumValidYear;
         }
 
         public static bool ContainsLettersOrSpacesOnly(string value)
@@ -79,42 +86,12 @@ namespace Domain
             return IsNotNull(value) && phoneFormat.IsMatch(value);
         }
 
-        public static bool ValidYear(int value)
+        public static bool IsValidYear(int value)
         {
-            return value <= DateTime.Now.Year && value > 1900;
-        }
-
-        public static bool IsValidDate(DateTime value)
-        {
-            return ValidYear((int)value.Year);
-        }
-
-        public static bool ValidateInspection(User user, Location location)
-        {
-            if (IsNotNull(location) && IsNotNull(user))
-            {
-                if (location.Type == LocationType.PORT)
-                {
-                    return user.Role == UserRoles.ADMINISTRATOR || user.Role == UserRoles.PORT_OPERATOR;
-                }
-                else
-                {
-                    return user.Role == UserRoles.ADMINISTRATOR || user.Role == UserRoles.YARD_OPERATOR;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public static bool IsValidUser(User user, UserRoles[] allowedUserRoles)
-        {
-            return IsNotNull(user) ? allowedUserRoles.Contains(user.Role) : false;
+            return value <= DateTime.Now.Year && value > minimumValidYear;
         }
 
         private const ushort VINLength = 17;
-
         public static bool IsValidVIN(string value)
         {
             return ContainsLettersOrDigitsOnly(value) && value.Length == VINLength;

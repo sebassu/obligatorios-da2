@@ -106,11 +106,38 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: la etapa actual es la etapa final del Proceso..
+        /// </summary>
+        internal static string EndOfProcess {
+            get {
+                return ResourceManager.GetString("EndOfProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La imagen recibida no es válida..
         /// </summary>
         internal static string ImageIsInvalid {
             get {
                 return ResourceManager.GetString("ImageIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se recibió una entrada inválida al guardar los datos del proceso asociado a un vehículo, respecto del campo &quot;{0}&quot;..
+        /// </summary>
+        internal static string InvalidDataOnProcess {
+            get {
+                return ResourceManager.GetString("InvalidDataOnProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se intentó realizar una operación inválida para el estado actual del vehículo en el proceso..
+        /// </summary>
+        internal static string InvalidOperationOnVehicle {
+            get {
+                return ResourceManager.GetString("InvalidOperationOnVehicle", resourceCulture);
             }
         }
         
@@ -187,7 +214,16 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usuario inválido. Los usuarios de tipo &quot;{1}&quot; no pueden realizar la acción deseada..
+        ///   Looks up a localized string similar to No es posible cambiar los datos asociados a este elemento del proceso: ya fueron asignados..
+        /// </summary>
+        internal static string ProcessAlreadySetProperty {
+            get {
+                return ResourceManager.GetString("ProcessAlreadySetProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuario inválido. Los usuarios de tipo &quot;{0}&quot; no pueden realizar la acción deseada..
         /// </summary>
         internal static string ResponsibleUserIsInvalid {
             get {

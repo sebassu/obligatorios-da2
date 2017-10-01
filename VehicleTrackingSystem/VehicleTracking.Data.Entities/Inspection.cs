@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Inspection
+    public class Inspection
     {
+        private static readonly IReadOnlyCollection<UserRoles> PortInspectionAllowedRoles =
+            new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR }.AsReadOnly();
+        private static readonly IReadOnlyCollection<UserRoles> YardInspectionAllowedRoles =
+            new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR }.AsReadOnly();
 
         public int Id { get; set; }
 
@@ -18,7 +20,7 @@ namespace Domain
             get { return dateTime; }
             set
             {
-                if (IsValidDate(value))
+                if (IsValidInspectionDate(value))
                 {
                     dateTime = value;
                 }
@@ -31,7 +33,7 @@ namespace Domain
             }
         }
 
-        protected virtual bool IsValidDate(DateTime value)
+        protected bool IsValidInspectionDate(DateTime value)
         {
             return Utilities.IsValidDate(value);
         }
@@ -55,11 +57,36 @@ namespace Domain
             }
         }
 
-        private static UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR, UserRoles.YARD_OPERATOR };
-
         protected bool IsValidUser(User user)
         {
-            return Utilities.IsValidUser(user, allowedUserRoles) && Utilities.ValidateInspection(user, location);
+            return UserCanInspect(user, location);
+        }
+
+        public static bool UserCanInspect(User user, Location location)
+        {
+            bool parametersAreNotNull = Utilities.IsNotNull(user) &&
+                Utilities.IsNotNull(location);
+            if (parametersAreNotNull)
+            {
+                return IsValidRoleLocationConcordance(user, location);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static bool IsValidRoleLocationConcordance(User user, Location location)
+        {
+            switch (location.Type)
+            {
+                case LocationType.PORT:
+                    return PortInspectionAllowedRoles.Contains(user.Role);
+                case LocationType.YARD:
+                    return YardInspectionAllowedRoles.Contains(user.Role);
+                default:
+                    return false;
+            }
         }
 
         private Location location;
@@ -83,7 +110,7 @@ namespace Domain
 
         protected bool IsValidLocation(Location value)
         {
-            return Utilities.IsNotNull(value) && Utilities.ValidateInspection(responsibleUser, value);
+            return UserCanInspect(responsibleUser, value);
         }
 
         private List<Damage> damages;
@@ -136,40 +163,33 @@ namespace Domain
 
         internal static Inspection InstanceForTestingPurposes()
         {
-            return new Inspection();
+            return new Inspection()
+            {
+                location = Location.InstanceForTestingPurposes(),
+                responsibleUser = User.InstanceForTestingPurposes()
+            };
         }
 
-        protected Inspection()
-        {
-            dateTime = new DateTime(2017, 9, 22, 10, 8, 0);
-            responsibleUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376");
-            location = Location.CreateNewLocation(LocationType.PORT, "Puerto de Montevideo");
-            List<string> imagesList = new List<string>();
-            imagesList.Add("image1");
-            List<Damage> damagesList = new List<Damage>();
-            damagesList.Add(Damage.CreateNewDamage("One Description", imagesList));
-            damages = damagesList;
-            vehicleVIN = Vehicle.InstanceForTestingPurposes().VIN;
+        protected Inspection() { }
 
-        }
-
-        public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages, 
-            Vehicle vehicle)
+        public static Inspection CreateNewInspection(User user, Location location,
+            DateTime dateTime, List<Damage> damages, Vehicle vehicle)
         {
             return new Inspection(user, location, dateTime, damages, vehicle);
         }
 
-        protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet, List<Damage> damagesToSet, 
-            Vehicle vehicleToSet)
+        protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet,
+            List<Damage> damagesToSet, Vehicle vehicleToSet)
         {
-            if (ValidParameters(userToSet, locationToSet))
+            if (UserCanInspect(userToSet, locationToSet))
             {
                 responsibleUser = userToSet;
                 location = locationToSet;
                 DateTime = dateTimeToSet;
                 Damages = damagesToSet;
                 VehicleVIN = vehicleToSet.VIN;
-            }else
+            }
+            else
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
                        ErrorMessages.UserRoleLocationTypeInvalid);
@@ -177,17 +197,12 @@ namespace Domain
             }
         }
 
-        protected bool ValidParameters(User user, Location location)
-        {
-            return Utilities.ValidateInspection(user, location);
-        }
-
         public override bool Equals(object obj)
         {
-            Inspection InspectionToCompareAgainst = obj as Inspection;
-            if (Utilities.IsNotNull(InspectionToCompareAgainst))
+            Inspection inspectionToCompareAgainst = obj as Inspection;
+            if (Utilities.IsNotNull(inspectionToCompareAgainst))
             {
-                return Id.Equals(InspectionToCompareAgainst.Id);
+                return Id.Equals(inspectionToCompareAgainst.Id);
             }
             else
             {

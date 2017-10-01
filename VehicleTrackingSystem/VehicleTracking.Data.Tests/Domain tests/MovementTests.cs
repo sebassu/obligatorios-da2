@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using Domain;
@@ -13,9 +11,10 @@ namespace Data.Tests.Domain_tests
     {
         private static Movement testingMovement;
         private static User testingUser = User.InstanceForTestingPurposes();
-        private static User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon",
-                "password", "26010376");
-        private static Subzone alternativeSubzone = Subzone.CreateNewSubzone("arrival", 8, Zone.InstanceForTestingPurposes());
+        private static User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR,
+            "Maria", "Gonzalez", "mgon", "password", "26010376");
+        private static Subzone alternativeSubzone = Subzone.CreateNewSubzone("arrival", 8,
+            Zone.InstanceForTestingPurposes());
 
         [TestInitialize]
         public void TestSetup()
@@ -28,10 +27,10 @@ namespace Data.Tests.Domain_tests
         public void MovementInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingMovement.Id);
-            Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
-            Assert.AreEqual(new DateTime(2017, 9, 22, 10, 8, 0), testingMovement.DateTime);
-            Assert.AreEqual(Subzone.InstanceForTestingPurposes(), testingMovement.SubzoneDeparture);
-            Assert.AreEqual(alternativeSubzone, testingMovement.SubzoneArrival);
+            Assert.IsNull(testingMovement.ResponsibleUser);
+            Assert.AreEqual(DateTime.MinValue, testingMovement.DateTime);
+            Assert.IsNull(testingMovement.SubzoneDeparture);
+            Assert.IsNull(testingMovement.SubzoneArrival);
         }
 
         [TestMethod]
@@ -44,7 +43,8 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void MovementSetResponsibleUserValidTest()
         {
-            User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "jPerez", "Password", "26061199");
+            User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez",
+                "jPerez", "Password", "26061199");
             testingMovement.ResponsibleUser = alternativeUser;
             Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
         }
@@ -60,8 +60,8 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void MovementSetInvalidResponsibleUserTransporterTest()
         {
-            User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan", "Perez", "miUsuario", "pass",
-               "26061199");
+            User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan",
+                "Perez", "miUsuario", "pass", "26061199");
             testingMovement.ResponsibleUser = alternativeUser;
         }
 
@@ -90,7 +90,8 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void MovementSetSubzoneDepartureValidTest()
         {
-            Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7, Zone.InstanceForTestingPurposes());
+            Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7,
+                Zone.InstanceForTestingPurposes());
             testingMovement.SubzoneDeparture = alternativeSubzone;
             Assert.AreEqual(alternativeSubzone, testingMovement.SubzoneDeparture);
         }
@@ -105,9 +106,11 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void MovementSetSubzoneArrivalValidTest()
         {
-            Subzone alternativeSubzoneDeparture = Subzone.CreateNewSubzone("subzone1", 7, Zone.InstanceForTestingPurposes());
+            Subzone alternativeSubzoneDeparture = Subzone.CreateNewSubzone("subzone1", 7,
+                Zone.InstanceForTestingPurposes());
             testingMovement.SubzoneDeparture = alternativeSubzoneDeparture;
-            Subzone alternativeSubzoneArrival = Subzone.CreateNewSubzone("subzone1", 7, Zone.InstanceForTestingPurposes());
+            Subzone alternativeSubzoneArrival = Subzone.CreateNewSubzone("subzone1", 7,
+                Zone.InstanceForTestingPurposes());
             alternativeSubzoneArrival.Id = 9;
             testingMovement.SubzoneArrival = alternativeSubzoneArrival;
             Assert.AreEqual(alternativeSubzoneArrival, testingMovement.SubzoneArrival);
@@ -124,7 +127,8 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void MovementSetInvalidSubzoneArrivalEqualsDepartureTest()
         {
-            Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7, Zone.InstanceForTestingPurposes());
+            Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7,
+                Zone.InstanceForTestingPurposes());
             testingMovement.SubzoneDeparture = alternativeSubzone;
             testingMovement.SubzoneArrival = alternativeSubzone;
         }
@@ -134,7 +138,7 @@ namespace Data.Tests.Domain_tests
         {
             Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
             Subzone alternativeSubzoneArrival = alternativeSubzone;
-            DateTime alternativeDateTime = new DateTime (2017, 12, 11, 12, 34, 11);
+            DateTime alternativeDateTime = new DateTime(2014, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
                 alternativeSubzoneDeparture, alternativeSubzoneArrival);
             Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
@@ -205,13 +209,13 @@ namespace Data.Tests.Domain_tests
         {
             Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
             Subzone alternativeSubzoneArrival = alternativeSubzone;
-            DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 11);
+            DateTime alternativeDateTime = new DateTime(2015, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
                 alternativeSubzoneDeparture, alternativeSubzoneArrival);
-            Movement secondTestingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
-                alternativeSubzoneDeparture, alternativeSubzoneArrival);
-            Movement thirdTestingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
-                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+            Movement secondTestingMovement = Movement.CreateNewMovement(alternativeUser,
+                alternativeDateTime, alternativeSubzoneDeparture, alternativeSubzoneArrival);
+            Movement thirdTestingMovement = Movement.CreateNewMovement(alternativeUser,
+                alternativeDateTime, alternativeSubzoneDeparture, alternativeSubzoneArrival);
             Assert.AreEqual(testingMovement, secondTestingMovement);
             Assert.AreEqual(secondTestingMovement, thirdTestingMovement);
             Assert.AreEqual(testingMovement, thirdTestingMovement);
@@ -222,12 +226,12 @@ namespace Data.Tests.Domain_tests
         {
             Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
             Subzone alternativeSubzoneArrival = alternativeSubzone;
-            DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 11);
+            DateTime alternativeDateTime = new DateTime(2015, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
                 alternativeSubzoneDeparture, alternativeSubzoneArrival);
             testingMovement.Id = 1;
-            Movement secondTestingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
-                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+            Movement secondTestingMovement = Movement.CreateNewMovement(alternativeUser,
+                alternativeDateTime, alternativeSubzoneDeparture, alternativeSubzoneArrival);
             secondTestingMovement.Id = 2;
             Assert.AreNotEqual(testingMovement, secondTestingMovement);
         }

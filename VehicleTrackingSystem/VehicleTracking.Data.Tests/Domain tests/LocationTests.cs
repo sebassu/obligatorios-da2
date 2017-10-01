@@ -16,15 +16,22 @@ namespace Data.Domain_Tests
             testingLocation = Location.InstanceForTestingPurposes();
         }
 
-        //Location Name
         [TestMethod]
         public void LocationInstanceForTestingPurposesTest()
         {
-            Assert.AreEqual("Location name", testingLocation.Name);
-            Assert.AreEqual(LocationType.PORT, testingLocation.Type);
             Assert.AreEqual(0, testingLocation.Id);
+            Assert.AreEqual("Lugar inválido", testingLocation.Name);
+            Assert.AreEqual(LocationType.PORT, testingLocation.Type);
         }
 
+        [TestMethod]
+        public void LocationSetIdValidTest()
+        {
+            testingLocation.Id = 3;
+            Assert.AreEqual(3, testingLocation.Id);
+        }
+
+        #region NameProperty tests
         [TestMethod]
         public void LocationSetValidNameTest()
         {
@@ -57,7 +64,7 @@ namespace Data.Domain_Tests
         [ExpectedException(typeof(LocationException))]
         public void LocationSetInvalidNameOnlySpacesTest()
         {
-            testingLocation.Name = "     ";
+            testingLocation.Name = " \t\t \n\n\t   ";
         }
 
         [TestMethod]
@@ -73,16 +80,9 @@ namespace Data.Domain_Tests
         {
             testingLocation.Name = "!@$#%^";
         }
+        #endregion
 
-        //Location id
-        [TestMethod]
-        public void LocationSetIdValidTest()
-        {
-            testingLocation.Id = 3;
-            Assert.AreEqual(3, testingLocation.Id);
-        }
-
-        //Location Factory method
+        #region FactoryMethod tests
         [TestMethod]
         public void LocationParameterFactoryMethodValidTest()
         {
@@ -91,6 +91,7 @@ namespace Data.Domain_Tests
             Assert.AreEqual(LocationType.PORT, testingLocation.Type);
             Assert.AreEqual("Puerto de Punta del Este", testingLocation.Name);
         }
+        #endregion
 
         [TestMethod]
         [ExpectedException(typeof(LocationException))]
@@ -99,7 +100,7 @@ namespace Data.Domain_Tests
             testingLocation = Location.CreateNewLocation(LocationType.PORT, "!@#$%^");
         }
 
-        //Equals
+        #region Equals tests
         [TestMethod]
         public void LocationEqualsNullTest()
         {
@@ -126,22 +127,22 @@ namespace Data.Domain_Tests
             Assert.AreEqual(testingLocation, secondTestingLocation);
             Assert.AreEqual(secondTestingLocation, testingLocation);
         }
+        #endregion
 
-        //Location GetHashCode
+        #region GetHashCode test
         [TestMethod]
         public void LocationGetHashCodeTest()
         {
             object testingLocationAsObject = testingLocation;
             Assert.AreEqual(testingLocationAsObject.GetHashCode(), testingLocation.GetHashCode());
         }
+        #endregion
 
-
-        //Location ToString
+        #region ToString tests
         [TestMethod]
         public void LocationToStringTest1()
         {
-            Assert.AreEqual("Location name.",
-                testingLocation.ToString());
+            Assert.AreEqual("Lugar inválido.", testingLocation.ToString());
         }
 
         [TestMethod]
@@ -150,5 +151,6 @@ namespace Data.Domain_Tests
             testingLocation.Name = "Puerto de Montevideo";
             Assert.AreEqual("Puerto de Montevideo.", testingLocation.ToString());
         }
+        #endregion
     }
 }
