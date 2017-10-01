@@ -115,6 +115,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se recibió una entrada inválida al guardar los datos del proceso asociado a un vehículo, respecto del campo &quot;{0}&quot;..
+        /// </summary>
+        internal static string InvalidDataOnProcess {
+            get {
+                return ResourceManager.GetString("InvalidDataOnProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se intentó realizar una operación inválida para el estado actual del vehículo en el proceso..
         /// </summary>
         internal static string InvalidOperationOnVehicle {
@@ -178,15 +187,6 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Se recibió una entrada inválida al guardar los datos del proceso..
-        /// </summary>
-        internal static string NullDataOnProcess {
-            get {
-                return ResourceManager.GetString("NullDataOnProcess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Es necesario ingresar una contraseña no vacía..
         /// </summary>
         internal static string PasswordIsInvalid {
@@ -201,6 +201,15 @@ namespace Domain {
         internal static string PhoneNumberIsInvalid {
             get {
                 return ResourceManager.GetString("PhoneNumberIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No es posible cambiar los datos asociados a este elemento del proceso: ya fueron asignados..
+        /// </summary>
+        internal static string ProcessAlreadySetProperty {
+            get {
+                return ResourceManager.GetString("ProcessAlreadySetProperty", resourceCulture);
             }
         }
         

@@ -42,7 +42,7 @@ namespace Domain
 
         protected Location()
         {
-            name = "Location name";
+            name = "Lugar inválido";
         }
         public static Location CreateNewLocation(LocationType type, string name)
         {

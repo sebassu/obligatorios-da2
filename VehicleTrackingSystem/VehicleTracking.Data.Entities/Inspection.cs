@@ -130,29 +130,23 @@ namespace Domain
 
         internal static Inspection InstanceForTestingPurposes()
         {
-            return new Inspection();
+            return new Inspection()
+            {
+                location = Location.InstanceForTestingPurposes(),
+                responsibleUser = User.InstanceForTestingPurposes()
+            };
         }
 
-        protected Inspection()
-        {
-            dateTime = new DateTime(2017, 9, 22, 10, 8, 0);
-            responsibleUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376");
-            location = Location.CreateNewLocation(LocationType.PORT, "Puerto de Montevideo");
-            List<string> imagesList = new List<string>();
-            imagesList.Add("image1");
-            List<Damage> damagesList = new List<Damage>();
-            damagesList.Add(Damage.CreateNewDamage("One Description", imagesList));
-            damages = damagesList;
+        protected Inspection() { }
 
-        }
-        public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages,
-            Vehicle vehicle)
+        public static Inspection CreateNewInspection(User user, Location location,
+            DateTime dateTime, List<Damage> damages, Vehicle vehicle)
         {
             return new Inspection(user, location, dateTime, damages, vehicle);
         }
 
-        protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet, List<Damage> damagesToSet,
-            Vehicle vehicleToSet)
+        protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet,
+            List<Damage> damagesToSet, Vehicle vehicleToSet)
         {
             if (ValidParameters(userToSet, locationToSet))
             {

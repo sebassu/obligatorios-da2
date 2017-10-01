@@ -177,7 +177,10 @@
   <data name="InvalidOperationOnVehicle" xml:space="preserve">
     <value>Se intentó realizar una operación inválida para el estado actual del vehículo en el proceso.</value>
   </data>
-  <data name="NullDataOnProcess" xml:space="preserve">
-    <value>Se recibió una entrada inválida al guardar los datos del proceso.</value>
+  <data name="InvalidDataOnProcess" xml:space="preserve">
+    <value>Se recibió una entrada inválida al guardar los datos del proceso asociado a un vehículo, respecto del campo "{0}".</value>
+  </data>
+  <data name="ProcessAlreadySetProperty" xml:space="preserve">
+    <value>No es posible cambiar los datos asociados a este elemento del proceso: ya fueron asignados.</value>
   </data>
 </root>

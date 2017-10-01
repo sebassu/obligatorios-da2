@@ -1,4 +1,6 @@
-﻿namespace Domain
+﻿using System.Globalization;
+
+namespace Domain
 {
     public enum ProcessStages { PORT, TRANSPORT, YARD }
 
@@ -7,6 +9,7 @@
         public ProcessStages CurrentStage { get; set; } = ProcessStages.PORT;
 
         public Lot PortLot { get; set; }
+        public Inspection PortInspection { get; set; }
 
         internal void RegisterPortLot(Lot value)
         {
@@ -18,7 +21,35 @@
             }
             else
             {
-                throw new ProcessException(ErrorMessages.NullDataOnProcess);
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.InvalidDataOnProcess, "Lote");
+                throw new ProcessException(errorMessage);
+            }
+        }
+
+        internal void RegisterPortInspection(Inspection inspectionToSet)
+        {
+            ValidateVehicleIsInStage(ProcessStages.PORT);
+            ValidatePropertyWasNotSetPreviously(PortInspection);
+            bool isValidPortInspectionToSet = Utilities.IsNotNull(inspectionToSet) &&
+                inspectionToSet.Location.Type == LocationType.PORT;
+            if (isValidPortInspectionToSet)
+            {
+                PortInspection = inspectionToSet;
+            }
+            else
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.InvalidDataOnProcess, "Inspección de Puerto");
+                throw new ProcessException(errorMessage);
+            }
+        }
+
+        private void ValidatePropertyWasNotSetPreviously(object propertyToValidate)
+        {
+            if (Utilities.IsNotNull(propertyToValidate))
+            {
+                throw new ProcessException(ErrorMessages.ProcessAlreadySetProperty);
             }
         }
 
