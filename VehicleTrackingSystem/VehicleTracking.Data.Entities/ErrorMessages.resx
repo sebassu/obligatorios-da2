@@ -171,4 +171,13 @@
   <data name="LotUnauthorizedUserType" xml:space="preserve">
     <value>Es necesario estar registrado como "Operario de Puerto" o "Administrador" para poder registrar Lotes.</value>
   </data>
+  <data name="EndOfProcess" xml:space="preserve">
+    <value>Error: la etapa actual es la etapa final del Proceso.</value>
+  </data>
+  <data name="InvalidOperationOnVehicle" xml:space="preserve">
+    <value>Se intentó realizar una operación inválida para el estado actual del vehículo en el proceso.</value>
+  </data>
+  <data name="NullDataOnProcess" xml:space="preserve">
+    <value>Se recibió una entrada inválida al guardar los datos del proceso.</value>
+  </data>
 </root>

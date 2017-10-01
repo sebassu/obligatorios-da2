@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Inspection
+    public class Inspection
     {
-
         public int Id { get; set; }
 
         private DateTime dateTime;
@@ -149,13 +145,13 @@ namespace Domain
             damages = damagesList;
 
         }
-        public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages, 
+        public static Inspection CreateNewInspection(User user, Location location, DateTime dateTime, List<Damage> damages,
             Vehicle vehicle)
         {
             return new Inspection(user, location, dateTime, damages, vehicle);
         }
 
-        protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet, List<Damage> damagesToSet, 
+        protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet, List<Damage> damagesToSet,
             Vehicle vehicleToSet)
         {
             if (ValidParameters(userToSet, locationToSet))
@@ -165,7 +161,8 @@ namespace Domain
                 DateTime = dateTimeToSet;
                 Damages = damagesToSet;
                 VehicleVIN = vehicleToSet.VIN;
-            }else
+            }
+            else
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
                        ErrorMessages.UserRoleLocationTypeInvalid);

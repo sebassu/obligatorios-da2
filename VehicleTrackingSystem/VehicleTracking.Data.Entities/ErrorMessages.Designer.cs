@@ -97,11 +97,29 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: la etapa actual es la etapa final del Proceso..
+        /// </summary>
+        internal static string EndOfProcess {
+            get {
+                return ResourceManager.GetString("EndOfProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La imagen recibida no es válida..
         /// </summary>
         internal static string ImageIsInvalid {
             get {
                 return ResourceManager.GetString("ImageIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se intentó realizar una operación inválida para el estado actual del vehículo en el proceso..
+        /// </summary>
+        internal static string InvalidOperationOnVehicle {
+            get {
+                return ResourceManager.GetString("InvalidOperationOnVehicle", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace Domain {
         internal static string NameIsInvalid {
             get {
                 return ResourceManager.GetString("NameIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se recibió una entrada inválida al guardar los datos del proceso..
+        /// </summary>
+        internal static string NullDataOnProcess {
+            get {
+                return ResourceManager.GetString("NullDataOnProcess", resourceCulture);
             }
         }
         
