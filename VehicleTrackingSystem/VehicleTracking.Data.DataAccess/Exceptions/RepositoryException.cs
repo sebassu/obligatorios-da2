@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Domain;
+using System;
 
-namespace Domain
+namespace Persistence
 {
     [Serializable]
     public class RepositoryException : VehicleTrackingException

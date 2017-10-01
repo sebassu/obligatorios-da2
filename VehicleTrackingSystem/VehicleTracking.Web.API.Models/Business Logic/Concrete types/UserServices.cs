@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Persistence;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace API.Services
 {
@@ -26,17 +27,8 @@ namespace API.Services
 
         private void AttemptToAddUser(UserDTO userDataToAdd)
         {
-            bool usernameIsNotRegistered =
-                !Model.ExistsUserWithUsername(userDataToAdd.Username);
-            if (usernameIsNotRegistered)
-            {
-                User userToAdd = userDataToAdd.ToUser();
-                Model.AddNewUser(userToAdd);
-            }
-            else
-            {
-                throw new ServiceException(ErrorMessages.UsernameMustBeUnique);
-            }
+            User userToAdd = userDataToAdd.ToUser();
+            Model.AddNewUser(userToAdd);
         }
 
         public IEnumerable<UserDTO> GetRegisteredUsers()
@@ -65,9 +57,24 @@ namespace API.Services
         private void AttemptToPerformModification(string usernameToModify,
             UserDTO userData)
         {
-            User userFound = Model.GetUserWithUsername(usernameToModify);
-            userData.SetDataToUser(userFound);
-            Model.UpdateUser(userFound);
+            if (ChangeCausesRepeatedUsernames(usernameToModify, userData))
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.FieldMustBeUnique, "nombre de usuario");
+                throw new ServiceException(errorMessage);
+            }
+            else
+            {
+                User userFound = Model.GetUserWithUsername(usernameToModify);
+                userData.SetDataToUser(userFound);
+                Model.UpdateUser(userFound);
+            }
+        }
+
+        private bool ChangeCausesRepeatedUsernames(string currentUsername, UserDTO userData)
+        {
+            bool usernameChanges = !currentUsername.Equals(userData.Username);
+            return usernameChanges && Model.ExistsUserWithUsername(userData.Username);
         }
 
         public void RemoveUserWithUsername(string usernameToRemove)

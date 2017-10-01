@@ -138,4 +138,7 @@
   <data name="NullIDRecieved" xml:space="preserve">
     <value>Se recibió una ID nula de elemento a eliminar.</value>
   </data>
+  <data name="NullObjectRecieved" xml:space="preserve">
+    <value>Se recibió una referencia a objeto nula con la que interactuar en un Repository.</value>
+  </data>
 </root>

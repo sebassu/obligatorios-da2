@@ -27,6 +27,7 @@ namespace Persistence
         {
             using (var context = new VTSystemContext())
             {
+                ValidateParameterIsNotNull(userToAdd);
                 if (ExistsUserWithUsername(userToAdd.Username, context))
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
@@ -40,6 +41,14 @@ namespace Persistence
             }
         }
 
+        private void ValidateParameterIsNotNull(User userToAdd)
+        {
+            if (userToAdd == null)
+            {
+                throw new ArgumentNullException(ErrorMessages.NullObjectRecieved);
+            }
+        }
+
         public bool ExistsUserWithUsername(string usernameToLookup)
         {
             using (var context = new VTSystemContext())
@@ -48,7 +57,8 @@ namespace Persistence
             }
         }
 
-        private static bool ExistsUserWithUsername(string usernameToLookup, VTSystemContext context)
+        private static bool ExistsUserWithUsername(string usernameToLookup,
+            VTSystemContext context)
         {
             return context.Users.Any(u => u.Username == usernameToLookup);
         }
@@ -61,7 +71,8 @@ namespace Persistence
             }
         }
 
-        private static User AttemptToGetUserWithUsername(string usernameToFind, VTSystemContext context)
+        private static User AttemptToGetUserWithUsername(string usernameToFind,
+            VTSystemContext context)
         {
             try
             {

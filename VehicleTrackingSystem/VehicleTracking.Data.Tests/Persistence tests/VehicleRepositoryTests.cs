@@ -3,6 +3,7 @@ using Persistence;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Data.Persistence_Tests
 {
@@ -62,6 +63,13 @@ namespace Data.Persistence_Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void VRepositoryAddNullVehicleInvalidTest()
+        {
+            testingVehicleRepository.AddNewVehicle(null);
+        }
+
+        [TestMethod]
         public void VRepositoryRemoveVehicleValidTest()
         {
             Vehicle vehicleToVerify = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
@@ -86,7 +94,6 @@ namespace Data.Persistence_Tests
         {
             testingVehicleRepository.RemoveVehicleWithVIN(null);
         }
-
 
         [TestMethod]
         public void VRepositoryModifyVehicleValidTest()

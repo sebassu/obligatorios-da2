@@ -1,6 +1,4 @@
-﻿using Domain;
-using System;
-using System.Data;
+﻿using System;
 using System.Resources;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -13,36 +11,16 @@ namespace Persistence
         internal static void Add(VTSystemContext context, TEntity elementToAdd)
         {
             var elements = context.Set<TEntity>();
-            try
-            {
-                elements.Add(elementToAdd);
-                context.SaveChanges();
-            }
-            catch (DataException exception)
-            {
-                throw new RepositoryException("Error en base de datos. Detalles: "
-                    + exception.ToString());
-            }
+            elements.Add(elementToAdd);
+            context.SaveChanges();
         }
 
         internal static void AttemptToRemove(TEntity elementToRemove,
             VTSystemContext context)
         {
-            try
-            {
-                var elements = context.Set<TEntity>();
-                elements.Remove(elementToRemove);
-                context.SaveChanges();
-            }
-            catch (ArgumentNullException)
-            {
-                throw new RepositoryException(ErrorMessages.CouldNotRemoveElement);
-            }
-            catch (DataException exception)
-            {
-                throw new RepositoryException("Error en base de datos. Detalles: "
-                    + exception.Message);
-            }
+            var elements = context.Set<TEntity>();
+            elements.Remove(elementToRemove);
+            context.SaveChanges();
         }
 
         public static void Update(TEntity entityToUpdate)
@@ -58,11 +36,6 @@ namespace Persistence
                 catch (DbUpdateException)
                 {
                     throw new RepositoryException(ErrorMessages.ElementDoesNotExist);
-                }
-                catch (DataException exception)
-                {
-                    throw new RepositoryException("Error en base de datos. Detalles: "
-                        + exception.Message);
                 }
             }
         }

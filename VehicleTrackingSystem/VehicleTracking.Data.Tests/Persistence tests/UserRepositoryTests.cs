@@ -3,6 +3,7 @@ using Persistence;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Data.Persistence_Tests
 {
@@ -79,6 +80,13 @@ namespace Data.Persistence_Tests
                 "Medina", "repeatedUsername", "MusicaSuperDivertida", "096869689");
             testingUserRepository.AddNewUser(someUser);
             testingUserRepository.AddNewUser(someOtherUser);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void URepositoryAddNullUserInvalidTest()
+        {
+            testingUserRepository.AddNewUser(null);
         }
 
         [TestMethod]

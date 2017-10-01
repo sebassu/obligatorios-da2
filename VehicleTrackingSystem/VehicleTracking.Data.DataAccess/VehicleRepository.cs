@@ -14,6 +14,7 @@ namespace Persistence
         {
             using (var context = new VTSystemContext())
             {
+                ValidateParameterIsNotNull(vehicleToAdd);
                 if (ExistsVehicleWithVIN(vehicleToAdd.VIN, context))
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
@@ -25,6 +26,14 @@ namespace Persistence
                     EntityFrameworkUtilities<Vehicle>.Add(context, vehicleToAdd);
                     return vehicleToAdd.Id;
                 }
+            }
+        }
+
+        private void ValidateParameterIsNotNull(Vehicle vehicleToAdd)
+        {
+            if (vehicleToAdd == null)
+            {
+                throw new ArgumentNullException(ErrorMessages.NullObjectRecieved);
             }
         }
 
