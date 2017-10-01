@@ -27,11 +27,6 @@ namespace Data.Tests.Domain_tests
         public void InspectionInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingInspection.Id);
-            Assert.AreEqual(new DateTime(2017, 9, 22, 10, 8, 0), testingInspection.DateTime);
-            Assert.AreEqual(User.CreateNewUser(UserRoles.ADMINISTRATOR, "Maria", "Gonzalez", "mgon", "password", "26010376"),
-                testingInspection.ResponsibleUser);
-            Assert.AreEqual(Location.CreateNewLocation(LocationType.PORT, "Puerto de Montevideo"), testingInspection.Location);
-            Assert.IsTrue(damageList.SequenceEqual(testingInspection.Damages));
         }
 
         [TestMethod]
@@ -84,6 +79,9 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void InspectionSetLocationValidTest()
         {
+            User testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "otroUsuario", "pass",
+               "26061199");
+            testingInspection.ResponsibleUser = testingUser;
             Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
             testingInspection.Location = alternativeLocation;
             Assert.AreEqual(alternativeLocation, testingInspection.Location);
