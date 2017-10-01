@@ -10,7 +10,18 @@ namespace Data.Tests.Domain_tests
     {
         private static ProcessData testingData;
         private static readonly Lot lotToSet = Lot.InstanceForTestingPurposes();
-        private static readonly Inspection inspectionToSet = Inspection.InstanceForTestingPurposes();
+        private static readonly Inspection portInspectionToSet =
+            Inspection.InstanceForTestingPurposes();
+        private static Inspection yardInspectionToSet;
+
+        [ClassInitialize]
+        public static void ClassSetup(TestContext context)
+        {
+            var testImageList = new List<Damage> { Damage.InstanceForTestingPurposes() };
+            Location alternativeLocation = Location.CreateNewLocation(LocationType.YARD, "Patio");
+            yardInspectionToSet = Inspection.CreateNewInspection(User.InstanceForTestingPurposes(),
+                alternativeLocation, DateTime.Today, testImageList, Vehicle.InstanceForTestingPurposes());
+        }
 
         [TestInitialize]
         public void TestSetup()
@@ -53,8 +64,8 @@ namespace Data.Tests.Domain_tests
         public void ProcessDataRegisterPortInspectionValidTest()
         {
             Assert.AreEqual(ProcessStages.PORT, testingData.CurrentStage);
-            testingData.RegisterPortInspection(inspectionToSet);
-            Assert.AreEqual(inspectionToSet, testingData.PortInspection);
+            testingData.RegisterPortInspection(portInspectionToSet);
+            Assert.AreEqual(portInspectionToSet, testingData.PortInspection);
         }
 
         [TestMethod]
@@ -68,11 +79,7 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(ProcessException))]
         public void ProcessDataRegisterPortInspectionInvalidPlaceTest()
         {
-            var testImageList = new List<Damage> { Damage.InstanceForTestingPurposes() };
-            Location alternativeLocation = Location.CreateNewLocation(LocationType.YARD, "Patio");
-            var invalidYardInspectionToSet = Inspection.CreateNewInspection(User.InstanceForTestingPurposes(),
-                alternativeLocation, DateTime.Today, testImageList, Vehicle.InstanceForTestingPurposes());
-            testingData.RegisterPortInspection(invalidYardInspectionToSet);
+            testingData.RegisterPortInspection(yardInspectionToSet);
         }
 
         [TestMethod]
@@ -80,7 +87,7 @@ namespace Data.Tests.Domain_tests
         public void ProcessDataRegisterPortInspectionOnTransportStageInvalidTest()
         {
             testingData.CurrentStage = ProcessStages.TRANSPORT;
-            testingData.RegisterPortInspection(inspectionToSet);
+            testingData.RegisterPortInspection(portInspectionToSet);
         }
 
         [TestMethod]
@@ -88,15 +95,15 @@ namespace Data.Tests.Domain_tests
         public void ProcessDataRegisterPortInspectionOnYardStageInvalidTest()
         {
             testingData.CurrentStage = ProcessStages.YARD;
-            testingData.RegisterPortInspection(inspectionToSet);
+            testingData.RegisterPortInspection(portInspectionToSet);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ProcessException))]
         public void ProcessDataRegisterPortInspectionAlreadySetInvalidTest()
         {
-            testingData.RegisterPortInspection(inspectionToSet);
-            testingData.RegisterPortInspection(inspectionToSet);
+            testingData.RegisterPortInspection(portInspectionToSet);
+            testingData.RegisterPortInspection(portInspectionToSet);
         }
 
         [TestMethod]
@@ -131,6 +138,53 @@ namespace Data.Tests.Domain_tests
             testingData.SetTransportEndData();
             Assert.AreEqual(ProcessStages.YARD, testingData.CurrentStage);
             Assert.AreEqual(DateTime.Today, testingData.TransportEnd.Date);
+        }
+
+        [TestMethod]
+        public void ProcessDataRegisterYardInspectionValidTest()
+        {
+            testingData.CurrentStage = ProcessStages.YARD;
+            Assert.AreEqual(ProcessStages.YARD, testingData.CurrentStage);
+            testingData.RegisterYardInspection(yardInspectionToSet);
+            Assert.AreEqual(yardInspectionToSet, testingData.YardInspection);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataSetNullYardInspectionInvalidTest()
+        {
+            testingData.RegisterYardInspection(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterYardInspectionInvalidPlaceTest()
+        {
+            testingData.RegisterYardInspection(portInspectionToSet);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterYardInspectionOnPortStageInvalidTest()
+        {
+            testingData.CurrentStage = ProcessStages.PORT;
+            testingData.RegisterYardInspection(yardInspectionToSet);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterYardInspectionOnTransportStageInvalidTest()
+        {
+            testingData.CurrentStage = ProcessStages.TRANSPORT;
+            testingData.RegisterYardInspection(yardInspectionToSet);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterYardInspectionAlreadySetInvalidTest()
+        {
+            testingData.RegisterYardInspection(yardInspectionToSet);
+            testingData.RegisterYardInspection(yardInspectionToSet);
         }
     }
 }
