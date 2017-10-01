@@ -130,9 +130,10 @@ namespace Data.Tests.Persistence_tests
         public void ZRepositoryModifySubzoneValidTest()
         {
             Zone testingZone = Zone.CreateNewZone("Testing zone", 11);
-            testingZoneSubzoneRepository.AddNewZone(zoneToVerify);
+            testingZoneSubzoneRepository.AddNewZone(testingZone);
             Subzone subzoneToVerify = Subzone.CreateNewSubzone("A subzone", 2, testingZone);
             SetSubzoneData(subzoneToVerify, "One subzone", 10, testingZone);
+            testingZoneSubzoneRepository.AddNewSubzone(subzoneToVerify);
             testingZoneSubzoneRepository.UpdateSubzone(subzoneToVerify);
             Assert.AreEqual("One subzone", subzoneToVerify.Name);
             Assert.AreEqual(10, subzoneToVerify.Capacity);

@@ -95,5 +95,17 @@ namespace Persistence
                 }
             }
         }
+
+        public void UpdateSubzone(Subzone subzoneToModify)
+        {
+            if (Utilities.IsNotNull(subzoneToModify))
+            {
+                EntityFrameworkUtilities<Subzone>.Update(subzoneToModify);
+            }
+            else
+            {
+                throw new RepositoryException(ErrorMessages.NullObjectRecieved);
+            }
+        }
     }
 }
