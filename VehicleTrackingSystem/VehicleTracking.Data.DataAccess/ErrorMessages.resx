@@ -135,6 +135,12 @@
   <data name="NullIDRecieved" xml:space="preserve">
     <value>Se recibió una ID nula de elemento a eliminar.</value>
   </data>
+  <data name="NullObjectRecieved" xml:space="preserve">
+    <value>Error. Se recibió un elemento nulo.</value>
+  </data>
+  <data name="SubzoneNameMustBeUniqueSameZone" xml:space="preserve">
+    <value>No es posible completar la acción. Ya existe otra subzona registrada con el mismo nombre dentro de la misma zona.</value>
+  </data>
   <data name="VINMustBeUnique" xml:space="preserve">
     <value>No es posible completar la acción. El VIN ingresado ya se encuentra registrado en el sistema.</value>
   </data>

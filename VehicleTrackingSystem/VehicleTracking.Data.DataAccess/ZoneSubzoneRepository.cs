@@ -18,6 +18,18 @@ namespace Persistence
             }
         }
 
+        public IEnumerable<Subzone> SubzoneElements
+        {
+            get
+            {
+                using (var context = new VTSystemContext())
+                {
+                    var elements = context.Subzones;
+                    return elements.ToList();
+                }
+            }
+        }
+
         public void AddNewZone(Zone zoneToAdd)
         {
             using (var context = new VTSystemContext())
@@ -56,7 +68,7 @@ namespace Persistence
             }
             else
             {
-                throw new RepositoryException(ErrorMessages.NullIDRecieved);
+                throw new RepositoryException(ErrorMessages.NullObjectRecieved);
             }
         }
 
@@ -65,6 +77,29 @@ namespace Persistence
             using (var context = new VTSystemContext())
             {
                 return context.Zones.Any(v => v.Name == nameToLookup);
+            }
+        }
+
+        public void AddNewSubzone(Subzone subzoneToAdd)
+        {
+            using (var context = new VTSystemContext())
+            {
+                if (Utilities.IsNotNull(subzoneToAdd))
+                {
+                    bool zoneIsRegistered = ExistsZoneWithName(subzoneToAdd.ContainerZone.Name);
+                    if (zoneIsRegistered)
+                    {
+                        EntityFrameworkUtilities<Subzone>.Add(context, subzoneToAdd);
+                    }
+                    else
+                    {
+                        throw new RepositoryException(ErrorMessages.SubzoneNameMustBeUniqueSameZone);
+                    }
+                }
+                else
+                {
+                    throw new RepositoryException(ErrorMessages.NullObjectRecieved);
+                }
             }
         }
     }

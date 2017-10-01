@@ -141,7 +141,7 @@ namespace Data.Tests.Persistence_tests
         {
             Zone zoneToAdd = Zone.CreateNewZone("Zone10", 12);
             testingZoneSubzoneRepository.AddNewZone(zoneToAdd);
-            Subzone testingSubzone = Subzone.CreateNewSubzone("Some subzone", 11, zoneToAdd);
+            Subzone testingSubzone = Subzone.CreateNewSubzone("One subzone", 11, zoneToAdd);
             testingZoneSubzoneRepository.AddNewSubzone(testingSubzone);
             CollectionAssert.Contains(testingZoneSubzoneRepository.SubzoneElements.ToList(), testingSubzone);
         }
@@ -150,47 +150,16 @@ namespace Data.Tests.Persistence_tests
         [ExpectedException(typeof(RepositoryException))]
         public void ZRepositoryAddSubzoneNotExistingZoneInvalidTest()
         {
-            Zone testingZone = Zone.CreateNewZone("Zone11", 23);
+            Zone testingZone = Zone.CreateNewZone("Zonep", 23);
             Subzone testingSubzone = Subzone.CreateNewSubzone("Subzone", 22, testingZone);
             testingZoneSubzoneRepository.AddNewSubzone(testingSubzone);
-
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void ZRepositoryAddSubzoneNullInvalidTest()
-        {;
+        {
             testingZoneSubzoneRepository.AddNewSubzone(null);
-
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(SubzoneException))]
-        public void ZRepositoryAddSubzoneInvalidNameTest()
-        {
-            Zone testingZone = Zone.CreateNewZone("Zone11", 23);
-            Subzone testingSubzone = Subzone.CreateNewSubzone("!@#$%^", 22, testingZone);
-            testingZoneSubzoneRepository.AddNewSubzone(testingSubzone);
-
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(SubzoneException))]
-        public void ZRepositoryAddSubzoneInvalidCapacityTest()
-        {
-            Zone testingZone = Zone.CreateNewZone("Zone11", 23);
-            Subzone testingSubzone = Subzone.CreateNewSubzone("Subzone", 0, testingZone);
-            testingZoneSubzoneRepository.AddNewSubzone(testingSubzone);
-
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(SubzoneException))]
-        public void ZRepositoryAddSubzoneInvalidZoneTest()
-        {
-            Subzone testingSubzone = Subzone.CreateNewSubzone("Subzone", 2, null);
-            testingZoneSubzoneRepository.AddNewSubzone(testingSubzone);
-
         }
         #endregion
     }

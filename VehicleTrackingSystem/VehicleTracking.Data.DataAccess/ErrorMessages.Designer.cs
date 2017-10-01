@@ -115,6 +115,24 @@ namespace Persistence {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error. Se recibió un elemento nulo..
+        /// </summary>
+        internal static string NullObjectRecieved {
+            get {
+                return ResourceManager.GetString("NullObjectRecieved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No es posible completar la acción. Ya existe otra subzona registrada con el mismo nombre dentro de la misma zona..
+        /// </summary>
+        internal static string SubzoneNameMustBeUniqueSameZone {
+            get {
+                return ResourceManager.GetString("SubzoneNameMustBeUniqueSameZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No es posible completar la acción. El VIN ingresado ya se encuentra registrado en el sistema..
         /// </summary>
         internal static string VINMustBeUnique {
