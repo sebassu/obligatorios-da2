@@ -1,5 +1,7 @@
 ﻿using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace Data.Tests.Domain_tests
 {
@@ -8,6 +10,7 @@ namespace Data.Tests.Domain_tests
     {
         private static ProcessData testingData;
         private static readonly Lot lotToSet = Lot.InstanceForTestingPurposes();
+        private static readonly Inspection inspectionToSet = Inspection.InstanceForTestingPurposes();
 
         [TestInitialize]
         public void TestSetup()
@@ -44,6 +47,56 @@ namespace Data.Tests.Domain_tests
         {
             testingData.CurrentStage = ProcessStages.YARD;
             testingData.RegisterPortLot(lotToSet);
+        }
+
+        [TestMethod]
+        public void ProcessDataRegisterPortInspectionValidTest()
+        {
+            Assert.AreEqual(ProcessStages.PORT, testingData.CurrentStage);
+            testingData.RegisterPortInspection(inspectionToSet);
+            Assert.AreEqual(inspectionToSet, testingData.PortInspection);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataSetNullPortInspectionInvalidTest()
+        {
+            testingData.RegisterPortInspection(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterPortInspectionInvalidPlaceTest()
+        {
+            var testImageList = new List<Damage> { Damage.InstanceForTestingPurposes() };
+            Location alternativeLocation = Location.CreateNewLocation(LocationType.YARD, "Patio");
+            var invalidYardInspectionToSet = Inspection.CreateNewInspection(User.InstanceForTestingPurposes(),
+                alternativeLocation, DateTime.Today, testImageList, Vehicle.InstanceForTestingPurposes());
+            testingData.RegisterPortInspection(invalidYardInspectionToSet);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterPortInspectionOnTransportStageInvalidTest()
+        {
+            testingData.CurrentStage = ProcessStages.TRANSPORT;
+            testingData.RegisterPortInspection(inspectionToSet);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterPortInspectionOnYardStageInvalidTest()
+        {
+            testingData.CurrentStage = ProcessStages.YARD;
+            testingData.RegisterPortInspection(inspectionToSet);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterPortInspectionAlreadySetInvalidTest()
+        {
+            testingData.RegisterPortInspection(inspectionToSet);
+            testingData.RegisterPortInspection(inspectionToSet);
         }
     }
 }
