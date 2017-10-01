@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Domain
 {
@@ -10,8 +11,10 @@ namespace Domain
 
         public Lot PortLot { get; set; }
         public Inspection PortInspection { get; set; }
+        public DateTime TransportStart { get; set; }
+        public User Transporter { get; set; }
 
-        internal void RegisterPortLot(Lot value)
+        public void RegisterPortLot(Lot value)
         {
             ValidateVehicleIsInStage(ProcessStages.PORT);
             bool isValidLotToSet = Utilities.IsNotNull(value);
@@ -27,7 +30,7 @@ namespace Domain
             }
         }
 
-        internal void RegisterPortInspection(Inspection inspectionToSet)
+        public void RegisterPortInspection(Inspection inspectionToSet)
         {
             ValidateVehicleIsInStage(ProcessStages.PORT);
             ValidatePropertyWasNotSetPreviously(PortInspection);
@@ -43,6 +46,13 @@ namespace Domain
                     ErrorMessages.InvalidDataOnProcess, "Inspección de Puerto");
                 throw new ProcessException(errorMessage);
             }
+        }
+
+        internal void SetTransportStartData(User transporterToSet)
+        {
+            CurrentStage = ProcessStages.TRANSPORT;
+            TransportStart = DateTime.Now;
+            Transporter = transporterToSet;
         }
 
         private void ValidatePropertyWasNotSetPreviously(object propertyToValidate)

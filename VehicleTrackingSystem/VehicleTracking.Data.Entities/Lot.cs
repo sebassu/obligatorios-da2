@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 
@@ -8,11 +7,7 @@ namespace Domain
     public class Lot
     {
         private static readonly IReadOnlyCollection<UserRoles> ValidCreatorRoles =
-            new ReadOnlyCollection<UserRoles>(new UserRoles[]
-            {
-                UserRoles.ADMINISTRATOR,
-                UserRoles.PORT_OPERATOR
-            });
+            new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR }.AsReadOnly();
 
         public User Creator { get; }
 

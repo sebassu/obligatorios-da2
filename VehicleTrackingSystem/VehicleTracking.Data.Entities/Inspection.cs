@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Domain
 {
     public class Inspection
     {
+        private static readonly IReadOnlyCollection<UserRoles> PortInspectionAllowedRoles =
+            new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR }.AsReadOnly();
+        private static readonly IReadOnlyCollection<UserRoles> YardInspectionAllowedRoles =
+            new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR }.AsReadOnly();
+
         public int Id { get; set; }
 
         private DateTime dateTime;
@@ -29,7 +35,7 @@ namespace Domain
 
         protected virtual bool IsValidDate(DateTime value)
         {
-            return Utilities.IsValidDate(value);
+            return value < DateTime.Now && value.Year > Utilities.minimumYear;
         }
 
         private User responsibleUser;
@@ -53,7 +59,34 @@ namespace Domain
 
         protected bool IsValidUser(User user)
         {
-            return Utilities.IsValidUserInspection(user) && Utilities.ValidateInspection(user, location);
+            return UserCanInspect(user, location);
+        }
+
+        public static bool UserCanInspect(User user, Location location)
+        {
+            bool parametersAreNotNull = Utilities.IsNotNull(user) &&
+                Utilities.IsNotNull(location);
+            if (parametersAreNotNull)
+            {
+                return IsValidRoleLocationConcordance(user, location);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static bool IsValidRoleLocationConcordance(User user, Location location)
+        {
+            switch (location.Type)
+            {
+                case LocationType.PORT:
+                    return PortInspectionAllowedRoles.Contains(user.Role);
+                case LocationType.YARD:
+                    return YardInspectionAllowedRoles.Contains(user.Role);
+                default:
+                    return false;
+            }
         }
 
         private Location location;
@@ -77,7 +110,7 @@ namespace Domain
 
         protected bool IsValidLocation(Location value)
         {
-            return Utilities.IsNotNull(value) && Utilities.ValidateInspection(responsibleUser, value);
+            return UserCanInspect(responsibleUser, value);
         }
 
         private List<Damage> damages;
@@ -148,7 +181,7 @@ namespace Domain
         protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet,
             List<Damage> damagesToSet, Vehicle vehicleToSet)
         {
-            if (ValidParameters(userToSet, locationToSet))
+            if (UserCanInspect(userToSet, locationToSet))
             {
                 responsibleUser = userToSet;
                 location = locationToSet;
@@ -164,17 +197,12 @@ namespace Domain
             }
         }
 
-        protected bool ValidParameters(User user, Location location)
-        {
-            return Utilities.ValidateInspection(user, location);
-        }
-
         public override bool Equals(object obj)
         {
-            Inspection InspectionToCompareAgainst = obj as Inspection;
-            if (Utilities.IsNotNull(InspectionToCompareAgainst))
+            Inspection inspectionToCompareAgainst = obj as Inspection;
+            if (Utilities.IsNotNull(inspectionToCompareAgainst))
             {
-                return Id.Equals(InspectionToCompareAgainst.Id);
+                return Id.Equals(inspectionToCompareAgainst.Id);
             }
             else
             {

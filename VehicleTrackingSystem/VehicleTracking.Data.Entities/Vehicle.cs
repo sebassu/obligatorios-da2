@@ -79,7 +79,7 @@ namespace Domain
 
         protected bool IsValidYear(int value)
         {
-            return Utilities.ValidYear(value);
+            return Utilities.IsValidYear(value);
         }
 
         private string color;

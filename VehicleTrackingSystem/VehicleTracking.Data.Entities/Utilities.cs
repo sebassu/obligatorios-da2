@@ -6,6 +6,8 @@ namespace Domain
 {
     public static class Utilities
     {
+        public const short minimumYear = 1900;
+
         private static readonly Regex phoneFormat =
             new Regex("^(?!00)[0-9]{8,9}$");
 
@@ -57,44 +59,12 @@ namespace Domain
             return IsNotNull(value) && phoneFormat.IsMatch(value);
         }
 
-        public static bool ValidYear(int value)
+        public static bool IsValidYear(int value)
         {
-            return value <= DateTime.Now.Year && value > 1900;
-        }
-
-        public static bool IsValidDate(DateTime value)
-        {
-            return ValidYear((int)value.Year);
-        }
-
-        public static bool ValidateInspection(User user, Location location)
-        {
-            if (IsValidUserInspection(user) && IsNotNull(location))
-            {
-                if (location.Type == LocationType.PORT)
-                {
-                    return user.Role == UserRoles.ADMINISTRATOR || user.Role == UserRoles.PORT_OPERATOR;
-                }
-                else
-                {
-                    return user.Role == UserRoles.ADMINISTRATOR || user.Role == UserRoles.YARD_OPERATOR;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private static UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR, UserRoles.YARD_OPERATOR };
-
-        public static bool IsValidUserInspection(User user)
-        {
-            return IsNotNull(user) ? allowedUserRoles.Contains(user.Role) : false;
+            return value <= DateTime.Now.Year && value > minimumYear;
         }
 
         private const ushort VINLength = 17;
-
         public static bool IsValidVIN(string value)
         {
             return ContainsLettersOrDigitsOnly(value) && value.Length == VINLength;
