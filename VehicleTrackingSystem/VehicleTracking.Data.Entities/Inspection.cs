@@ -20,7 +20,7 @@ namespace Domain
             get { return dateTime; }
             set
             {
-                if (IsValidDate(value))
+                if (IsValidInspectionDate(value))
                 {
                     dateTime = value;
                 }
@@ -33,9 +33,9 @@ namespace Domain
             }
         }
 
-        protected virtual bool IsValidDate(DateTime value)
+        protected bool IsValidInspectionDate(DateTime value)
         {
-            return value < DateTime.Now && value.Year > Utilities.minimumYear;
+            return Utilities.IsValidDate(value);
         }
 
         private User responsibleUser;

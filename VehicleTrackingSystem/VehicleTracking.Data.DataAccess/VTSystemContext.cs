@@ -22,7 +22,6 @@ namespace Persistence
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().HasKey(u => u.Username);
             Configuration.LazyLoadingEnabled = false;
         }
 

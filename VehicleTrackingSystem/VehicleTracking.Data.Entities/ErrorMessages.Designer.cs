@@ -70,6 +70,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} &quot;{1}&quot; inválida. La misma debe ser mayor o igual a 1..
+        /// </summary>
+        internal static string CapacityIsInvalid {
+            get {
+                return ResourceManager.GetString("CapacityIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El color &quot;{0}&quot;  no es valido. Solo se permite ingresar caracteres alfabéticos o espacios para este campo requerido..
         /// </summary>
         internal static string ColorIsInvalid {
@@ -214,11 +223,29 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usuario inválido. Los usuarios de tipo &quot;{1}&quot; no pueden realizar inspecciones en la etapa actual..
+        ///   Looks up a localized string similar to Usuario inválido. Los usuarios de tipo &quot;{0}&quot; no pueden realizar la acción deseada..
         /// </summary>
         internal static string ResponsibleUserIsInvalid {
             get {
                 return ResourceManager.GetString("ResponsibleUserIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La zona de partida no puede ser nula ni igual a la de llegada..
+        /// </summary>
+        internal static string SubzoneArrivalIsInvalid {
+            get {
+                return ResourceManager.GetString("SubzoneArrivalIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La zona de {0}  no puede ser nula..
+        /// </summary>
+        internal static string SubzoneIsInvalid {
+            get {
+                return ResourceManager.GetString("SubzoneIsInvalid", resourceCulture);
             }
         }
         
@@ -255,6 +282,24 @@ namespace Domain {
         internal static string YearIsInvalid {
             get {
                 return ResourceManager.GetString("YearIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La zona no puede ser nula..
+        /// </summary>
+        internal static string ZoneIsInvalid {
+            get {
+                return ResourceManager.GetString("ZoneIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} inválido: &quot;{1}&quot;. Solamente se permite ingresar caracteres alfabéticos con espacios y/o números para este campo..
+        /// </summary>
+        internal static string ZoneNameIsInvalid {
+            get {
+                return ResourceManager.GetString("ZoneNameIsInvalid", resourceCulture);
             }
         }
     }

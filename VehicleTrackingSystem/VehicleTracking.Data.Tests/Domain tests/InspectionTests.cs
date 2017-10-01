@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
 using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Data.Tests.Domain_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class InspectionTests
     {
         private static Inspection testingInspection;
@@ -76,7 +78,6 @@ namespace Data.Tests.Domain_tests
             User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan", "Perez",
                 "miUsuario", "pass", "26061199");
             testingInspection.ResponsibleUser = alternativeUser;
-            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
         }
 
         [TestMethod]
@@ -135,6 +136,22 @@ namespace Data.Tests.Domain_tests
         public void InspectionSetInvalidVINLongTest()
         {
             testingInspection.VehicleVIN = "QWERTY1234567890QWERTY";
+        }
+
+        [TestMethod]
+        public void InspectionSetValidStageIdTest()
+        {                                
+                User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
+                    "097364857");
+                testingInspection.ResponsibleUser = alternativeUser;
+            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
+        }
+
+        [ExpectedException(typeof(InspectionException))]
+        [TestMethod]
+        public void InspectionSetInvalidStageIdNullTest()
+        {
+            testingInspection.ResponsibleUser = null;
         }
 
         [TestMethod]

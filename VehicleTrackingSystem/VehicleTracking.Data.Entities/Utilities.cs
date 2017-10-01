@@ -6,7 +6,7 @@ namespace Domain
 {
     public static class Utilities
     {
-        public const short minimumYear = 1900;
+        public const short minimumValidYear = 1900;
 
         private static readonly Regex phoneFormat =
             new Regex("^(?!00)[0-9]{8,9}$");
@@ -43,6 +43,11 @@ namespace Domain
             return char.IsLetter(value) || char.IsNumber(value);
         }
 
+        internal static bool IsValidDate(DateTime value)
+        {
+            return value < DateTime.Now && value.Year > minimumValidYear;
+        }
+
         public static bool ContainsLettersOrSpacesOnly(string value)
         {
             return !string.IsNullOrWhiteSpace(value) &&
@@ -54,6 +59,28 @@ namespace Domain
             return char.IsLetter(value) || char.IsWhiteSpace(value);
         }
 
+        public static bool ContainsLettersOrSpacesOrDigitsOnly(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value) &&
+                value.ToCharArray().All(c => IsLetterOrSpaceOrDigit(c)) &&
+                !ContainsOnlyDigits(value);
+        }
+
+        private static bool ContainsOnlyDigits(string value)
+        {
+            return value.ToCharArray().All(c => IsDigit(c));
+        }
+
+        private static bool IsDigit(char value)
+        {
+            return char.IsDigit(value);
+        }
+
+        private static bool IsLetterOrSpaceOrDigit(char value)
+        {
+            return char.IsLetter(value) || char.IsWhiteSpace(value) || char.IsDigit(value);
+        }
+
         public static bool HasValidPhoneFormat(string value)
         {
             return IsNotNull(value) && phoneFormat.IsMatch(value);
@@ -61,13 +88,18 @@ namespace Domain
 
         public static bool IsValidYear(int value)
         {
-            return value <= DateTime.Now.Year && value > minimumYear;
+            return value <= DateTime.Now.Year && value > minimumValidYear;
         }
 
         private const ushort VINLength = 17;
         public static bool IsValidVIN(string value)
         {
             return ContainsLettersOrDigitsOnly(value) && value.Length == VINLength;
+        }
+
+        public static bool ValidMinimumCapacity(int value)
+        {
+            return value > 0;
         }
     }
 }

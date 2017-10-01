@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NullDTOReference" xml:space="preserve">
-    <value>Se recibió una referencia nula a un Data Transfer Object.</value>
+  <data name="FieldMustBeUnique" xml:space="preserve">
+    <value>No es posible completar la acción: el {0} ingresado ya se encuentra registrado en el sistema.</value>
   </data>
-  <data name="UsernameMustBeUnique" xml:space="preserve">
-    <value>No es posible completar la acción: el nombre de usuario ingresado ya se encuentra registrado en el sistema.</value>
+  <data name="NullDTOReference" xml:space="preserve">
+    <value>No se recibieron datos en el formato correcto esperado para acceder a esta funcionalidad.</value>
   </data>
 </root>

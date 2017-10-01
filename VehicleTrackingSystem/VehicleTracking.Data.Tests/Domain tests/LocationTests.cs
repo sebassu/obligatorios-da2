@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Data.Domain_Tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class LocationTests
     {
         private static Location testingLocation;
