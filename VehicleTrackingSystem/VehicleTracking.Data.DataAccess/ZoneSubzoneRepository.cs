@@ -3,6 +3,7 @@ using System.Linq;
 using Domain;
 using System;
 using System.Globalization;
+using System.Data.Entity;
 
 namespace Persistence
 {
@@ -118,6 +119,8 @@ namespace Persistence
                     bool zoneIsRegistered = ExistsZoneWithName(subzoneToAdd.ContainerZone.Name);
                     if (zoneIsRegistered)
                     {
+                        subzoneToAdd.ContainerZone.Subzones.Add(subzoneToAdd);
+                        context.Entry(subzoneToAdd.ContainerZone).State = EntityState.Modified;
                         EntityFrameworkUtilities<Subzone>.Add(context, subzoneToAdd);
                     }
                     else
@@ -149,9 +152,10 @@ namespace Persistence
             using (var context = new VTSystemContext())
             {
                 var subzoneToRemove = AttemptToGetSubzoneWithId(id, context);
-                if (subzoneToRemove.Subzones == null || subzoneToRemove.Subzones.Count < 1)
+                if (subzoneToRemove.Vehicles == null || subzoneToRemove.Vehicles.Count < 1)
                 {
-                    EntityFrameworkUtilities<Zone>.AttemptToRemove(subzoneToRemove, context);
+                    subzoneToRemove.ContainerZone.Subzones.Remove(subzoneToRemove);
+                    EntityFrameworkUtilities<Subzone>.AttemptToRemove(subzoneToRemove, context);
                 }
                 else
                 {
@@ -162,12 +166,12 @@ namespace Persistence
             }
         }
 
-        private static Zone AttemptToGetSubzoneWithId(int id,
+        private static Subzone AttemptToGetSubzoneWithId(int id,
             VTSystemContext context)
         {
             try
             {
-                var elements = context.Set<Zone>();
+                var elements = context.Set<Subzone>();
                 return elements.Single(s => s.Id.Equals(id));
             }
             catch (InvalidOperationException)

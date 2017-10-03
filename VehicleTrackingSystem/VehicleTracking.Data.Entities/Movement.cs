@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Movement
+    public class Movement
     {
         public int Id { get; set; }
 

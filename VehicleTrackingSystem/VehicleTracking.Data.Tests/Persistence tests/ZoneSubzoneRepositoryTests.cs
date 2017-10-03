@@ -190,16 +190,16 @@ namespace Data.Tests.Persistence_tests
         #endregion
 
         #region RemoveSubzone
-        //[TestMethod]
-        //public void ZRepositoryRemoveSubzoneValidTest()
-        //{
-        //    Zone testingZone = Zone.CreateNewZone("Some new zone", 8);
-        //    testingZoneSubzoneRepository.AddNewZone(testingZone);
-        //    Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone", 6, testingZone);
-        //    testingZoneSubzoneRepository.AddNewSubzone(subzoneToVerify);
-        //    testingZoneSubzoneRepository.RemoveSubzoneWithId(subzoneToVerify.Id);
-        //    CollectionAssert.DoesNotContain(testingZoneSubzoneRepository.SubzoneElements.ToList(), subzoneToVerify);
-        //}
+        [TestMethod]
+        public void ZRepositoryRemoveSubzoneValidTest()
+        {
+            Zone testingZone = Zone.CreateNewZone("Some new zone1", 8);
+            Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone", 6, testingZone);
+            testingZoneSubzoneRepository.AddNewZone(testingZone);
+            testingZoneSubzoneRepository.AddNewSubzone(subzoneToVerify);
+            testingZoneSubzoneRepository.RemoveSubzoneWithId(subzoneToVerify.Id);
+            CollectionAssert.DoesNotContain(testingZoneSubzoneRepository.SubzoneElements.ToList(), subzoneToVerify);
+        }
 
         //[TestMethod]
         //[ExpectedException(typeof(RepositoryException))]
