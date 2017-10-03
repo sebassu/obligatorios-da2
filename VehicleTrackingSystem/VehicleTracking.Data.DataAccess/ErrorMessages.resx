@@ -141,4 +141,13 @@
   <data name="NullObjectRecieved" xml:space="preserve">
     <value>Se recibió una referencia a objeto nula con la que interactuar en un Repository.</value>
   </data>
+  <data name="SubzoneNameMustBeUniqueSameZone" xml:space="preserve">
+    <value>No es posible completar la acción. Ya existe otra subzona registrada con el mismo nombre dentro de la misma zona.</value>
+  </data>
+  <data name="VINMustBeUnique" xml:space="preserve">
+    <value>No es posible completar la acción. El VIN ingresado ya se encuentra registrado en el sistema.</value>
+  </data>
+  <data name="ZoneNameMustBeUnique" xml:space="preserve">
+    <value>No es posible completar la acción. El nombre ingresado ya se encuentra registrado en el sistema.</value>
+  </data>
 </root>

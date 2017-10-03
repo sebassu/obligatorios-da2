@@ -29,9 +29,6 @@ namespace Data.Tests.Domain_tests
         public void InspectionInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingInspection.Id);
-            Assert.AreEqual(Location.InstanceForTestingPurposes(), testingInspection.Location);
-            Assert.AreEqual(User.InstanceForTestingPurposes(), testingInspection.ResponsibleUser);
-            Assert.IsNull(testingInspection.Damages);
         }
 
         [TestMethod]

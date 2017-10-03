@@ -13,6 +13,13 @@ namespace Persistence
 
         public DbSet<Location> Locations { get; set; }
 
+        public DbSet<Zone> Zones { get; set; }
+
+        public DbSet<Movement> Movements { get; set; }
+
+        public DbSet<Subzone> Subzones { get; set; }
+
+
         public VTSystemContext() : base()
         {
             var defaultInitializer = new DropCreateDatabaseIfModelChanges<VTSystemContext>();
@@ -28,8 +35,11 @@ namespace Persistence
         internal void DeleteAllData()
         {
             Database.ExecuteSqlCommand("delete from users");
-            Database.ExecuteSqlCommand("delete from vehicles");
             Database.ExecuteSqlCommand("delete from locations");
+            Database.ExecuteSqlCommand("delete from movements");
+            Database.ExecuteSqlCommand("delete from subzones");
+            Database.ExecuteSqlCommand("delete from zones");
+            Database.ExecuteSqlCommand("delete from vehicles");
         }
     }
 }
