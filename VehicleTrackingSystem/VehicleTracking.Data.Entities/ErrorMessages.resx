@@ -192,10 +192,10 @@
   <data name="ZoneIsInvalid" xml:space="preserve">
     <value>La zona no puede ser nula.</value>
   </data>
-  <data name="SubzoneIsInvalid" xml:space="preserve">
-    <value>La zona de {0}  no puede ser nula.</value>
+  <data name="ArrivalIsInvalid" xml:space="preserve">
+    <value>La subzona de llegada no puede ser nula ni igual a la de partida, sería un movimiento cíclico.</value>
   </data>
-  <data name="SubzoneArrivalIsInvalid" xml:space="preserve">
-    <value>La zona de partida no puede ser nula ni igual a la de llegada.</value>
+  <data name="DepartureIsInvalid" xml:space="preserve">
+    <value>La subzona de partida no puede ser igual a la de llegada; no resulta un movimiento válido.</value>
   </data>
 </root>

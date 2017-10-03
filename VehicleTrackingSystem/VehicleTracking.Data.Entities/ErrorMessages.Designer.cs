@@ -61,6 +61,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La subzona de llegada no puede ser nula ni igual a la de partida, sería un movimiento cíclico..
+        /// </summary>
+        internal static string ArrivalIsInvalid {
+            get {
+                return ResourceManager.GetString("ArrivalIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Marca inválida: &quot;{0}&quot;. Solo se permite ingresar caracteres alfabéticos o espacios para este campo requerido..
         /// </summary>
         internal static string BrandIsInvalid {
@@ -93,6 +102,15 @@ namespace Domain {
         internal static string DateIsInvalid {
             get {
                 return ResourceManager.GetString("DateIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La subzona de partida no puede ser igual a la de llegada; no resulta un movimiento válido..
+        /// </summary>
+        internal static string DepartureIsInvalid {
+            get {
+                return ResourceManager.GetString("DepartureIsInvalid", resourceCulture);
             }
         }
         
@@ -228,24 +246,6 @@ namespace Domain {
         internal static string ResponsibleUserIsInvalid {
             get {
                 return ResourceManager.GetString("ResponsibleUserIsInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to La zona de partida no puede ser nula ni igual a la de llegada..
-        /// </summary>
-        internal static string SubzoneArrivalIsInvalid {
-            get {
-                return ResourceManager.GetString("SubzoneArrivalIsInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to La zona de {0}  no puede ser nula..
-        /// </summary>
-        internal static string SubzoneIsInvalid {
-            get {
-                return ResourceManager.GetString("SubzoneIsInvalid", resourceCulture);
             }
         }
         
