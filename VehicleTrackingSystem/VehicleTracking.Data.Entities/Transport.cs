@@ -78,7 +78,7 @@ namespace Domain
 
         private bool IsValidTransportEndDate(DateTime? value)
         {
-            return value.HasValue && value.GetValueOrDefault() >= startDateTime;
+            return value.GetValueOrDefault() > startDateTime.Value;
         }
 
         public ICollection<Lot> LotsTransported { get; set; }
@@ -117,7 +117,7 @@ namespace Domain
         private bool IsValidCollectionOfLots(ICollection<Lot> lotsToSet)
         {
             return Utilities.IsValidItemEnumeration(lotsToSet)
-                && lotsToSet.All(l => !l.WasTransported);
+                && lotsToSet.All(l => (!l.WasTransported) && (l.IsReadyForTransport()));
         }
 
         private void SetCreationAttributes(User someTransporter,
@@ -127,7 +127,6 @@ namespace Domain
             LotsTransported = lotsToSet;
             StartDateTime = startTime;
         }
-
 
         private void MarkLotsAsTransported(ICollection<Lot> lots)
         {

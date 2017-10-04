@@ -140,9 +140,9 @@ namespace Domain
             }
         }
 
-        public bool CanBeTransported()
+        public bool IsReadyForTransport()
         {
-            return CurrentState.CanBeTransported();
+            return CurrentState.IsReadyForTransport();
         }
 
         protected bool IsValidVIN(string value)

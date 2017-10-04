@@ -91,7 +91,7 @@ namespace Domain
 
         protected Subzone()
         {
-            name = "Subzone 1";
+            name = "Subzona inválida";
             capacity = 3;
         }
 
@@ -125,6 +125,11 @@ namespace Domain
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return container.ToString() + "/" + name;
         }
     }
 }

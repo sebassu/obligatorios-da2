@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
+using System;
 
 namespace Domain
 {
@@ -135,6 +136,11 @@ namespace Domain
             {
                 throw new LotException(ErrorMessages.LotUnauthorizedUserType);
             }
+        }
+
+        internal bool IsReadyForTransport()
+        {
+            return vehicles.All(v => v.IsReadyForTransport());
         }
 
         private bool CreatorIsValid(User someUser)

@@ -113,6 +113,12 @@ namespace Domain
             return movementToAdd;
         }
 
+        internal bool IsReadyForTransport()
+        {
+            return CurrentStage == ProcessStages.PORT &&
+                Utilities.IsNotNull(PortInspection);
+        }
+
         private void ValidatePropertyWasNotSetPreviously(object propertyToValidate)
         {
             if (Utilities.IsNotNull(propertyToValidate))
