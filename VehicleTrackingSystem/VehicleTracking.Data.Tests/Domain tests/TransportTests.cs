@@ -15,12 +15,15 @@ namespace Data.Tests.Domain_tests
         private static readonly User testingUser = User.InstanceForTestingPurposes();
         private static Lot lot1;
         private static Lot lot2;
+        private static Lot lot3;
+        private static Vehicle vehicleInLot3;
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
         {
             InitializeFirstTestingLot();
             InitializeSecondTestingLot();
+            InitializeThirdTestingLot();
         }
 
         private static void InitializeFirstTestingLot()
@@ -39,13 +42,23 @@ namespace Data.Tests.Domain_tests
 
         private static void InitializeSecondTestingLot()
         {
-            var lot2Vehicle1PortInspection = Inspection.InstanceForTestingPurposes();
-            lot2Vehicle1PortInspection.DateTime = new DateTime(2013, 9, 9);
-            var lot2Vehicle1 = Vehicle.InstanceForTestingPurposes();
-            lot2Vehicle1.CurrentState.PortInspection = lot2Vehicle1PortInspection;
+            var vehicleInspection = Inspection.InstanceForTestingPurposes();
+            vehicleInspection.DateTime = new DateTime(2013, 9, 9);
+            var testingVehicle = Vehicle.InstanceForTestingPurposes();
+            testingVehicle.CurrentState.PortInspection = vehicleInspection;
             lot2 = Lot.InstanceForTestingPurposes();
             lot2.Id = 42;
-            lot2.Vehicles = new List<Vehicle> { lot2Vehicle1 };
+            lot2.Vehicles = new List<Vehicle> { testingVehicle };
+        }
+
+        private static void InitializeThirdTestingLot()
+        {
+            var vehicleInspection = Inspection.InstanceForTestingPurposes();
+            vehicleInspection.DateTime = new DateTime(2011, 9, 9);
+            vehicleInLot3 = Vehicle.InstanceForTestingPurposes();
+            vehicleInLot3.CurrentState.PortInspection = vehicleInspection;
+            lot3 = Lot.InstanceForTestingPurposes();
+            lot3.Vehicles = new List<Vehicle> { vehicleInLot3 };
         }
 
         [TestInitialize]
@@ -245,8 +258,6 @@ namespace Data.Tests.Domain_tests
                 "Ravenna", "eRavenna", "HablarUnasPalabritas", "099699669"); ;
             Transport.FromTransporterDateTimeLots(transporterToSet,
                 DateTime.Now, new List<Lot> { lot1, lot2 });
-            Assert.IsFalse(lot1.WasTransported);
-            Assert.IsFalse(lot2.WasTransported);
         }
 
         [TestMethod]
@@ -293,9 +304,33 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(TransportException))]
         public void TransportParameterFactoryMethodLotCollectionWithTransportedLotsInvalidTest()
         {
-            lot1.WasTransported = true;
+            Lot testingLot = Lot.InstanceForTestingPurposes();
+            testingLot.WasTransported = true;
             var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
-               DateTime.Now, new List<Lot> { lot1, lot2 });
+               DateTime.Now, new List<Lot> { testingLot });
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportParameterFactoryMethodLotCollectionWithNonInspectedVehiclesInvalidTest()
+        {
+            Lot testingLot = Lot.InstanceForTestingPurposes();
+            testingLot.Vehicles = new List<Vehicle> { Vehicle.InstanceForTestingPurposes() };
+            var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
+               DateTime.Now, new List<Lot> { testingLot });
+        }
+
+        [TestMethod]
+        public void TransportFinishTransportValidTest()
+        {
+            var endDateTimeToSet = DateTime.Now;
+            var lotsToSet = new List<Lot> { lot3 };
+            var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
+                new DateTime(2015, 3, 3), lotsToSet);
+            createdTransport.FinalizeTransportOnDate(endDateTimeToSet);
+            Assert.AreSame(createdTransport, vehicleInLot3.CurrentState.TransportData);
+            Assert.AreEqual(endDateTimeToSet, createdTransport.EndDateTime);
+            Assert.AreEqual(ProcessStages.YARD, vehicleInLot3.CurrentStage);
         }
     }
 }
