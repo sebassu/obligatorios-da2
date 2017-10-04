@@ -9,6 +9,7 @@ namespace Domain
         public int Id { get; set; }
 
         public List<Vehicle> Vehicles { get; set; }
+            = new List<Vehicle>();
 
         private string name;
         public string Name
@@ -90,7 +91,7 @@ namespace Domain
 
         protected Subzone()
         {
-            name = "Subzone 1";
+            name = "Subzona inválida";
             capacity = 3;
         }
 
@@ -106,7 +107,6 @@ namespace Domain
             Name = nameToSet;
             Capacity = capacityToSet;
             Container = zoneToSet;
-            Vehicles = new List<Vehicle>();
         }
 
         public override bool Equals(object obj)
@@ -125,6 +125,11 @@ namespace Domain
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return container.ToString() + "/" + name;
         }
     }
 }

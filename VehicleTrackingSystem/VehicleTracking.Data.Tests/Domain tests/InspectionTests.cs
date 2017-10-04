@@ -29,6 +29,17 @@ namespace Data.Tests.Domain_tests
         public void InspectionInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingInspection.Id);
+            Assert.AreEqual(Location.InstanceForTestingPurposes(), testingInspection.Location);
+            Assert.AreEqual(User.InstanceForTestingPurposes(), testingInspection.ResponsibleUser);
+            Assert.IsNotNull(testingInspection.Damages);
+            Assert.AreEqual(0, testingInspection.Damages.Count);
+        }
+
+        [TestMethod]
+        public void InspectionSetIdValidTest()
+        {
+            testingInspection.Id = 42;
+            Assert.AreEqual(42, testingInspection.Id);
         }
 
         [TestMethod]
@@ -137,10 +148,10 @@ namespace Data.Tests.Domain_tests
 
         [TestMethod]
         public void InspectionSetValidStageIdTest()
-        {                                
-                User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
-                    "097364857");
-                testingInspection.ResponsibleUser = alternativeUser;
+        {
+            User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
+                "097364857");
+            testingInspection.ResponsibleUser = alternativeUser;
             Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
         }
 

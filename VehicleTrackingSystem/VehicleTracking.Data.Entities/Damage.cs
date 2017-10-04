@@ -31,45 +31,21 @@ namespace Domain
             return Utilities.IsNotEmpty(value);
         }
 
-        private List<string> images;
-        public List<string> Images
+        private ICollection<string> images;
+        public ICollection<string> Images
         {
             get { return images; }
             set
             {
-                if (IsValidList(value))
+                if (Utilities.IsValidItemEnumeration(value))
                 {
                     images = value;
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.ListIsInvalid, value);
-                    throw new DamageException(errorMessage);
+                    throw new DamageException(ErrorMessages.CollectionIsInvalid);
                 }
             }
-        }
-
-        protected bool IsValidList(List<string> value)
-        {
-            return Utilities.IsNotNull(value) ? value.Count > 0 : false;
-        }
-
-        public void AddImage(string source)
-        {
-            if (IsValidImage(source))
-            {
-                Images.Add(source);
-            }
-            else
-            {
-                throw new DamageException(ErrorMessages.ImageIsInvalid);
-            }
-        }
-
-        protected virtual bool IsValidImage(string source)
-        {
-            return Utilities.IsNotEmpty(source) && !Images.Contains(source);
         }
 
         internal static Damage InstanceForTestingPurposes()
@@ -83,7 +59,8 @@ namespace Domain
             images = new List<string>() { "newImage" };
         }
 
-        public static Damage CreateNewDamage(string description, List<string> images)
+        public static Damage CreateNewDamage(string description,
+            List<string> images)
         {
             return new Damage(description, images);
         }

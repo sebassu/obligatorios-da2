@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -27,6 +29,25 @@ namespace Domain
                 value.ToCharArray().All(c => IsLetterDigitOrSpace(c));
         }
 
+        public static bool IsValidItemEnumeration(IEnumerable value)
+        {
+            if (IsNotNull(value))
+            {
+                return EnumerationIsNonEmptyAndContainsNoDuplicates(value);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static bool EnumerationIsNonEmptyAndContainsNoDuplicates(IEnumerable value)
+        {
+            IEnumerable<object> castCollection = value.Cast<object>();
+            return castCollection.Any() &&
+                castCollection.Distinct().Count() == castCollection.Count();
+        }
+
         private static bool IsLetterDigitOrSpace(char value)
         {
             return IsLetterOrDigit(value) || char.IsWhiteSpace(value);
@@ -45,7 +66,7 @@ namespace Domain
 
         internal static bool IsValidDate(DateTime value)
         {
-            return value < DateTime.Now && value.Year > minimumValidYear;
+            return value <= DateTime.Now && value.Year > minimumValidYear;
         }
 
         public static bool ContainsLettersOrSpacesOnly(string value)

@@ -8,8 +8,6 @@ namespace Domain
     {
         public int Id { get; set; }
 
-        public List<Subzone> Subzones { get; set; }
-
         private string name;
         public string Name
         {
@@ -58,6 +56,9 @@ namespace Domain
             return Utilities.ValidMinimumCapacity(value);
         }
 
+        public ICollection<Subzone> Subzones { get; set; }
+            = new List<Subzone>();
+
         internal static Zone InstanceForTestingPurposes()
         {
             return new Zone();
@@ -65,7 +66,7 @@ namespace Domain
 
         protected Zone()
         {
-            name = "Zone 1";
+            name = "Zona inválida";
             capacity = 9;
         }
 
@@ -78,7 +79,6 @@ namespace Domain
         {
             Name = nameToSet;
             Capacity = capacityToSet;
-            Subzones = new List<Subzone>();
         }
 
         public override bool Equals(object obj)
@@ -97,6 +97,11 @@ namespace Domain
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
     }
 }

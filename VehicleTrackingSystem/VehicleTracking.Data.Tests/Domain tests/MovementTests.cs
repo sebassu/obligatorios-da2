@@ -29,8 +29,8 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(0, testingMovement.Id);
             Assert.IsNull(testingMovement.ResponsibleUser);
             Assert.AreEqual(DateTime.MinValue, testingMovement.DateTime);
-            Assert.IsNull(testingMovement.SubzoneDeparture);
-            Assert.IsNull(testingMovement.SubzoneArrival);
+            Assert.IsNull(testingMovement.Departure);
+            Assert.AreEqual(Subzone.InstanceForTestingPurposes(), testingMovement.Arrival);
         }
 
         [TestMethod]
@@ -49,15 +49,15 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
         }
 
-        [ExpectedException(typeof(MovementException))]
         [TestMethod]
+        [ExpectedException(typeof(MovementException))]
         public void MovementSetInvalidResponsibleUserNullTest()
         {
             testingMovement.ResponsibleUser = null;
         }
 
-        [ExpectedException(typeof(MovementException))]
         [TestMethod]
+        [ExpectedException(typeof(MovementException))]
         public void MovementSetInvalidResponsibleUserTransporterTest()
         {
             User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan",
@@ -88,106 +88,117 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        public void MovementSetSubzoneDepartureValidTest()
+        public void MovementSetDepartureValidTest()
         {
             Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7,
                 Zone.InstanceForTestingPurposes());
-            testingMovement.SubzoneDeparture = alternativeSubzone;
-            Assert.AreEqual(alternativeSubzone, testingMovement.SubzoneDeparture);
+            alternativeSubzone.Id = 1;
+            testingMovement.Departure = alternativeSubzone;
+            Assert.AreEqual(alternativeSubzone, testingMovement.Departure);
         }
 
+        [TestMethod]
+        public void MovementSetInvalidDepartureNullTest()
+        {
+            testingMovement.Departure = null;
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(MovementException))]
-        [TestMethod]
-        public void MovementSetInvalidSubzoneDepartureNullTest()
+        public void MovementSetInvalidDepartureEqualsArrivalInvalidTest()
         {
-            testingMovement.SubzoneDeparture = null;
+            var departureToSet = Subzone.InstanceForTestingPurposes();
+            Assert.AreEqual(departureToSet, testingMovement.Arrival);
+            testingMovement.Departure = departureToSet;
         }
 
         [TestMethod]
-        public void MovementSetSubzoneArrivalValidTest()
+        public void MovementSetArrivalValidTest()
         {
-            Subzone alternativeSubzoneDeparture = Subzone.CreateNewSubzone("subzone1", 7,
+            Subzone alternativeDeparture = Subzone.CreateNewSubzone("subzone1", 7,
                 Zone.InstanceForTestingPurposes());
-            testingMovement.SubzoneDeparture = alternativeSubzoneDeparture;
-            Subzone alternativeSubzoneArrival = Subzone.CreateNewSubzone("subzone1", 7,
+            alternativeDeparture.Id = 1;
+            testingMovement.Departure = alternativeDeparture;
+            Subzone alternativeArrival = Subzone.CreateNewSubzone("subzone1", 7,
                 Zone.InstanceForTestingPurposes());
-            alternativeSubzoneArrival.Id = 9;
-            testingMovement.SubzoneArrival = alternativeSubzoneArrival;
-            Assert.AreEqual(alternativeSubzoneArrival, testingMovement.SubzoneArrival);
+            alternativeArrival.Id = 9;
+            testingMovement.Arrival = alternativeArrival;
+            Assert.AreEqual(alternativeArrival, testingMovement.Arrival);
         }
 
-        [ExpectedException(typeof(MovementException))]
         [TestMethod]
-        public void MovementSetInvalidSubzoneArrivalNullTest()
+        [ExpectedException(typeof(MovementException))]
+
+        public void MovementSetInvalidArrivalNullTest()
         {
-            testingMovement.SubzoneArrival = null;
+            testingMovement.Arrival = null;
         }
 
-        [ExpectedException(typeof(MovementException))]
         [TestMethod]
-        public void MovementSetInvalidSubzoneArrivalEqualsDepartureTest()
+        [ExpectedException(typeof(MovementException))]
+        public void MovementSetInvalidArrivalEqualsDepartureInvalidTest()
         {
             Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7,
                 Zone.InstanceForTestingPurposes());
-            testingMovement.SubzoneDeparture = alternativeSubzone;
-            testingMovement.SubzoneArrival = alternativeSubzone;
+            testingMovement.Departure = alternativeSubzone;
+            testingMovement.Arrival = alternativeSubzone;
         }
 
         [TestMethod]
         public void MovementParameterFactoryMethodValidTest()
         {
-            Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
-            Subzone alternativeSubzoneArrival = alternativeSubzone;
+            Subzone alternativeDeparture = Subzone.InstanceForTestingPurposes();
+            Subzone alternativeArrival = alternativeSubzone;
             DateTime alternativeDateTime = new DateTime(2014, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
-                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+                alternativeDeparture, alternativeArrival);
             Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
             Assert.AreEqual(alternativeDateTime, testingMovement.DateTime);
-            Assert.AreEqual(alternativeSubzoneDeparture, testingMovement.SubzoneDeparture);
-            Assert.AreEqual(alternativeSubzoneArrival, testingMovement.SubzoneArrival);
+            Assert.AreEqual(alternativeDeparture, testingMovement.Departure);
+            Assert.AreEqual(alternativeArrival, testingMovement.Arrival);
         }
 
         [TestMethod]
         [ExpectedException(typeof(MovementException))]
         public void MovementParameterFactoryMethodInvalidResponsibleUserTest()
         {
-            Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
-            Subzone alternativeSubzoneArrival = alternativeSubzone;
+            Subzone alternativeDeparture = Subzone.InstanceForTestingPurposes();
+            Subzone alternativeArrival = alternativeSubzone;
             DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(null, alternativeDateTime,
-                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+                alternativeDeparture, alternativeArrival);
         }
 
         [TestMethod]
         [ExpectedException(typeof(MovementException))]
         public void MovementParameterFactoryMethodInvalidDateTimeTest()
         {
-            Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
-            Subzone alternativeSubzoneArrival = alternativeSubzone;
+            Subzone alternativeDeparture = Subzone.InstanceForTestingPurposes();
+            Subzone alternativeArrival = alternativeSubzone;
             DateTime alternativeDateTime = new DateTime(2019, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
-                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+                alternativeDeparture, alternativeArrival);
         }
 
 
         [TestMethod]
         [ExpectedException(typeof(MovementException))]
-        public void MovementParameterFactoryMethodInvalidSubzoneDepartureTest()
+        public void MovementParameterFactoryMethodInvalidDepartureTest()
         {
-            Subzone alternativeSubzoneArrival = alternativeSubzone;
+            Subzone alternativeArrival = alternativeSubzone;
             DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
-                null, alternativeSubzoneArrival);
+                null, alternativeArrival);
         }
 
         [TestMethod]
         [ExpectedException(typeof(MovementException))]
-        public void MovementParameterFactoryMethodInvalidSubzoneArrivalTest()
+        public void MovementParameterFactoryMethodInvalidArrivalTest()
         {
-            Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
+            Subzone alternativeDeparture = Subzone.InstanceForTestingPurposes();
             DateTime alternativeDateTime = new DateTime(2017, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
-                alternativeSubzoneDeparture, null);
+                alternativeDeparture, null);
         }
 
         [TestMethod]
@@ -207,15 +218,15 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void MovementEqualsTransitiveTest()
         {
-            Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
-            Subzone alternativeSubzoneArrival = alternativeSubzone;
+            Subzone alternativeDeparture = Subzone.InstanceForTestingPurposes();
+            Subzone alternativeArrival = alternativeSubzone;
             DateTime alternativeDateTime = new DateTime(2015, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
-                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+                alternativeDeparture, alternativeArrival);
             Movement secondTestingMovement = Movement.CreateNewMovement(alternativeUser,
-                alternativeDateTime, alternativeSubzoneDeparture, alternativeSubzoneArrival);
+                alternativeDateTime, alternativeDeparture, alternativeArrival);
             Movement thirdTestingMovement = Movement.CreateNewMovement(alternativeUser,
-                alternativeDateTime, alternativeSubzoneDeparture, alternativeSubzoneArrival);
+                alternativeDateTime, alternativeDeparture, alternativeArrival);
             Assert.AreEqual(testingMovement, secondTestingMovement);
             Assert.AreEqual(secondTestingMovement, thirdTestingMovement);
             Assert.AreEqual(testingMovement, thirdTestingMovement);
@@ -224,14 +235,14 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void MovementEqualsDifferentMovementTest()
         {
-            Subzone alternativeSubzoneDeparture = Subzone.InstanceForTestingPurposes();
-            Subzone alternativeSubzoneArrival = alternativeSubzone;
+            Subzone alternativeDeparture = Subzone.InstanceForTestingPurposes();
+            Subzone alternativeArrival = alternativeSubzone;
             DateTime alternativeDateTime = new DateTime(2015, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
-                alternativeSubzoneDeparture, alternativeSubzoneArrival);
+                alternativeDeparture, alternativeArrival);
             testingMovement.Id = 1;
             Movement secondTestingMovement = Movement.CreateNewMovement(alternativeUser,
-                alternativeDateTime, alternativeSubzoneDeparture, alternativeSubzoneArrival);
+                alternativeDateTime, alternativeDeparture, alternativeArrival);
             secondTestingMovement.Id = 2;
             Assert.AreNotEqual(testingMovement, secondTestingMovement);
         }
@@ -253,7 +264,8 @@ namespace Data.Tests.Domain_tests
         public void MovementGetHashCodeTest()
         {
             object testingMovementAsObject = testingMovement;
-            Assert.AreEqual(testingMovementAsObject.GetHashCode(), testingMovement.GetHashCode());
+            Assert.AreEqual(testingMovementAsObject.GetHashCode(),
+                testingMovement.GetHashCode());
         }
     }
 }

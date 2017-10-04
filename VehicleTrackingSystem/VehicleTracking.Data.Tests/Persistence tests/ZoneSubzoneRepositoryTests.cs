@@ -19,7 +19,7 @@ namespace Data.Tests.Persistence_tests
             testingZoneSubzoneRepository = new ZoneSubzoneRepository();
         }
 
-        #region AddNewZone
+        #region AddNewZone tests
         [TestMethod]
         public void ZRepositoryAddNewZoneValidTest()
         {
@@ -71,7 +71,7 @@ namespace Data.Tests.Persistence_tests
         }
         #endregion
 
-        #region UpdateZone
+        #region UpdateZone tests
         [TestMethod]
         public void ZRepositoryModifyZoneValidTest()
         {
@@ -97,7 +97,7 @@ namespace Data.Tests.Persistence_tests
         }
         #endregion
 
-        #region RemoveZone
+        #region RemoveZone tests
         [TestMethod]
         public void ZRepositoryRemoveZoneValidTest()
         {
@@ -124,14 +124,14 @@ namespace Data.Tests.Persistence_tests
             Subzone subzoneToAdd = Subzone.InstanceForTestingPurposes();
             Zone zoneForSubzone = Zone.CreateNewZone("Some new zone", 8);
             testingZoneSubzoneRepository.AddNewZone(zoneForSubzone);
-            subzoneToAdd.ContainerZone = zoneForSubzone;
+            subzoneToAdd.Container = zoneForSubzone;
             zoneToVerify.Subzones.Add(subzoneToAdd);
             testingZoneSubzoneRepository.AddNewZone(zoneToVerify);
             testingZoneSubzoneRepository.RemoveZoneWithName(zoneToVerify.Name);
         }
         #endregion
 
-        #region AddNewSubzone
+        #region AddNewSubzone tests
         [TestMethod]
         public void ZRepositoryAddNewSubzoneValidTest()
         {
@@ -159,7 +159,7 @@ namespace Data.Tests.Persistence_tests
         }
         #endregion
 
-        #region UpdateSubzone
+        #region UpdateSubzone tests
         [TestMethod]
         public void ZRepositoryModifySubzoneValidTest()
         {
@@ -171,14 +171,14 @@ namespace Data.Tests.Persistence_tests
             testingZoneSubzoneRepository.UpdateSubzone(subzoneToVerify);
             Assert.AreEqual("One subzone", subzoneToVerify.Name);
             Assert.AreEqual(10, subzoneToVerify.Capacity);
-            Assert.AreEqual(testingZone, subzoneToVerify.ContainerZone);
+            Assert.AreEqual(testingZone, subzoneToVerify.Container);
         }
 
-        private void SetSubzoneData(Subzone subzoneToVerify, string nameToSet, int capacityToSet,Zone zoneToSet)
+        private void SetSubzoneData(Subzone subzoneToVerify, string nameToSet, int capacityToSet, Zone zoneToSet)
         {
             subzoneToVerify.Name = nameToSet;
             subzoneToVerify.Capacity = capacityToSet;
-            subzoneToVerify.ContainerZone = zoneToSet;
+            subzoneToVerify.Container = zoneToSet;
         }
 
         [TestMethod]
@@ -189,7 +189,7 @@ namespace Data.Tests.Persistence_tests
         }
         #endregion
 
-        #region RemoveSubzone
+        #region RemoveSubzone tests
         [TestMethod]
         public void ZRepositoryRemoveSubzoneValidTest()
         {
@@ -224,6 +224,5 @@ namespace Data.Tests.Persistence_tests
         //    testingZoneSubzoneRepository.RemoveSubzoneWithId(subzoneToVerify.Id);
         //}
         #endregion
-
     }
 }

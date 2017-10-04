@@ -116,11 +116,11 @@ namespace Persistence
             {
                 if (Utilities.IsNotNull(subzoneToAdd))
                 {
-                    bool zoneIsRegistered = ExistsZoneWithName(subzoneToAdd.ContainerZone.Name);
+                    bool zoneIsRegistered = ExistsZoneWithName(subzoneToAdd.Container.Name);
                     if (zoneIsRegistered)
                     {
-                        subzoneToAdd.ContainerZone.Subzones.Add(subzoneToAdd);
-                        context.Entry(subzoneToAdd.ContainerZone).State = EntityState.Modified;
+                        subzoneToAdd.Container.Subzones.Add(subzoneToAdd);
+                        context.Entry(subzoneToAdd.Container).State = EntityState.Modified;
                         EntityFrameworkUtilities<Subzone>.Add(context, subzoneToAdd);
                     }
                     else
@@ -154,7 +154,7 @@ namespace Persistence
                 var subzoneToRemove = AttemptToGetSubzoneWithId(id, context);
                 if (subzoneToRemove.Vehicles == null || subzoneToRemove.Vehicles.Count < 1)
                 {
-                    subzoneToRemove.ContainerZone.Subzones.Remove(subzoneToRemove);
+                    subzoneToRemove.Container.Subzones.Remove(subzoneToRemove);
                     EntityFrameworkUtilities<Subzone>.AttemptToRemove(subzoneToRemove, context);
                 }
                 else

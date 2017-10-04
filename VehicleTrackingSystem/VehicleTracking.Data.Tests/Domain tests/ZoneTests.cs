@@ -1,10 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using Domain;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Data.Tests.Domain_tests
 {
@@ -26,7 +23,7 @@ namespace Data.Tests.Domain_tests
         public void ZoneForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingZone.Id);
-            Assert.AreEqual("Zone 1", testingZone.Name);
+            Assert.AreEqual("Zona inválida", testingZone.Name);
         }
 
         [TestMethod]
@@ -39,7 +36,9 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void SubzoneForTestingPurposesTest()
         {
-            Assert.AreEqual("Subzone 1", testingSubzone.Name);
+            Assert.AreEqual("Subzona inválida", testingSubzone.Name);
+            Assert.AreEqual(Zone.InstanceForTestingPurposes(),
+                testingSubzone.Container);
         }
 
         [TestMethod]
@@ -111,7 +110,7 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(ZoneException))]
         public void ZoneParameterFactoryMethodInvalidNameTest()
         {
-            testingZone= Zone.CreateNewZone("!@#$%", 23);
+            testingZone = Zone.CreateNewZone("!@#$%", 23);
         }
 
         [TestMethod]
@@ -120,7 +119,7 @@ namespace Data.Tests.Domain_tests
         {
             testingZone = Zone.CreateNewZone("Another subzone", 0);
         }
-        
+
         [TestMethod]
         public void ZoneEqualsReflexiveTest()
         {
@@ -142,7 +141,7 @@ namespace Data.Tests.Domain_tests
             Zone secondTestingZone = Zone.CreateNewZone("Zone2", 4);
             Zone thirdTestingZone = Zone.CreateNewZone("Zone2", 4);
             Assert.AreEqual(testingZone, secondTestingZone);
-            Assert.AreEqual(secondTestingZone , thirdTestingZone);
+            Assert.AreEqual(secondTestingZone, thirdTestingZone);
             Assert.AreEqual(testingZone, thirdTestingZone);
         }
 
@@ -174,6 +173,28 @@ namespace Data.Tests.Domain_tests
         {
             object testingZoneAsObject = testingZone;
             Assert.AreEqual(testingZoneAsObject.GetHashCode(), testingZone.GetHashCode());
+        }
+
+        [TestMethod]
+        public void ZoneSetSubzonesValidTest()
+        {
+            var subzonesToSet = new List<Subzone>();
+            testingZone.Subzones = subzonesToSet;
+            Assert.AreSame(subzonesToSet, testingZone.Subzones);
+        }
+
+        [TestMethod]
+        public void ZoneToStringTest1()
+        {
+            Assert.AreEqual("Zona inválida", testingZone.ToString());
+        }
+
+        [TestMethod]
+        public void ZoneToStringTest2()
+        {
+            var nameToSet = "In the zone";
+            testingZone.Name = nameToSet;
+            Assert.AreEqual(nameToSet, testingZone.ToString());
         }
     }
 }

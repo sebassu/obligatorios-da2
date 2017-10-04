@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Domain
 {
     public class Movement
     {
-        private static UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR,
-            UserRoles.YARD_OPERATOR };
+        private static readonly IReadOnlyCollection<UserRoles> allowedUserRoles =
+            new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR }.AsReadOnly();
 
         public int Id { get; set; }
 
@@ -17,20 +17,18 @@ namespace Domain
             get { return responsibleUser; }
             set
             {
-                if (IsValidUser(value))
+                if (IsValidResponsibleUser(value))
                 {
                     responsibleUser = value;
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.ResponsibleUserIsInvalid, value);
-                    throw new MovementException(errorMessage);
+                    throw new MovementException(ErrorMessages.ResponsibleUserIsInvalid);
                 }
             }
         }
 
-        protected bool IsValidUser(User user)
+        protected bool IsValidResponsibleUser(User user)
         {
             return Utilities.IsNotNull(user) &&
                 allowedUserRoles.Contains(user.Role);
@@ -58,67 +56,58 @@ namespace Domain
             return Utilities.IsValidDate(value);
         }
 
-        private Subzone subzoneDeparture;
-        public Subzone SubzoneDeparture
+        private Subzone departure;
+        public Subzone Departure
         {
-            get { return subzoneDeparture; }
+            get { return departure; }
             set
             {
-                if (IsValidSubzone(value))
+                if (ExistsMovementBetween(value, arrival))
                 {
-                    subzoneDeparture = value;
+                    departure = value;
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.SubzoneIsInvalid, "partida", null);
-                    throw new MovementException(errorMessage);
+                    throw new MovementException(ErrorMessages.DepartureIsInvalid);
                 }
             }
         }
 
-        protected virtual bool IsValidSubzone(Subzone value)
+        private Subzone arrival;
+        public Subzone Arrival
         {
-            return Utilities.IsNotNull(value);
-        }
-
-        private Subzone subzoneArrival;
-        public Subzone SubzoneArrival
-        {
-            get { return subzoneArrival; }
+            get { return arrival; }
             set
             {
-                if (IsValidSubzone(value))
+                if (IsValidArrival(departure, value))
                 {
-                    if (IsValidSubzoneArrival(subzoneDeparture, value))
-                    {
-                        subzoneArrival = value;
-                    }
-                    else
-                    {
-                        string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                      ErrorMessages.SubzoneArrivalIsInvalid, "", null);
-                        throw new MovementException(errorMessage);
-                    }
+                    arrival = value;
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.SubzoneIsInvalid, "llegada", null);
-                    throw new MovementException(errorMessage);
+                    throw new MovementException(ErrorMessages.ArrivalIsInvalid);
                 }
             }
         }
 
-        protected virtual bool IsValidSubzoneArrival(Subzone departure, Subzone arrival)
+        private bool IsValidArrival(Subzone departure, Subzone arrival)
         {
-            return Utilities.IsNotNull(departure) && Utilities.IsNotNull(arrival) ?
-                !departure.Equals(arrival) : false;
+            return Utilities.IsNotNull(arrival) &&
+                ExistsMovementBetween(departure, arrival);
+        }
+
+        protected virtual bool ExistsMovementBetween(Subzone departure,
+            Subzone arrival)
+        {
+            return !arrival.Equals(departure);
         }
 
         internal static Movement InstanceForTestingPurposes()
         {
-            return new Movement();
+            return new Movement()
+            {
+                arrival = Subzone.InstanceForTestingPurposes()
+            };
         }
 
         protected Movement() { }
@@ -130,12 +119,26 @@ namespace Domain
         }
 
         protected Movement(User userToSet, DateTime dateTimeToSet,
-            Subzone subzoneDepartureToSet, Subzone subzoneArrivalToSet)
+            Subzone departureToSet, Subzone arrivalToSet)
+        {
+            if (IsValidArrival(departureToSet, arrivalToSet))
+            {
+                SetCreationParameters(userToSet, dateTimeToSet,
+                    departureToSet, arrivalToSet);
+            }
+            else
+            {
+                throw new MovementException(ErrorMessages.ArrivalIsInvalid);
+            }
+        }
+
+        private void SetCreationParameters(User userToSet, DateTime dateTimeToSet,
+            Subzone departureToSet, Subzone arrivalToSet)
         {
             ResponsibleUser = userToSet;
             DateTime = dateTimeToSet;
-            SubzoneDeparture = subzoneDepartureToSet;
-            SubzoneArrival = subzoneArrivalToSet;
+            departure = departureToSet;
+            arrival = arrivalToSet;
         }
 
         public override bool Equals(object obj)
