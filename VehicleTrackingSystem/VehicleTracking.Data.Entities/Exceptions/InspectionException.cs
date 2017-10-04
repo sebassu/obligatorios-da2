@@ -8,5 +8,4 @@ namespace Domain
         public InspectionException(string message) : base(message) { }
 
     }
-
 }

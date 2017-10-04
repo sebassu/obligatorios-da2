@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Domain
 {
     public class Movement
     {
-        private static UserRoles[] allowedUserRoles = { UserRoles.ADMINISTRATOR,
-            UserRoles.YARD_OPERATOR };
+        private static readonly IReadOnlyCollection<UserRoles> allowedUserRoles =
+            new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR }.AsReadOnly();
 
         public int Id { get; set; }
 
@@ -23,9 +23,7 @@ namespace Domain
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.ResponsibleUserIsInvalid, value);
-                    throw new MovementException(errorMessage);
+                    throw new MovementException(ErrorMessages.ResponsibleUserIsInvalid);
                 }
             }
         }
@@ -101,7 +99,7 @@ namespace Domain
         protected virtual bool ExistsMovementBetween(Subzone departure,
             Subzone arrival)
         {
-            return departure != arrival;
+            return !arrival.Equals(departure);
         }
 
         internal static Movement InstanceForTestingPurposes()

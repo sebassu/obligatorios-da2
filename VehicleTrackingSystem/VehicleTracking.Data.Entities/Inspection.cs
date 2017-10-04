@@ -7,10 +7,12 @@ namespace Domain
 {
     public class Inspection
     {
-        private static readonly IReadOnlyCollection<UserRoles> PortInspectionAllowedRoles =
-            new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR }.AsReadOnly();
-        private static readonly IReadOnlyCollection<UserRoles> YardInspectionAllowedRoles =
-            new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR }.AsReadOnly();
+        private static readonly IReadOnlyDictionary<LocationType, IReadOnlyCollection<UserRoles>> allowedRolesPerLocationType =
+            new Dictionary<LocationType, IReadOnlyCollection<UserRoles>>
+            {
+                { LocationType.PORT, new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR }.AsReadOnly() },
+                { LocationType.YARD, new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR }.AsReadOnly() }
+            };
 
         public int Id { get; set; }
 
@@ -26,9 +28,7 @@ namespace Domain
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.DateIsInvalid, "", value);
-                    throw new InspectionException(errorMessage);
+                    throw new InspectionException(ErrorMessages.DateIsInvalid);
                 }
             }
         }
@@ -50,16 +50,14 @@ namespace Domain
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.ResponsibleUserIsInvalid, "", null);
-                    throw new InspectionException(errorMessage);
+                    throw new InspectionException(ErrorMessages.UserRoleLocationTypeInvalid);
                 }
             }
         }
 
-        protected bool IsValidUser(User user)
+        protected bool IsValidUser(User value)
         {
-            return UserCanInspect(user, location);
+            return UserCanInspect(value, location);
         }
 
         public static bool UserCanInspect(User user, Location location)
@@ -78,15 +76,8 @@ namespace Domain
 
         private static bool IsValidRoleLocationConcordance(User user, Location location)
         {
-            switch (location.Type)
-            {
-                case LocationType.PORT:
-                    return PortInspectionAllowedRoles.Contains(user.Role);
-                case LocationType.YARD:
-                    return YardInspectionAllowedRoles.Contains(user.Role);
-                default:
-                    return false;
-            }
+            var permittedUserRoles = allowedRolesPerLocationType[location.Type];
+            return permittedUserRoles.Contains(user.Role);
         }
 
         private Location location;
@@ -101,9 +92,7 @@ namespace Domain
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.LocationIsInvalid, "", null);
-                    throw new InspectionException(errorMessage);
+                    throw new InspectionException(ErrorMessages.UserRoleLocationTypeInvalid);
                 }
             }
         }
@@ -113,28 +102,21 @@ namespace Domain
             return UserCanInspect(responsibleUser, value);
         }
 
-        private List<Damage> damages;
+        private List<Damage> damages = new List<Damage>();
         public List<Damage> Damages
         {
             get { return damages; }
             set
             {
-                if (IsValidList(value))
+                if (Utilities.IsValidItemEnumeration(value))
                 {
                     damages = value;
                 }
                 else
                 {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.ListIsInvalid, value);
-                    throw new InspectionException(errorMessage);
+                    throw new InspectionException(ErrorMessages.CollectionIsInvalid);
                 }
             }
-        }
-
-        protected bool IsValidList(List<Damage> value)
-        {
-            return Utilities.IsNotNull(value) ? value.Count > 0 : false;
         }
 
         private string vehicleVIN;
@@ -191,9 +173,7 @@ namespace Domain
             }
             else
             {
-                string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.UserRoleLocationTypeInvalid);
-                throw new InspectionException(errorMessage);
+                throw new InspectionException(ErrorMessages.UserRoleLocationTypeInvalid);
             }
         }
 

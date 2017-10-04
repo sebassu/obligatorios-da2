@@ -57,6 +57,7 @@ namespace Domain
         }
 
         public List<Subzone> Subzones { get; set; }
+            = new List<Subzone>();
 
         internal static Zone InstanceForTestingPurposes()
         {

@@ -9,6 +9,7 @@ namespace Domain
         public int Id { get; set; }
 
         public List<Vehicle> Vehicles { get; set; }
+            = new List<Vehicle>();
 
         private string name;
         public string Name
@@ -106,7 +107,6 @@ namespace Domain
             Name = nameToSet;
             Capacity = capacityToSet;
             Container = zoneToSet;
-            Vehicles = new List<Vehicle>();
         }
 
         public override bool Equals(object obj)
