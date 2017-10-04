@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Domain
 {
@@ -125,9 +126,15 @@ namespace Domain
             }
         }
 
+        protected bool IsValidVIN(string value)
+        {
+            return Utilities.IsValidVIN(value);
+        }
+
         public ProcessData CurrentState { get; set; }
 
         public bool IsLotted => Utilities.IsNotNull(CurrentState.PortLot);
+        public ProcessStages CurrentStage => CurrentState.CurrentStage;
         public Inspection PortInspection => CurrentState.PortInspection;
         public Inspection YardInspection => CurrentState.YardInspection;
 
@@ -145,9 +152,14 @@ namespace Domain
             return CurrentState.IsReadyForTransport();
         }
 
-        protected bool IsValidVIN(string value)
+        internal void SetTransportStartData(Transport someTransport)
         {
-            return Utilities.IsValidVIN(value);
+            CurrentState.SetTransportStartData(someTransport);
+        }
+
+        internal void SetTransportEndData()
+        {
+            CurrentState.SetTransportEndData();
         }
 
         internal static Vehicle InstanceForTestingPurposes()

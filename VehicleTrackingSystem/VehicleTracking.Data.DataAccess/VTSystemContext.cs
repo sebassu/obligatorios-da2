@@ -23,6 +23,7 @@ namespace Persistence
             modelBuilder.Entity<Vehicle>().Ignore(v => v.PortLot);
             modelBuilder.Entity<Vehicle>().Ignore(v => v.PortInspection);
             modelBuilder.Entity<Vehicle>().Ignore(v => v.YardInspection);
+            modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
         }
 
         internal void DeleteAllData()

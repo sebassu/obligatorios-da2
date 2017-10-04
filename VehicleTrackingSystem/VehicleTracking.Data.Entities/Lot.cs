@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
-using System;
 
 namespace Domain
 {
@@ -80,6 +79,15 @@ namespace Domain
             }
         }
 
+        internal void FinalizeTransport()
+        {
+            WasTransported = true;
+            foreach (var vehicle in vehicles)
+            {
+                vehicle.SetTransportEndData();
+            }
+        }
+
         public bool WasTransported { get; set; }
 
         private bool IsValidVehicleListToSet(ICollection<Vehicle> vehiclesToSet)
@@ -147,6 +155,15 @@ namespace Domain
         {
             return Utilities.IsNotNull(someUser) &&
                 validCreatorRoles.Contains(someUser.Role);
+        }
+
+        internal void MarkAsTransported(Transport associatedTransport)
+        {
+            WasTransported = true;
+            foreach (var vehicle in vehicles)
+            {
+                vehicle.SetTransportStartData(associatedTransport);
+            }
         }
     }
 }

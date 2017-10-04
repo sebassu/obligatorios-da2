@@ -57,6 +57,20 @@ namespace Domain
                 v => v.PortInspection.DateTime <= value.GetValueOrDefault()));
         }
 
+        public void FinalizeTransportOnDate(DateTime endTime)
+        {
+            EndDateTime = endTime;
+            MarkTransportFinalizedOnLots();
+        }
+
+        private void MarkTransportFinalizedOnLots()
+        {
+            foreach (var lot in LotsTransported)
+            {
+                lot.FinalizeTransport();
+            }
+        }
+
         private DateTime? endDateTime;
         public DateTime? EndDateTime
         {
@@ -106,7 +120,7 @@ namespace Domain
             if (IsValidCollectionOfLots(lotsToSet))
             {
                 SetCreationAttributes(someTransporter, startTime, lotsToSet);
-                MarkLotsAsTransported(lotsToSet);
+                MarkLotsAsTransported();
             }
             else
             {
@@ -128,11 +142,11 @@ namespace Domain
             StartDateTime = startTime;
         }
 
-        private void MarkLotsAsTransported(ICollection<Lot> lots)
+        private void MarkLotsAsTransported()
         {
-            foreach (var lot in lots)
+            foreach (var lot in LotsTransported)
             {
-                lot.WasTransported = true;
+                lot.MarkAsTransported(this);
             }
         }
     }
