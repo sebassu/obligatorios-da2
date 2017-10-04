@@ -16,6 +16,7 @@ namespace Data.Tests.Domain_tests
         private static readonly User movementValidResponsible = User.InstanceForTestingPurposes();
         private static readonly Subzone firstDestination = Subzone.InstanceForTestingPurposes();
         private static Subzone secondDestination;
+        private static readonly Transport testingTransport = Transport.InstanceForTestingPurposes();
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
@@ -26,12 +27,20 @@ namespace Data.Tests.Domain_tests
                 alternativeLocation, DateTime.Today, testImageList, Vehicle.InstanceForTestingPurposes());
             secondDestination = Subzone.CreateNewSubzone("Another subzone", 100,
                 Zone.InstanceForTestingPurposes());
+            secondDestination.Id = 42;
         }
 
         [TestInitialize]
         public void TestSetup()
         {
             testingData = new ProcessData();
+        }
+
+        [TestMethod]
+        public void ProcessDataSetIdValidTest()
+        {
+            testingData.Id = 42;
+            Assert.AreEqual(42, testingData.Id);
         }
 
         [TestMethod]
@@ -43,8 +52,7 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ProcessException))]
-        public void ProcessDataSetNullPortLotInvalidTest()
+        public void ProcessDataSetNullPortLotValidTest()
         {
             testingData.RegisterPortLot(null);
         }
@@ -114,35 +122,74 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void ProcessDataSetTransportStartDataValidTest()
         {
-            User transporter = User.InstanceForTestingPurposes();
-            testingData.SetTransportStartData(transporter);
+            Assert.AreEqual(ProcessStages.PORT, testingData.CurrentStage);
+            Lot testingLot = Lot.InstanceForTestingPurposes();
+            Transport transportToSet = Transport.InstanceForTestingPurposes();
+            transportToSet.LotsTransported.Add(testingLot);
+            testingData.PortLot = testingLot;
+            testingData.SetTransportStartData(transportToSet);
             Assert.AreEqual(ProcessStages.TRANSPORT, testingData.CurrentStage);
-            Assert.AreSame(transporter, testingData.Transporter);
-            Assert.AreEqual(DateTime.Today, testingData.TransportStart.Date);
+            Assert.AreSame(transportToSet, testingData.TransportData);
         }
 
         [TestMethod]
-        public void ProcessDataSetTransportStartDataUnauthorizedTransporterValidTest()
-        {
-            User transporter = User.InstanceForTestingPurposes();
-            transporter.Role = UserRoles.YARD_OPERATOR;
-            testingData.SetTransportStartData(transporter);
-            Assert.AreSame(transporter, testingData.Transporter);
-        }
-
-        [TestMethod]
-        public void ProcessDataSetTransportStartDataNullTransporterValidTest()
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataSetNullTransportStartDataInvalidTest()
         {
             testingData.SetTransportStartData(null);
-            Assert.IsNull(testingData.Transporter);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataSetTransportStartDataWithoutPortLotInvalidTest()
+        {
+            testingData.SetTransportStartData(testingTransport);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataSetTransportStartDataOnTransportStageInvalidTest()
+        {
+            testingData.CurrentStage = ProcessStages.TRANSPORT;
+            testingData.SetTransportStartData(testingTransport);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataSetTransportStartDataOnYardStageInvalidTest()
+        {
+            testingData.CurrentStage = ProcessStages.TRANSPORT;
+            testingData.SetTransportStartData(testingTransport);
         }
 
         [TestMethod]
         public void ProcessDataSetTransportEndDataValidTest()
         {
+            var dateToSet = DateTime.Now;
+            Transport fakeTransport = Transport.InstanceForTestingPurposes();
+            fakeTransport.StartDateTime = DateTime.Today;
+            fakeTransport.EndDateTime = dateToSet;
+            testingData.TransportData = fakeTransport;
+            testingData.CurrentStage = ProcessStages.TRANSPORT;
             testingData.SetTransportEndData();
             Assert.AreEqual(ProcessStages.YARD, testingData.CurrentStage);
-            Assert.AreEqual(DateTime.Today, testingData.TransportEnd.Date);
+            Assert.AreEqual(fakeTransport.EndDateTime, testingData.LastDateTimeToValidate);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataSetTransportEndDataOnPortStageInvalidTest()
+        {
+            Assert.AreEqual(ProcessStages.PORT, testingData.CurrentStage);
+            testingData.SetTransportEndData();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataSetTransportEndDataOnYardStageInvalidTest()
+        {
+            testingData.CurrentStage = ProcessStages.YARD;
+            testingData.SetTransportEndData();
         }
 
         [TestMethod]
@@ -250,6 +297,14 @@ namespace Data.Tests.Domain_tests
             testingData.CurrentStage = ProcessStages.TRANSPORT;
             testingData.RegisterNewMovementToSubzone(movementValidResponsible, DateTime.Now,
                 firstDestination);
+        }
+
+        [TestMethod]
+        public void ProcessDataSetYardMovementsValidTest()
+        {
+            var movementsToSet = new List<Movement>();
+            testingData.YardMovements = movementsToSet;
+            Assert.AreSame(movementsToSet, testingData.YardMovements);
         }
     }
 }
