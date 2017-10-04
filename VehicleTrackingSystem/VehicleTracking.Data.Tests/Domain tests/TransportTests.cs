@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Data.Tests.Domain_tests
 {
@@ -41,6 +42,7 @@ namespace Data.Tests.Domain_tests
             var lot2Vehicle1 = Vehicle.InstanceForTestingPurposes();
             lot2Vehicle1.CurrentState.PortInspection = lot2Vehicle1PortInspection;
             lot2 = Lot.InstanceForTestingPurposes();
+            lot2.Id = 42;
             lot2.Vehicles = new List<Vehicle> { lot2Vehicle1 };
         }
 
@@ -214,6 +216,83 @@ namespace Data.Tests.Domain_tests
         public void TransportSetNullTransportEndDateTimeInvalidTest()
         {
             testingTransport.EndDateTime = null;
+        }
+
+        [TestMethod]
+        public void TransportParameterFactoryMethodValidTest()
+        {
+            var dateTimeToSet = DateTime.Now;
+            var lotsToSet = new List<Lot> { lot1, lot2 };
+            var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
+                dateTimeToSet, lotsToSet);
+            Assert.AreSame(testingUser, createdTransport.Transporter);
+            Assert.AreEqual(dateTimeToSet, createdTransport.StartDateTime);
+            CollectionAssert.AreEqual(lotsToSet,
+                createdTransport.LotsTransported.ToList());
+            Assert.IsNull(createdTransport.EndDateTime);
+            Assert.IsTrue(lot1.WasTransported);
+            Assert.IsTrue(lot2.WasTransported);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportParameterFactoryMethodInvalidUserTest()
+        {
+            var transporterToSet = User.CreateNewUser(UserRoles.YARD_OPERATOR, "Emilio",
+                "Ravenna", "eRavenna", "HablarUnasPalabritas", "099699669"); ;
+            Transport.FromTransporterDateTimeLots(transporterToSet,
+                DateTime.Now, new List<Lot> { lot1, lot2 });
+            Assert.IsFalse(lot1.WasTransported);
+            Assert.IsFalse(lot2.WasTransported);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportParameterFactoryMethodNullUserInvalidTest()
+        {
+            Transport.FromTransporterDateTimeLots(null,
+                DateTime.Now, new List<Lot> { lot1, lot2 });
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportParameterFactoryMethodInvalidDateTimeTest()
+        {
+            Transport.FromTransporterDateTimeLots(testingUser,
+                new DateTime(1975, 1, 1), new List<Lot> { lot1, lot2 });
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportParameterFactoryMethodEmptyLotCollectionInvalidTest()
+        {
+            var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
+               DateTime.Now, new List<Lot>());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportParameterFactoryMethodNullLotCollectionInvalidTest()
+        {
+            var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
+               DateTime.Now, null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportParameterFactoryMethodLotCollectionWithDuplicatesInvalidTest()
+        {
+            var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
+               DateTime.Now, new List<Lot> { lot1, lot1 });
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportParameterFactoryMethodLotCollectionWithTransportedLotsInvalidTest()
+        {
+            lot1.WasTransported = true;
+            var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
+               DateTime.Now, new List<Lot> { lot1, lot2 });
         }
     }
 }
