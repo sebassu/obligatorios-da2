@@ -2,11 +2,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Data.Tests.Domain_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ProcessDataTests
     {
         private static ProcessData testingData;
@@ -305,6 +307,13 @@ namespace Data.Tests.Domain_tests
             var movementsToSet = new List<Movement>();
             testingData.YardMovements = movementsToSet;
             Assert.AreSame(movementsToSet, testingData.YardMovements);
+        }
+
+        [TestMethod]
+        public void ProcessDataIsReadyForTransportPastPortStageValidTest()
+        {
+            testingData.CurrentStage = ProcessStages.YARD;
+            Assert.IsFalse(testingData.IsReadyForTransport());
         }
     }
 }

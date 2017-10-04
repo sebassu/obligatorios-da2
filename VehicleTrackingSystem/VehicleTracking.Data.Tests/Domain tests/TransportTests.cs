@@ -2,11 +2,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Data.Tests.Domain_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class TransportTests
     {
         private static Transport testingTransport;
@@ -215,6 +217,7 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(TransportException))]
         public void TransportSetNullTransportEndDateTimeInvalidTest()
         {
+            testingTransport.StartDateTime = new DateTime(1990, 2, 1);
             testingTransport.EndDateTime = null;
         }
 
