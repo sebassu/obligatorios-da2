@@ -8,36 +8,26 @@ namespace Domain
 
     public class ProcessData
     {
+        public int Id { get; set; }
+
         public ProcessStages CurrentStage { get; set; } = ProcessStages.PORT;
 
         public Lot PortLot { get; set; }
         public Inspection PortInspection { get; set; }
-        public DateTime TransportStart { get; set; }
-        public User Transporter { get; set; }
-        public DateTime TransportEnd { get; set; }
+        public Transport TransportData { get; set; }
         public Inspection YardInspection { get; set; }
         public ICollection<Movement> YardMovements { get; set; }
             = new List<Movement>();
         public Subzone YardCurrentLocation { get; set; }
-        public DateTime LastMovementDateTime { get; set; }
+        public DateTime? LastDateTimeToValidate { get; set; }
 
         public void RegisterPortLot(Lot value)
         {
             ValidateVehicleIsInStage(ProcessStages.PORT);
-            bool isValidLotToSet = Utilities.IsNotNull(value);
-            if (isValidLotToSet)
-            {
-                PortLot = value;
-            }
-            else
-            {
-                string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.InvalidDataOnProcess, "Lote");
-                throw new ProcessException(errorMessage);
-            }
+            PortLot = value;
         }
 
-        public void RegisterPortInspection(Inspection inspectionToSet)
+        internal void RegisterPortInspection(Inspection inspectionToSet)
         {
             ValidateVehicleIsInStage(ProcessStages.PORT);
             ValidatePropertyWasNotSetPreviously(PortInspection);
@@ -55,20 +45,32 @@ namespace Domain
             }
         }
 
-        internal void SetTransportStartData(User transporterToSet)
+        internal void SetTransportStartData(Transport transportToSet)
         {
-            CurrentStage = ProcessStages.TRANSPORT;
-            TransportStart = DateTime.Now;
-            Transporter = transporterToSet;
+            ValidateVehicleIsInStage(ProcessStages.PORT);
+            bool isValidTransportData = Utilities.IsNotNull(transportToSet) &&
+                transportToSet.LotsTransported.Contains(PortLot);
+            if (isValidTransportData)
+            {
+                TransportData = transportToSet;
+                CurrentStage = ProcessStages.TRANSPORT;
+            }
+            else
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.InvalidDataOnProcess, "Datos del transporte");
+                throw new ProcessException(errorMessage);
+            }
         }
 
         internal void SetTransportEndData()
         {
+            ValidateVehicleIsInStage(ProcessStages.TRANSPORT);
             CurrentStage = ProcessStages.YARD;
-            TransportEnd = DateTime.Now;
+            LastDateTimeToValidate = TransportData.EndDateTime;
         }
 
-        public void RegisterYardInspection(Inspection inspectionToSet)
+        internal void RegisterYardInspection(Inspection inspectionToSet)
         {
             ValidateVehicleIsInStage(ProcessStages.YARD);
             ValidatePropertyWasNotSetPreviously(YardInspection);
@@ -90,7 +92,7 @@ namespace Domain
             DateTime dateTimeOfMovement, Subzone destination)
         {
             ValidateVehicleIsInStage(ProcessStages.YARD);
-            if (dateTimeOfMovement > LastMovementDateTime)
+            if (dateTimeOfMovement > LastDateTimeToValidate.GetValueOrDefault())
             {
                 return AttemptToAddNewMovement(responsible, dateTimeOfMovement, destination);
             }
@@ -107,7 +109,7 @@ namespace Domain
                 dateTimeOfMovement, YardCurrentLocation, destination);
             YardMovements.Add(movementToAdd);
             YardCurrentLocation = destination;
-            LastMovementDateTime = dateTimeOfMovement;
+            LastDateTimeToValidate = dateTimeOfMovement;
             return movementToAdd;
         }
 

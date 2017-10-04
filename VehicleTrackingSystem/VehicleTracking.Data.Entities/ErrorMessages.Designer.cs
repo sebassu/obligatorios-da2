@@ -160,6 +160,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error en la colección de lotes recibidos para un transporte: esta debe ser no vacía, y contener lotes no repetidos que aún no hayan sido transportados..
+        /// </summary>
+        internal static string InvalidLotsInTransport {
+            get {
+                return ResourceManager.GetString("InvalidLotsInTransport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se intentó realizar una operación inválida para el estado actual del vehículo en el proceso..
         /// </summary>
         internal static string InvalidOperationOnVehicle {

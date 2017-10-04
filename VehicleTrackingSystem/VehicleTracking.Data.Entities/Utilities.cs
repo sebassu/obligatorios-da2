@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -25,6 +27,25 @@ namespace Domain
         {
             return !string.IsNullOrWhiteSpace(value) &&
                 value.ToCharArray().All(c => IsLetterDigitOrSpace(c));
+        }
+
+        public static bool IsValidItemEnumeration(IEnumerable value)
+        {
+            if (IsNotNull(value))
+            {
+                return EnumerationIsNonEmptyAndContainsNoDuplicates(value);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static bool EnumerationIsNonEmptyAndContainsNoDuplicates(IEnumerable value)
+        {
+            IEnumerable<object> castCollection = value.Cast<object>();
+            return castCollection.Any() &&
+                castCollection.Distinct().Count() == castCollection.Count();
         }
 
         private static bool IsLetterDigitOrSpace(char value)

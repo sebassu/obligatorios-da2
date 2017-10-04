@@ -125,7 +125,25 @@ namespace Domain
             }
         }
 
-        public bool IsLotted { get; internal set; }
+        public ProcessData CurrentState { get; set; }
+
+        public bool IsLotted => Utilities.IsNotNull(CurrentState.PortLot);
+        public Inspection PortInspection => CurrentState.PortInspection;
+        public Inspection YardInspection => CurrentState.YardInspection;
+
+        public Lot PortLot
+        {
+            get { return CurrentState.PortLot; }
+            set
+            {
+                CurrentState.RegisterPortLot(value);
+            }
+        }
+
+        public bool CanBeTransported()
+        {
+            return CurrentState.CanBeTransported();
+        }
 
         protected bool IsValidVIN(string value)
         {
@@ -134,7 +152,10 @@ namespace Domain
 
         internal static Vehicle InstanceForTestingPurposes()
         {
-            return new Vehicle();
+            return new Vehicle()
+            {
+                CurrentState = new ProcessData()
+            };
         }
 
         protected Vehicle()
@@ -161,6 +182,7 @@ namespace Domain
             Year = yearToSet;
             Color = colorToSet;
             VIN = VINToSet;
+            CurrentState = new ProcessData();
         }
 
         public override bool Equals(object obj)
