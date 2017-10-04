@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Data.Tests.Domain_tests
 {
@@ -10,9 +11,11 @@ namespace Data.Tests.Domain_tests
     {
         private static ProcessData testingData;
         private static readonly Lot lotToSet = Lot.InstanceForTestingPurposes();
-        private static readonly Inspection portInspectionToSet =
-            Inspection.InstanceForTestingPurposes();
+        private static readonly Inspection portInspectionToSet = Inspection.InstanceForTestingPurposes();
         private static Inspection yardInspectionToSet;
+        private static readonly User movementValidResponsible = User.InstanceForTestingPurposes();
+        private static readonly Subzone firstDestination = Subzone.InstanceForTestingPurposes();
+        private static Subzone secondDestination;
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
@@ -21,6 +24,8 @@ namespace Data.Tests.Domain_tests
             Location alternativeLocation = Location.CreateNewLocation(LocationType.YARD, "Patio");
             yardInspectionToSet = Inspection.CreateNewInspection(User.InstanceForTestingPurposes(),
                 alternativeLocation, DateTime.Today, testImageList, Vehicle.InstanceForTestingPurposes());
+            secondDestination = Subzone.CreateNewSubzone("Another subzone", 100,
+                Zone.InstanceForTestingPurposes());
         }
 
         [TestInitialize]
@@ -34,7 +39,7 @@ namespace Data.Tests.Domain_tests
         {
             Assert.AreEqual(ProcessStages.PORT, testingData.CurrentStage);
             testingData.RegisterPortLot(lotToSet);
-            Assert.AreEqual(lotToSet, testingData.PortLot);
+            Assert.AreSame(lotToSet, testingData.PortLot);
         }
 
         [TestMethod]
@@ -65,7 +70,7 @@ namespace Data.Tests.Domain_tests
         {
             Assert.AreEqual(ProcessStages.PORT, testingData.CurrentStage);
             testingData.RegisterPortInspection(portInspectionToSet);
-            Assert.AreEqual(portInspectionToSet, testingData.PortInspection);
+            Assert.AreSame(portInspectionToSet, testingData.PortInspection);
         }
 
         [TestMethod]
@@ -112,7 +117,7 @@ namespace Data.Tests.Domain_tests
             User transporter = User.InstanceForTestingPurposes();
             testingData.SetTransportStartData(transporter);
             Assert.AreEqual(ProcessStages.TRANSPORT, testingData.CurrentStage);
-            Assert.AreEqual(transporter, testingData.Transporter);
+            Assert.AreSame(transporter, testingData.Transporter);
             Assert.AreEqual(DateTime.Today, testingData.TransportStart.Date);
         }
 
@@ -122,7 +127,7 @@ namespace Data.Tests.Domain_tests
             User transporter = User.InstanceForTestingPurposes();
             transporter.Role = UserRoles.YARD_OPERATOR;
             testingData.SetTransportStartData(transporter);
-            Assert.AreEqual(transporter, testingData.Transporter);
+            Assert.AreSame(transporter, testingData.Transporter);
         }
 
         [TestMethod]
@@ -146,13 +151,14 @@ namespace Data.Tests.Domain_tests
             testingData.CurrentStage = ProcessStages.YARD;
             Assert.AreEqual(ProcessStages.YARD, testingData.CurrentStage);
             testingData.RegisterYardInspection(yardInspectionToSet);
-            Assert.AreEqual(yardInspectionToSet, testingData.YardInspection);
+            Assert.AreSame(yardInspectionToSet, testingData.YardInspection);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ProcessException))]
         public void ProcessDataSetNullYardInspectionInvalidTest()
         {
+            testingData.CurrentStage = ProcessStages.YARD;
             testingData.RegisterYardInspection(null);
         }
 
@@ -160,6 +166,7 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(ProcessException))]
         public void ProcessDataRegisterYardInspectionInvalidPlaceTest()
         {
+            testingData.CurrentStage = ProcessStages.YARD;
             testingData.RegisterYardInspection(portInspectionToSet);
         }
 
@@ -183,8 +190,66 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(ProcessException))]
         public void ProcessDataRegisterYardInspectionAlreadySetInvalidTest()
         {
+            testingData.CurrentStage = ProcessStages.YARD;
             testingData.RegisterYardInspection(yardInspectionToSet);
             testingData.RegisterYardInspection(yardInspectionToSet);
+        }
+
+        [TestMethod]
+        public void ProcessDataRegisterInitialMovementToSubzoneValidTest()
+        {
+            var someDateTime = DateTime.Now;
+            Assert.AreEqual(UserRoles.ADMINISTRATOR, movementValidResponsible.Role);
+            testingData.CurrentStage = ProcessStages.YARD;
+            var result = testingData.RegisterNewMovementToSubzone(movementValidResponsible,
+               someDateTime, firstDestination);
+            Assert.AreSame(movementValidResponsible, result.ResponsibleUser);
+            Assert.AreEqual(someDateTime, result.DateTime);
+            Assert.IsNull(result.Departure);
+            Assert.AreSame(firstDestination, result.Arrival);
+            Assert.AreSame(firstDestination, testingData.YardCurrentLocation);
+            CollectionAssert.Contains(testingData.YardMovements.ToList(), result);
+        }
+
+        [TestMethod]
+        public void ProcessDataRegisterSecondMovementToSubzoneValidTest()
+        {
+            testingData.CurrentStage = ProcessStages.YARD;
+            var firstResult = testingData.RegisterNewMovementToSubzone(movementValidResponsible,
+                DateTime.Today, firstDestination);
+            var secondResult = testingData.RegisterNewMovementToSubzone(movementValidResponsible,
+                DateTime.Now, secondDestination);
+            Assert.AreSame(secondDestination, testingData.YardCurrentLocation);
+            Assert.AreSame(firstResult.Arrival, secondResult.Departure);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterNewMovementToSubzoneDateBeforeOtherMovementsInvalidTest()
+        {
+            testingData.CurrentStage = ProcessStages.YARD;
+            testingData.RegisterNewMovementToSubzone(movementValidResponsible, DateTime.Now,
+                firstDestination);
+            testingData.RegisterNewMovementToSubzone(movementValidResponsible, new DateTime(1995, 10, 27),
+                secondDestination);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterNewMovementToSubzoneOnPortStageInvalidTest()
+        {
+            Assert.AreEqual(ProcessStages.PORT, testingData.CurrentStage);
+            testingData.RegisterNewMovementToSubzone(movementValidResponsible, DateTime.Now,
+                firstDestination);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterNewMovementToSubzoneOnTransportStageInvalidTest()
+        {
+            testingData.CurrentStage = ProcessStages.TRANSPORT;
+            testingData.RegisterNewMovementToSubzone(movementValidResponsible, DateTime.Now,
+                firstDestination);
         }
     }
 }
