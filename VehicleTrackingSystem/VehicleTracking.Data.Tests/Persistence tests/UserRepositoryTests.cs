@@ -12,32 +12,25 @@ namespace Data.Persistence_Tests
     public class UserRepositoryTests
     {
         private string unaddedUsername = "Wololo";
-        private static UserRepository testingUserRepository;
+        private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();
+        private static IUserRepository testingUserRepository;
 
         [AssemblyInitialize]
         public static void AssemblySetup(TestContext context)
         {
-            DeleteAllDatabaseData();
+            testingUnitOfWork.DeleteAllDataFromDatabase();
         }
 
         [AssemblyCleanup]
         public static void AssemblySetup()
         {
-            DeleteAllDatabaseData();
-        }
-
-        private static void DeleteAllDatabaseData()
-        {
-            using (var context = new VTSystemContext())
-            {
-                context.DeleteAllData();
-            }
+            testingUnitOfWork.DeleteAllDataFromDatabase();
         }
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
         {
-            testingUserRepository = new UserRepository();
+            testingUserRepository = testingUnitOfWork.Users;
         }
 
         [TestMethod]
@@ -46,6 +39,7 @@ namespace Data.Persistence_Tests
             User userToVerify = User.CreateNewUser(UserRoles.TRANSPORTER, "Pablo",
                 "Lamponne", "pLamponne1", "NoHaceFaltaSaleSolo", "099212121");
             testingUserRepository.AddNewUser(userToVerify);
+            testingUnitOfWork.SaveChanges();
             CollectionAssert.Contains(testingUserRepository.Elements.ToList(), userToVerify);
         }
 
@@ -57,29 +51,35 @@ namespace Data.Persistence_Tests
             User userToVerify = User.InstanceForTestingPurposes();
             userToVerify.Username = "algunSimuladorDeLos4";
             testingUserRepository.AddNewUser(addedUser);
+            testingUnitOfWork.SaveChanges();
             CollectionAssert.Contains(testingUserRepository.Elements.ToList(), userToVerify);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
-        public void URepositoryAddRepeatedUserInvalidTest()
+        public void URepositoryAddRepeatedUserValidTest()
         {
             User addedUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
                 "pLamponne4", "NoHaceFaltaSaleSolo", "099212121");
             testingUserRepository.AddNewUser(addedUser);
+            testingUnitOfWork.SaveChanges();
             testingUserRepository.AddNewUser(addedUser);
+            testingUnitOfWork.SaveChanges();
+            CollectionAssert.Contains(testingUserRepository.Elements.ToList(), addedUser);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
-        public void URepositoryAddNewUserRepeatedUsernameInvalidTest()
+        public void URepositoryAddNewUserRepeatedUsernameValidTest()
         {
             User someUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
                 "repeatedUsername", "NoHaceFaltaSaleSolo", "099212121");
+            testingUserRepository.AddNewUser(someUser);
+            testingUnitOfWork.SaveChanges();
             User someOtherUser = User.CreateNewUser(UserRoles.YARD_OPERATOR, "Gabriel David",
                 "Medina", "repeatedUsername", "MusicaSuperDivertida", "096869689");
-            testingUserRepository.AddNewUser(someUser);
             testingUserRepository.AddNewUser(someOtherUser);
+            testingUnitOfWork.SaveChanges();
+            CollectionAssert.Contains(testingUserRepository.Elements.ToList(), someUser);
+            CollectionAssert.Contains(testingUserRepository.Elements.ToList(), someOtherUser);
         }
 
         [TestMethod]
@@ -95,7 +95,9 @@ namespace Data.Persistence_Tests
             User userToVerify = User.CreateNewUser(UserRoles.YARD_OPERATOR, "Gabriel David",
                 "Medina", "gdMedina5", "MusicaSuperDivertida", "096869689");
             testingUserRepository.AddNewUser(userToVerify);
+            testingUnitOfWork.SaveChanges();
             testingUserRepository.RemoveUserWithUsername(userToVerify.Username);
+            testingUnitOfWork.SaveChanges();
             CollectionAssert.DoesNotContain(testingUserRepository.Elements.ToList(), userToVerify);
         }
 
@@ -121,16 +123,18 @@ namespace Data.Persistence_Tests
             User administratorToVerify = User.CreateNewUser(UserRoles.ADMINISTRATOR,
                 "Mario", "Santos", "mSantos1", "DisculpeFuegoTiene", "099424242");
             testingUserRepository.AddNewUser(administratorToVerify);
+            testingUnitOfWork.SaveChanges();
             User secondAdministrator = User.CreateNewUser(UserRoles.ADMINISTRATOR, "John", "Smith", "hannibal",
                 "theresNoPlanBOnlyPlanA", "099111111");
             testingUserRepository.AddNewUser(secondAdministrator);
+            testingUnitOfWork.SaveChanges();
             testingUserRepository.RemoveUserWithUsername(administratorToVerify.Username);
+            testingUnitOfWork.SaveChanges();
             CollectionAssert.DoesNotContain(testingUserRepository.Elements.ToList(), administratorToVerify);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
-        public void URepositoryTryToRemoveAllAdministratorsInvalidTest()
+        public void URepositoryTryToRemoveAllAdministratorsValidTest()
         {
             User someAdministrator = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
                 "mSantos2", "DisculpeFuegoTiene", "099424242");
@@ -149,9 +153,11 @@ namespace Data.Persistence_Tests
             User userToVerify = User.CreateNewUser(UserRoles.YARD_OPERATOR,
                 "Algún tipo", "X", "tipo123", "vuelveLaX", "099999999");
             testingUserRepository.AddNewUser(userToVerify);
+            testingUnitOfWork.SaveChanges();
             SetUserData(userToVerify, UserRoles.PORT_OPERATOR, "Gabriel David",
                 "Medina", "MúsicaSuperDivertida", "096869689");
             testingUserRepository.UpdateUser(userToVerify);
+            testingUnitOfWork.SaveChanges();
             Assert.AreEqual(UserRoles.PORT_OPERATOR, userToVerify.Role);
             Assert.AreEqual("Gabriel David", userToVerify.FirstName);
             Assert.AreEqual("Medina", userToVerify.LastName);
@@ -162,7 +168,10 @@ namespace Data.Persistence_Tests
         [TestMethod]
         public void URepositoryModifyUserSetSameDataValidTest()
         {
-            User userToVerify = testingUserRepository.Elements.First();
+            User userToVerify = User.CreateNewUser(UserRoles.YARD_OPERATOR,
+                "Algún tipo", "X", "algunUsuario", "vuelveLaX", "099999999");
+            testingUserRepository.AddNewUser(userToVerify);
+            testingUnitOfWork.SaveChanges();
             var previousRole = userToVerify.Role;
             var previousFirstName = userToVerify.FirstName;
             var previousLastName = userToVerify.LastName;
@@ -187,6 +196,8 @@ namespace Data.Persistence_Tests
             userToVerify.LastName = lastNameToSet;
             userToVerify.Password = passwordToSet;
             userToVerify.PhoneNumber = phoneNumberToSet;
+            testingUserRepository.UpdateUser(userToVerify);
+            testingUnitOfWork.SaveChanges();
         }
 
         [TestMethod]
@@ -203,6 +214,7 @@ namespace Data.Persistence_Tests
             User notAddedUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Pablo",
                 "Lamponne", "pLamponne5", "NoHaceFaltaSaleSolo", "099212121");
             testingUserRepository.UpdateUser(notAddedUser);
+            testingUnitOfWork.SaveChanges();
         }
 
         [TestMethod]
@@ -211,6 +223,7 @@ namespace Data.Persistence_Tests
             User addedUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario",
                 "Santos", "mSantos42", "DisculpeFuegoTiene", "099424242");
             testingUserRepository.AddNewUser(addedUser);
+            testingUnitOfWork.SaveChanges();
             User result = testingUserRepository.GetUserWithUsername("mSantos42");
             Assert.AreEqual(addedUser, result);
         }
