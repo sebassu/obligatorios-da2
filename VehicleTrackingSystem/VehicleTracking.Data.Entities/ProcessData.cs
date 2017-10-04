@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -15,6 +16,10 @@ namespace Domain
         public User Transporter { get; set; }
         public DateTime TransportEnd { get; set; }
         public Inspection YardInspection { get; set; }
+        public ICollection<Movement> YardMovements { get; set; }
+            = new List<Movement>();
+        public Subzone YardCurrentLocation { get; set; }
+        public DateTime LastMovementDateTime { get; set; }
 
         public void RegisterPortLot(Lot value)
         {
@@ -67,8 +72,8 @@ namespace Domain
         {
             ValidateVehicleIsInStage(ProcessStages.YARD);
             ValidatePropertyWasNotSetPreviously(YardInspection);
-            bool isValidYardInspectionToSet = Utilities.IsNotNull(inspectionToSet) &&
-                inspectionToSet.Location.Type == LocationType.YARD;
+            bool isValidYardInspectionToSet = Utilities.IsNotNull(inspectionToSet)
+                && inspectionToSet.Location.Type == LocationType.YARD;
             if (isValidYardInspectionToSet)
             {
                 YardInspection = inspectionToSet;
@@ -79,6 +84,31 @@ namespace Domain
                     ErrorMessages.InvalidDataOnProcess, "Inspección de Patio");
                 throw new ProcessException(errorMessage);
             }
+        }
+
+        public Movement RegisterNewMovementToSubzone(User responsible,
+            DateTime dateTimeOfMovement, Subzone destination)
+        {
+            ValidateVehicleIsInStage(ProcessStages.YARD);
+            if (dateTimeOfMovement > LastMovementDateTime)
+            {
+                return AttemptToAddNewMovement(responsible, dateTimeOfMovement, destination);
+            }
+            else
+            {
+                throw new ProcessException(ErrorMessages.MovementDateIsInvalid);
+            }
+        }
+
+        private Movement AttemptToAddNewMovement(User responsible,
+            DateTime dateTimeOfMovement, Subzone destination)
+        {
+            Movement movementToAdd = Movement.CreateNewMovement(responsible,
+                dateTimeOfMovement, YardCurrentLocation, destination);
+            YardMovements.Add(movementToAdd);
+            YardCurrentLocation = destination;
+            LastMovementDateTime = dateTimeOfMovement;
+            return movementToAdd;
         }
 
         private void ValidatePropertyWasNotSetPreviously(object propertyToValidate)

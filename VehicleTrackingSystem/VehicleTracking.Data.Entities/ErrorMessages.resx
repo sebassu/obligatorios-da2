@@ -193,9 +193,12 @@
     <value>La zona no puede ser nula.</value>
   </data>
   <data name="ArrivalIsInvalid" xml:space="preserve">
-    <value>La subzona de llegada no puede ser nula ni igual a la de partida, sería un movimiento cíclico.</value>
+    <value>La subzona de llegada no puede ser nula ni igual a la de partida; el vehículo no sería movido.</value>
   </data>
   <data name="DepartureIsInvalid" xml:space="preserve">
     <value>La subzona de partida no puede ser igual a la de llegada; no resulta un movimiento válido.</value>
+  </data>
+  <data name="MovementDateIsInvalid" xml:space="preserve">
+    <value>Error: la fecha para este movimiento no resulta coherente respecto de los movimientos anteriores registrados, debe ser posterior a los mismos.</value>
   </data>
 </root>

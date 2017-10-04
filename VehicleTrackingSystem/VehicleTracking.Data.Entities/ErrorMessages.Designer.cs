@@ -61,7 +61,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La subzona de llegada no puede ser nula ni igual a la de partida, sería un movimiento cíclico..
+        ///   Looks up a localized string similar to La subzona de llegada no puede ser nula ni igual a la de partida; el vehículo no sería movido..
         /// </summary>
         internal static string ArrivalIsInvalid {
             get {
@@ -201,6 +201,15 @@ namespace Domain {
         internal static string ModelIsInvalid {
             get {
                 return ResourceManager.GetString("ModelIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: la fecha para este movimiento no resulta coherente respecto de los movimientos anteriores registrados, debe ser posterior a los mismos..
+        /// </summary>
+        internal static string MovementDateIsInvalid {
+            get {
+                return ResourceManager.GetString("MovementDateIsInvalid", resourceCulture);
             }
         }
         
