@@ -34,8 +34,8 @@ namespace Domain
                 transportAllowedRoles.Contains(someTransporter.Role);
         }
 
-        private DateTime startDateTime = new DateTime(1753, 1, 1);
-        public DateTime StartDateTime
+        private DateTime? startDateTime;
+        public DateTime? StartDateTime
         {
             get { return startDateTime; }
             set
@@ -51,10 +51,34 @@ namespace Domain
             }
         }
 
-        private bool IsValidTransportStartDate(DateTime value)
+        private bool IsValidTransportStartDate(DateTime? value)
         {
-            return LotsTransported.All(l => l.Vehicles.All(
-                v => v.PortInspection.DateTime <= value));
+            return value.HasValue && LotsTransported.All(l => l.Vehicles.All(
+                v => v.PortInspection.DateTime <= value.GetValueOrDefault()));
+        }
+
+        private DateTime? endDateTime;
+        public DateTime? EndDateTime
+        {
+            get { return endDateTime; }
+            set
+            {
+                bool canSetEndOfTransport = startDateTime.HasValue &&
+                    IsValidTransportEndDate(value);
+                if (canSetEndOfTransport)
+                {
+                    endDateTime = value.GetValueOrDefault();
+                }
+                else
+                {
+                    throw new TransportException(ErrorMessages.TransportEndDateIsInvalid);
+                }
+            }
+        }
+
+        private bool IsValidTransportEndDate(DateTime? value)
+        {
+            return value.HasValue && value.GetValueOrDefault() >= startDateTime;
         }
 
         public ICollection<Lot> LotsTransported { get; set; }
