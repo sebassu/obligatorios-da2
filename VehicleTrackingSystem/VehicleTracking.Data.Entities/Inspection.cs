@@ -59,7 +59,6 @@ namespace Domain
 
         protected bool IsValidUser(User user)
         {
-<<<<<<< HEAD
             return UserCanInspect(user, location);
         }
 
@@ -88,9 +87,6 @@ namespace Domain
                 default:
                     return false;
             }
-=======
-            return Utilities.IsValidUser(user, allowedUserRoles);
->>>>>>> feature/Zone_SubzoneRepository
         }
 
         private Location location;
