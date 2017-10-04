@@ -193,7 +193,8 @@ namespace Data.Tests.Domain_tests
         public void SubzoneGetHashCodeTest()
         {
             object testingSubzoneAsObject = testingSubzone;
-            Assert.AreEqual(testingSubzoneAsObject.GetHashCode(), testingSubzone.GetHashCode());
+            Assert.AreEqual(testingSubzoneAsObject.GetHashCode(),
+                testingSubzone.GetHashCode());
         }
     }
 }

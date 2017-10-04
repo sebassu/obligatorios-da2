@@ -64,7 +64,7 @@ namespace Domain
             get { return departure; }
             set
             {
-                if (MovementIsNotCyclicBetween(value, arrival))
+                if (ExistsMovementBetween(value, arrival))
                 {
                     departure = value;
                 }
@@ -95,10 +95,10 @@ namespace Domain
         private bool IsValidArrival(Subzone departure, Subzone arrival)
         {
             return Utilities.IsNotNull(arrival) &&
-                MovementIsNotCyclicBetween(departure, arrival);
+                ExistsMovementBetween(departure, arrival);
         }
 
-        protected virtual bool MovementIsNotCyclicBetween(Subzone departure,
+        protected virtual bool ExistsMovementBetween(Subzone departure,
             Subzone arrival)
         {
             return departure != arrival;
@@ -125,7 +125,8 @@ namespace Domain
         {
             if (IsValidArrival(departureToSet, arrivalToSet))
             {
-                SetCreationParameters(userToSet, dateTimeToSet, departureToSet, arrivalToSet);
+                SetCreationParameters(userToSet, dateTimeToSet,
+                    departureToSet, arrivalToSet);
             }
             else
             {

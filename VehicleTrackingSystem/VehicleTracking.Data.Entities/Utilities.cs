@@ -45,7 +45,7 @@ namespace Domain
 
         internal static bool IsValidDate(DateTime value)
         {
-            return value < DateTime.Now && value.Year > minimumValidYear;
+            return value <= DateTime.Now && value.Year > minimumValidYear;
         }
 
         public static bool ContainsLettersOrSpacesOnly(string value)
