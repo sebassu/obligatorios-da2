@@ -176,5 +176,44 @@ namespace Data.Tests.Domain_tests
             testingTransport.LotsTransported = new List<Lot> { lot1, lot2 };
             testingTransport.StartDateTime = dateTimeToSet;
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportSetNullTransportStartDateTimeInvalidTest()
+        {
+            testingTransport.StartDateTime = null;
+        }
+
+        [TestMethod]
+        public void TransportSetTransportEndDateTimeValidTest()
+        {
+            var dateTimeToSet = new DateTime(2012, 2, 1);
+            testingTransport.StartDateTime = new DateTime(1999, 2, 1);
+            testingTransport.EndDateTime = dateTimeToSet;
+            Assert.AreEqual(dateTimeToSet, testingTransport.EndDateTime);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportSetTransportEndDateTimeBeforeStartInvalidTest()
+        {
+            var dateTimeToSet = new DateTime(1990, 2, 1);
+            testingTransport.StartDateTime = new DateTime(1999, 2, 1);
+            testingTransport.EndDateTime = dateTimeToSet;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportSetTransportEndDateTimeUnsetStartInvalidTest()
+        {
+            testingTransport.EndDateTime = new DateTime(1999, 2, 1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportSetNullTransportEndDateTimeInvalidTest()
+        {
+            testingTransport.EndDateTime = null;
+        }
     }
 }
