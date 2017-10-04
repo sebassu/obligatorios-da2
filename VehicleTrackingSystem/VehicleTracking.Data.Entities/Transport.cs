@@ -93,5 +93,48 @@ namespace Domain
         }
 
         protected Transport() { }
+
+        public static Transport FromTransporterDateTimeLots(User someTransporter,
+            DateTime startTime, ICollection<Lot> lotsToSet)
+        {
+            return new Transport(someTransporter, startTime, lotsToSet);
+        }
+
+        public Transport(User someTransporter, DateTime startTime,
+            ICollection<Lot> lotsToSet)
+        {
+            if (IsValidCollectionOfLots(lotsToSet))
+            {
+                SetCreationAttributes(someTransporter, startTime, lotsToSet);
+                MarkLotsAsTransported(lotsToSet);
+            }
+            else
+            {
+                throw new TransportException(ErrorMessages.InvalidLotsInTransport);
+            }
+        }
+
+        private bool IsValidCollectionOfLots(ICollection<Lot> lotsToSet)
+        {
+            return Utilities.IsValidItemEnumeration(lotsToSet)
+                && lotsToSet.All(l => !l.WasTransported);
+        }
+
+        private void SetCreationAttributes(User someTransporter,
+            DateTime startTime, ICollection<Lot> lotsToSet)
+        {
+            Transporter = someTransporter;
+            LotsTransported = lotsToSet;
+            StartDateTime = startTime;
+        }
+
+
+        private void MarkLotsAsTransported(ICollection<Lot> lots)
+        {
+            foreach (var lot in lots)
+            {
+                lot.WasTransported = true;
+            }
+        }
     }
 }
