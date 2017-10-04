@@ -34,6 +34,29 @@ namespace Domain
                 transportAllowedRoles.Contains(someTransporter.Role);
         }
 
+        private DateTime startDateTime = new DateTime(1753, 1, 1);
+        public DateTime StartDateTime
+        {
+            get { return startDateTime; }
+            set
+            {
+                if (IsValidTransportStartDate(value))
+                {
+                    startDateTime = value;
+                }
+                else
+                {
+                    throw new TransportException(ErrorMessages.TransportStartDateIsInvalid);
+                }
+            }
+        }
+
+        private bool IsValidTransportStartDate(DateTime value)
+        {
+            return LotsTransported.All(l => l.Vehicles.All(
+                v => v.PortInspection.DateTime <= value));
+        }
+
         public ICollection<Lot> LotsTransported { get; set; }
             = new List<Lot>();
 
