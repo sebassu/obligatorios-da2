@@ -30,7 +30,7 @@ namespace Persistence
             modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
         }
 
-        internal void DeleteAllData()
+        internal void DeleteAllDataFromDatabase()
         {
             Database.ExecuteSqlCommand("delete from users");
             Database.ExecuteSqlCommand("delete from locations");

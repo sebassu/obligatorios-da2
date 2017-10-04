@@ -7,16 +7,19 @@ namespace API.Services
 {
     public class UserServices : IUserServices
     {
-        internal IUserRepository Model { get; }
+        private IUnitOfWork Model { get; }
+        private IUserRepository Users { get; }
 
         public UserServices()
         {
-            Model = new UserRepository();
+            Model = new UnitOfWork();
+            Users = Model.Users;
         }
 
-        public UserServices(IUserRepository someRepository = null)
+        public UserServices(IUnitOfWork someUnitOfWork)
         {
-            Model = someRepository;
+            Model = someUnitOfWork;
+            Users = someUnitOfWork.Users;
         }
 
         public void AddNewUserFromData(UserDTO userDataToAdd)
@@ -28,13 +31,13 @@ namespace API.Services
         private void AttemptToAddUser(UserDTO userDataToAdd)
         {
             User userToAdd = userDataToAdd.ToUser();
-            Model.AddNewUser(userToAdd);
+            Users.AddNewUser(userToAdd);
         }
 
         public IEnumerable<UserDTO> GetRegisteredUsers()
         {
             var result = new List<UserDTO>();
-            foreach (var user in Model.Elements)
+            foreach (var user in Users.Elements)
             {
                 result.Add(UserDTO.FromUser(user));
             }
@@ -43,7 +46,7 @@ namespace API.Services
 
         public UserDTO GetUserByUsername(string usernameToLookup)
         {
-            User userFound = Model.GetUserWithUsername(usernameToLookup);
+            User userFound = Users.GetUserWithUsername(usernameToLookup);
             return UserDTO.FromUser(userFound);
         }
 
@@ -65,21 +68,28 @@ namespace API.Services
             }
             else
             {
-                User userFound = Model.GetUserWithUsername(usernameToModify);
+                User userFound = Users.GetUserWithUsername(usernameToModify);
                 userData.SetDataToUser(userFound);
-                Model.UpdateUser(userFound);
+                Users.UpdateUser(userFound);
             }
         }
 
         private bool ChangeCausesRepeatedUsernames(string currentUsername, UserDTO userData)
         {
             bool usernameChanges = !currentUsername.Equals(userData.Username);
-            return usernameChanges && Model.ExistsUserWithUsername(userData.Username);
+            return usernameChanges && Users.ExistsUserWithUsername(userData.Username);
         }
 
         public void RemoveUserWithUsername(string usernameToRemove)
         {
-            Model.RemoveUserWithUsername(usernameToRemove);
+            if (Users.UsernameBelongsToLastAdministrator(usernameToRemove))
+            {
+                Users.RemoveUserWithUsername(usernameToRemove);
+            }
+            else
+            {
+                throw new ServiceException(ErrorMessages.CannotRemoveAllAdministrators);
+            }
         }
     }
 }
