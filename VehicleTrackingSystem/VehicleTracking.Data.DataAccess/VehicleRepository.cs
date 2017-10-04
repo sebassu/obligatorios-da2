@@ -8,97 +8,51 @@ using System;
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Services")]
 namespace Persistence
 {
-    internal class VehicleRepository : IVehicleRepository
+    internal class VehicleRepository : GenericRepository<Vehicle>, IVehicleRepository
     {
+        public VehicleRepository(VTSystemContext someContext) : base(someContext) { }
+
+        public IEnumerable<Vehicle> Elements => GetElementsWith();
+
         public int AddNewVehicle(Vehicle vehicleToAdd)
         {
-            using (var context = new VTSystemContext())
-            {
-                ValidateParameterIsNotNull(vehicleToAdd);
-                if (ExistsVehicleWithVIN(vehicleToAdd.VIN, context))
-                {
-                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.FieldMustBeUnique, "VIN");
-                    throw new RepositoryException(errorMessage);
-                }
-                else
-                {
-                    EntityFrameworkUtilities<Vehicle>.Add(context, vehicleToAdd);
-                    return vehicleToAdd.Id;
-                }
-            }
-        }
-
-        private void ValidateParameterIsNotNull(Vehicle vehicleToAdd)
-        {
-            if (vehicleToAdd == null)
-            {
-                throw new ArgumentNullException(ErrorMessages.NullObjectRecieved);
-            }
-        }
-
-        public IEnumerable<Vehicle> Elements
-        {
-            get
-            {
-                using (var context = new VTSystemContext())
-                {
-                    var elements = context.Vehicles;
-                    return elements.ToList();
-                }
-            }
+            Add(vehicleToAdd);
+            return vehicleToAdd.Id;
         }
 
         public bool ExistsVehicleWithVIN(string VINToLookup)
         {
-            using (var context = new VTSystemContext())
-            {
-                return ExistsVehicleWithVIN(VINToLookup, context);
-            }
-        }
-
-        private static bool ExistsVehicleWithVIN(string VINToLookup,
-            VTSystemContext context)
-        {
-            return context.Vehicles.Any(v => v.VIN == VINToLookup);
+            return elements.Any(v => v.VIN == VINToLookup);
         }
 
         public Vehicle GetVehicleWithVIN(string vinToFind)
         {
-            using (var context = new VTSystemContext())
-            {
-                return AttemptToGetVehicleWithVIN(vinToFind, context);
-            }
-        }
-
-        private static Vehicle AttemptToGetVehicleWithVIN(string vinToFind,
-            VTSystemContext context)
-        {
             try
             {
-                var elements = context.Set<Vehicle>();
-                return elements.Single(u => u.VIN.Equals(vinToFind));
+                return elements.Single(v => v.VIN.Equals(vinToFind));
             }
             catch (InvalidOperationException)
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.CouldNotFindUser, vinToFind);
+                    ErrorMessages.CouldNotFindField, "VIN", vinToFind);
                 throw new RepositoryException(errorMessage);
             }
         }
 
-        public void UpdateVehicle(Vehicle vehicleToModify)
+        public void UpdateVehicle(Vehicle modifiedVehicle)
         {
-            EntityFrameworkUtilities<Vehicle>.Update(vehicleToModify);
+            Update(modifiedVehicle);
         }
 
         public void RemoveVehicleWithVIN(string vinToRemove)
         {
-            using (var context = new VTSystemContext())
-            {
-                var vehicleToRemove = AttemptToGetVehicleWithVIN(vinToRemove, context);
-                EntityFrameworkUtilities<Vehicle>.AttemptToRemove(vehicleToRemove, context);
-            }
+            var vehicleToRemove = GetVehicleWithVIN(vinToRemove);
+            AttemptToRemove(vehicleToRemove);
+        }
+
+        protected override bool ElementExistsInCollection(Vehicle value)
+        {
+            return Utilities.IsNotNull(value) && elements.Any(v => v.Id == value.Id);
         }
     }
 }
