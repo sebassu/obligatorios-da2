@@ -23,6 +23,7 @@ namespace Web.API.Services_Tests
         public void UServicesDefaultParameterlessConstructorTest()
         {
             Assert.IsNotNull(testingUserServices.Model);
+            Assert.IsNotNull(testingUserServices.Users);
         }
 
         #region GetRegisteredUsers tests
@@ -30,11 +31,11 @@ namespace Web.API.Services_Tests
         public void UServicesGetRegisteredUsersWithDataTest()
         {
             var someUsers = GetCollectionOfFakeUsers();
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.Elements).Returns(someUsers);
-            var userServices = new UserServices(mockUserRepository.Object);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.Elements).Returns(someUsers).Verifiable();
+            var userServices = new UserServices(mockUnitOfWork.Object);
             var result = userServices.GetRegisteredUsers().ToList();
-            mockUserRepository.VerifyAll();
+            mockUnitOfWork.Verify();
             CollectionAssert.AreEqual(GetCollectionOfFakeUserDTOs(), result);
         }
 
@@ -62,9 +63,9 @@ namespace Web.API.Services_Tests
         [TestMethod]
         public void UServicesGetRegisteredUsersNoDataTest()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.Elements).Returns(new List<User>());
-            var userServices = new UserServices(mockUserRepository.Object);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.Elements).Returns(new List<User>());
+            var userServices = new UserServices(mockUnitOfWork.Object);
             CollectionAssert.AreEqual(new List<UserDTO>(),
                 userServices.GetRegisteredUsers().ToList());
         }
@@ -74,11 +75,23 @@ namespace Web.API.Services_Tests
         [TestMethod]
         public void UServicesAddNewUserFromDataValidTest()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.AddNewUser(It.IsAny<User>()));
-            var userServices = new UserServices(mockUserRepository.Object);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.AddNewUser(It.IsAny<User>()))
+                .Verifiable();
+            var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.AddNewUserFromData(testingUserData);
-            mockUserRepository.VerifyAll();
+            mockUnitOfWork.Verify();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException))]
+        public void UServicesAddNewUserFromDataAlreadyRegisteredUsernameInvalidTest()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.ExistsUserWithUsername(
+                testingUserData.Username)).Returns(true);
+            var userServices = new UserServices(mockUnitOfWork.Object);
+            userServices.AddNewUserFromData(testingUserData);
         }
 
         [TestMethod]
@@ -135,21 +148,21 @@ namespace Web.API.Services_Tests
 
         private static void RunAddNewUserTestWithInvalidDataOnDTO(UserDTO testUserData)
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.ExistsUserWithUsername(It.IsAny<string>())).Returns(false);
-            var userServices = new UserServices(mockUserRepository.Object);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.ExistsUserWithUsername(It.IsAny<string>())).Returns(false);
+            var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.AddNewUserFromData(testUserData);
-            mockUserRepository.VerifyAll();
+            mockUnitOfWork.VerifyAll();
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void UServicesAddNewUserWithRepeatedUsernameInvalidTest()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.AddNewUser(It.IsAny<User>())).
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.AddNewUser(It.IsAny<User>())).
                 Throws(new RepositoryException(""));
-            var userServices = new UserServices(mockUserRepository.Object);
+            var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.AddNewUserFromData(testingUserData);
         }
         #endregion
@@ -159,11 +172,12 @@ namespace Web.API.Services_Tests
         public void UServicesGetUserWithUsernameValidTest()
         {
             UserDTO expectedData = UserDTO.FromUser(testingUser);
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.GetUserWithUsername(testingUser.Username)).Returns(testingUser);
-            var userServices = new UserServices(mockUserRepository.Object);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(testingUser.Username))
+                .Returns(testingUser).Verifiable();
+            var userServices = new UserServices(mockUnitOfWork.Object);
             var result = userServices.GetUserByUsername(testingUser.Username);
-            mockUserRepository.VerifyAll();
+            mockUnitOfWork.Verify();
             Assert.AreEqual(expectedData, result);
             Assert.AreNotEqual(testingUser.Password, result.Password);
         }
@@ -172,10 +186,10 @@ namespace Web.API.Services_Tests
         [ExpectedException(typeof(RepositoryException))]
         public void UServicesGetUserWithUsernameNotFoundInvalidTest()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.GetUserWithUsername(It.IsAny<string>()))
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(It.IsAny<string>()))
                 .Throws(new RepositoryException("Message."));
-            var userServices = new UserServices(mockUserRepository.Object);
+            var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.GetUserByUsername(testingUser.Username);
         }
         #endregion
@@ -186,11 +200,12 @@ namespace Web.API.Services_Tests
         {
             User userToModify = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
                 "mSantos", "DisculpeFuegoTiene", "099424242");
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.GetUserWithUsername(userToModify.Username)).Returns(userToModify);
-            var userServices = new UserServices(mockUserRepository.Object);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(userToModify.Username))
+                .Returns(userToModify).Verifiable(); ;
+            var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
-            mockUserRepository.VerifyAll();
+            mockUnitOfWork.Verify();
             Assert.AreEqual(testingUser.Role, userToModify.Role);
             Assert.AreEqual(testingUser.FirstName, userToModify.FirstName);
             Assert.AreEqual(testingUser.LastName, userToModify.LastName);
@@ -246,9 +261,9 @@ namespace Web.API.Services_Tests
 
         private static void RunModifyUserTestWithInvalidDataOnDTO(UserDTO someUserData)
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.GetUserWithUsername(testingUser.Username)).Returns(testingUser);
-            var userServices = new UserServices(mockUserRepository.Object);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(testingUser.Username)).Returns(testingUser);
+            var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.ModifyUserWithUsername(testingUser.Username, someUserData);
         }
 
@@ -258,10 +273,10 @@ namespace Web.API.Services_Tests
         {
             User userToModify = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
                 "mSantos", "DisculpeFuegoTiene", "099424242");
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.ExistsUserWithUsername(testingUserData.Username)).
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.ExistsUserWithUsername(testingUserData.Username)).
                 Returns(true);
-            var userServices = new UserServices(mockUserRepository.Object);
+            var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
         }
         #endregion
@@ -270,21 +285,36 @@ namespace Web.API.Services_Tests
         [TestMethod]
         public void UServicesRemoveUserWithUsernameValidTest()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.RemoveUserWithUsername(It.IsAny<string>()));
-            var userServices = new UserServices(mockUserRepository.Object);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.UsernameBelongsToLastAdministrator(
+                It.IsAny<string>())).Returns(false).Verifiable();
+            mockUnitOfWork.Setup(u => u.Users.RemoveUserWithUsername(It.IsAny<string>()));
+            var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.RemoveUserWithUsername("mSantos");
-            mockUserRepository.VerifyAll();
+            mockUnitOfWork.Verify();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException))]
+        public void UServicesRemoveUserWithUsernameLastAdministratorInvalidTest()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.UsernameBelongsToLastAdministrator(
+                It.IsAny<string>())).Returns(true);
+            var userServices = new UserServices(mockUnitOfWork.Object);
+            userServices.RemoveUserWithUsername("mSantos");
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void UServicesRemoveUserWithUnregisteredUsernameInvalidTest()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            mockUserRepository.Setup(u => u.RemoveUserWithUsername(It.IsAny<string>()))
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.UsernameBelongsToLastAdministrator(
+                It.IsAny<string>())).Returns(false);
+            mockUnitOfWork.Setup(u => u.Users.RemoveUserWithUsername(It.IsAny<string>()))
                 .Throws(new RepositoryException("Message."));
-            var userServices = new UserServices(mockUserRepository.Object);
+            var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.RemoveUserWithUsername(null);
         }
         #endregion
