@@ -34,6 +34,19 @@ namespace Persistence
             }
         }
 
+        private IZoneRepository zones;
+        public IZoneRepository Zones
+        {
+            get
+            {
+                if (Utilities.IsNull(zones))
+                {
+                    zones = new ZoneRepository(context);
+                }
+                return zones;
+            }
+        }
+
         public void DeleteAllDataFromDatabase()
         {
             context.DeleteAllDataFromDatabase();
