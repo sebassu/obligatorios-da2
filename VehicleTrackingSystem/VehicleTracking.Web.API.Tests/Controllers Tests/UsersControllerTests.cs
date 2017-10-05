@@ -61,7 +61,8 @@ namespace Web.API.Controllers_Tests
         {
             SystemException expectedException = new SystemException();
             var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.AddNewUserFromData(fakeUserData)).Throws(expectedException);
+            mockUsersServices.Setup(u => u.AddNewUserFromData(fakeUserData))
+                .Throws(expectedException);
             var controller = new UsersController(mockUsersServices.Object);
             ControllerTestsUtilities.VerifyMethodReturnsServerErrorResponse(delegate
             { return controller.AddNewUserFromData(fakeUserData); }, mockUsersServices, expectedException);

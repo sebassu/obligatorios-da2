@@ -52,8 +52,7 @@ namespace Data.Persistence_Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
-        public void VRepositoryAddNewVehicleRepeatedVINInvalidTest()
+        public void VRepositoryAddNewVehicleRepeatedVINValidTest()
         {
             Vehicle someVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR4");
