@@ -61,6 +61,15 @@ namespace API.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Acción inválida: no es posible eliminar a todos los administradores del sistema..
+        /// </summary>
+        internal static string CannotRemoveAllAdministrators {
+            get {
+                return ResourceManager.GetString("CannotRemoveAllAdministrators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No es posible completar la acción: el {0} ingresado ya se encuentra registrado en el sistema..
         /// </summary>
         internal static string FieldMustBeUnique {

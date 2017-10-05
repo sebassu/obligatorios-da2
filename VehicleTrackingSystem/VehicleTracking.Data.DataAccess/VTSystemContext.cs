@@ -1,10 +1,12 @@
 ﻿using Domain;
 using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 namespace Persistence
 {
+    [ExcludeFromCodeCoverage]
     public class VTSystemContext : DbContext
     {
         public DbSet<User> Users { get; set; }
@@ -28,9 +30,11 @@ namespace Persistence
             modelBuilder.Entity<Vehicle>().Ignore(v => v.PortInspection);
             modelBuilder.Entity<Vehicle>().Ignore(v => v.YardInspection);
             modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
+            modelBuilder.Entity<Zone>().HasMany(z => z.Subzones)
+                .WithRequired(s => s.Container);
         }
 
-        internal void DeleteAllData()
+        internal void DeleteAllDataFromDatabase()
         {
             Database.ExecuteSqlCommand("delete from users");
             Database.ExecuteSqlCommand("delete from locations");

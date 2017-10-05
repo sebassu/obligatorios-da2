@@ -13,6 +13,11 @@ namespace Domain
         private static readonly Regex phoneFormat =
             new Regex("^(?!00)[0-9]{8,9}$");
 
+        public static bool IsNull(object value)
+        {
+            return value == null;
+        }
+
         public static bool IsNotNull(object value)
         {
             return value != null;
