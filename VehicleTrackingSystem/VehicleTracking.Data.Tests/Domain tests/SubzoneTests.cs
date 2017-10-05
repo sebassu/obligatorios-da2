@@ -101,9 +101,8 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(alternativeZone, testingSubzone.Container);
         }
 
-        [ExpectedException(typeof(SubzoneException))]
         [TestMethod]
-        public void SubzoneSetInvalidContainerZoneNullTest()
+        public void SubzoneSetNullContainerValidTest()
         {
             testingSubzone.Container = null;
         }

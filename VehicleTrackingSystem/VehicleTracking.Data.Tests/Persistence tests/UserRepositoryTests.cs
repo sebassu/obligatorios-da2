@@ -77,7 +77,7 @@ namespace Data.Persistence_Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(RepositoryException))]
         public void URepositoryAddNullUserInvalidTest()
         {
             AddNewUserAndSaveChanges(null);

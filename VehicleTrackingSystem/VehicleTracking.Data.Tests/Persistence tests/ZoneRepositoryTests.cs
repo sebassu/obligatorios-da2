@@ -48,7 +48,7 @@ namespace Data.Tests.Persistence_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(RepositoryException))]
         public void ZRepositoryAddNewZoneNullInvalidTest()
         {
             AddNewZoneAndSaveChanges(null);
