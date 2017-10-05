@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 namespace Web.API.Controllers
 {
     [RoutePrefix("api/Users")]
+    [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
     public class UsersController : BaseController
     {
         internal IUserServices Model { get; }
