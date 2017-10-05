@@ -8,7 +8,7 @@ namespace Domain
     {
         public int Id { get; set; }
 
-        public List<Vehicle> Vehicles { get; set; }
+        public ICollection<Vehicle> Vehicles { get; set; }
             = new List<Vehicle>();
 
         private string name;
@@ -59,33 +59,17 @@ namespace Domain
             return Utilities.ValidMinimumCapacity(value);
         }
 
-        private Zone container;
         public Zone Container
         {
-            get { return container; }
-            set
-            {
-                if (IsValidZone(value))
-                {
-                    container = value;
-                }
-                else
-                {
-                    throw new SubzoneException(ErrorMessages.ZoneIsInvalid);
-                }
-            }
-        }
-
-        protected bool IsValidZone(Zone value)
-        {
-            return Utilities.IsNotNull(value);
+            get;
+            set;
         }
 
         internal static Subzone InstanceForTestingPurposes()
         {
             return new Subzone()
             {
-                container = Zone.InstanceForTestingPurposes()
+                Container = Zone.InstanceForTestingPurposes()
             };
         }
 
@@ -103,6 +87,25 @@ namespace Domain
 
         protected Subzone(string nameToSet, int capacityToSet,
             Zone zoneToSet)
+        {
+            if (IsValidZone(zoneToSet))
+            {
+                SetCreationParameters(nameToSet,
+                    capacityToSet, zoneToSet);
+            }
+            else
+            {
+                throw new SubzoneException(ErrorMessages.ZoneIsInvalid);
+            }
+        }
+
+        protected bool IsValidZone(Zone value)
+        {
+            return Utilities.IsNotNull(value);
+        }
+
+        private void SetCreationParameters(string nameToSet,
+            int capacityToSet, Zone zoneToSet)
         {
             Name = nameToSet;
             Capacity = capacityToSet;
@@ -129,7 +132,7 @@ namespace Domain
 
         public override string ToString()
         {
-            return container.ToString() + "/" + name;
+            return Container.ToString() + "/" + name;
         }
     }
 }

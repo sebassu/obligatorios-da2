@@ -20,33 +20,20 @@ namespace Persistence
             elements = context.Set<TEntity>();
         }
 
-        protected virtual IEnumerable<TEntity> GetElementsWith(
-            Expression<Func<TEntity, bool>> filter = null,
-            string includeProperties = "")
+        protected virtual IEnumerable<TEntity> GetElementsThat(
+            Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = elements;
             query = AddWhereStatement(filter, query);
-            query = AddIncludeStatements(includeProperties, query);
             return query.ToList();
         }
 
-        private static IQueryable<TEntity> AddWhereStatement(Expression<Func<TEntity, bool>> filter,
-            IQueryable<TEntity> query)
+        private static IQueryable<TEntity> AddWhereStatement(
+            Expression<Func<TEntity, bool>> filter, IQueryable<TEntity> query)
         {
             if (Utilities.IsNotNull(filter))
             {
                 query = query.Where(filter);
-            }
-            return query;
-        }
-
-        private static IQueryable<TEntity> AddIncludeStatements(string includeProperties,
-            IQueryable<TEntity> query)
-        {
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
             }
             return query;
         }
@@ -66,7 +53,7 @@ namespace Persistence
         {
             if (Utilities.IsNull(elementToAdd))
             {
-                throw new ArgumentNullException(ErrorMessages.NullObjectRecieved);
+                throw new RepositoryException(ErrorMessages.NullObjectRecieved);
             }
         }
 

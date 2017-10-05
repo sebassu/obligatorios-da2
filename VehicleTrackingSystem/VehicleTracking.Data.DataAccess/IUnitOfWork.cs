@@ -7,6 +7,7 @@ namespace Persistence
         IUserRepository Users { get; }
         IVehicleRepository Vehicles { get; }
         IZoneRepository Zones { get; }
+        ISubzoneRepository Subzones { get; }
         void SaveChanges();
         void DeleteAllDataFromDatabase();
     }

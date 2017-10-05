@@ -47,6 +47,19 @@ namespace Persistence
             }
         }
 
+        private ISubzoneRepository subzones;
+        public ISubzoneRepository Subzones
+        {
+            get
+            {
+                if (Utilities.IsNull(subzones))
+                {
+                    subzones = new SubzoneRepository(context);
+                }
+                return subzones;
+            }
+        }
+
         public void DeleteAllDataFromDatabase()
         {
             context.DeleteAllDataFromDatabase();
