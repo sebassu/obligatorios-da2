@@ -71,7 +71,7 @@
     <Compile Include="Persistence tests\UserRepositoryTests.cs" />
     <Compile Include="Persistence tests\VehicleRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Persistence tests\ZoneSubzoneRepositoryTests.cs" />
+    <Compile Include="Persistence tests\ZoneRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
