@@ -7,8 +7,8 @@ namespace API.Services
 {
     public class UserServices : IUserServices
     {
-        private IUnitOfWork Model { get; }
-        private IUserRepository Users { get; }
+        internal IUnitOfWork Model { get; }
+        internal IUserRepository Users { get; }
 
         public UserServices()
         {
@@ -30,8 +30,19 @@ namespace API.Services
 
         private void AttemptToAddUser(UserDTO userDataToAdd)
         {
-            User userToAdd = userDataToAdd.ToUser();
-            Users.AddNewUser(userToAdd);
+            bool usernameIsNotRegistered =
+                !Users.ExistsUserWithUsername(userDataToAdd.Username);
+            if (usernameIsNotRegistered)
+            {
+                User userToAdd = userDataToAdd.ToUser();
+                Users.AddNewUser(userToAdd);
+            }
+            else
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.FieldMustBeUnique, "nombre de usuario");
+                throw new ServiceException(errorMessage);
+            }
         }
 
         public IEnumerable<UserDTO> GetRegisteredUsers()
@@ -84,11 +95,11 @@ namespace API.Services
         {
             if (Users.UsernameBelongsToLastAdministrator(usernameToRemove))
             {
-                Users.RemoveUserWithUsername(usernameToRemove);
+                throw new ServiceException(ErrorMessages.CannotRemoveAllAdministrators);
             }
             else
             {
-                throw new ServiceException(ErrorMessages.CannotRemoveAllAdministrators);
+                Users.RemoveUserWithUsername(usernameToRemove);
             }
         }
     }
