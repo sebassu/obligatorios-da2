@@ -7,11 +7,19 @@ namespace API.Services
 {
     public class VehicleServices : IVehicleServices
     {
-        internal IVehicleRepository Model { get; }
+        internal IUnitOfWork Model { get; }
+        internal IVehicleRepository Vehicles { get; }
 
-        public VehicleServices(IVehicleRepository someRepository = null)
+        public VehicleServices()
         {
-            Model = someRepository;
+            Model = new UnitOfWork();
+            Vehicles = Model.Vehicles;
+        }
+
+        public VehicleServices(IUnitOfWork someUnitOfWork)
+        {
+            Model = someUnitOfWork;
+            Vehicles = someUnitOfWork.Vehicles;
         }
 
         public int AddNewVehicleFromData(VehicleDTO vehicleDataToAdd)
@@ -28,14 +36,25 @@ namespace API.Services
 
         private int AttemptToAddVehicle(VehicleDTO vehicleDataToAdd)
         {
-            Vehicle vehicleToAdd = vehicleDataToAdd.ToVehicle();
-            return Model.AddNewVehicle(vehicleToAdd);
+            bool vinIsNotRegistered =
+                !Vehicles.ExistsVehicleWithVIN(vehicleDataToAdd.VIN);
+            if (vinIsNotRegistered)
+            {
+                Vehicle vehicleToAdd = vehicleDataToAdd.ToVehicle();
+                return Vehicles.AddNewVehicle(vehicleToAdd);
+            }
+            else
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.FieldMustBeUnique, "VIN");
+                throw new ServiceException(errorMessage);
+            }
         }
 
         public IEnumerable<VehicleDTO> GetRegisteredVehicles()
         {
             var result = new List<VehicleDTO>();
-            foreach (var vehicle in Model.Elements)
+            foreach (var vehicle in Vehicles.Elements)
             {
                 result.Add(VehicleDTO.FromVehicle(vehicle));
             }
@@ -44,7 +63,7 @@ namespace API.Services
 
         public VehicleDTO GetVehicleWithVIN(string vinToLookup)
         {
-            Vehicle vehicleFound = Model.GetVehicleWithVIN(vinToLookup);
+            Vehicle vehicleFound = Vehicles.GetVehicleWithVIN(vinToLookup);
             return VehicleDTO.FromVehicle(vehicleFound);
         }
 
@@ -66,21 +85,21 @@ namespace API.Services
             }
             else
             {
-                Vehicle vehicleFound = Model.GetVehicleWithVIN(vinToModify);
+                Vehicle vehicleFound = Vehicles.GetVehicleWithVIN(vinToModify);
                 vehicleData.SetDataToVehicle(vehicleFound);
-                Model.UpdateVehicle(vehicleFound);
+                Vehicles.UpdateVehicle(vehicleFound);
             }
         }
 
         private bool ChangeCausesRepeatedVINs(string currentVIN, VehicleDTO vehicleData)
         {
             bool usernameChanges = !currentVIN.Equals(vehicleData.VIN);
-            return usernameChanges && Model.ExistsVehicleWithVIN(vehicleData.VIN);
+            return usernameChanges && Vehicles.ExistsVehicleWithVIN(vehicleData.VIN);
         }
 
         public void RemoveVehicleWithVIN(string vinToRemove)
         {
-            Model.RemoveVehicleWithVIN(vinToRemove);
+            Vehicles.RemoveVehicleWithVIN(vinToRemove);
         }
     }
 }
