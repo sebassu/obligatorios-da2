@@ -13,7 +13,7 @@ namespace Persistence
     {
         public UserRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<User> Elements => GetElementsWith();
+        public IEnumerable<User> Elements => GetElementsThat();
 
         public int AddNewUser(User userToAdd)
         {

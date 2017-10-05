@@ -12,7 +12,7 @@ namespace Persistence
     {
         public VehicleRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<Vehicle> Elements => GetElementsWith();
+        public IEnumerable<Vehicle> Elements => GetElementsThat();
 
         public int AddNewVehicle(Vehicle vehicleToAdd)
         {

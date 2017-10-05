@@ -16,7 +16,7 @@ namespace Persistence
             return zoneToAdd.Id;
         }
 
-        public IEnumerable<Zone> Elements => GetElementsWith();
+        public IEnumerable<Zone> Elements => GetElementsThat();
 
         public Zone GetZoneWithName(string nameToFind)
         {
@@ -46,7 +46,7 @@ namespace Persistence
 
         protected override bool ElementExistsInCollection(Zone value)
         {
-            return Utilities.IsNotNull(value) && elements.Any(z => z.Id == value.Id); ;
+            return Utilities.IsNotNull(value) && elements.Any(z => z.Id == value.Id);
         }
     }
 }
