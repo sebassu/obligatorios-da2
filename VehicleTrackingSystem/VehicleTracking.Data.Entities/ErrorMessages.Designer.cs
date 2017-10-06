@@ -79,7 +79,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} &quot;{1}&quot; inválida. La misma debe ser mayor o igual a 1..
+        ///   Looks up a localized string similar to Capacidad de &quot;{0}&quot; inválida. La misma debe ser mayor o igual a {1}..
         /// </summary>
         internal static string CapacityIsInvalid {
             get {
@@ -133,11 +133,29 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No se encontró al elemento en la colección..
+        /// </summary>
+        internal static string ElementNotFound {
+            get {
+                return ResourceManager.GetString("ElementNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: la etapa actual es la etapa final del Proceso..
         /// </summary>
         internal static string EndOfProcess {
             get {
                 return ResourceManager.GetString("EndOfProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La subzona a la que se intenta agregar un vehículo se encuentra llena..
+        /// </summary>
+        internal static string FullSubzone {
+            get {
+                return ResourceManager.GetString("FullSubzone", resourceCulture);
             }
         }
         
@@ -264,6 +282,15 @@ namespace Domain {
         internal static string ResponsibleUserIsInvalid {
             get {
                 return ResourceManager.GetString("ResponsibleUserIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No es posible agregar esta subzona: una zona no puede contener subzonas repetidas, ni superarse la capacidad de ésta por la suma de las capacidades de sus subzonas..
+        /// </summary>
+        internal static string SubzoneIsInvalidForZone {
+            get {
+                return ResourceManager.GetString("SubzoneIsInvalidForZone", resourceCulture);
             }
         }
         

@@ -187,7 +187,7 @@
     <value>{0} inválido: "{1}". Solamente se permite ingresar caracteres alfabéticos con espacios y/o números para este campo.</value>
   </data>
   <data name="CapacityIsInvalid" xml:space="preserve">
-    <value>{0} "{1}" inválida. La misma debe ser mayor o igual a 1.</value>
+    <value>Capacidad de "{0}" inválida. La misma debe ser mayor o igual a {1}.</value>
   </data>
   <data name="ZoneIsInvalid" xml:space="preserve">
     <value>La zona no puede ser nula.</value>
@@ -218,5 +218,14 @@
   </data>
   <data name="UnknownUserRole" xml:space="preserve">
     <value>Tipo de usuario desconocido recibido.</value>
+  </data>
+  <data name="ElementNotFound" xml:space="preserve">
+    <value>No se encontró al elemento en la colección.</value>
+  </data>
+  <data name="FullSubzone" xml:space="preserve">
+    <value>La subzona a la que se intenta agregar un vehículo se encuentra llena.</value>
+  </data>
+  <data name="SubzoneIsInvalidForZone" xml:space="preserve">
+    <value>No es posible agregar esta subzona: una zona no puede contener subzonas repetidas, ni superarse la capacidad de ésta por la suma de las capacidades de sus subzonas.</value>
   </data>
 </root>
