@@ -11,6 +11,7 @@ namespace Persistence
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<ProcessData> ProcessDatas { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Zone> Zones { get; set; }
         public DbSet<Movement> Movements { get; set; }
@@ -35,6 +36,8 @@ namespace Persistence
             modelBuilder.Entity<Subzone>().HasMany(z => z.Vehicles)
                 .WithOptional();
             modelBuilder.Entity<Lot>().HasMany(z => z.Vehicles).WithOptional();
+            modelBuilder.Entity<Vehicle>().HasRequired(v => v.CurrentState)
+                .WithRequiredPrincipal();
         }
 
         internal void DeleteAllDataFromDatabase()

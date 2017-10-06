@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System;
+using System.Data.Entity;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Services")]
 namespace Persistence
@@ -17,6 +18,7 @@ namespace Persistence
         public void AddNewVehicle(Vehicle vehicleToAdd)
         {
             Add(vehicleToAdd);
+            context.ProcessDatas.Add(vehicleToAdd.CurrentState);
         }
 
         public bool ExistsVehicleWithVIN(string VINToLookup)
@@ -41,6 +43,8 @@ namespace Persistence
         public void UpdateVehicle(Vehicle modifiedVehicle)
         {
             Update(modifiedVehicle);
+            context.Entry(modifiedVehicle.CurrentState).State
+                = EntityState.Modified;
         }
 
         public void RemoveVehicleWithVIN(string vinToRemove)
