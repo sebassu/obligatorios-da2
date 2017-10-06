@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Domain
 {
@@ -29,7 +30,7 @@ namespace Domain
 
         protected bool IsValidName(string value)
         {
-            return Utilities.ContainsLettersOrSpacesOrDigitsOnly(value);
+            return Utilities.ContainsLettersSpacesOrDigitsOnly(value);
         }
 
         private int capacity;
@@ -45,9 +46,44 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.CapacityIsInvalid, "Capacidad", value);
+                        ErrorMessages.CapacityIsInvalid, value, usedCapacity);
                     throw new ZoneException(errorMessage);
                 }
+            }
+        }
+
+        private int usedCapacity = 0;
+
+        public void AddSubzone(Subzone subzoneToAdd)
+        {
+            bool isValidSubzone = Utilities.IsNotNull(subzoneToAdd) &&
+                DoesNotExceedMaximumCapacity(subzoneToAdd) &&
+                !Subzones.Any(s => s.Name.Equals(subzoneToAdd.Name));
+            if (isValidSubzone)
+            {
+                Subzones.Add(subzoneToAdd);
+                usedCapacity += subzoneToAdd.Capacity;
+            }
+            else
+            {
+                throw new ZoneException(ErrorMessages.SubzoneIsInvalidForZone);
+            }
+        }
+
+        private bool DoesNotExceedMaximumCapacity(Subzone subzoneToAdd)
+        {
+            return subzoneToAdd.Capacity + usedCapacity <= Capacity;
+        }
+
+        public void RemoveSubzone(Subzone subzoneToRemove)
+        {
+            if (Subzones.Remove(subzoneToRemove))
+            {
+                usedCapacity -= subzoneToRemove.Capacity;
+            }
+            else
+            {
+                throw new ZoneException(ErrorMessages.ElementNotFound);
             }
         }
 
@@ -67,7 +103,7 @@ namespace Domain
         protected Zone()
         {
             name = "Zona inválida";
-            capacity = 9;
+            capacity = int.MaxValue;
         }
 
         public static Zone CreateNewZone(String name, int capacity)

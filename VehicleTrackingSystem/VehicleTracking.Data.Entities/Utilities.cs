@@ -85,7 +85,7 @@ namespace Domain
             return char.IsLetter(value) || char.IsWhiteSpace(value);
         }
 
-        public static bool ContainsLettersOrSpacesOrDigitsOnly(string value)
+        public static bool ContainsLettersSpacesOrDigitsOnly(string value)
         {
             return !string.IsNullOrWhiteSpace(value) &&
                 value.ToCharArray().All(c => IsLetterOrSpaceOrDigit(c)) &&

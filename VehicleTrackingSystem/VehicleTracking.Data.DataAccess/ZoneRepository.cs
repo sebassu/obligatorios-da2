@@ -37,15 +37,19 @@ namespace Persistence
             Update(zoneToModify);
         }
 
-        public void RemoveZoneWithName(string nameToRemove)
+        public void RemoveZone(Zone zoneToRemove)
         {
-            var userToRemove = GetZoneWithName(nameToRemove);
-            AttemptToRemove(userToRemove);
+            AttemptToRemove(zoneToRemove);
         }
 
         protected override bool ElementExistsInCollection(Zone value)
         {
             return Utilities.IsNotNull(value) && elements.Any(z => z.Id == value.Id);
+        }
+
+        public bool ExistsZoneWithName(string name)
+        {
+            return elements.Any(z => z.Name.Equals(name));
         }
     }
 }

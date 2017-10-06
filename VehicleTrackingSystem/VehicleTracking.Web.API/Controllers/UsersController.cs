@@ -30,9 +30,9 @@ namespace Web.API.Controllers
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    var databaseId = Model.AddNewUserFromData(userDataToAdd);
+                    int additionId = Model.AddNewUserFromData(userDataToAdd);
                     return CreatedAtRoute("VTSystemAPI",
-                        new { id = databaseId }, userDataToAdd);
+                        new { id = additionId }, userDataToAdd);
                 });
         }
 

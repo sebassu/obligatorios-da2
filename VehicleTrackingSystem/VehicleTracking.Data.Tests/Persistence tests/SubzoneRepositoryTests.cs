@@ -89,16 +89,9 @@ namespace Data.Tests.Persistence_tests
             Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone", 6, testingZone);
             AddNewZoneAndSaveChanges(testingZone);
             AddNewSubzoneAndSaveChanges(subzoneToVerify);
-            RemoveSubzoneWithIdAndSaveChanges(subzoneToVerify.Id);
+            RemoveSubzoneAndSaveChanges(subzoneToVerify);
             CollectionAssert.DoesNotContain(testingSubzoneRepository.Elements.ToList(),
                 subzoneToVerify);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
-        public void ZRepositoryRemoveSubzoneIdNotInRepositoryInvalidTest()
-        {
-            RemoveSubzoneWithIdAndSaveChanges(9999999);
         }
 
         [TestMethod]
@@ -110,7 +103,7 @@ namespace Data.Tests.Persistence_tests
             Vehicle vehicleToAdd = Vehicle.InstanceForTestingPurposes();
             subzoneToVerify.Vehicles.Add(vehicleToAdd);
             AddNewSubzoneAndSaveChanges(subzoneToVerify);
-            RemoveSubzoneWithIdAndSaveChanges(subzoneToVerify.Id);
+            RemoveSubzoneAndSaveChanges(subzoneToVerify);
         }
         #endregion
 
@@ -132,9 +125,9 @@ namespace Data.Tests.Persistence_tests
             testingUnitOfWork.SaveChanges();
         }
 
-        private void RemoveSubzoneWithIdAndSaveChanges(int idToRemove)
+        private void RemoveSubzoneAndSaveChanges(Subzone subzoneToRemove)
         {
-            testingSubzoneRepository.RemoveSubzoneWithId(idToRemove);
+            testingSubzoneRepository.RemoveSubzone(subzoneToRemove);
             testingUnitOfWork.SaveChanges();
         }
     }

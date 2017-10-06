@@ -21,7 +21,7 @@ namespace Persistence
 
         public bool ExistsVehicleWithVIN(string VINToLookup)
         {
-            return elements.Any(v => v.VIN == VINToLookup);
+            return elements.Any(v => v.VIN.Equals(VINToLookup));
         }
 
         public Vehicle GetVehicleWithVIN(string vinToFind)

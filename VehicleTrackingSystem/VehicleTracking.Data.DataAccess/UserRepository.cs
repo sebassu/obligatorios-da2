@@ -22,7 +22,7 @@ namespace Persistence
 
         public bool ExistsUserWithUsername(string usernameToLookup)
         {
-            return elements.Any(u => u.Username == usernameToLookup);
+            return elements.Any(u => u.Username.Equals(usernameToLookup));
         }
 
         public User GetUserWithUsername(string usernameToFind)
@@ -54,7 +54,7 @@ namespace Persistence
         public bool UsernameBelongsToLastAdministrator(string usernameToRemove)
         {
             var administrators = elements.
-                Where(u => u.Role == UserRoles.ADMINISTRATOR).ToList();
+                Where(u => u.Role == UserRoles.ADMINISTRATOR && !u.WasRemoved).ToList();
             return administrators.Count == 1 &&
                 administrators.Single().Username == usernameToRemove;
         }

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persistence;
-using System;
 
 namespace Data.Tests.Persistence_tests
 {
@@ -88,17 +87,9 @@ namespace Data.Tests.Persistence_tests
         {
             Zone zoneToVerify = Zone.CreateNewZone("Delete zone", 6);
             AddNewZoneAndSaveChanges(zoneToVerify);
-            RemoveZoneWithNameAndSaveChanges(zoneToVerify.Name);
+            RemoveZoneAndSaveChanges(zoneToVerify);
             CollectionAssert.DoesNotContain(testingZoneRepository.Elements.ToList(),
                 zoneToVerify);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
-        public void ZRepositoryRemoveZoneNotInRepositoryInvalidTest()
-        {
-            Zone zoneToVerify = Zone.CreateNewZone("Some new zone", 8);
-            RemoveZoneWithNameAndSaveChanges(zoneToVerify.Name);
         }
 
         [TestMethod]
@@ -109,9 +100,27 @@ namespace Data.Tests.Persistence_tests
             subzoneToAdd.Container = zoneToVerify;
             zoneToVerify.Subzones.Add(subzoneToAdd);
             AddNewZoneAndSaveChanges(zoneToVerify);
-            RemoveZoneWithNameAndSaveChanges(zoneToVerify.Name);
+            RemoveZoneAndSaveChanges(zoneToVerify);
             CollectionAssert.DoesNotContain(testingZoneRepository.Elements.ToList(),
                 zoneToVerify);
+        }
+        #endregion
+
+        #region ExistsZoneWithName tests
+        [TestMethod]
+        public void ZRepositoryExistsZoneWithNameValidTest()
+        {
+            Zone zoneToVerify = Zone.CreateNewZone("El habitual espacio", 6);
+            AddNewZoneAndSaveChanges(zoneToVerify);
+            bool result = testingZoneRepository.ExistsZoneWithName("El habitual espacio");
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ZRepositoryExistsZoneWithUnaddedNameValidTest()
+        {
+            bool result = testingZoneRepository.ExistsZoneWithName("Voglio entrare");
+            Assert.IsFalse(result);
         }
         #endregion
 
@@ -127,9 +136,9 @@ namespace Data.Tests.Persistence_tests
             testingUnitOfWork.SaveChanges();
         }
 
-        private static void RemoveZoneWithNameAndSaveChanges(string nameToRemove)
+        private static void RemoveZoneAndSaveChanges(Zone zoneToRemove)
         {
-            testingZoneRepository.RemoveZoneWithName(nameToRemove);
+            testingZoneRepository.RemoveZone(zoneToRemove);
             testingUnitOfWork.SaveChanges();
         }
     }

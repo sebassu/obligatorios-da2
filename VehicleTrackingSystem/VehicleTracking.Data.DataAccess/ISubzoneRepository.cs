@@ -5,9 +5,10 @@ namespace Persistence
 {
     public interface ISubzoneRepository
     {
-        IEnumerable<Subzone> Elements { get; }
         void AddNewSubzone(Subzone subzoneToAdd);
+        IEnumerable<Subzone> Elements { get; }
+        Subzone GetSubzoneWithId(int idToFind);
         void UpdateSubzone(Subzone subzoneToModify);
-        void RemoveSubzoneWithId(int id);
+        void RemoveSubzone(Subzone subzoneToRemove);
     }
 }
