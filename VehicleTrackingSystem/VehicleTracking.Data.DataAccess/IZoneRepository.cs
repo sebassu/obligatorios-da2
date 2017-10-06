@@ -9,7 +9,7 @@ namespace Persistence
         IEnumerable<Zone> Elements { get; }
         Zone GetZoneWithName(string nameToFind);
         void UpdateZone(Zone zoneToModify);
-        void RemoveZoneWithName(string nameToRemove);
+        void RemoveZone(Zone zoneToRemove);
         bool ExistsZoneWithName(string username);
     }
 }

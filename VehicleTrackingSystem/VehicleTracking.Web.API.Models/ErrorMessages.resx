@@ -120,6 +120,12 @@
   <data name="CannotRemoveAllAdministrators" xml:space="preserve">
     <value>Acción inválida: no es posible eliminar a todos los administradores del sistema.</value>
   </data>
+  <data name="CannotRemoveNonEmptySubzone" xml:space="preserve">
+    <value>No es posible eliminar a la subzona: contiene vehículos dentro.</value>
+  </data>
+  <data name="CannotRemoveNonEmptyZone" xml:space="preserve">
+    <value>No es posible eliminar a la zona: contiene subzonas.</value>
+  </data>
   <data name="FieldMustBeUnique" xml:space="preserve">
     <value>No es posible completar la acción: el {0} ingresado ya se encuentra registrado en el sistema.</value>
   </data>

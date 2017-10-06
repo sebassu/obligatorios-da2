@@ -1,29 +1,26 @@
 ﻿using Persistence;
 using System.Collections.Generic;
-using System;
 using System.Globalization;
 using Domain;
+using System.Linq;
 
 namespace API.Services.Business_Logic
 {
-    public class ZoneSubzoneServices : IZoneSubzoneServices
+    public class ZoneServices : IZoneServices
     {
         internal IUnitOfWork Model { get; }
         internal IZoneRepository Zones { get; }
-        internal ISubzoneRepository Subzones { get; }
 
-        public ZoneSubzoneServices()
+        public ZoneServices()
         {
             Model = new UnitOfWork();
             Zones = Model.Zones;
-            Subzones = Model.Subzones;
         }
 
-        public ZoneSubzoneServices(IUnitOfWork someUnitOfWork)
+        public ZoneServices(IUnitOfWork someUnitOfWork)
         {
             Model = someUnitOfWork;
             Zones = Model.Zones;
-            Subzones = Model.Subzones;
         }
 
         public int AddNewZoneFromData(ZoneDTO zoneDataToAdd)
@@ -59,47 +56,47 @@ namespace API.Services.Business_Logic
 
         public IEnumerable<ZoneDTO> GetRegisteredZones()
         {
-            throw new NotImplementedException();
+            var result = new List<ZoneDTO>();
+            foreach (var zone in Zones.Elements)
+            {
+                result.Add(ZoneDTO.FromZone(zone));
+            }
+            return result.AsReadOnly();
         }
 
-        public IEnumerable<SubzoneDTO> GetRegisteredSubzones()
+        public ZoneDTO GetZoneWithName(string nameToLookup)
         {
-            throw new NotImplementedException();
-        }
-
-        public ZoneDTO GetZoneWithName(string vinToLookup)
-        {
-            throw new NotImplementedException();
-        }
-
-        public SubzoneDTO GetSubzoneWithId(string vinToLookup)
-        {
-            throw new NotImplementedException();
+            Zone zoneFound = Zones.GetZoneWithName(nameToLookup);
+            return ZoneDTO.FromZone(zoneFound);
         }
 
         public void ModifyZoneWithName(string nameToModify, ZoneDTO zoneDataToSet)
         {
-            throw new NotImplementedException();
+            ServiceUtilities.CheckParameterIsNotNullAndExecute(zoneDataToSet,
+            delegate { AttemptToPerformModification(nameToModify, zoneDataToSet); });
         }
 
-        public void ModifySubzoneWithId(int idToModify, SubzoneDTO subzoneDataToSet)
+        private void AttemptToPerformModification(string nameToModify, ZoneDTO zoneData)
         {
-            throw new NotImplementedException();
+            Zone zoneFound = Zones.GetZoneWithName(nameToModify);
+            zoneData.SetDataToZone(zoneFound);
+            Zones.UpdateZone(zoneFound);
+            Model.SaveChanges();
         }
 
-        public void RemoveZoneWithName(string vinToRemove)
+        public void RemoveZoneWithName(string nameToRemove)
         {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveSubzoneWithId(int idToRemove)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int AddNewSubzoneFromData(string containerName, SubzoneDTO subzoneDataToAdd)
-        {
-            throw new NotImplementedException();
+            Zone zoneToRemove = Zones.GetZoneWithName(nameToRemove);
+            bool isEmptyZone = zoneToRemove.Subzones.Any();
+            if (isEmptyZone)
+            {
+                Zones.RemoveZone(zoneToRemove);
+                Model.SaveChanges();
+            }
+            else
+            {
+                throw new ServiceException(ErrorMessages.CannotRemoveNonEmptyZone);
+            }
         }
     }
 }

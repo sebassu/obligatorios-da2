@@ -7,7 +7,8 @@ namespace Persistence
     {
         void AddNewSubzone(Subzone subzoneToAdd);
         IEnumerable<Subzone> Elements { get; }
+        Subzone GetSubzoneWithId(int idToFind);
         void UpdateSubzone(Subzone subzoneToModify);
-        void RemoveSubzoneWithId(int id);
+        void RemoveSubzone(Subzone subzoneToRemove);
     }
 }

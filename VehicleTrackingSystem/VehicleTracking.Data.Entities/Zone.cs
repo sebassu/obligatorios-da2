@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Domain
 {
@@ -57,7 +58,7 @@ namespace Domain
         {
             bool isValidSubzone = Utilities.IsNotNull(subzoneToAdd) &&
                 DoesNotExceedMaximumCapacity(subzoneToAdd) &&
-                !Subzones.Contains(subzoneToAdd);
+                !Subzones.Any(s => s.Name.Equals(subzoneToAdd.Name));
             if (isValidSubzone)
             {
                 Subzones.Add(subzoneToAdd);

@@ -32,6 +32,8 @@ namespace Persistence
             modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
             modelBuilder.Entity<Zone>().HasMany(z => z.Subzones)
                 .WithRequired(s => s.Container);
+            modelBuilder.Entity<Subzone>().HasMany(z => z.Vehicles)
+                .WithOptional();
         }
 
         internal void DeleteAllDataFromDatabase()

@@ -29,9 +29,9 @@ namespace Web.API.Controllers
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    Model.AddNewUserFromData(userDataToAdd);
+                    int additionId = Model.AddNewUserFromData(userDataToAdd);
                     return CreatedAtRoute("VTSystemAPI",
-                        new { id = userDataToAdd.Username }, userDataToAdd);
+                        new { id = additionId }, userDataToAdd);
                 });
         }
 

@@ -37,10 +37,9 @@ namespace Persistence
             Update(zoneToModify);
         }
 
-        public void RemoveZoneWithName(string nameToRemove)
+        public void RemoveZone(Zone zoneToRemove)
         {
-            var userToRemove = GetZoneWithName(nameToRemove);
-            AttemptToRemove(userToRemove);
+            AttemptToRemove(zoneToRemove);
         }
 
         protected override bool ElementExistsInCollection(Zone value)

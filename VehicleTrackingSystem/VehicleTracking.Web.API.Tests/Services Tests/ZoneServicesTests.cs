@@ -8,46 +8,45 @@ using Moq;
 namespace Web.API.Tests.Services_Tests
 {
     [TestClass]
-    public class ZoneSubzoneServicesTests
+    public class ZoneServicesTests
     {
         public class VehicleServicesTests
         {
-            private static readonly ZoneSubzoneServices testingZoneSubzoneServices = new ZoneSubzoneServices();
+            private static readonly ZoneServices testingZoneSubzoneServices = new ZoneServices();
             private static readonly Zone testingZone = Zone.CreateNewZone("The zone", 21);
             private static readonly Subzone testingSubzone = Subzone.CreateNewSubzone("Subzone", 10, testingZone);
             private static readonly ZoneDTO testingZoneData = ZoneDTO.FromZone(testingZone);
             private static readonly SubzoneDTO testingSubzoneData = SubzoneDTO.FromSubzone(testingSubzone);
 
             [TestMethod]
-            public void VServicesDefaultParameterlessConstructorTest()
+            public void ZServicesDefaultParameterlessConstructorTest()
             {
                 Assert.IsNotNull(testingZoneSubzoneServices.Model);
                 Assert.IsNotNull(testingZoneSubzoneServices.Zones);
-                Assert.IsNotNull(testingZoneSubzoneServices.Subzones);
             }
 
             #region AddNewZoneFromData tests
             [TestMethod]
-            public void SZServicesAddNewZoneFromDataValidTest()
+            public void ZServicesAddNewZoneFromDataValidTest()
             {
                 var mockUnitOfWork = new Mock<IUnitOfWork>();
                 mockUnitOfWork.Setup(u => u.Zones.AddNewZone(It.IsAny<Zone>()))
                     .Verifiable();
-                var userServices = new ZoneSubzoneServices(mockUnitOfWork.Object);
+                var userServices = new ZoneServices(mockUnitOfWork.Object);
                 userServices.AddNewZoneFromData(testingZoneData);
                 mockUnitOfWork.Verify();
             }
 
             [TestMethod]
             [ExpectedException(typeof(ServiceException))]
-            public void SZServicesAddNewZoneFromNullDataInvalidTest()
+            public void ZServicesAddNewZoneFromNullDataInvalidTest()
             {
                 testingZoneSubzoneServices.AddNewZoneFromData(null);
             }
 
             [TestMethod]
             [ExpectedException(typeof(ZoneException))]
-            public void SZServicesAddNewZoneFromDataInvalidFirstNameTest()
+            public void ZServicesAddNewZoneFromDataInvalidFirstNameTest()
             {
                 ZoneDTO testZoneData = ZoneDTO.FromData("*&@*12*-*//31", 365);
                 RunAddNewZoneTestWithInvalidDataOnDTO(testZoneData);
@@ -55,7 +54,7 @@ namespace Web.API.Tests.Services_Tests
 
             [TestMethod]
             [ExpectedException(typeof(ZoneException))]
-            public void SZServicesAddNewZoneFromDataInvalidLastNameTest()
+            public void ZServicesAddNewZoneFromDataInvalidLastNameTest()
             {
                 ZoneDTO testZoneData = ZoneDTO.FromData("Valid name", -99);
                 RunAddNewZoneTestWithInvalidDataOnDTO(testZoneData);
@@ -66,23 +65,22 @@ namespace Web.API.Tests.Services_Tests
                 var mockUnitOfWork = new Mock<IUnitOfWork>();
                 mockUnitOfWork.Setup(u => u.Zones.ExistsZoneWithName(It.IsAny<string>()))
                     .Returns(false);
-                var userServices = new ZoneSubzoneServices(mockUnitOfWork.Object);
+                var userServices = new ZoneServices(mockUnitOfWork.Object);
                 userServices.AddNewZoneFromData(testZoneData);
                 mockUnitOfWork.VerifyAll();
             }
 
             [TestMethod]
             [ExpectedException(typeof(RepositoryException))]
-            public void SZServicesAddNewZoneWithRepeatedNameInvalidTest()
+            public void ZServicesAddNewZoneWithRepeatedNameInvalidTest()
             {
                 var mockUnitOfWork = new Mock<IUnitOfWork>();
                 mockUnitOfWork.Setup(u => u.Zones.ExistsZoneWithName(
                     testingZoneData.Name)).Returns(true);
-                var userServices = new ZoneSubzoneServices(mockUnitOfWork.Object);
+                var userServices = new ZoneServices(mockUnitOfWork.Object);
                 userServices.AddNewZoneFromData(testingZoneData);
             }
             #endregion
-
         }
     }
 }

@@ -68,7 +68,7 @@
   <ItemGroup>
     <Compile Include="Controllers Tests\VehiclesControllerTests.cs" />
     <Compile Include="Controllers Tests\UsersControllerTests.cs" />
-    <Compile Include="Services Tests\ZoneSubzoneServicesTests.cs" />
+    <Compile Include="Services Tests\ZoneServicesTests.cs" />
     <Compile Include="ControllerTestsUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services Tests\VehicleServicesTests.cs" />

@@ -37,10 +37,9 @@ namespace Persistence
             Update(subzoneToModify);
         }
 
-        public void RemoveSubzoneWithId(int idToRemove)
+        public void RemoveSubzone(Subzone subzoneToRemove)
         {
-            var userToRemove = GetSubzoneWithId(idToRemove);
-            AttemptToRemove(userToRemove);
+            AttemptToRemove(subzoneToRemove);
         }
 
         protected override bool ElementExistsInCollection(Subzone value)
