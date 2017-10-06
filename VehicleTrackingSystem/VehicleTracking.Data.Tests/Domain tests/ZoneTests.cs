@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Domain;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Data.Tests.Domain_tests
 {
@@ -195,6 +196,62 @@ namespace Data.Tests.Domain_tests
             var nameToSet = "In the zone";
             testingZone.Name = nameToSet;
             Assert.AreEqual(nameToSet, testingZone.ToString());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZoneAddSubzoneExceedingMaximumCapacityInvalidTest()
+        {
+            Zone testingZone = Zone.InstanceForTestingPurposes();
+            testingZone.Capacity = 2;
+            Subzone someSubzone = Subzone.InstanceForTestingPurposes();
+            someSubzone.Capacity = 99;
+            testingZone.AddSubzone(someSubzone);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZoneAddRepeatedSubzoneInvalidTest()
+        {
+            Zone testingZone = Zone.InstanceForTestingPurposes();
+            Subzone someSubzone = Subzone.InstanceForTestingPurposes();
+            testingZone.AddSubzone(someSubzone);
+            testingZone.AddSubzone(someSubzone);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZoneAddNullSubzoneInvalidTest()
+        {
+            Zone testingZone = Zone.InstanceForTestingPurposes();
+            testingZone.AddSubzone(null);
+        }
+
+        [TestMethod]
+        public void ZoneRemoveSubzoneValidTest()
+        {
+            Zone testingZone = Zone.InstanceForTestingPurposes();
+            Subzone someSubzone = Subzone.CreateNewSubzone("Subzone",
+                3, testingZone);
+            CollectionAssert.Contains(testingZone.Subzones.ToList(), someSubzone);
+            testingZone.RemoveSubzone(someSubzone);
+            CollectionAssert.DoesNotContain(testingZone.Subzones.ToList(), someSubzone);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZoneRemoveUnaddedSubzoneInvalidTest()
+        {
+            Zone testingZone = Zone.InstanceForTestingPurposes();
+            testingZone.RemoveSubzone(Subzone.InstanceForTestingPurposes());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ZoneException))]
+        public void ZoneRemoveNullSubzoneInvalidTest()
+        {
+            Zone testingZone = Zone.InstanceForTestingPurposes();
+            testingZone.RemoveSubzone(Subzone.InstanceForTestingPurposes());
         }
     }
 }
