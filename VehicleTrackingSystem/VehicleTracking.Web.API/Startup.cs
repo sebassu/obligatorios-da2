@@ -7,8 +7,8 @@ using VehicleTrackingSystem;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 
-[assembly: OwinStartup(typeof(AngularJSAuthentication.API.Startup))]
-namespace AngularJSAuthentication.API
+[assembly: OwinStartup(typeof(Web.API.Startup))]
+namespace Web.API
 {
     public class Startup
     {
@@ -26,7 +26,7 @@ namespace AngularJSAuthentication.API
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
+                TokenEndpointPath = new PathString("/login"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 Provider = new AuthorizationServerProvider()
             };
