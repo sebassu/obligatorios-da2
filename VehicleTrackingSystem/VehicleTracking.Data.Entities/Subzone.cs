@@ -32,7 +32,7 @@ namespace Domain
 
         protected bool IsValidName(string value)
         {
-            return Utilities.ContainsLettersOrSpacesOrDigitsOnly(value);
+            return Utilities.ContainsLettersSpacesOrDigitsOnly(value);
         }
 
         private int capacity;
@@ -48,7 +48,7 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.CapacityIsInvalid, "Capacidad", value);
+                        ErrorMessages.CapacityIsInvalid, value, Math.Max(Vehicles.Count, 0));
                     throw new SubzoneException(errorMessage);
                 }
             }
@@ -56,13 +56,20 @@ namespace Domain
 
         protected bool IsValidCapacity(int value)
         {
-            return Utilities.ValidMinimumCapacity(value);
+            return Utilities.ValidMinimumCapacity(value) &&
+                value > Vehicles.Count;
         }
 
         public Zone Container
         {
             get;
             set;
+        }
+
+        public bool CanAdd(Vehicle someVehicle)
+        {
+            return Utilities.IsNotNull(someVehicle) &&
+                Vehicles.Count < Capacity && !Vehicles.Contains(someVehicle);
         }
 
         internal static Subzone InstanceForTestingPurposes()
@@ -92,6 +99,7 @@ namespace Domain
             {
                 SetCreationParameters(nameToSet,
                     capacityToSet, zoneToSet);
+                zoneToSet.AddSubzone(this);
             }
             else
             {
