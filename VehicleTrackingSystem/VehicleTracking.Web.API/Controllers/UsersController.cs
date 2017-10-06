@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 namespace Web.API.Controllers
 {
     [RoutePrefix("api/Users")]
+    [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
     public class UsersController : BaseController
     {
         internal IUserServices Model { get; }
@@ -29,9 +30,9 @@ namespace Web.API.Controllers
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    Model.AddNewUserFromData(userDataToAdd);
+                    var databaseId = Model.AddNewUserFromData(userDataToAdd);
                     return CreatedAtRoute("VTSystemAPI",
-                        new { id = userDataToAdd.Username }, userDataToAdd);
+                        new { id = databaseId }, userDataToAdd);
                 });
         }
 

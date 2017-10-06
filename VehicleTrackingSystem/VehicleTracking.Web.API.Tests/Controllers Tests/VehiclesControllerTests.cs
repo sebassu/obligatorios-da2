@@ -26,7 +26,7 @@ namespace Web.API.Controllers_Tests
         {
             int idToVerify = 42;
             var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.AddNewVehicleFromData(fakeVehicleData)).Returns(idToVerify); ;
+            mockVehicleServices.Setup(v => v.AddNewVehicleFromData(fakeVehicleData)).Returns(idToVerify);
             var controller = new VehiclesController(mockVehicleServices.Object);
             IHttpActionResult obtainedResult = controller.AddNewVehicleFromData(fakeVehicleData);
             var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<VehicleDTO>;

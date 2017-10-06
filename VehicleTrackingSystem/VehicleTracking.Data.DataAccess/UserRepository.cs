@@ -13,12 +13,11 @@ namespace Persistence
     {
         public UserRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<User> Elements => GetElementsThat();
+        public IEnumerable<User> Elements => GetElementsThat(u => !u.WasRemoved);
 
-        public int AddNewUser(User userToAdd)
+        public void AddNewUser(User userToAdd)
         {
             Add(userToAdd);
-            return userToAdd.Id;
         }
 
         public bool ExistsUserWithUsername(string usernameToLookup)
@@ -48,7 +47,8 @@ namespace Persistence
         public void RemoveUserWithUsername(string usernameToRemove)
         {
             var userToRemove = GetUserWithUsername(usernameToRemove);
-            AttemptToRemove(userToRemove);
+            userToRemove.WasRemoved = true;
+            UpdateUser(userToRemove);
         }
 
         public bool UsernameBelongsToLastAdministrator(string usernameToRemove)
