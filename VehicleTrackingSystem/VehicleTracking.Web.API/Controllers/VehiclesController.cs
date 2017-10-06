@@ -10,6 +10,11 @@ namespace Web.API.Controllers
     {
         internal IVehicleServices Model { get; }
 
+        public VehiclesController()
+        {
+            Model = new VehicleServices();
+        }
+
         public VehiclesController(IVehicleServices someModel)
         {
             Model = someModel;
@@ -22,8 +27,8 @@ namespace Web.API.Controllers
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    int additionId = Model.AddNewVehicleFromData(vehicleDataToAdd);
-                    return CreatedAtRoute("VTSystemAPI", new { id = additionId },
+                    int databaseId = Model.AddNewVehicleFromData(vehicleDataToAdd);
+                    return CreatedAtRoute("VTSystemAPI", new { id = databaseId },
                         vehicleDataToAdd);
                 });
         }

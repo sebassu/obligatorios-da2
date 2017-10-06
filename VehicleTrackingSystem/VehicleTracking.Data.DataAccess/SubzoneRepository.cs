@@ -10,10 +10,9 @@ namespace Persistence
     {
         public SubzoneRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public int AddNewSubzone(Subzone subzoneToAdd)
+        public void AddNewSubzone(Subzone subzoneToAdd)
         {
             Add(subzoneToAdd);
-            return subzoneToAdd.Id;
         }
 
         public IEnumerable<Subzone> Elements => GetElementsThat();

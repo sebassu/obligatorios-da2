@@ -6,7 +6,7 @@ namespace Persistence
     public interface IZoneRepository
     {
         IEnumerable<Zone> Elements { get; }
-        int AddNewZone(Zone zoneToAdd);
+        void AddNewZone(Zone zoneToAdd);
         void UpdateZone(Zone zoneToModify);
         void RemoveZoneWithName(string nameToRemove);
     }

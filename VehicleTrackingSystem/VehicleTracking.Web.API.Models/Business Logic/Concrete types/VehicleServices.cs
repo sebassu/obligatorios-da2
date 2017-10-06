@@ -41,7 +41,9 @@ namespace API.Services
             if (vinIsNotRegistered)
             {
                 Vehicle vehicleToAdd = vehicleDataToAdd.ToVehicle();
-                return Vehicles.AddNewVehicle(vehicleToAdd);
+                Vehicles.AddNewVehicle(vehicleToAdd);
+                Model.SaveChanges();
+                return vehicleToAdd.Id;
             }
             else
             {

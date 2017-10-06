@@ -13,6 +13,8 @@ namespace Domain
     {
         public int Id { get; set; }
 
+        public bool WasRemoved { get; set; }
+
         public UserRoles Role { get; set; } = UserRoles.ADMINISTRATOR;
 
         private string firstName;

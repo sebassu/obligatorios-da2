@@ -22,13 +22,19 @@ namespace API.Services
             Users = someUnitOfWork.Users;
         }
 
-        public void AddNewUserFromData(UserDTO userDataToAdd)
+        public int AddNewUserFromData(UserDTO userDataToAdd)
         {
-            ServiceUtilities.CheckParameterIsNotNullAndExecute(userDataToAdd,
-                delegate { AttemptToAddUser(userDataToAdd); });
+            if (Utilities.IsNotNull(userDataToAdd))
+            {
+                return AttemptToAddUser(userDataToAdd);
+            }
+            else
+            {
+                throw new ServiceException(ErrorMessages.NullDTOReference);
+            }
         }
 
-        private void AttemptToAddUser(UserDTO userDataToAdd)
+        private int AttemptToAddUser(UserDTO userDataToAdd)
         {
             bool usernameIsNotRegistered =
                 !Users.ExistsUserWithUsername(userDataToAdd.Username);
@@ -36,6 +42,8 @@ namespace API.Services
             {
                 User userToAdd = userDataToAdd.ToUser();
                 Users.AddNewUser(userToAdd);
+                Model.SaveChanges();
+                return userToAdd.Id;
             }
             else
             {
@@ -82,6 +90,7 @@ namespace API.Services
                 User userFound = Users.GetUserWithUsername(usernameToModify);
                 userData.SetDataToUser(userFound);
                 Users.UpdateUser(userFound);
+                Model.SaveChanges();
             }
         }
 
@@ -100,6 +109,7 @@ namespace API.Services
             else
             {
                 Users.RemoveUserWithUsername(usernameToRemove);
+                Model.SaveChanges();
             }
         }
     }

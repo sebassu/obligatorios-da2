@@ -18,7 +18,7 @@ namespace Persistence
 
         public VTSystemContext() : base()
         {
-            var defaultInitializer = new DropCreateDatabaseIfModelChanges<VTSystemContext>();
+            var defaultInitializer = new VTSystemDatabaseInitializer();
             Database.SetInitializer(defaultInitializer);
         }
 
@@ -32,6 +32,7 @@ namespace Persistence
             modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
             modelBuilder.Entity<Zone>().HasMany(z => z.Subzones)
                 .WithRequired(s => s.Container);
+            modelBuilder.Entity<Lot>().HasMany(z => z.Vehicles).WithOptional();
         }
 
         internal void DeleteAllDataFromDatabase()
