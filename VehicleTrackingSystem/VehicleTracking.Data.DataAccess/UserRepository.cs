@@ -15,15 +15,14 @@ namespace Persistence
 
         public IEnumerable<User> Elements => GetElementsThat();
 
-        public int AddNewUser(User userToAdd)
+        public void AddNewUser(User userToAdd)
         {
             Add(userToAdd);
-            return userToAdd.Id;
         }
 
         public bool ExistsUserWithUsername(string usernameToLookup)
         {
-            return elements.Any(u => u.Username == usernameToLookup);
+            return elements.Any(u => u.Username.Equals(usernameToLookup));
         }
 
         public User GetUserWithUsername(string usernameToFind)

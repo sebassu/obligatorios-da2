@@ -14,15 +14,14 @@ namespace Persistence
 
         public IEnumerable<Vehicle> Elements => GetElementsThat();
 
-        public int AddNewVehicle(Vehicle vehicleToAdd)
+        public void AddNewVehicle(Vehicle vehicleToAdd)
         {
             Add(vehicleToAdd);
-            return vehicleToAdd.Id;
         }
 
         public bool ExistsVehicleWithVIN(string VINToLookup)
         {
-            return elements.Any(v => v.VIN == VINToLookup);
+            return elements.Any(v => v.VIN.Equals(VINToLookup));
         }
 
         public Vehicle GetVehicleWithVIN(string vinToFind)

@@ -6,7 +6,7 @@ namespace API.Services
 {
     public interface IUserServices
     {
-        void AddNewUserFromData(UserDTO userToAdd);
+        int AddNewUserFromData(UserDTO userToAdd);
         IEnumerable<UserDTO> GetRegisteredUsers();
         UserDTO GetUserByUsername(string usernameToLookup);
         void ModifyUserWithUsername(string usernameToModify,

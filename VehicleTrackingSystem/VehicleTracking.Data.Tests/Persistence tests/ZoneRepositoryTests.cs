@@ -115,6 +115,24 @@ namespace Data.Tests.Persistence_tests
         }
         #endregion
 
+        #region ExistsZoneWithName tests
+        [TestMethod]
+        public void ZRepositoryExistsZoneWithNameValidTest()
+        {
+            Zone zoneToVerify = Zone.CreateNewZone("El habitual espacio", 6);
+            AddNewZoneAndSaveChanges(zoneToVerify);
+            bool result = testingZoneRepository.ExistsZoneWithName("El habitual espacio");
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ZRepositoryExistsZoneWithUnaddedNameValidTest()
+        {
+            bool result = testingZoneRepository.ExistsZoneWithName("Voglio entrare");
+            Assert.IsFalse(result);
+        }
+        #endregion
+
         private static void AddNewZoneAndSaveChanges(Zone testingZone)
         {
             testingZoneRepository.AddNewZone(testingZone);

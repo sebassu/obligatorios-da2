@@ -13,10 +13,17 @@ namespace Web.API.Tests.Services_Tests
     [ExcludeFromCodeCoverage]
     public class VehicleServicesTests
     {
-        private static VehicleServices testingVehicleServices = new VehicleServices();
-        private static Vehicle testingVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR,
+        private static readonly VehicleServices testingVehicleServices = new VehicleServices();
+        private static readonly Vehicle testingVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR,
             "Ferrari", "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS");
-        private static VehicleDTO testingVehicleData = VehicleDTO.FromVehicle(testingVehicle);
+        private static readonly VehicleDTO testingVehicleData = VehicleDTO.FromVehicle(testingVehicle);
+
+        [TestMethod]
+        public void VServicesDefaultParameterlessConstructorTest()
+        {
+            Assert.IsNotNull(testingVehicleServices.Model);
+            Assert.IsNotNull(testingVehicleServices.Vehicles);
+        }
 
         #region AddNewVehicleFromData tests
         [TestMethod]
@@ -28,17 +35,6 @@ namespace Web.API.Tests.Services_Tests
             var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
             vehicleServices.AddNewVehicleFromData(testingVehicleData);
             mockUnitOfWork.Verify();
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ServiceException))]
-        public void VServicesAddNewVehicleFromDataAlreadyRegisteredVINInvalidTest()
-        {
-            var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(u => u.Vehicles.ExistsVehicleWithVIN(
-                testingVehicleData.VIN)).Returns(true);
-            var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
-            vehicleServices.AddNewVehicleFromData(testingVehicleData);
         }
 
         [TestMethod]
@@ -104,12 +100,12 @@ namespace Web.API.Tests.Services_Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
+        [ExpectedException(typeof(ServiceException))]
         public void VServicesAddNewVehicleWithRepeatedVINInvalidTest()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(v => v.Vehicles.AddNewVehicle(It.IsAny<Vehicle>())).
-                Throws(new RepositoryException(""));
+            mockUnitOfWork.Setup(u => u.Vehicles.ExistsVehicleWithVIN(
+                testingVehicleData.VIN)).Returns(true);
             var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
             vehicleServices.AddNewVehicleFromData(testingVehicleData);
         }

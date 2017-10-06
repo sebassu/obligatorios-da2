@@ -5,9 +5,11 @@ namespace Persistence
 {
     public interface IZoneRepository
     {
+        void AddNewZone(Zone zoneToAdd);
         IEnumerable<Zone> Elements { get; }
-        int AddNewZone(Zone zoneToAdd);
+        Zone GetZoneWithName(string nameToFind);
         void UpdateZone(Zone zoneToModify);
         void RemoveZoneWithName(string nameToRemove);
+        bool ExistsZoneWithName(string username);
     }
 }

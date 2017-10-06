@@ -41,7 +41,9 @@ namespace API.Services
             if (vinIsNotRegistered)
             {
                 Vehicle vehicleToAdd = vehicleDataToAdd.ToVehicle();
-                return Vehicles.AddNewVehicle(vehicleToAdd);
+                Vehicles.AddNewVehicle(vehicleToAdd);
+                Model.SaveChanges();
+                return vehicleToAdd.Id;
             }
             else
             {
@@ -88,6 +90,7 @@ namespace API.Services
                 Vehicle vehicleFound = Vehicles.GetVehicleWithVIN(vinToModify);
                 vehicleData.SetDataToVehicle(vehicleFound);
                 Vehicles.UpdateVehicle(vehicleFound);
+                Model.SaveChanges();
             }
         }
 
@@ -100,6 +103,7 @@ namespace API.Services
         public void RemoveVehicleWithVIN(string vinToRemove)
         {
             Vehicles.RemoveVehicleWithVIN(vinToRemove);
+            Model.SaveChanges();
         }
     }
 }

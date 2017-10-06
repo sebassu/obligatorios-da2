@@ -5,7 +5,7 @@ namespace Persistence
 {
     public interface IVehicleRepository
     {
-        int AddNewVehicle(Vehicle vehicleToAdd);
+        void AddNewVehicle(Vehicle vehicleToAdd);
         IEnumerable<Vehicle> Elements { get; }
         bool ExistsVehicleWithVIN(string usernameToLookup);
         Vehicle GetVehicleWithVIN(string vinToLookup);

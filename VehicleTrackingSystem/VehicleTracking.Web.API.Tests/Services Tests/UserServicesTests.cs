@@ -13,10 +13,10 @@ namespace Web.API.Services_Tests
     [ExcludeFromCodeCoverage]
     public class UserServicesTests
     {
-        private static UserServices testingUserServices = new UserServices();
-        private static User testingUser = User.CreateNewUser(UserRoles.PORT_OPERATOR, "Emilio",
+        private static readonly UserServices testingUserServices = new UserServices();
+        private static readonly User testingUser = User.CreateNewUser(UserRoles.PORT_OPERATOR, "Emilio",
             "Ravenna", "eRavenna", "HablarUnasPalabritas", "091696969");
-        private static UserDTO testingUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
+        private static readonly UserDTO testingUserData = UserDTO.FromData(UserRoles.PORT_OPERATOR, "Emilio",
             "Ravenna", "eRavenna", "HablarUnasPalabritas", "091696969");
 
         [TestMethod]
@@ -25,51 +25,6 @@ namespace Web.API.Services_Tests
             Assert.IsNotNull(testingUserServices.Model);
             Assert.IsNotNull(testingUserServices.Users);
         }
-
-        #region GetRegisteredUsers tests
-        [TestMethod]
-        public void UServicesGetRegisteredUsersWithDataTest()
-        {
-            var someUsers = GetCollectionOfFakeUsers();
-            var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(u => u.Users.Elements).Returns(someUsers).Verifiable();
-            var userServices = new UserServices(mockUnitOfWork.Object);
-            var result = userServices.GetRegisteredUsers().ToList();
-            mockUnitOfWork.Verify();
-            CollectionAssert.AreEqual(GetCollectionOfFakeUserDTOs(), result);
-        }
-
-        private IEnumerable<User> GetCollectionOfFakeUsers()
-        {
-            return new List<User>
-            {
-                User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos", "mSantos",
-                    "DisculpeFuegoTiene", "099424242"),
-                User.CreateNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
-                    "pLamponne", "NoHaceFalta", "099212121")
-            }.AsReadOnly();
-        }
-
-        private List<UserDTO> GetCollectionOfFakeUserDTOs()
-        {
-            var result = new List<UserDTO>();
-            foreach (var user in GetCollectionOfFakeUsers())
-            {
-                result.Add(UserDTO.FromUser(user));
-            }
-            return result;
-        }
-
-        [TestMethod]
-        public void UServicesGetRegisteredUsersNoDataTest()
-        {
-            var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(u => u.Users.Elements).Returns(new List<User>());
-            var userServices = new UserServices(mockUnitOfWork.Object);
-            CollectionAssert.AreEqual(new List<UserDTO>(),
-                userServices.GetRegisteredUsers().ToList());
-        }
-        #endregion
 
         #region AddNewUserFromData tests
         [TestMethod]
@@ -81,17 +36,6 @@ namespace Web.API.Services_Tests
             var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.AddNewUserFromData(testingUserData);
             mockUnitOfWork.Verify();
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ServiceException))]
-        public void UServicesAddNewUserFromDataAlreadyRegisteredUsernameInvalidTest()
-        {
-            var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(u => u.Users.ExistsUserWithUsername(
-                testingUserData.Username)).Returns(true);
-            var userServices = new UserServices(mockUnitOfWork.Object);
-            userServices.AddNewUserFromData(testingUserData);
         }
 
         [TestMethod]
@@ -156,14 +100,59 @@ namespace Web.API.Services_Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
+        [ExpectedException(typeof(ServiceException))]
         public void UServicesAddNewUserWithRepeatedUsernameInvalidTest()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(u => u.Users.AddNewUser(It.IsAny<User>())).
-                Throws(new RepositoryException(""));
+            mockUnitOfWork.Setup(u => u.Users.ExistsUserWithUsername(
+                testingUserData.Username)).Returns(true);
             var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.AddNewUserFromData(testingUserData);
+        }
+        #endregion
+
+        #region GetRegisteredUsers tests
+        [TestMethod]
+        public void UServicesGetRegisteredUsersWithDataTest()
+        {
+            var someUsers = GetCollectionOfFakeUsers();
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.Elements).Returns(someUsers).Verifiable();
+            var userServices = new UserServices(mockUnitOfWork.Object);
+            var result = userServices.GetRegisteredUsers().ToList();
+            mockUnitOfWork.Verify();
+            CollectionAssert.AreEqual(GetCollectionOfFakeUserDTOs(), result);
+        }
+
+        private IEnumerable<User> GetCollectionOfFakeUsers()
+        {
+            return new List<User>
+            {
+                User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos", "mSantos",
+                    "DisculpeFuegoTiene", "099424242"),
+                User.CreateNewUser(UserRoles.TRANSPORTER, "Pablo", "Lamponne",
+                    "pLamponne", "NoHaceFalta", "099212121")
+            }.AsReadOnly();
+        }
+
+        private List<UserDTO> GetCollectionOfFakeUserDTOs()
+        {
+            var result = new List<UserDTO>();
+            foreach (var user in GetCollectionOfFakeUsers())
+            {
+                result.Add(UserDTO.FromUser(user));
+            }
+            return result;
+        }
+
+        [TestMethod]
+        public void UServicesGetRegisteredUsersNoDataTest()
+        {
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Users.Elements).Returns(new List<User>());
+            var userServices = new UserServices(mockUnitOfWork.Object);
+            CollectionAssert.AreEqual(new List<UserDTO>(),
+                userServices.GetRegisteredUsers().ToList());
         }
         #endregion
 

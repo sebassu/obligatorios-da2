@@ -5,9 +5,9 @@ namespace Persistence
 {
     public interface IUserRepository
     {
+        void AddNewUser(User userToAdd);
         IEnumerable<User> Elements { get; }
         User GetUserWithUsername(string usernameToLookup);
-        int AddNewUser(User userToAdd);
         void UpdateUser(User userToModify);
         void RemoveUserWithUsername(string usernameToRemove);
         bool ExistsUserWithUsername(string usernameToLookup);
