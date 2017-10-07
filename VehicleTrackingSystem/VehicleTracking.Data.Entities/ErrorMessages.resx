@@ -132,8 +132,8 @@
   <data name="ImageIsInvalid" xml:space="preserve">
     <value>La imagen recibida no es válida.</value>
   </data>
-  <data name="ListIsInvalid" xml:space="preserve">
-    <value>La lista no puede ser vacia. Debe contener al menos un objeto.</value>
+  <data name="CollectionIsInvalid" xml:space="preserve">
+    <value>La lista no puede ser vacia. Debe contener al menos un objeto, y no contener elementos repetidos.</value>
   </data>
   <data name="LocationIsInvalid" xml:space="preserve">
     <value>Se debe seleccionar un lugar para poder proceder.</value>
@@ -151,7 +151,7 @@
     <value>Número telefónico inválido: "{0}". Se aceptan únicamente teléfonos siguiendo el formato uruguayo.</value>
   </data>
   <data name="ResponsibleUserIsInvalid" xml:space="preserve">
-    <value>Usuario inválido. Los usuarios de tipo "{0}" no pueden realizar la acción deseada.</value>
+    <value>Usuario inválido. Es necesario contar con mayores privilegios para poder completar la acción seleccionada.</value>
   </data>
   <data name="UsernameIsInvalid" xml:space="preserve">
     <value>El usuario "{0}" es inválido: se permiten únicamente aquellos no vacíos con letras o números, sin espacios.</value>
@@ -166,7 +166,7 @@
     <value>Año inválido: "{0}". El año no puede ser mayor al actual ni menor a 1900.</value>
   </data>
   <data name="InvalidVehicleCollectionForLot" xml:space="preserve">
-    <value>Error: la colección de vehículos a agregar al lote no puede ser vacía, ni puede contener vehículos ya asociados a otros lotes.</value>
+    <value>Error: la colección de vehículos a agregar al lote no puede ser vacía, ni puede contener vehículos ya asociados a otros lotes o repetidos.</value>
   </data>
   <data name="LotUnauthorizedUserType" xml:space="preserve">
     <value>Es necesario estar registrado como "Operario de Puerto" o "Administrador" para poder registrar Lotes.</value>
@@ -187,15 +187,45 @@
     <value>{0} inválido: "{1}". Solamente se permite ingresar caracteres alfabéticos con espacios y/o números para este campo.</value>
   </data>
   <data name="CapacityIsInvalid" xml:space="preserve">
-    <value>{0} "{1}" inválida. La misma debe ser mayor o igual a 1.</value>
+    <value>Capacidad de "{0}" inválida. La misma debe ser mayor o igual a {1}.</value>
   </data>
   <data name="ZoneIsInvalid" xml:space="preserve">
     <value>La zona no puede ser nula.</value>
   </data>
-  <data name="SubzoneIsInvalid" xml:space="preserve">
-    <value>La zona de {0}  no puede ser nula.</value>
+  <data name="ArrivalIsInvalid" xml:space="preserve">
+    <value>La subzona de llegada no puede ser nula ni igual a la de partida; el vehículo no sería movido.</value>
   </data>
-  <data name="SubzoneArrivalIsInvalid" xml:space="preserve">
-    <value>La zona de partida no puede ser nula ni igual a la de llegada.</value>
+  <data name="DepartureIsInvalid" xml:space="preserve">
+    <value>La subzona de partida no puede ser igual a la de llegada; no resulta un movimiento válido.</value>
+  </data>
+  <data name="InvalidLotsInTransport" xml:space="preserve">
+    <value>Error en la colección de lotes recibidos para un transporte: esta debe ser no vacía, y contener lotes no repetidos que aún no hayan sido transportados.</value>
+  </data>
+  <data name="MovementDateIsInvalid" xml:space="preserve">
+    <value>Error: la fecha para este movimiento no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a {0}.</value>
+  </data>
+  <data name="TransportEndDateIsInvalid" xml:space="preserve">
+    <value>La fecha de fin del transporte debe ser posterior a la de inicio.</value>
+  </data>
+  <data name="TransportStartDateIsInvalid" xml:space="preserve">
+    <value>La fecha de inicio del transporte es inválida: debe ser posterior a las fechas registradas para las inspecciones de puerto de los vehículos que contienen los lotes transportados.</value>
+  </data>
+  <data name="TransportUserTypeIsInvalid" xml:space="preserve">
+    <value>Error: Es necesario estar registrado como un usuario válido de tipo "Administrador" o "Transportador" para poder registrar transportes de lotes.</value>
+  </data>
+  <data name="UnknownLocationType" xml:space="preserve">
+    <value>Tipo de lugar desconocido recibido.</value>
+  </data>
+  <data name="UnknownUserRole" xml:space="preserve">
+    <value>Tipo de usuario desconocido recibido.</value>
+  </data>
+  <data name="ElementNotFound" xml:space="preserve">
+    <value>No se encontró al elemento en la colección.</value>
+  </data>
+  <data name="FullSubzone" xml:space="preserve">
+    <value>La subzona a la que se intenta agregar un vehículo se encuentra llena.</value>
+  </data>
+  <data name="SubzoneIsInvalidForZone" xml:space="preserve">
+    <value>No es posible agregar esta subzona: una zona no puede contener subzonas repetidas, ni superarse la capacidad de ésta por la suma de las capacidades de sus subzonas.</value>
   </data>
 </root>

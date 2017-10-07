@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Globalization;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Domain
 {
     public class Lot
     {
-        private static readonly IReadOnlyCollection<UserRoles> ValidCreatorRoles =
+        private static readonly IReadOnlyCollection<UserRoles> validCreatorRoles =
             new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR }.AsReadOnly();
+
+        public int Id { get; set; }
 
         public User Creator { get; }
 
@@ -77,17 +79,29 @@ namespace Domain
             }
         }
 
+        internal void FinalizeTransport()
+        {
+            WasTransported = true;
+            foreach (var vehicle in vehicles)
+            {
+                vehicle.SetTransportEndData();
+            }
+        }
+
+        public bool WasTransported { get; set; }
+
         private bool IsValidVehicleListToSet(ICollection<Vehicle> vehiclesToSet)
         {
-            bool isNonEmpty = Utilities.IsNotNull(vehiclesToSet) && vehiclesToSet.Any();
-            return isNonEmpty && vehiclesToSet.Except(vehicles).All(v => !v.IsLotted);
+            bool nonEmptyAndContainsNoDuplicates = Utilities.IsValidItemEnumeration(vehiclesToSet);
+            return nonEmptyAndContainsNoDuplicates &&
+                vehiclesToSet.Except(vehicles).All(v => !v.IsLotted);
         }
 
         private void MarkRemovedVehiclesAsUnlotted(ICollection<Vehicle> vehiclesToSet)
         {
             foreach (var vehicle in vehicles.Except(vehiclesToSet))
             {
-                vehicle.IsLotted = false;
+                vehicle.PortLot = null;
             }
         }
 
@@ -95,7 +109,7 @@ namespace Domain
         {
             foreach (var vehicle in vehiclesToSet.Except(vehicles))
             {
-                vehicle.IsLotted = true;
+                vehicle.PortLot = this;
             }
         }
 
@@ -132,10 +146,24 @@ namespace Domain
             }
         }
 
+        internal bool IsReadyForTransport()
+        {
+            return vehicles.All(v => v.IsReadyForTransport());
+        }
+
         private bool CreatorIsValid(User someUser)
         {
             return Utilities.IsNotNull(someUser) &&
-                ValidCreatorRoles.Contains(someUser.Role);
+                validCreatorRoles.Contains(someUser.Role);
+        }
+
+        internal void MarkAsTransported(Transport associatedTransport)
+        {
+            WasTransported = true;
+            foreach (var vehicle in vehicles)
+            {
+                vehicle.SetTransportStartData(associatedTransport);
+            }
         }
     }
 }

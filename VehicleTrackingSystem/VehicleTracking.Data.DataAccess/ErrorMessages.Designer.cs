@@ -61,15 +61,6 @@ namespace Persistence {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Acción inválida: no es posible eliminar a todos los administradores del sistema..
-        /// </summary>
-        internal static string CannotRemoveAllAdministrators {
-            get {
-                return ResourceManager.GetString("CannotRemoveAllAdministrators", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error: No se pudo encontrar al {0} con ID {1}..
         /// </summary>
         internal static string CouldNotFindElement {
@@ -79,11 +70,11 @@ namespace Persistence {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El nombre de usuario &quot;{0}&quot; no se encuentra registrado en el sistema..
+        ///   Looks up a localized string similar to Error: el {0} &quot;{1}&quot; no se encuentra registrado en el sistema..
         /// </summary>
-        internal static string CouldNotFindUser {
+        internal static string CouldNotFindField {
             get {
-                return ResourceManager.GetString("CouldNotFindUser", resourceCulture);
+                return ResourceManager.GetString("CouldNotFindField", resourceCulture);
             }
         }
         
@@ -124,7 +115,7 @@ namespace Persistence {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error. Se recibió un elemento nulo..
+        ///   Looks up a localized string similar to Se recibió una referencia a objeto nula con la que interactuar en un Repository..
         /// </summary>
         internal static string NullObjectRecieved {
             get {
@@ -140,7 +131,7 @@ namespace Persistence {
                 return ResourceManager.GetString("SubzoneNameMustBeUniqueSameZone", resourceCulture);
             }
         }
-       
+        
         /// <summary>
         ///   Looks up a localized string similar to No es posible completar la acción. El nombre ingresado ya se encuentra registrado en el sistema..
         /// </summary>

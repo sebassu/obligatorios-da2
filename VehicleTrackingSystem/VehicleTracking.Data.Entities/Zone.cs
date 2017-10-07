@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Domain
 {
     public class Zone
     {
         public int Id { get; set; }
-
-        public List<Subzone> Subzones { get; set; }
 
         private string name;
         public string Name
@@ -31,7 +30,7 @@ namespace Domain
 
         protected bool IsValidName(string value)
         {
-            return Utilities.ContainsLettersOrSpacesOrDigitsOnly(value);
+            return Utilities.ContainsLettersSpacesOrDigitsOnly(value);
         }
 
         private int capacity;
@@ -47,9 +46,44 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.CapacityIsInvalid, "Capacidad", value);
+                        ErrorMessages.CapacityIsInvalid, value, usedCapacity);
                     throw new ZoneException(errorMessage);
                 }
+            }
+        }
+
+        private int usedCapacity = 0;
+
+        public void AddSubzone(Subzone subzoneToAdd)
+        {
+            bool isValidSubzone = Utilities.IsNotNull(subzoneToAdd) &&
+                DoesNotExceedMaximumCapacity(subzoneToAdd) &&
+                !Subzones.Any(s => s.Name.Equals(subzoneToAdd.Name));
+            if (isValidSubzone)
+            {
+                Subzones.Add(subzoneToAdd);
+                usedCapacity += subzoneToAdd.Capacity;
+            }
+            else
+            {
+                throw new ZoneException(ErrorMessages.SubzoneIsInvalidForZone);
+            }
+        }
+
+        private bool DoesNotExceedMaximumCapacity(Subzone subzoneToAdd)
+        {
+            return subzoneToAdd.Capacity + usedCapacity <= Capacity;
+        }
+
+        public void RemoveSubzone(Subzone subzoneToRemove)
+        {
+            if (Subzones.Remove(subzoneToRemove))
+            {
+                usedCapacity -= subzoneToRemove.Capacity;
+            }
+            else
+            {
+                throw new ZoneException(ErrorMessages.ElementNotFound);
             }
         }
 
@@ -58,6 +92,9 @@ namespace Domain
             return Utilities.ValidMinimumCapacity(value);
         }
 
+        public ICollection<Subzone> Subzones { get; set; }
+            = new List<Subzone>();
+
         internal static Zone InstanceForTestingPurposes()
         {
             return new Zone();
@@ -65,8 +102,8 @@ namespace Domain
 
         protected Zone()
         {
-            name = "Zone 1";
-            capacity = 9;
+            name = "Zona inválida";
+            capacity = int.MaxValue;
         }
 
         public static Zone CreateNewZone(String name, int capacity)
@@ -78,7 +115,6 @@ namespace Domain
         {
             Name = nameToSet;
             Capacity = capacityToSet;
-            Subzones = new List<Subzone>();
         }
 
         public override bool Equals(object obj)
@@ -97,6 +133,11 @@ namespace Domain
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
     }
 }

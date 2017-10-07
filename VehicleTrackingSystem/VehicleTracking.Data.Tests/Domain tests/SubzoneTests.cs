@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using Domain;
@@ -11,23 +9,23 @@ namespace Data.Tests.Domain_tests
     [ExcludeFromCodeCoverage]
     public class SubzoneTests
     {
-        private static Subzone testingSubzone;
-        private static List<Subzone> subzoneList;
         private static Zone testingZone;
+        private static Subzone testingSubzone;
+        private static readonly IReadOnlyList<Subzone> subzoneList =
+            new List<Subzone> { testingSubzone }.AsReadOnly();
 
         [TestInitialize]
         public void TestSetup()
         {
-            testingSubzone = Subzone.InstanceForTestingPurposes();
-            subzoneList = new List<Subzone> { testingSubzone };
             testingZone = Zone.InstanceForTestingPurposes();
+            testingSubzone = Subzone.InstanceForTestingPurposes();
         }
 
         [TestMethod]
         public void SubzoneForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingSubzone.Id);
-            Assert.AreEqual("Subzone 1", testingSubzone.Name);
+            Assert.AreEqual("Subzona inválida", testingSubzone.Name);
             Assert.AreEqual(3, testingSubzone.Capacity);
             Assert.AreEqual(testingZone, testingSubzone.Container);
         }
@@ -103,9 +101,8 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(alternativeZone, testingSubzone.Container);
         }
 
-        [ExpectedException(typeof(SubzoneException))]
         [TestMethod]
-        public void SubzoneSetInvalidContainerZoneNullTest()
+        public void SubzoneSetNullContainerValidTest()
         {
             testingSubzone.Container = null;
         }
@@ -158,9 +155,11 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void SubzoneEqualsTransitiveTest()
         {
+            Zone zone2 = Zone.InstanceForTestingPurposes();
+            Zone zone3 = Zone.InstanceForTestingPurposes();
             testingSubzone = Subzone.CreateNewSubzone("Subzone1", 4, testingZone);
-            Subzone secondTestingSubzone = Subzone.CreateNewSubzone("Subzone1", 4, testingZone);
-            Subzone thirdTestingSubzone = Subzone.CreateNewSubzone("Subzone1", 4, testingZone);
+            Subzone secondTestingSubzone = Subzone.CreateNewSubzone("Subzone1", 4, zone2);
+            Subzone thirdTestingSubzone = Subzone.CreateNewSubzone("Subzone1", 4, zone3);
             Assert.AreEqual(testingSubzone, secondTestingSubzone);
             Assert.AreEqual(secondTestingSubzone, thirdTestingSubzone);
             Assert.AreEqual(testingSubzone, thirdTestingSubzone);
@@ -169,9 +168,10 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void SubzoneEqualsDifferentSubzonesTest()
         {
+            Zone zone2 = Zone.InstanceForTestingPurposes();
             testingSubzone = Subzone.CreateNewSubzone("Subzone1", 8, testingZone);
             testingSubzone.Id = 1;
-            Subzone secondTestingSubzone = Subzone.CreateNewSubzone("Subzone1", 8, testingZone);
+            Subzone secondTestingSubzone = Subzone.CreateNewSubzone("Subzone1", 8, zone2);
             secondTestingSubzone.Id = 2;
             Assert.AreNotEqual(testingSubzone, secondTestingSubzone);
         }
@@ -193,7 +193,62 @@ namespace Data.Tests.Domain_tests
         public void SubzoneGetHashCodeTest()
         {
             object testingSubzoneAsObject = testingSubzone;
-            Assert.AreEqual(testingSubzoneAsObject.GetHashCode(), testingSubzone.GetHashCode());
+            Assert.AreEqual(testingSubzoneAsObject.GetHashCode(),
+                testingSubzone.GetHashCode());
+        }
+
+        [TestMethod]
+        public void SubzoneSetVehiclesValidTest()
+        {
+            var vehiclesToSet = new List<Vehicle>();
+            testingSubzone.Vehicles = vehiclesToSet;
+            Assert.AreSame(vehiclesToSet, testingSubzone.Vehicles);
+        }
+
+        [TestMethod]
+        public void SubzoneToStringTest1()
+        {
+            Assert.AreEqual("Zona inválida/Subzona inválida",
+                testingSubzone.ToString());
+        }
+
+        [TestMethod]
+        public void SubzoneToStringTest2()
+        {
+            testingSubzone.Container.Name = "A";
+            testingSubzone.Name = "B";
+            Assert.AreEqual("A/B", testingSubzone.ToString());
+        }
+
+        [TestMethod]
+        public void SubzoneCanAddValidTest()
+        {
+            Vehicle someVehicle = Vehicle.InstanceForTestingPurposes();
+            Assert.IsTrue(testingSubzone.CanAdd(someVehicle));
+        }
+
+        [TestMethod]
+        public void SubzoneCanAddRepeatedVehicleInvalidTest()
+        {
+            Vehicle someVehicle = Vehicle.InstanceForTestingPurposes();
+            testingSubzone.Vehicles.Add(someVehicle);
+            Assert.IsFalse(testingSubzone.CanAdd(someVehicle));
+        }
+
+        [TestMethod]
+        public void SubzoneCanAddNullVehicleInvalidTest()
+        {
+            Assert.IsFalse(testingSubzone.CanAdd(null));
+        }
+
+        [TestMethod]
+        public void SubzoneCanAddExceedingMaximumCapacityInvalidTest()
+        {
+            testingSubzone.Capacity = 1;
+            Vehicle someVehicle = Vehicle.InstanceForTestingPurposes();
+            testingSubzone.Vehicles.Add(someVehicle);
+            Vehicle someOtherVehicle = Vehicle.InstanceForTestingPurposes();
+            Assert.IsFalse(testingSubzone.CanAdd(someOtherVehicle));
         }
     }
 }

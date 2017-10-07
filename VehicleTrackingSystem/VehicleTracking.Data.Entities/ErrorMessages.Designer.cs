@@ -61,6 +61,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La subzona de llegada no puede ser nula ni igual a la de partida; el vehículo no sería movido..
+        /// </summary>
+        internal static string ArrivalIsInvalid {
+            get {
+                return ResourceManager.GetString("ArrivalIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Marca inválida: &quot;{0}&quot;. Solo se permite ingresar caracteres alfabéticos o espacios para este campo requerido..
         /// </summary>
         internal static string BrandIsInvalid {
@@ -70,11 +79,20 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} &quot;{1}&quot; inválida. La misma debe ser mayor o igual a 1..
+        ///   Looks up a localized string similar to Capacidad de &quot;{0}&quot; inválida. La misma debe ser mayor o igual a {1}..
         /// </summary>
         internal static string CapacityIsInvalid {
             get {
                 return ResourceManager.GetString("CapacityIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La lista no puede ser vacia. Debe contener al menos un objeto, y no contener elementos repetidos..
+        /// </summary>
+        internal static string CollectionIsInvalid {
+            get {
+                return ResourceManager.GetString("CollectionIsInvalid", resourceCulture);
             }
         }
         
@@ -97,6 +115,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La subzona de partida no puede ser igual a la de llegada; no resulta un movimiento válido..
+        /// </summary>
+        internal static string DepartureIsInvalid {
+            get {
+                return ResourceManager.GetString("DepartureIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La descripción no es válida, no puede ser vacia..
         /// </summary>
         internal static string DescriptionIsInvalid {
@@ -106,11 +133,29 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No se encontró al elemento en la colección..
+        /// </summary>
+        internal static string ElementNotFound {
+            get {
+                return ResourceManager.GetString("ElementNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: la etapa actual es la etapa final del Proceso..
         /// </summary>
         internal static string EndOfProcess {
             get {
                 return ResourceManager.GetString("EndOfProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La subzona a la que se intenta agregar un vehículo se encuentra llena..
+        /// </summary>
+        internal static string FullSubzone {
+            get {
+                return ResourceManager.GetString("FullSubzone", resourceCulture);
             }
         }
         
@@ -133,6 +178,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error en la colección de lotes recibidos para un transporte: esta debe ser no vacía, y contener lotes no repetidos que aún no hayan sido transportados..
+        /// </summary>
+        internal static string InvalidLotsInTransport {
+            get {
+                return ResourceManager.GetString("InvalidLotsInTransport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se intentó realizar una operación inválida para el estado actual del vehículo en el proceso..
         /// </summary>
         internal static string InvalidOperationOnVehicle {
@@ -142,20 +196,11 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: la colección de vehículos a agregar al lote no puede ser vacía, ni puede contener vehículos ya asociados a otros lotes..
+        ///   Looks up a localized string similar to Error: la colección de vehículos a agregar al lote no puede ser vacía, ni puede contener vehículos ya asociados a otros lotes o repetidos..
         /// </summary>
         internal static string InvalidVehicleCollectionForLot {
             get {
                 return ResourceManager.GetString("InvalidVehicleCollectionForLot", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to La lista no puede ser vacia. Debe contener al menos un objeto..
-        /// </summary>
-        internal static string ListIsInvalid {
-            get {
-                return ResourceManager.GetString("ListIsInvalid", resourceCulture);
             }
         }
         
@@ -183,6 +228,15 @@ namespace Domain {
         internal static string ModelIsInvalid {
             get {
                 return ResourceManager.GetString("ModelIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: la fecha para este movimiento no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a {0}..
+        /// </summary>
+        internal static string MovementDateIsInvalid {
+            get {
+                return ResourceManager.GetString("MovementDateIsInvalid", resourceCulture);
             }
         }
         
@@ -223,7 +277,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usuario inválido. Los usuarios de tipo &quot;{0}&quot; no pueden realizar la acción deseada..
+        ///   Looks up a localized string similar to Usuario inválido. Es necesario contar con mayores privilegios para poder completar la acción seleccionada..
         /// </summary>
         internal static string ResponsibleUserIsInvalid {
             get {
@@ -232,20 +286,56 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La zona de partida no puede ser nula ni igual a la de llegada..
+        ///   Looks up a localized string similar to No es posible agregar esta subzona: una zona no puede contener subzonas repetidas, ni superarse la capacidad de ésta por la suma de las capacidades de sus subzonas..
         /// </summary>
-        internal static string SubzoneArrivalIsInvalid {
+        internal static string SubzoneIsInvalidForZone {
             get {
-                return ResourceManager.GetString("SubzoneArrivalIsInvalid", resourceCulture);
+                return ResourceManager.GetString("SubzoneIsInvalidForZone", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La zona de {0}  no puede ser nula..
+        ///   Looks up a localized string similar to La fecha de fin del transporte debe ser posterior a la de inicio..
         /// </summary>
-        internal static string SubzoneIsInvalid {
+        internal static string TransportEndDateIsInvalid {
             get {
-                return ResourceManager.GetString("SubzoneIsInvalid", resourceCulture);
+                return ResourceManager.GetString("TransportEndDateIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La fecha de inicio del transporte es inválida: debe ser posterior a las fechas registradas para las inspecciones de puerto de los vehículos que contienen los lotes transportados..
+        /// </summary>
+        internal static string TransportStartDateIsInvalid {
+            get {
+                return ResourceManager.GetString("TransportStartDateIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Es necesario estar registrado como un usuario válido de tipo &quot;Administrador&quot; o &quot;Transportador&quot; para poder registrar transportes de lotes..
+        /// </summary>
+        internal static string TransportUserTypeIsInvalid {
+            get {
+                return ResourceManager.GetString("TransportUserTypeIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo de lugar desconocido recibido..
+        /// </summary>
+        internal static string UnknownLocationType {
+            get {
+                return ResourceManager.GetString("UnknownLocationType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo de usuario desconocido recibido..
+        /// </summary>
+        internal static string UnknownUserRole {
+            get {
+                return ResourceManager.GetString("UnknownUserRole", resourceCulture);
             }
         }
         

@@ -12,12 +12,13 @@ namespace Data.Persistence_Tests
     public class VehicleRepositoryTests
     {
         private string unaddedVIN = "Wolololololololoo";
-        private static VehicleRepository testingVehicleRepository;
+        private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();
+        private static IVehicleRepository testingVehicleRepository;
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
         {
-            testingVehicleRepository = new VehicleRepository();
+            testingVehicleRepository = testingUnitOfWork.Vehicles;
         }
 
         [TestMethod]
@@ -25,7 +26,7 @@ namespace Data.Persistence_Tests
         {
             Vehicle vehicleToAdd = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR1");
-            testingVehicleRepository.AddNewVehicle(vehicleToAdd);
+            AddNewVehicleAndSave(vehicleToAdd);
             CollectionAssert.Contains(testingVehicleRepository.Elements.ToList(), vehicleToAdd);
         }
 
@@ -36,37 +37,36 @@ namespace Data.Persistence_Tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR2");
             Vehicle vehicleToVerify = Vehicle.InstanceForTestingPurposes();
             vehicleToVerify.VIN = "RUSH2112MVNGPICR2";
-            testingVehicleRepository.AddNewVehicle(addedVehicle);
+            AddNewVehicleAndSave(addedVehicle);
             CollectionAssert.Contains(testingVehicleRepository.Elements.ToList(), vehicleToVerify);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
-        public void VRepositoryAddRepeatedVehicleInvalidTest()
+        public void VRepositoryAddRepeatedVehicleValidTest()
         {
             Vehicle addedVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR3");
-            testingVehicleRepository.AddNewVehicle(addedVehicle);
-            testingVehicleRepository.AddNewVehicle(addedVehicle);
+            AddNewVehicleAndSave(addedVehicle);
+            AddNewVehicleAndSave(addedVehicle);
+            CollectionAssert.Contains(testingVehicleRepository.Elements.ToList(), addedVehicle);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
-        public void VRepositoryAddNewVehicleRepeatedVINInvalidTest()
+        public void VRepositoryAddNewVehicleRepeatedVINValidTest()
         {
             Vehicle someVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR4");
             Vehicle someOtherVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "BMW",
                 "Modelname", 2001, "Purple", "RUSH2112MVNGPICR4");
-            testingVehicleRepository.AddNewVehicle(someVehicle);
-            testingVehicleRepository.AddNewVehicle(someOtherVehicle);
+            AddNewVehicleAndSave(someVehicle);
+            AddNewVehicleAndSave(someOtherVehicle);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(RepositoryException))]
         public void VRepositoryAddNullVehicleInvalidTest()
         {
-            testingVehicleRepository.AddNewVehicle(null);
+            AddNewVehicleAndSave(null);
         }
 
         [TestMethod]
@@ -74,8 +74,8 @@ namespace Data.Persistence_Tests
         {
             Vehicle vehicleToVerify = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR5");
-            testingVehicleRepository.AddNewVehicle(vehicleToVerify);
-            testingVehicleRepository.RemoveVehicleWithVIN(vehicleToVerify.VIN);
+            AddNewVehicleAndSave(vehicleToVerify);
+            RemoveVehicleWithVINAndSave(vehicleToVerify.VIN);
             CollectionAssert.DoesNotContain(testingVehicleRepository.Elements.ToList(), vehicleToVerify);
         }
 
@@ -85,14 +85,14 @@ namespace Data.Persistence_Tests
         {
             Vehicle vehicleToVerify = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR6");
-            testingVehicleRepository.RemoveVehicleWithVIN(vehicleToVerify.VIN);
+            RemoveVehicleWithVINAndSave(vehicleToVerify.VIN);
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void VRepositoryRemoveVehicleNullVINInvalidTest()
         {
-            testingVehicleRepository.RemoveVehicleWithVIN(null);
+            RemoveVehicleWithVINAndSave(null);
         }
 
         [TestMethod]
@@ -100,10 +100,10 @@ namespace Data.Persistence_Tests
         {
             Vehicle vehicleToModify = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR7");
-            testingVehicleRepository.AddNewVehicle(vehicleToModify);
+            AddNewVehicleAndSave(vehicleToModify);
             SetVehicleData(vehicleToModify, VehicleType.SUV, "Chevrolet", "Onix",
                 2016, "Green", "QWERTYUIO12345678");
-            testingVehicleRepository.UpdateVehicle(vehicleToModify);
+            UpdateVehicleAndSave(vehicleToModify);
             Assert.AreEqual(VehicleType.SUV, vehicleToModify.Type);
             Assert.AreEqual("Chevrolet", vehicleToModify.Brand);
             Assert.AreEqual("Onix", vehicleToModify.Model);
@@ -141,13 +141,14 @@ namespace Data.Persistence_Tests
             vehicleToModify.Year = yearToSet;
             vehicleToModify.Color = colorToSet;
             vehicleToModify.VIN = vinToSet;
+            UpdateVehicleAndSave(vehicleToModify);
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void VRepositoryModifyNullVehicleInvalidTest()
         {
-            testingVehicleRepository.UpdateVehicle(null);
+            UpdateVehicleAndSave(null);
         }
 
         [TestMethod]
@@ -156,7 +157,7 @@ namespace Data.Persistence_Tests
         {
             Vehicle notAddedVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS");
-            testingVehicleRepository.UpdateVehicle(notAddedVehicle);
+            UpdateVehicleAndSave(notAddedVehicle);
         }
 
         [TestMethod]
@@ -164,7 +165,7 @@ namespace Data.Persistence_Tests
         {
             Vehicle addedVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR9");
-            testingVehicleRepository.AddNewVehicle(addedVehicle);
+            AddNewVehicleAndSave(addedVehicle);
             Vehicle result = testingVehicleRepository.GetVehicleWithVIN("RUSH2112MVNGPICR9");
             Assert.AreEqual(addedVehicle, result);
         }
@@ -190,6 +191,24 @@ namespace Data.Persistence_Tests
             bool result = testingVehicleRepository.ExistsVehicleWithVIN(
                 unaddedVIN);
             Assert.IsFalse(result);
+        }
+
+        private static void AddNewVehicleAndSave(Vehicle vehicleToAdd)
+        {
+            testingVehicleRepository.AddNewVehicle(vehicleToAdd);
+            testingUnitOfWork.SaveChanges();
+        }
+
+        private void UpdateVehicleAndSave(Vehicle vehicleToModify)
+        {
+            testingVehicleRepository.UpdateVehicle(vehicleToModify);
+            testingUnitOfWork.SaveChanges();
+        }
+
+        private void RemoveVehicleWithVINAndSave(string vin)
+        {
+            testingVehicleRepository.RemoveVehicleWithVIN(vin);
+            testingUnitOfWork.SaveChanges();
         }
     }
 }

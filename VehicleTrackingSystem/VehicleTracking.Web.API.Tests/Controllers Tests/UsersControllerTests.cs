@@ -31,15 +31,17 @@ namespace Web.API.Controllers_Tests
         [TestMethod]
         public void UControllerAddNewUserFromDataValidTest()
         {
+            var idToVerify = 42;
             var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.AddNewUserFromData(fakeUserData));
+            mockUsersServices.Setup(u => u.AddNewUserFromData(fakeUserData))
+                .Returns(idToVerify);
             var controller = new UsersController(mockUsersServices.Object);
             IHttpActionResult obtainedResult = controller.AddNewUserFromData(fakeUserData);
             var result = obtainedResult as CreatedAtRouteNegotiatedContentResult<UserDTO>;
             mockUsersServices.VerifyAll();
             Assert.IsNotNull(result);
             Assert.AreEqual("VTSystemAPI", result.RouteName);
-            Assert.AreEqual(fakeUserData.Username, result.RouteValues["id"]);
+            Assert.AreEqual(idToVerify, result.RouteValues["id"]);
             Assert.AreEqual(fakeUserData, result.Content);
         }
 
@@ -61,7 +63,8 @@ namespace Web.API.Controllers_Tests
         {
             SystemException expectedException = new SystemException();
             var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.AddNewUserFromData(fakeUserData)).Throws(expectedException);
+            mockUsersServices.Setup(u => u.AddNewUserFromData(fakeUserData))
+                .Throws(expectedException);
             var controller = new UsersController(mockUsersServices.Object);
             ControllerTestsUtilities.VerifyMethodReturnsServerErrorResponse(delegate
             { return controller.AddNewUserFromData(fakeUserData); }, mockUsersServices, expectedException);

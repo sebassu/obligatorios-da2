@@ -26,6 +26,13 @@ namespace Data.Domain_Tests
         }
 
         [TestMethod]
+        public void DamageSetIdValidTest()
+        {
+            testingDamage.Id = 42;
+            Assert.AreEqual(42, testingDamage.Id);
+        }
+
+        [TestMethod]
         public void DamageSetValidDescriptionTest()
         {
             testingDamage.Description = "This damage has a new description";
@@ -61,47 +68,13 @@ namespace Data.Domain_Tests
         }
 
         [TestMethod]
-        public void DamageAddValidImageTest()
-        {
-            string img = "anotherNewImage";
-            testingDamage.AddImage(img);
-            Assert.IsTrue(testingDamage.Images.Contains(img));
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(DamageException))]
-        public void DamageAddInvalidImageEmptyTest()
-        {
-            testingDamage.AddImage("");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(DamageException))]
-        public void DamageAddInvalidImageOnlySpacesTest()
-        {
-            testingDamage.AddImage("    ");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(DamageException))]
-        public void DamageAddInvalidImageNullTest()
-        {
-            testingDamage.AddImage(null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(DamageException))]
-        public void DamageAddRepeatedImageInvalidTest()
-        {
-            testingDamage.AddImage("newImage");
-        }
-
-        [TestMethod]
         public void DamageSetValidImagesListTest()
         {
-            List<string> aux = new List<string>();
-            aux.Add("Image1");
-            aux.Add("Image2");
+            List<string> aux = new List<string>
+            {
+                "Image1",
+                "Image2"
+            };
             testingDamage.Images = aux;
             Assert.IsTrue(testingDamage.Images.SequenceEqual(aux));
         }
@@ -123,9 +96,11 @@ namespace Data.Domain_Tests
         [TestMethod]
         public void DamageParameterFactoryMethodValidTest()
         {
-            List<string> aux = new List<string>();
-            aux.Add("Image1");
-            aux.Add("Image2");
+            List<string> aux = new List<string>
+            {
+                "Image1",
+                "Image2"
+            };
             testingDamage = Damage.CreateNewDamage("A description", aux);
             Assert.AreEqual("A description", testingDamage.Description);
             Assert.IsTrue(aux.SequenceEqual(testingDamage.Images));
@@ -135,9 +110,11 @@ namespace Data.Domain_Tests
         [ExpectedException(typeof(DamageException))]
         public void DamageParameterFactoryMethodInvalidDescriptionTest()
         {
-            List<string> aux = new List<string>();
-            aux.Add("Image1");
-            aux.Add("Image2");
+            List<string> aux = new List<string>
+            {
+                "Image1",
+                "Image2"
+            };
             testingDamage = Damage.CreateNewDamage("", aux);
         }
 

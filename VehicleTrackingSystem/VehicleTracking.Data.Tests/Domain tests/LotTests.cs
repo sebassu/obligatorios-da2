@@ -24,6 +24,13 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
+        public void LotSetIdValidTest()
+        {
+            testingLot.Id = 42;
+            Assert.AreEqual(42, testingLot.Id);
+        }
+
+        [TestMethod]
         public void LotInstanceForTestingPurposesTest()
         {
             Assert.IsNull(testingLot.Creator);
@@ -272,6 +279,14 @@ namespace Data.Tests.Domain_tests
         {
             testingLot = Lot.CreatorNameDescriptionVehicles(testingCreator,
                 "Lote 3", "El lote tercero, lote número 3.", null);
+        }
+
+        [TestMethod]
+        public void LotWasTransportedValidTest()
+        {
+            Assert.IsFalse(testingLot.WasTransported);
+            testingLot.WasTransported = true;
+            Assert.IsTrue(testingLot.WasTransported);
         }
     }
 }

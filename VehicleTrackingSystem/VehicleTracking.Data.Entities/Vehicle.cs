@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Domain
 {
@@ -125,16 +126,48 @@ namespace Domain
             }
         }
 
-        public bool IsLotted { get; internal set; }
-
         protected bool IsValidVIN(string value)
         {
             return Utilities.IsValidVIN(value);
         }
 
+        public ProcessData CurrentState { get; set; }
+
+        public bool IsLotted => Utilities.IsNotNull(CurrentState.PortLot);
+        public ProcessStages CurrentStage => CurrentState.CurrentStage;
+        public Inspection PortInspection => CurrentState.PortInspection;
+        public Inspection YardInspection => CurrentState.YardInspection;
+
+        public Lot PortLot
+        {
+            get { return CurrentState.PortLot; }
+            set
+            {
+                CurrentState.RegisterPortLot(value);
+            }
+        }
+
+        public bool IsReadyForTransport()
+        {
+            return CurrentState.IsReadyForTransport();
+        }
+
+        internal void SetTransportStartData(Transport someTransport)
+        {
+            CurrentState.SetTransportStartData(someTransport);
+        }
+
+        internal void SetTransportEndData()
+        {
+            CurrentState.SetTransportEndData();
+        }
+
         internal static Vehicle InstanceForTestingPurposes()
         {
-            return new Vehicle();
+            return new Vehicle()
+            {
+                CurrentState = new ProcessData()
+            };
         }
 
         protected Vehicle()
@@ -161,6 +194,7 @@ namespace Domain
             Year = yearToSet;
             Color = colorToSet;
             VIN = VINToSet;
+            CurrentState = new ProcessData();
         }
 
         public override bool Equals(object obj)

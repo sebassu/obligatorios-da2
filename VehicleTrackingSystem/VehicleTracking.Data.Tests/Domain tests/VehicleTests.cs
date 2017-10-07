@@ -342,5 +342,26 @@ namespace Data.Domain_Tests
             testingVehicle.Year = 2017;
             Assert.AreEqual("ZXCVBNM1234567890. Fiat 1. 2017", testingVehicle.ToString());
         }
+
+        [TestMethod]
+        public void VehicleGetPortLotValidTest()
+        {
+            Assert.AreEqual(testingVehicle.CurrentState.PortLot,
+                testingVehicle.PortLot);
+        }
+
+        [TestMethod]
+        public void VehicleGetPortInspectionValidTest()
+        {
+            Assert.AreEqual(testingVehicle.CurrentState.PortInspection,
+                testingVehicle.PortInspection);
+        }
+
+        [TestMethod]
+        public void VehicleGetYardInspectionValidTest()
+        {
+            Assert.AreEqual(testingVehicle.CurrentState.YardInspection,
+                testingVehicle.YardInspection);
+        }
     }
 }

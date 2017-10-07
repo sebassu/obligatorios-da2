@@ -8,7 +8,8 @@ namespace Domain
     {
         public int Id { get; set; }
 
-        public List<Vehicle> Vehicles { get; set; }
+        public ICollection<Vehicle> Vehicles { get; set; }
+            = new List<Vehicle>();
 
         private string name;
         public string Name
@@ -31,7 +32,7 @@ namespace Domain
 
         protected bool IsValidName(string value)
         {
-            return Utilities.ContainsLettersOrSpacesOrDigitsOnly(value);
+            return Utilities.ContainsLettersSpacesOrDigitsOnly(value);
         }
 
         private int capacity;
@@ -47,7 +48,7 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.CapacityIsInvalid, "Capacidad", value);
+                        ErrorMessages.CapacityIsInvalid, value, Math.Max(Vehicles.Count, 0));
                     throw new SubzoneException(errorMessage);
                 }
             }
@@ -55,42 +56,33 @@ namespace Domain
 
         protected bool IsValidCapacity(int value)
         {
-            return Utilities.ValidMinimumCapacity(value);
+            return Utilities.ValidMinimumCapacity(value) &&
+                value > Vehicles.Count;
         }
 
-        private Zone container;
         public Zone Container
         {
-            get { return container; }
-            set
-            {
-                if (IsValidZone(value))
-                {
-                    container = value;
-                }
-                else
-                {
-                    throw new SubzoneException(ErrorMessages.ZoneIsInvalid);
-                }
-            }
+            get;
+            set;
         }
 
-        protected bool IsValidZone(Zone value)
+        public bool CanAdd(Vehicle someVehicle)
         {
-            return Utilities.IsNotNull(value);
+            return Utilities.IsNotNull(someVehicle) &&
+                Vehicles.Count < Capacity && !Vehicles.Contains(someVehicle);
         }
 
         internal static Subzone InstanceForTestingPurposes()
         {
             return new Subzone()
             {
-                container = Zone.InstanceForTestingPurposes()
+                Container = Zone.InstanceForTestingPurposes()
             };
         }
 
         protected Subzone()
         {
-            name = "Subzone 1";
+            name = "Subzona inválida";
             capacity = 3;
         }
 
@@ -103,10 +95,29 @@ namespace Domain
         protected Subzone(string nameToSet, int capacityToSet,
             Zone zoneToSet)
         {
+            if (IsValidZone(zoneToSet))
+            {
+                SetCreationParameters(nameToSet,
+                    capacityToSet, zoneToSet);
+                zoneToSet.AddSubzone(this);
+            }
+            else
+            {
+                throw new SubzoneException(ErrorMessages.ZoneIsInvalid);
+            }
+        }
+
+        protected bool IsValidZone(Zone value)
+        {
+            return Utilities.IsNotNull(value);
+        }
+
+        private void SetCreationParameters(string nameToSet,
+            int capacityToSet, Zone zoneToSet)
+        {
             Name = nameToSet;
             Capacity = capacityToSet;
             Container = zoneToSet;
-            Vehicles = new List<Vehicle>();
         }
 
         public override bool Equals(object obj)
@@ -125,6 +136,11 @@ namespace Domain
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return Container.ToString() + "/" + name;
         }
     }
 }
