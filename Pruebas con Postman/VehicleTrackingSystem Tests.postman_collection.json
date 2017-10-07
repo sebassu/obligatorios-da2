@@ -512,6 +512,7 @@
 								"exec": [
 									"pm.test(\"Successful POST request\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"    pm.environment.set(\"redBarchetta\", JSON.parse(responseBody).vin);",
 									"});"
 								]
 							}
@@ -569,6 +570,7 @@
 								"exec": [
 									"pm.test(\"Successful POST request\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"    pm.environment.set(\"nonRedBarchetta\", pm.response.vin);",
 									"});"
 								]
 							}
@@ -599,7 +601,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"Type\":\"VAN\",\n\t\"Brand\":\"Mercedes Benz\",\n\t\"Model\":\"BNQR\",\n\t\"Year\":2001,\n\t\"Color\":\"DarkGray\",\n\t\"VIN\":\"NDHFN4758NDM124LO\"\n}"
+							"raw": "{\n\t\"Type\":\"VAN\",\n\t\"Brand\":\"Mercedes Benz\",\n\t\"Model\":\"BNQR\",\n\t\"Year\":2001,\n\t\"Color\":\"DarkGray\",\n\t\"VIN\":\"NDHFN4758NDR124LO\"\n}"
 						},
 						"url": {
 							"raw": "http://{{URL}}/api/Vehicles",
@@ -1366,7 +1368,7 @@
 							"raw": "{\n\t\"Name\":\"Some new subzone name\",\n\t\"Capacity\":1\n}"
 						},
 						"url": {
-							"raw": "http://{{URL}}/api/Subzones/1",
+							"raw": "http://{{URL}}/api/Subzones/{{subzoneToModify}}",
 							"protocol": "http",
 							"host": [
 								"{{URL}}"
@@ -1374,7 +1376,7 @@
 							"path": [
 								"api",
 								"Subzones",
-								"1"
+								"{{subzoneToModify}}"
 							]
 						},
 						"description": "Modifica la subzona indicada a \"Some new subzone name\"."
@@ -1558,6 +1560,246 @@
 		},
 		{
 			"name": "InspectionController Tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Empty Inspection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"LocationName\":\"Puerto Ochenta Ochenta\",\n\t\"DateTime\":\"2013-10-21T13:28:06.419Z\",\n\t\"Damages\":[]\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles/{{redBarchetta}}/PortInspection",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles",
+								"{{redBarchetta}}",
+								"PortInspection"
+							]
+						},
+						"description": "Se agrega una inspección sin daños al vehículo \"Red Barchetta\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Inspection with Damages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"    pm.environment.set(\"complexInspection\", pm.response.id);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"LocationName\":\"Puerto Ochenta Ochenta\",\n\t\"DateTime\":\"2013-10-21T13:28:06.419Z\",\n\t\"Damages\": [\n        {\n            \"description\": \"Cierto daño\",\n            \"images\": [\n                \"Imagen 1\",\n                \"Imagen 2\"\n            ]\n        },\n        {\n            \"description\": \"Otro daño\",\n            \"images\": [\n                \"Imagen 3\"\n            ]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles/{{nonRedBarchetta}}/PortInspection",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles",
+								"{{nonRedBarchetta}}",
+								"PortInspection"
+							]
+						},
+						"description": "Se agrega una inspección con daños al vehículo que no es \"Red Barchetta\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Inspections",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK response code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\":\"The Tinyzone\",\n\t\"Capacity\":12\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Inspections",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Inspections"
+							]
+						},
+						"description": "Retorna las inspecciones registradas en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Inspection by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK response code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\":\"The Tinyzone\",\n\t\"Capacity\":12\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Inspections/{{complexInspection}}",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Inspections",
+								"{{complexInspection}}"
+							]
+						},
+						"description": "Retorna las inspecciones registradas en el sistema."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MovementController Tests",
 			"description": "",
 			"item": []
 		}

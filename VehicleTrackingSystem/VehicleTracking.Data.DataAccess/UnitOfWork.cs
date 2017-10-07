@@ -47,6 +47,19 @@ namespace Persistence
             }
         }
 
+        private IInspectionRepository inspections;
+        public IInspectionRepository Inspections
+        {
+            get
+            {
+                if (Utilities.IsNull(inspections))
+                {
+                    inspections = new InspectionRepository(context);
+                }
+                return inspections;
+            }
+        }
+
         private ISubzoneRepository subzones;
         public ISubzoneRepository Subzones
         {
@@ -57,6 +70,19 @@ namespace Persistence
                     subzones = new SubzoneRepository(context);
                 }
                 return subzones;
+            }
+        }
+
+        private ILocationRepository locations;
+        public ILocationRepository Locations
+        {
+            get
+            {
+                if (Utilities.IsNull(locations))
+                {
+                    locations = new LocationRepository(context);
+                }
+                return locations;
             }
         }
 

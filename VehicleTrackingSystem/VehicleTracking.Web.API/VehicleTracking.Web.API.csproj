@@ -121,6 +121,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AuthorizeRolesAttribute.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\InspectionsController.cs" />
     <Compile Include="Controllers\SubzonesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />

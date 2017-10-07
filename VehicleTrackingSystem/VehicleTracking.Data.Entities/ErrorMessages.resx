@@ -228,4 +228,7 @@
   <data name="SubzoneIsInvalidForZone" xml:space="preserve">
     <value>No es posible agregar esta subzona: una zona no puede contener subzonas repetidas, ni superarse la capacidad de ésta por la suma de las capacidades de sus subzonas.</value>
   </data>
+  <data name="DamageCollectionIsInvalid" xml:space="preserve">
+    <value>Error al recibir la lista de daños para una inspección: ésta no puede ser nula ni contener elementos repetidos.</value>
+  </data>
 </root>

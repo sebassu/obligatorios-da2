@@ -106,6 +106,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error al recibir la lista de daños para una inspección: ésta no puede ser nula ni contener elementos repetidos..
+        /// </summary>
+        internal static string DamageCollectionIsInvalid {
+            get {
+                return ResourceManager.GetString("DamageCollectionIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fecha inválida. No puede ser mayor a la fecha actual ni menor a 01/01/1900..
         /// </summary>
         internal static string DateIsInvalid {

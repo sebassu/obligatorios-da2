@@ -8,7 +8,7 @@ namespace API.Services
     {
         int AddNewUserFromData(UserDTO userToAdd);
         IEnumerable<UserDTO> GetRegisteredUsers();
-        UserDTO GetUserByUsername(string usernameToLookup);
+        UserDTO GetUserWithUsername(string usernameToLookup);
         void ModifyUserWithUsername(string usernameToModify,
             UserDTO userDataToSet);
         void RemoveUserWithUsername(string usernameToRemove);

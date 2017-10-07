@@ -1,4 +1,5 @@
 ﻿using Domain;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
@@ -6,11 +7,22 @@ namespace API.Services
 {
     public class UserDTO
     {
+        [Required]
         public UserRoles Role { get; set; }
+
+        [Required]
         public string FirstName { get; set; }
+
+        [Required]
         public string LastName { get; set; }
+
+        [Required]
         public string Username { get; set; }
+
+        [Required]
         public string Password { get; set; }
+
+        [Required]
         public string PhoneNumber { get; set; }
 
         internal UserDTO() { }

@@ -38,27 +38,7 @@ namespace Domain
             return Utilities.IsValidDate(value);
         }
 
-        private User responsibleUser;
-        public User ResponsibleUser
-        {
-            get { return responsibleUser; }
-            set
-            {
-                if (IsValidUser(value))
-                {
-                    responsibleUser = value;
-                }
-                else
-                {
-                    throw new InspectionException(ErrorMessages.UserRoleLocationTypeInvalid);
-                }
-            }
-        }
-
-        protected bool IsValidUser(User value)
-        {
-            return UserCanInspect(value, location);
-        }
+        public User ResponsibleUser { get; set; }
 
         public static bool UserCanInspect(User user, Location location)
         {
@@ -80,43 +60,29 @@ namespace Domain
             return permittedUserRoles.Contains(user.Role);
         }
 
-        private Location location;
-        public Location Location
-        {
-            get { return location; }
-            set
-            {
-                if (IsValidLocation(value))
-                {
-                    location = value;
-                }
-                else
-                {
-                    throw new InspectionException(ErrorMessages.UserRoleLocationTypeInvalid);
-                }
-            }
-        }
+        public Location Location { get; set; }
 
-        protected bool IsValidLocation(Location value)
-        {
-            return UserCanInspect(responsibleUser, value);
-        }
-
-        private List<Damage> damages = new List<Damage>();
-        public List<Damage> Damages
+        private ICollection<Damage> damages = new List<Damage>();
+        public ICollection<Damage> Damages
         {
             get { return damages; }
             set
             {
-                if (Utilities.IsValidItemEnumeration(value))
+                if (IsValidDamageCollection(value))
                 {
                     damages = value;
                 }
                 else
                 {
-                    throw new InspectionException(ErrorMessages.CollectionIsInvalid);
+                    throw new InspectionException(ErrorMessages.DamageCollectionIsInvalid);
                 }
             }
+        }
+
+        private bool IsValidDamageCollection(ICollection<Damage> value)
+        {
+            return Utilities.IsNotNull(value) &&
+                value.Distinct().Count() == value.Count;
         }
 
         private string vehicleVIN;
@@ -147,28 +113,26 @@ namespace Domain
         {
             return new Inspection()
             {
-                location = Location.InstanceForTestingPurposes(),
-                responsibleUser = User.InstanceForTestingPurposes()
+                Location = Location.InstanceForTestingPurposes(),
+                ResponsibleUser = User.InstanceForTestingPurposes()
             };
         }
 
-        protected Inspection()
-        {
-        }
+        protected Inspection() { }
 
         public static Inspection CreateNewInspection(User user, Location location,
-            DateTime dateTime, List<Damage> damages, Vehicle vehicle)
+            DateTime dateTime, ICollection<Damage> damages, Vehicle vehicle)
         {
             return new Inspection(user, location, dateTime, damages, vehicle);
         }
 
         protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet,
-            List<Damage> damagesToSet, Vehicle vehicleToSet)
+            ICollection<Damage> damagesToSet, Vehicle vehicleToSet)
         {
             if (UserCanInspect(userToSet, locationToSet))
             {
-                responsibleUser = userToSet;
-                location = locationToSet;
+                ResponsibleUser = userToSet;
+                Location = locationToSet;
                 DateTime = dateTimeToSet;
                 Damages = damagesToSet;
                 VehicleVIN = vehicleToSet.VIN;

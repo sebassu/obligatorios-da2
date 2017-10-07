@@ -143,7 +143,7 @@ namespace Web.API.Controllers_Tests
         public void UControllerGetUserWithUsernameValidTest()
         {
             var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.GetUserByUsername("mSantos")).Returns(fakeUserData);
+            mockUsersServices.Setup(u => u.GetUserWithUsername("mSantos")).Returns(fakeUserData);
             var controller = new UsersController(mockUsersServices.Object);
             IHttpActionResult obtainedResult = controller.GetUserByUsername("mSantos");
             var result = obtainedResult as OkNegotiatedContentResult<UserDTO>;
@@ -157,7 +157,7 @@ namespace Web.API.Controllers_Tests
         {
             string expectedErrorMessage = "Some fourth exception message";
             var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.GetUserByUsername(It.IsAny<string>())).Throws(
+            mockUsersServices.Setup(u => u.GetUserWithUsername(It.IsAny<string>())).Throws(
                 new VehicleTrackingException(expectedErrorMessage));
             var controller = new UsersController(mockUsersServices.Object);
             ControllerTestsUtilities.VerifyMethodReturnsBadRequestResponse(
@@ -170,7 +170,7 @@ namespace Web.API.Controllers_Tests
         {
             SystemException expectedException = new SystemException();
             var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.GetUserByUsername(It.IsAny<string>())).Throws(expectedException);
+            mockUsersServices.Setup(u => u.GetUserWithUsername(It.IsAny<string>())).Throws(expectedException);
             var controller = new UsersController(mockUsersServices.Object);
             ControllerTestsUtilities.VerifyMethodReturnsServerErrorResponse(
                 delegate { return controller.GetUserByUsername("eRavenna"); },

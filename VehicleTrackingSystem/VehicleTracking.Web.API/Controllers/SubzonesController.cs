@@ -6,6 +6,7 @@ using System.Web.Http;
 
 namespace Web.API.Controllers
 {
+    [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
     public class SubzonesController : BaseController
     {
         internal ISubzoneServices Model { get; }
@@ -30,6 +31,7 @@ namespace Web.API.Controllers
                 {
                     int additionId = Model.AddNewSubzoneFromData(containerName,
                         subzoneDataToAdd);
+                    subzoneDataToAdd.ContainerName = containerName;
                     return CreatedAtRoute("RegisterSubzoneToZone",
                         new { id = additionId }, subzoneDataToAdd);
                 });

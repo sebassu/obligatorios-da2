@@ -56,6 +56,9 @@
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\RepositoryException.cs" />
+    <Compile Include="IInspectionRepository.cs" />
+    <Compile Include="ILocationRepository.cs" />
+    <Compile Include="InspectionRepository.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="ILotRepository.cs" />
     <Compile Include="ISubzoneRepository.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IVehicleRepository.cs" />
     <Compile Include="IZoneRepository.cs" />
+    <Compile Include="LocationRepository.cs" />
     <Compile Include="LotRepository.cs" />
     <Compile Include="SubzoneRepository.cs" />
     <Compile Include="UnitOfWork.cs" />

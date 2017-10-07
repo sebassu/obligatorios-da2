@@ -165,7 +165,7 @@ namespace Web.API.Services_Tests
             mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(testingUser.Username))
                 .Returns(testingUser).Verifiable();
             var userServices = new UserServices(mockUnitOfWork.Object);
-            var result = userServices.GetUserByUsername(testingUser.Username);
+            var result = userServices.GetUserWithUsername(testingUser.Username);
             mockUnitOfWork.Verify();
             Assert.AreEqual(expectedData, result);
             Assert.AreNotEqual(testingUser.Password, result.Password);
@@ -179,7 +179,7 @@ namespace Web.API.Services_Tests
             mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(It.IsAny<string>()))
                 .Throws(new RepositoryException("Message."));
             var userServices = new UserServices(mockUnitOfWork.Object);
-            userServices.GetUserByUsername(testingUser.Username);
+            userServices.GetUserWithUsername(testingUser.Username);
         }
         #endregion
 

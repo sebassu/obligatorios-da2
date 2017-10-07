@@ -72,16 +72,14 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
         }
 
-        [ExpectedException(typeof(InspectionException))]
         [TestMethod]
-        public void InspectionSetInvalidResponsibleUserNullTest()
+        public void InspectionSetNullResponsibleUserValidTest()
         {
             testingInspection.ResponsibleUser = null;
         }
 
-        [ExpectedException(typeof(InspectionException))]
         [TestMethod]
-        public void InspectionSetInvalidResponsibleUserTransporterTest()
+        public void InspectionSetTransporterResponsibleUserValidTest()
         {
             User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan", "Perez",
                 "miUsuario", "pass", "26061199");
@@ -97,9 +95,8 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(alternativeLocation, testingInspection.Location);
         }
 
-        [ExpectedException(typeof(InspectionException))]
         [TestMethod]
-        public void InspectionSetInvalidLocationNullTest()
+        public void InspectionSetNullLocationValidTest()
         {
             testingInspection.Location = null;
         }
@@ -112,10 +109,11 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InspectionException))]
-        public void InspecionSetInvalidDamagesListEmptyTest()
+        public void InspectionSetInvalidDamagesEmptyListValidTest()
         {
-            testingInspection.Damages = new List<Damage>();
+            var emptyListToSet = new List<Damage>();
+            testingInspection.Damages = emptyListToSet;
+            Assert.AreSame(emptyListToSet, testingInspection.Damages);
         }
 
         [TestMethod]
@@ -155,13 +153,6 @@ namespace Data.Tests.Domain_tests
             Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
         }
 
-        [ExpectedException(typeof(InspectionException))]
-        [TestMethod]
-        public void InspectionSetInvalidStageIdNullTest()
-        {
-            testingInspection.ResponsibleUser = null;
-        }
-
         [TestMethod]
         public void InspectionParameterFactoryMethodValidTest()
         {
@@ -198,8 +189,7 @@ namespace Data.Tests.Domain_tests
             testingInspection = Inspection.CreateNewInspection(alternativeUser, null,
                 alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
         }
-
-
+        
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
         public void InspectionParameterFactoryMethodInvalidDateTimeTest()

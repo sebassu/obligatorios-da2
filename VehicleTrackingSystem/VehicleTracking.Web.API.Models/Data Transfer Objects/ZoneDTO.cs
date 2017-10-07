@@ -1,5 +1,6 @@
 ﻿using Domain;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -8,8 +9,12 @@ namespace API.Services
 {
     public class ZoneDTO
     {
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public int Capacity { get; set; }
+
         public ICollection<int> SubzoneIds { get; set; }
 
         internal ZoneDTO() { }

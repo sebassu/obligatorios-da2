@@ -17,6 +17,7 @@ namespace Persistence
         public DbSet<Movement> Movements { get; set; }
         public DbSet<Subzone> Subzones { get; set; }
         public DbSet<Lot> Lots { get; set; }
+        public DbSet<Damage> Damages { get; set; }
 
         public VTSystemContext() : base()
         {
@@ -28,15 +29,22 @@ namespace Persistence
         {
             base.OnModelCreating(modelBuilder);
             Configuration.LazyLoadingEnabled = false;
-            modelBuilder.Entity<Vehicle>().Ignore(v => v.PortLot);
-            modelBuilder.Entity<Vehicle>().Ignore(v => v.PortInspection);
-            modelBuilder.Entity<Vehicle>().Ignore(v => v.YardInspection);
-            modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
+            VehicleEntityDatabaseSettings(modelBuilder);
             modelBuilder.Entity<Zone>().HasMany(z => z.Subzones)
                 .WithRequired(s => s.Container);
             modelBuilder.Entity<Subzone>().HasMany(z => z.Vehicles)
                 .WithOptional();
             modelBuilder.Entity<Lot>().HasMany(z => z.Vehicles).WithOptional();
+            modelBuilder.Entity<Inspection>().HasMany(i => i.Damages).WithRequired()
+                .WillCascadeOnDelete();
+        }
+
+        private static void VehicleEntityDatabaseSettings(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Vehicle>().Ignore(v => v.PortLot);
+            modelBuilder.Entity<Vehicle>().Ignore(v => v.PortInspection);
+            modelBuilder.Entity<Vehicle>().Ignore(v => v.YardInspection);
+            modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
             modelBuilder.Entity<Vehicle>().HasRequired(v => v.StagesData)
                 .WithRequiredDependent().WillCascadeOnDelete();
         }

@@ -1,5 +1,6 @@
 ﻿using Domain;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -9,10 +10,16 @@ namespace API.Services
     public class SubzoneDTO
     {
         public int Id { get; set; }
-        public int ContainerId { get; set; }
+
+        public string ContainerName { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public int Capacity { get; set; }
-        public ICollection<int> VehicleIds { get; set; }
+
+        public ICollection<string> VehicleVINs { get; set; }
 
         internal SubzoneDTO() { }
 
@@ -25,7 +32,7 @@ namespace API.Services
             someSubzone.Name, someSubzone.Capacity)
         {
             SetVehiclesIds(someSubzone);
-            SetContainerId(someSubzone);
+            ContainerName = someSubzone.Container.Name;
         }
 
         private void SetVehiclesIds(Subzone someSubzone)
@@ -33,22 +40,8 @@ namespace API.Services
             var vehiclesToSet = someSubzone.Vehicles;
             if (Utilities.IsNotNull(vehiclesToSet))
             {
-                VehicleIds = vehiclesToSet.Select(v => v.Id).ToList();
+                VehicleVINs = vehiclesToSet.Select(v => v.VIN).ToList();
             }
-        }
-
-        private void SetContainerId(Subzone someSubzone)
-        {
-            var containerToSet = someSubzone.Container;
-            if (Utilities.IsNotNull(containerToSet))
-            {
-                ContainerId = containerToSet.Id;
-            }
-        }
-
-        public static SubzoneDTO FromData(string nameToSet, int capacityToSet)
-        {
-            return new SubzoneDTO(0, nameToSet, capacityToSet);
         }
 
         protected SubzoneDTO(int idToSet, string nameToSet,

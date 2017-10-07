@@ -63,7 +63,7 @@ namespace API.Services
             return result.AsReadOnly();
         }
 
-        public UserDTO GetUserByUsername(string usernameToLookup)
+        public UserDTO GetUserWithUsername(string usernameToLookup)
         {
             User userFound = Users.GetUserWithUsername(usernameToLookup);
             return UserDTO.FromUser(userFound);
