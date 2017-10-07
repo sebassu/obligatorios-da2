@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace API.Services
 {
-    class LotServices : ILotServices
+    public class LotServices : ILotServices
     {
         internal IUnitOfWork Model { get; }
         internal ILotRepository Lots { get; }
@@ -84,12 +84,12 @@ namespace API.Services
             return LotDTO.FromLot(lotFound);
         }
 
-        public void ModifyLotWithName(string nameToModify, LotDTO lotDataToSet, ICollection<Vehicle> vehicles)
+        public void ModifyLotWithName(string nameToModify, LotDTO lotDataToSet)
         {
             if (!Lots.GetLotByName(nameToModify).WasTransported)
             {
                 ServiceUtilities.CheckParameterIsNotNullAndExecute(lotDataToSet,
-                delegate { AttemptToPerformModification(nameToModify, lotDataToSet, vehicles); });
+                delegate { AttemptToPerformModification(nameToModify, lotDataToSet); });
             }
             else
             {
@@ -99,7 +99,7 @@ namespace API.Services
             }
         }
 
-        private void AttemptToPerformModification(string nameToModify, LotDTO lotData, ICollection<Vehicle> vehicles)
+        private void AttemptToPerformModification(string nameToModify, LotDTO lotData)
         {
             if (ChangeCausesRepeatedNames(nameToModify ,lotData))
             {
@@ -110,6 +110,7 @@ namespace API.Services
             else
             {
                 Lot lotFound = Lots.GetLotByName(nameToModify);
+                ICollection<Vehicle> vehicles = GetVehicleList(lotData.VehicleVINs);
                 lotData.SetDataToLot(lotFound, vehicles);
                 Lots.UpdateLot(lotFound);
                 Model.SaveChanges();

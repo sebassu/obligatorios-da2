@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace API.Services
 {
-    interface ILotServices
+    public interface ILotServices
     {
         int AddNewLotFromData(LotDTO lotDataToAdd);
         IEnumerable<LotDTO> GetRegisteredLots();
         LotDTO GetLotByName(string nameToFind);
-        void ModifyLotWithName(string nameToModify, LotDTO lotDataToSet, ICollection<Vehicle> vehicles);
+        void ModifyLotWithName(string nameToModify, LotDTO lotDataToSet);
         void RemoveZoneWithName(string nameToModify);
     }
 }
