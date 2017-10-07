@@ -36,8 +36,8 @@ namespace Persistence
             modelBuilder.Entity<Subzone>().HasMany(z => z.Vehicles)
                 .WithOptional();
             modelBuilder.Entity<Lot>().HasMany(z => z.Vehicles).WithOptional();
-            modelBuilder.Entity<Vehicle>().HasRequired(v => v.CurrentState)
-                .WithRequiredPrincipal();
+            modelBuilder.Entity<Vehicle>().HasRequired(v => v.StagesData)
+                .WithRequiredDependent().WillCascadeOnDelete();
         }
 
         internal void DeleteAllDataFromDatabase()

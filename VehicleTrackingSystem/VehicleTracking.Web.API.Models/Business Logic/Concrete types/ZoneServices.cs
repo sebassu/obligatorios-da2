@@ -78,24 +78,39 @@ namespace API.Services.Business_Logic
 
         private void AttemptToPerformModification(string nameToModify, ZoneDTO zoneData)
         {
-            Zone zoneFound = Zones.GetZoneWithName(nameToModify);
-            zoneData.SetDataToZone(zoneFound);
-            Zones.UpdateZone(zoneFound);
-            Model.SaveChanges();
+            if (ChangeCausesRepeatedNames(nameToModify, zoneData))
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.FieldMustBeUnique, "nombre de zona");
+                throw new ServiceException(errorMessage);
+            }
+            else
+            {
+                Zone zoneFound = Zones.GetZoneWithName(nameToModify);
+                zoneData.SetDataToZone(zoneFound);
+                Zones.UpdateZone(zoneFound);
+                Model.SaveChanges();
+            }
+        }
+
+        private bool ChangeCausesRepeatedNames(string currentName, ZoneDTO zoneData)
+        {
+            bool nameChanges = !currentName.Equals(zoneData.Name);
+            return nameChanges && Zones.ExistsZoneWithName(zoneData.Name);
         }
 
         public void RemoveZoneWithName(string nameToRemove)
         {
             Zone zoneToRemove = Zones.GetZoneWithName(nameToRemove);
-            bool isEmptyZone = zoneToRemove.Subzones.Any();
-            if (isEmptyZone)
+            bool isNonEmptyZone = zoneToRemove.Subzones.Any();
+            if (isNonEmptyZone)
             {
-                Zones.RemoveZone(zoneToRemove);
-                Model.SaveChanges();
+                throw new ServiceException(ErrorMessages.CannotRemoveNonEmptyZone);
             }
             else
             {
-                throw new ServiceException(ErrorMessages.CannotRemoveNonEmptyZone);
+                Zones.RemoveZone(zoneToRemove);
+                Model.SaveChanges();
             }
         }
     }

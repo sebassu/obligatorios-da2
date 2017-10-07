@@ -227,42 +227,17 @@ namespace Web.API.Controllers_Tests
         }
         #endregion
 
-        #region RemoveVehicleWithVIN tests
+        #region RemoveVehicleWithVIN test
         [TestMethod]
-        public void VControllerRemoveVehicleWithVINValidTest()
+        public void VControllerRemoveVehicleReturnsBadRequestInvalidTest()
         {
+            var expectedMessage = "Actualmente no se permite eliminar vehículos" +
+                " del sistema.";
             var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.RemoveVehicleWithVIN(It.IsAny<string>()));
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            ControllerTestsUtilities.VerifyMethodReturnsOkResponse(delegate
-            { return controller.RemoveVehicleWithVIN("SOMEREGISTEREDVIN"); },
-                mockVehicleServices);
-        }
-
-        [TestMethod]
-        public void VControllerRemoveVehicleWithUnregisteredVINInvalidTest()
-        {
-            var expectedErrorMessage = "Some other error message";
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.RemoveVehicleWithVIN(It.IsAny<string>())).Throws(
-                new VehicleTrackingException(expectedErrorMessage));
             var controller = new VehiclesController(mockVehicleServices.Object);
             ControllerTestsUtilities.VerifyMethodReturnsBadRequestResponse(delegate
-            { return controller.RemoveVehicleWithVIN("SOMEUNRGSTEREDVIN"); },
-                mockVehicleServices, expectedErrorMessage);
-        }
-
-        [TestMethod]
-        public void VControllerRemoveVehicleWithVINUnexpectedErrorInvalidTest()
-        {
-            SystemException expectedException = new SystemException();
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.RemoveVehicleWithVIN(It.IsAny<string>()))
-                .Throws(expectedException);
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            ControllerTestsUtilities.VerifyMethodReturnsServerErrorResponse(delegate
             { return controller.RemoveVehicleWithVIN("SOMEREGISTEREDVIN"); }, mockVehicleServices,
-            expectedException);
+            expectedMessage);
         }
         #endregion
     }

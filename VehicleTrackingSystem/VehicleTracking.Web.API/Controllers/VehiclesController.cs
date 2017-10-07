@@ -77,16 +77,12 @@ namespace Web.API.Controllers
                 });
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("{vinToRemove}")]
         public IHttpActionResult RemoveVehicleWithVIN(string vinToRemove)
         {
-            return ExecuteActionAndReturnOutcome(
-                delegate
-                {
-                    Model.RemoveVehicleWithVIN(vinToRemove);
-                    return Ok();
-                });
+            return BadRequest("Actualmente no se permite eliminar vehículos" +
+                " del sistema.");
         }
     }
 }

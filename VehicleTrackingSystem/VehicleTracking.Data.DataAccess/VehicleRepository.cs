@@ -13,12 +13,12 @@ namespace Persistence
     {
         public VehicleRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<Vehicle> Elements => GetElementsThat();
+        public IEnumerable<Vehicle> Elements => GetElementsWith();
 
         public void AddNewVehicle(Vehicle vehicleToAdd)
         {
             Add(vehicleToAdd);
-            context.ProcessDatas.Add(vehicleToAdd.CurrentState);
+            context.ProcessDatas.Add(vehicleToAdd.StagesData);
         }
 
         public bool ExistsVehicleWithVIN(string VINToLookup)
@@ -30,7 +30,8 @@ namespace Persistence
         {
             try
             {
-                return elements.Single(v => v.VIN.Equals(vinToFind));
+                return elements.Include("StagesData")
+                    .Single(v => v.VIN.Equals(vinToFind));
             }
             catch (InvalidOperationException)
             {
@@ -43,7 +44,7 @@ namespace Persistence
         public void UpdateVehicle(Vehicle modifiedVehicle)
         {
             Update(modifiedVehicle);
-            context.Entry(modifiedVehicle.CurrentState).State
+            context.Entry(modifiedVehicle.StagesData).State
                 = EntityState.Modified;
         }
 

@@ -346,21 +346,21 @@ namespace Data.Domain_Tests
         [TestMethod]
         public void VehicleGetPortLotValidTest()
         {
-            Assert.AreEqual(testingVehicle.CurrentState.PortLot,
+            Assert.AreEqual(testingVehicle.StagesData.PortLot,
                 testingVehicle.PortLot);
         }
 
         [TestMethod]
         public void VehicleGetPortInspectionValidTest()
         {
-            Assert.AreEqual(testingVehicle.CurrentState.PortInspection,
+            Assert.AreEqual(testingVehicle.StagesData.PortInspection,
                 testingVehicle.PortInspection);
         }
 
         [TestMethod]
         public void VehicleGetYardInspectionValidTest()
         {
-            Assert.AreEqual(testingVehicle.CurrentState.YardInspection,
+            Assert.AreEqual(testingVehicle.StagesData.YardInspection,
                 testingVehicle.YardInspection);
         }
     }
