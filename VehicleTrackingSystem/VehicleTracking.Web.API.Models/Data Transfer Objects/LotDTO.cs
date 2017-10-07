@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace API.Services.Data_Transfer_Objects
+namespace API.Services
 {
-    class LotDTO
+    public class LotDTO
     {
         public int Id { get; set; }
         public string CreatorName { get; set; }
@@ -40,6 +40,14 @@ namespace API.Services.Data_Transfer_Objects
             Id = idToSet;
             Name = nameToSet;
             Description = descriptionToSet;
+        }
+
+        internal void SetDataToLot(Lot lotToModify, ICollection<Vehicle> list)
+        {
+            lotToModify.Name = Name;
+            lotToModify.Description = Description;
+            lotToModify.Vehicles = list;
+
         }
 
         internal Lot ToLot(User creator, ICollection<Vehicle> vehicles)

@@ -19,18 +19,18 @@ namespace Persistence
         {
             Add(lotToAdd);
         }
-        public IEnumerable<Lot> Elements => GetElementsThat();
+        public IEnumerable<Lot> Elements => GetElementsWith();
 
-        public Lot GetLotById(int IdToFind)
+        public Lot GetLotByName(string nameToFind)
         {
             try
             {
-                return elements.Single(l => l.Id.Equals(IdToFind));
+                return elements.Single(l => l.Name.Equals(nameToFind));
             }
             catch (InvalidOperationException)
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.CouldNotFindField, "Id", IdToFind);
+                    ErrorMessages.CouldNotFindField, "nombre", nameToFind);
                 throw new RepositoryException(errorMessage);
             }
         }
@@ -40,9 +40,9 @@ namespace Persistence
             Update(lotToModify);
         }
         
-        public void RemoveLotWithId(int IdToRemove)
+        public void RemoveLotWithName(string nameToRemove)
         {
-            var lotToRemove = GetLotById(IdToRemove);
+            var lotToRemove = GetLotByName(nameToRemove);
             AttemptToRemove(lotToRemove);
         }
 
