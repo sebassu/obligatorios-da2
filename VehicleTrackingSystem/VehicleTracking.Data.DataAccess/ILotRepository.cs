@@ -8,8 +8,8 @@ namespace Persistence
         void AddNewLot(Lot lotToAdd);
         IEnumerable<Lot> Elements { get; }
         Lot GetLotById(int idToFind);
-        Lot GetLotWithId(int IdToFind);
-        void RemoveLotWithId(int lotToRemove);
         void UpdateLot(Lot lotToModify);
+        void RemoveLotWithId(int lotToRemove);
+        bool ExistsLotWithName(string nameToFind);
     }
 }

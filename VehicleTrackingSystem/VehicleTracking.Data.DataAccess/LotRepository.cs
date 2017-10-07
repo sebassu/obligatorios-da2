@@ -15,6 +15,10 @@ namespace Persistence
     {
         public LotRepository(VTSystemContext someContext) : base(someContext) { }
 
+        public void AddNewLot(Lot lotToAdd)
+        {
+            Add(lotToAdd);
+        }
         public IEnumerable<Lot> Elements => GetElementsThat();
 
         public Lot GetLotById(int IdToFind)
@@ -31,27 +35,14 @@ namespace Persistence
             }
         }
 
-        public void AddNewLot(Lot lotToAdd)
+        public void UpdateLot(Lot lotToModify)
         {
-            Add(lotToAdd);
+            Update(lotToModify);
         }
-        public Lot GetLotWithId(int IdToFind)
-        {
-            try
-            {
-                return elements.Single(l => l.Id.Equals(IdToFind));
-            }
-            catch (InvalidOperationException)
-            {
-                string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.CouldNotFindField, "Id", IdToFind);
-                throw new RepositoryException(errorMessage);
-            }
-        }
-
+        
         public void RemoveLotWithId(int IdToRemove)
         {
-            var lotToRemove = GetLotWithId(IdToRemove);
+            var lotToRemove = GetLotById(IdToRemove);
             AttemptToRemove(lotToRemove);
         }
 
@@ -60,9 +51,9 @@ namespace Persistence
             return Utilities.IsNotNull(value) && elements.Any(l => l.Id == value.Id);
         }
 
-        public void UpdateLot(Lot lotToModify)
+        public bool ExistsLotWithName(string nameToFind)
         {
-            Update(lotToModify);
+            return elements.Any(l => l.Name.Equals(nameToFind));
         }
 
 
