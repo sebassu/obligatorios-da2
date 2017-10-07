@@ -104,7 +104,7 @@ namespace Data.Tests.Persistence_tests
             Assert.IsTrue(list.SequenceEqual(lotToVerify.Vehicles));
         }
 
-        private void SetLotData(Lot lotToModify, string nameToSet, 
+        private void SetLotData(Lot lotToModify, string nameToSet,
             string descriptionToSet, ICollection<Vehicle> listToSet)
         {
             lotToModify.Name = nameToSet;

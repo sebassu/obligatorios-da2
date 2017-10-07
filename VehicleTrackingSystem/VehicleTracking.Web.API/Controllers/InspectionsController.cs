@@ -81,7 +81,7 @@ namespace Web.API.Controllers
 
         [HttpGet]
         [Route("api/Inspections/{idToLookup}")]
-        public IHttpActionResult GetUserByUsername(int idToLookup)
+        public IHttpActionResult GetInspectionWithId(int idToLookup)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate

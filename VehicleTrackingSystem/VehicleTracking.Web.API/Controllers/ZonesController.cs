@@ -6,8 +6,8 @@ using System.Web.Http;
 
 namespace Web.API.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/Zones")]
-    [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
     public class ZonesController : BaseController
     {
         internal IZoneServices Model { get; }
@@ -23,6 +23,7 @@ namespace Web.API.Controllers
         }
 
         [HttpPost]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
         public IHttpActionResult AddNewZoneFromData(
             [FromBody]ZoneDTO userDataToAdd)
         {
@@ -68,6 +69,7 @@ namespace Web.API.Controllers
 
         [HttpPut]
         [Route("{nameToModify}")]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
         public IHttpActionResult ModifyZoneWithName(string nameToModify,
             [FromBody]ZoneDTO userDataToSet)
         {
@@ -81,6 +83,8 @@ namespace Web.API.Controllers
 
         [HttpDelete]
         [Route("{nameToRemove}")]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
+
         public IHttpActionResult RemoveZoneWithName(string nameToRemove)
         {
             return ExecuteActionAndReturnOutcome(

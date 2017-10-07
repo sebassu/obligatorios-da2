@@ -2,10 +2,10 @@
 using API.Services;
 using System.Web.Http;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace Web.API.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/Lots")]
     public class LotsController : BaseController
     {

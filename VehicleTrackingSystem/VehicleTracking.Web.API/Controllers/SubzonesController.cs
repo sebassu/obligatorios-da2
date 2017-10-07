@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace Web.API.Controllers
 {
-    [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
+    [Authorize]
     public class SubzonesController : BaseController
     {
         internal ISubzoneServices Model { get; }
@@ -22,6 +22,7 @@ namespace Web.API.Controllers
         }
 
         [HttpPost]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
         [Route("api/Zones/{containerName}/Subzones", Name = "RegisterSubzoneToZone")]
         public IHttpActionResult AddNewSubzoneFromData(string containerName,
             [FromBody]SubzoneDTO subzoneDataToAdd)
@@ -70,6 +71,7 @@ namespace Web.API.Controllers
         }
 
         [HttpPut]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
         [Route("api/Subzones/{idToModify}")]
         public IHttpActionResult ModifySubzoneWithId(int idToModify,
             [FromBody]SubzoneDTO userDataToSet)
@@ -83,6 +85,7 @@ namespace Web.API.Controllers
         }
 
         [HttpDelete]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
         [Route("api/Subzones/{idToRemove}")]
         public IHttpActionResult RemoveSubzoneWithId(int idToRemove)
         {

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 namespace Web.API.Controllers
 {
     [RoutePrefix("api/Vehicles")]
+    [Authorize]
     public class VehiclesController : BaseController
     {
         internal IVehicleServices Model { get; }
@@ -21,6 +22,7 @@ namespace Web.API.Controllers
         }
 
         [HttpPost]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
         public IHttpActionResult AddNewVehicleFromData(
             [FromBody]VehicleDTO vehicleDataToAdd)
         {
@@ -65,6 +67,7 @@ namespace Web.API.Controllers
         }
 
         [HttpPut]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
         [Route("{vinToModify}")]
         public IHttpActionResult ModifyVehicleWithVIN(string vinToModify,
             [FromBody]VehicleDTO vehicleDataToSet)
@@ -78,6 +81,7 @@ namespace Web.API.Controllers
         }
 
         [HttpDelete]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR)]
         [Route("{vinToRemove}")]
         public IHttpActionResult RemoveVehicleWithVIN(string vinToRemove)
         {
