@@ -1,9 +1,8 @@
-﻿using System;
-using Persistence;
+﻿using Persistence;
 using System.Collections.Generic;
 using Domain;
 
-namespace API.Services.Business_Logic.Concrete_types
+namespace API.Services.Business_Logic
 {
     public class InspectionServices : IInspectionServices
     {

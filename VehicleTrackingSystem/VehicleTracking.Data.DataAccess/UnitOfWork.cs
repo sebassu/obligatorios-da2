@@ -67,7 +67,7 @@ namespace Persistence
             {
                 if (Utilities.IsNull(locations))
                 {
-                    subzones = new LocationRepository(context);
+                    locations = new LocationRepository(context);
                 }
                 return locations;
             }

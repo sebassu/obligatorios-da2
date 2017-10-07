@@ -3,7 +3,6 @@ using Persistence;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace Data.Persistence_Tests
 {
@@ -12,7 +11,7 @@ namespace Data.Persistence_Tests
     public class UserRepositoryTests
     {
         private string unaddedUsername = "Wololo";
-        private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();
+        private static readonly UnitOfWork testingUnitOfWork = new UnitOfWork();
         private static IUserRepository testingUserRepository;
 
         [AssemblyInitialize]

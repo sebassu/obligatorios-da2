@@ -15,6 +15,7 @@ namespace Persistence
         public LocationRepository(VTSystemContext someContext)
         {
             context = someContext;
+            locations = context.Locations;
         }
 
         public IEnumerable<Location> Elements => locations.ToList();

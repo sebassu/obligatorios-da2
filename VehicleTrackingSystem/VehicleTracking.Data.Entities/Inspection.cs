@@ -161,13 +161,13 @@ namespace Domain
         protected Inspection() { }
 
         public static Inspection CreateNewInspection(User user, Location location,
-            DateTime dateTime, List<Damage> damages, Vehicle vehicle)
+            DateTime dateTime, ICollection<Damage> damages, Vehicle vehicle)
         {
             return new Inspection(user, location, dateTime, damages, vehicle);
         }
 
         protected Inspection(User userToSet, Location locationToSet, DateTime dateTimeToSet,
-            List<Damage> damagesToSet, Vehicle vehicleToSet)
+            ICollection<Damage> damagesToSet, Vehicle vehicleToSet)
         {
             if (UserCanInspect(userToSet, locationToSet))
             {
