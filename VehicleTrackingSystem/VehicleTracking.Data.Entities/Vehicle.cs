@@ -135,8 +135,24 @@ namespace Domain
 
         public bool IsLotted => Utilities.IsNotNull(StagesData.PortLot);
         public ProcessStages CurrentStage => StagesData.CurrentStage;
-        public Inspection PortInspection => StagesData.PortInspection;
-        public Inspection YardInspection => StagesData.YardInspection;
+
+        public Inspection PortInspection
+        {
+            get { return StagesData.PortInspection; }
+            set
+            {
+                StagesData.RegisterPortInspection(value);
+            }
+        }
+
+        public Inspection YardInspection
+        {
+            get { return StagesData.YardInspection; }
+            set
+            {
+                StagesData.RegisterYardInspection(value);
+            }
+        }
 
         public Lot PortLot
         {
