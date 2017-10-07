@@ -17,6 +17,20 @@ namespace Persistence
 
         public IEnumerable<Lot> Elements => GetElementsThat();
 
+        public Lot GetLotById(int IdToFind)
+        {
+            try
+            {
+                return elements.Single(l => l.Id.Equals(IdToFind));
+            }
+            catch (InvalidOperationException)
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.CouldNotFindField, "Id", IdToFind);
+                throw new RepositoryException(errorMessage);
+            }
+        }
+
         public void AddNewLot(Lot lotToAdd)
         {
             Add(lotToAdd);

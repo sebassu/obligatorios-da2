@@ -137,6 +137,31 @@ namespace Data.Tests.Persistence_tests
             UpdateLotAndSaveChanges(notAddedLot);
         }
 
+        [TestMethod]
+        public void LRepositoryGetLotByIdValidTest()
+        {
+            User userToAdd = User.CreateNewUser(UserRoles.ADMINISTRATOR,
+                "Mario", "Santos", "mSantos1", "DisculpeFuegoTiene", "099424242");
+            Vehicle vehicleToAdd1 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR2");
+            Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR1");
+            ICollection<Vehicle> list = new List<Vehicle>();
+            list.Add(vehicleToAdd1);
+            list.Add(vehicleToAdd2);
+            Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 5", "Only Ferrari lot.", list);
+            AddNewLotAndSaveChanges(lotToVerify);
+            Lot result = testingLotRepository.GetLotById(lotToVerify.Id);
+            Assert.AreEqual(lotToVerify, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void URepositoryGetUserByUnaddedUsernameInvalidTest()
+        {
+            testingLotRepository.GetLotById(1500);
+        }
+
         private static void AddNewLotAndSaveChanges(Lot lotToAdd)
         {
             testingLotRepository.AddNewLot(lotToAdd);
