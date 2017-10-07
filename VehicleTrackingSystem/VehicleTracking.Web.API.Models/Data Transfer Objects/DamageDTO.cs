@@ -1,9 +1,8 @@
-﻿using System;
-using Domain;
+﻿using Domain;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
-namespace API.Services.Data_Transfer_Objects
+namespace API.Services
 {
     public class DamageDTO
     {

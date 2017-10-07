@@ -62,7 +62,7 @@ namespace Web.API.Controllers
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    UserDTO requestedUser = Model.GetUserByUsername(usernameToLookup);
+                    UserDTO requestedUser = Model.GetUserWithUsername(usernameToLookup);
                     return Ok(requestedUser);
                 });
         }

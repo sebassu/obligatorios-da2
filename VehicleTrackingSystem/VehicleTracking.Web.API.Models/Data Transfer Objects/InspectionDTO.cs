@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace API.Services.Data_Transfer_Objects
+namespace API.Services
 {
     public class InspectionDTO
     {
         public int Id { get; set; }
 
-        [Required]
         public string VehicleVIN { get; set; }
 
         [Required]
@@ -57,6 +56,11 @@ namespace API.Services.Data_Transfer_Objects
             LocationName = locationNameToSet;
             ResponsibleUsername = usernameToSet;
             DateTime = dateTimeToSet;
+        }
+
+        internal Inspection ToInspection(User responsible, Location locationToSet, Vehicle vehicleToSet)
+        {
+            return Inspection.CreateNewInspection(responsible, locationToSet, DateTime, GetDamages(), vehicleToSet);
         }
 
         internal ICollection<Damage> GetDamages()

@@ -8,7 +8,7 @@ namespace Persistence
         IVehicleRepository Vehicles { get; }
         IZoneRepository Zones { get; }
         ISubzoneRepository Subzones { get; }
+        ILocationRepository Locations { get; }
         void SaveChanges();
-        void DeleteAllDataFromDatabase();
     }
 }

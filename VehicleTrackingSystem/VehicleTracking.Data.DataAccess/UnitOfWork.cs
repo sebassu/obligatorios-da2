@@ -60,6 +60,19 @@ namespace Persistence
             }
         }
 
+        private ILocationRepository locations;
+        public ILocationRepository Locations
+        {
+            get
+            {
+                if (Utilities.IsNull(locations))
+                {
+                    subzones = new LocationRepository(context);
+                }
+                return locations;
+            }
+        }
+
         public void DeleteAllDataFromDatabase()
         {
             context.DeleteAllDataFromDatabase();

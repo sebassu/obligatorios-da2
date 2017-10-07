@@ -41,10 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business Logic\Concrete types\InspectionServices.cs" />
     <Compile Include="Business Logic\Concrete types\SubzoneServices.cs" />
     <Compile Include="Business Logic\Concrete types\UserServices.cs" />
     <Compile Include="Business Logic\Concrete types\VehicleServices.cs" />
     <Compile Include="Business Logic\Concrete types\ZoneServices.cs" />
+    <Compile Include="Business Logic\Interfaces\IInspectionServices.cs" />
     <Compile Include="Business Logic\Interfaces\IZoneServices.cs" />
     <Compile Include="Business Logic\Interfaces\IUserServices.cs" />
     <Compile Include="Business Logic\Interfaces\IVehicleServices.cs" />
