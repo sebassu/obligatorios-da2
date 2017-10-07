@@ -57,6 +57,8 @@
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\RepositoryException.cs" />
+    <Compile Include="IInspectionRepository.cs" />
+    <Compile Include="InspectionRepository.cs" />
     <Compile Include="ISubzoneRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUserRepository.cs" />

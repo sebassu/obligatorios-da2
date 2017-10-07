@@ -25,7 +25,7 @@ namespace API.Services
             someSubzone.Name, someSubzone.Capacity)
         {
             SetVehiclesIds(someSubzone);
-            SetContainerId(someSubzone);
+            ContainerId = someSubzone.Container.Id;
         }
 
         private void SetVehiclesIds(Subzone someSubzone)
@@ -34,15 +34,6 @@ namespace API.Services
             if (Utilities.IsNotNull(vehiclesToSet))
             {
                 VehicleIds = vehiclesToSet.Select(v => v.Id).ToList();
-            }
-        }
-
-        private void SetContainerId(Subzone someSubzone)
-        {
-            var containerToSet = someSubzone.Container;
-            if (Utilities.IsNotNull(containerToSet))
-            {
-                ContainerId = containerToSet.Id;
             }
         }
 
