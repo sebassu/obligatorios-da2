@@ -47,9 +47,50 @@ namespace Data.Tests.Persistence_tests
             AddNewLotAndSaveChanges(null);
         }
 
+        [TestMethod]
+        public void LRepositoryRemoveLotValidTest()
+        {
+            User userToAdd = User.CreateNewUser(UserRoles.ADMINISTRATOR,
+                "Mario", "Santos", "mSantos1", "DisculpeFuegoTiene", "099424242");
+            Vehicle vehicleToAdd1 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR3");
+            Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR4");
+            ICollection<Vehicle> list = new List<Vehicle>();
+            list.Add(vehicleToAdd1);
+            list.Add(vehicleToAdd2);
+            Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 1", "Only Ferrari lot.", list);
+            AddNewLotAndSaveChanges(lotToVerify);
+            RemoveLotWithIdAndSaveChanges(lotToVerify.Id);
+            CollectionAssert.DoesNotContain(testingLotRepository.Elements.ToList(), lotToVerify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void LRepositoryRemoveLotNotInRepositoryInvalidTest()
+        {
+            User userToAdd = User.CreateNewUser(UserRoles.ADMINISTRATOR,
+                "Mario", "Santos", "mSantos1", "DisculpeFuegoTiene", "099424242");
+            Vehicle vehicleToAdd1 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR3");
+            Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR4");
+            ICollection<Vehicle> list = new List<Vehicle>();
+            list.Add(vehicleToAdd1);
+            list.Add(vehicleToAdd2);
+            Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 1", "Only Ferrari lot.", list);
+            RemoveLotWithIdAndSaveChanges(lotToVerify.Id);
+        }
+
         private static void AddNewLotAndSaveChanges(Lot lotToAdd)
         {
             testingLotRepository.AddNewLot(lotToAdd);
+            testingUnitOfWork.SaveChanges();
+        }
+
+        private static void RemoveLotWithIdAndSaveChanges(int IdToRemove)
+        {
+            testingLotRepository.RemoveLotWithId(IdToRemove);
             testingUnitOfWork.SaveChanges();
         }
     }
