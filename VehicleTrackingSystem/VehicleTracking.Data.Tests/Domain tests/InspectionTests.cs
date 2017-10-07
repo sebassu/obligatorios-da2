@@ -112,10 +112,11 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InspectionException))]
-        public void InspecionSetInvalidDamagesListEmptyTest()
+        public void InspectionSetInvalidDamagesEmptyListValidTest()
         {
-            testingInspection.Damages = new List<Damage>();
+            var emptyListToSet = new List<Damage>();
+            testingInspection.Damages = emptyListToSet;
+            Assert.AreSame(emptyListToSet, testingInspection.Damages);
         }
 
         [TestMethod]

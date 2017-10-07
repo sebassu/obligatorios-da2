@@ -60,12 +60,13 @@ namespace Domain
         }
 
         public static Damage CreateNewDamage(string description,
-            List<string> images)
+            ICollection<string> images)
         {
             return new Damage(description, images);
         }
 
-        protected Damage(string descriptionToSet, List<string> imagesToSet)
+        protected Damage(string descriptionToSet,
+            ICollection<string> imagesToSet)
         {
             Description = descriptionToSet;
             Images = imagesToSet;

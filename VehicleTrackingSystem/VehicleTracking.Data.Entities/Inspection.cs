@@ -102,21 +102,27 @@ namespace Domain
             return UserCanInspect(responsibleUser, value);
         }
 
-        private List<Damage> damages = new List<Damage>();
-        public List<Damage> Damages
+        private ICollection<Damage> damages = new List<Damage>();
+        public ICollection<Damage> Damages
         {
             get { return damages; }
             set
             {
-                if (Utilities.IsValidItemEnumeration(value))
+                if (IsValidDamageCollection(value))
                 {
                     damages = value;
                 }
                 else
                 {
-                    throw new InspectionException(ErrorMessages.CollectionIsInvalid);
+                    throw new InspectionException(ErrorMessages.DamageCollectionIsInvalid);
                 }
             }
+        }
+
+        private bool IsValidDamageCollection(ICollection<Damage> value)
+        {
+            return Utilities.IsNotNull(value) &&
+                value.Distinct().Count() == value.Count;
         }
 
         private string vehicleVIN;
@@ -152,9 +158,7 @@ namespace Domain
             };
         }
 
-        protected Inspection()
-        {
-        }
+        protected Inspection() { }
 
         public static Inspection CreateNewInspection(User user, Location location,
             DateTime dateTime, List<Damage> damages, Vehicle vehicle)
