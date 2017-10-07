@@ -61,7 +61,7 @@ namespace Data.Tests.Persistence_tests
             list.Add(vehicleToAdd2);
             Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 2", "Only Ferrari lot.", list);
             AddNewLotAndSaveChanges(lotToVerify);
-            RemoveLotWithIdAndSaveChanges(lotToVerify.Id);
+            RemoveLotWithIdAndSaveChanges(lotToVerify.Name);
             CollectionAssert.DoesNotContain(testingLotRepository.Elements.ToList(), lotToVerify);
         }
 
@@ -79,7 +79,7 @@ namespace Data.Tests.Persistence_tests
             list.Add(vehicleToAdd1);
             list.Add(vehicleToAdd2);
             Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 3", "Only Ferrari lot.", list);
-            RemoveLotWithIdAndSaveChanges(lotToVerify.Id);
+            RemoveLotWithIdAndSaveChanges(lotToVerify.Name);
         }
 
         [TestMethod]
@@ -138,7 +138,7 @@ namespace Data.Tests.Persistence_tests
         }
 
         [TestMethod]
-        public void LRepositoryGetLotByIdValidTest()
+        public void LRepositoryGetLotByNameValidTest()
         {
             User userToAdd = User.CreateNewUser(UserRoles.ADMINISTRATOR,
                 "Mario", "Santos", "mSantos1", "DisculpeFuegoTiene", "099424242");
@@ -151,15 +151,15 @@ namespace Data.Tests.Persistence_tests
             list.Add(vehicleToAdd2);
             Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 5", "Only Ferrari lot.", list);
             AddNewLotAndSaveChanges(lotToVerify);
-            Lot result = testingLotRepository.GetLotById(lotToVerify.Id);
+            Lot result = testingLotRepository.GetLotByName(lotToVerify.Name);
             Assert.AreEqual(lotToVerify, result);
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void LRepositoryGetLotByUnaddedIdInvalidTest()
+        public void LRepositoryGetLotByNameUnaddedNameInvalidTest()
         {
-            testingLotRepository.GetLotById(1500);
+            testingLotRepository.GetLotByName("Not existing zone");
         }
 
         [TestMethod]
@@ -194,9 +194,9 @@ namespace Data.Tests.Persistence_tests
             testingUnitOfWork.SaveChanges();
         }
 
-        private static void RemoveLotWithIdAndSaveChanges(int IdToRemove)
+        private static void RemoveLotWithIdAndSaveChanges(string nameToRemove)
         {
-            testingLotRepository.RemoveLotWithId(IdToRemove);
+            testingLotRepository.RemoveLotWithName(nameToRemove);
             testingUnitOfWork.SaveChanges();
         }
 

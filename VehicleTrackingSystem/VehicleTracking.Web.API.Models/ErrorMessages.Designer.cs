@@ -88,11 +88,29 @@ namespace API.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No se pueden eliminar los lotes que ya fueron transportados..
+        /// </summary>
+        internal static string CannotRemoveTransportedLots {
+            get {
+                return ResourceManager.GetString("CannotRemoveTransportedLots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No es posible completar la acción: el {0} ingresado ya se encuentra registrado en el sistema..
         /// </summary>
         internal static string FieldMustBeUnique {
             get {
                 return ResourceManager.GetString("FieldMustBeUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El lote se encuentra en una etapa en la cual no está permitido editarlo..
+        /// </summary>
+        internal static string LotWasTransported {
+            get {
+                return ResourceManager.GetString("LotWasTransported", resourceCulture);
             }
         }
         

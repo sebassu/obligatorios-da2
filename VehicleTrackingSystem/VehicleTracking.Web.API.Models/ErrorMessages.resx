@@ -126,8 +126,14 @@
   <data name="CannotRemoveNonEmptyZone" xml:space="preserve">
     <value>No es posible eliminar a la zona: contiene subzonas.</value>
   </data>
+  <data name="CannotRemoveTransportedLots" xml:space="preserve">
+    <value>No se pueden eliminar los lotes que ya fueron transportados.</value>
+  </data>
   <data name="FieldMustBeUnique" xml:space="preserve">
     <value>No es posible completar la acción: el {0} ingresado ya se encuentra registrado en el sistema.</value>
+  </data>
+  <data name="LotWasTransported" xml:space="preserve">
+    <value>El lote se encuentra en una etapa en la cual no está permitido editarlo.</value>
   </data>
   <data name="NullDTOReference" xml:space="preserve">
     <value>No se recibieron datos en el formato correcto esperado para acceder a esta funcionalidad.</value>

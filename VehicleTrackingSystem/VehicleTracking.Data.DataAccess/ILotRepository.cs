@@ -7,9 +7,9 @@ namespace Persistence
     {
         void AddNewLot(Lot lotToAdd);
         IEnumerable<Lot> Elements { get; }
-        Lot GetLotById(int idToFind);
+        Lot GetLotByName(string nameToFind);
         void UpdateLot(Lot lotToModify);
-        void RemoveLotWithId(int lotToRemove);
+        void RemoveLotWithName(string nameToRemove);
         bool ExistsLotWithName(string nameToFind);
     }
 }
