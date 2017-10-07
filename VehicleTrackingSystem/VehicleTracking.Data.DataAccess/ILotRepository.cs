@@ -9,5 +9,6 @@ namespace Persistence
         IEnumerable<Lot> Elements { get; }
         Lot GetLotWithId(int IdToFind);
         void RemoveLotWithId(int lotToRemove);
+        void UpdateLot(Lot lotToModify);
     }
 }

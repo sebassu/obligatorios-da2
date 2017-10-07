@@ -46,6 +46,11 @@ namespace Persistence
             return Utilities.IsNotNull(value) && elements.Any(l => l.Id == value.Id);
         }
 
+        public void UpdateLot(Lot lotToModify)
+        {
+            Update(lotToModify);
+        }
+
 
     }
 }

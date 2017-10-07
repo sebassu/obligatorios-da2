@@ -59,7 +59,7 @@ namespace Data.Tests.Persistence_tests
             ICollection<Vehicle> list = new List<Vehicle>();
             list.Add(vehicleToAdd1);
             list.Add(vehicleToAdd2);
-            Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 1", "Only Ferrari lot.", list);
+            Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 2", "Only Ferrari lot.", list);
             AddNewLotAndSaveChanges(lotToVerify);
             RemoveLotWithIdAndSaveChanges(lotToVerify.Id);
             CollectionAssert.DoesNotContain(testingLotRepository.Elements.ToList(), lotToVerify);
@@ -78,8 +78,63 @@ namespace Data.Tests.Persistence_tests
             ICollection<Vehicle> list = new List<Vehicle>();
             list.Add(vehicleToAdd1);
             list.Add(vehicleToAdd2);
-            Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 1", "Only Ferrari lot.", list);
+            Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 3", "Only Ferrari lot.", list);
             RemoveLotWithIdAndSaveChanges(lotToVerify.Id);
+        }
+
+        [TestMethod]
+        public void LRepositoryModifyLotValidTest()
+        {
+            User userToAdd = User.CreateNewUser(UserRoles.ADMINISTRATOR,
+                "Mario", "Santos", "mSantos1", "DisculpeFuegoTiene", "099424242");
+            Vehicle vehicleToAdd1 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR5");
+            Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR6");
+            ICollection<Vehicle> list = new List<Vehicle>();
+            list.Add(vehicleToAdd1);
+            list.Add(vehicleToAdd2);
+            Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 4", "Only Ferrari lot.", list);
+            AddNewLotAndSaveChanges(lotToVerify);
+            list.Remove(vehicleToAdd1);
+            SetLotData(lotToVerify, "Modified lot", "Some new description", list);
+            Assert.AreEqual(userToAdd, lotToVerify.Creator);
+            Assert.AreEqual("Modified lot", lotToVerify.Name);
+            Assert.AreEqual("Some new description", lotToVerify.Description);
+            Assert.IsTrue(list.SequenceEqual(lotToVerify.Vehicles));
+        }
+
+        private void SetLotData(Lot lotToModify, string nameToSet, 
+            string descriptionToSet, ICollection<Vehicle> listToSet)
+        {
+            lotToModify.Name = nameToSet;
+            lotToModify.Description = descriptionToSet;
+            lotToModify.Vehicles = listToSet;
+            UpdateLotAndSaveChanges(lotToModify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void LRepositoryModifyNullLotInvalidTest()
+        {
+            UpdateLotAndSaveChanges(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void LRepositoryModifyNotAddedLotInvalidTest()
+        {
+            User userToAdd = User.CreateNewUser(UserRoles.ADMINISTRATOR,
+                "Mario", "Santos", "mSantos1", "DisculpeFuegoTiene", "099424242");
+            Vehicle vehicleToAdd1 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR2");
+            Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR1");
+            ICollection<Vehicle> list = new List<Vehicle>();
+            list.Add(vehicleToAdd1);
+            list.Add(vehicleToAdd2);
+            Lot notAddedLot = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 5", "Only Ferrari lot.", list);
+            UpdateLotAndSaveChanges(notAddedLot);
         }
 
         private static void AddNewLotAndSaveChanges(Lot lotToAdd)
@@ -91,6 +146,12 @@ namespace Data.Tests.Persistence_tests
         private static void RemoveLotWithIdAndSaveChanges(int IdToRemove)
         {
             testingLotRepository.RemoveLotWithId(IdToRemove);
+            testingUnitOfWork.SaveChanges();
+        }
+
+        private static void UpdateLotAndSaveChanges(Lot lotToModify)
+        {
+            testingLotRepository.UpdateLot(lotToModify);
             testingUnitOfWork.SaveChanges();
         }
     }
