@@ -1,0 +1,1565 @@
+{
+	"info": {
+		"name": "VehicleTrackingSystem Tests",
+		"_postman_id": "3a62458f-af04-bf55-08cd-8733bf39fd97",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UsersController Tests",
+			"description": "Registering new users and verifying those are added correctly.",
+			"item": [
+				{
+					"name": "Modify - Fake Lamponne to Mundstock",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Role\":\"ADMINISTRATOR\",\n\t\"FirstName\":\"Marcos\",\n\t\"LastName\":\"Mundstock\",\n\t\"Username\":\"mMundstock\",\n\t\"Password\":\"diptongonante\",\n\t\"PhoneNumber\":\"099424242\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Users/fakeLamponne",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"fakeLamponne"
+							]
+						},
+						"description": "Modifica a un usuario previamente agregado a Marcos Mundstock."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete - Marcos Mundstock",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Role\":\"ADMINISTRATOR\",\n\t\"FirstName\":\"Marcos\",\n\t\"LastName\":\"Mundstock\",\n\t\"Username\":\"mMundstock\",\n\t\"Password\":\"diptongonante\",\n\t\"PhoneNumber\":\"099424242\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Users/mMundstock",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"mMundstock"
+							]
+						},
+						"description": "Borra al resultado de la operación de PUT anteriormente ejecutada."
+					},
+					"response": []
+				},
+				{
+					"name": "Add User - Mario Santos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Role\":\"ADMINISTRATOR\",\n\t\"FirstName\":\"Mario\",\n\t\"LastName\":\"Santos\",\n\t\"Username\":\"mSantos\",\n\t\"Password\":\"DisculpeFuegoTiene\",\n\t\"PhoneNumber\":\"099424242\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Users",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Agrega a \"Mario Santos\", administrador."
+					},
+					"response": []
+				},
+				{
+					"name": "Add User - Emilio Ravenna",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Role\":\"YARD_OPERATOR\",\n\t\"FirstName\":\"Emilio\",\n\t\"LastName\":\"Ravenna\",\n\t\"Username\":\"eRavenna\",\n\t\"Password\":\"HablarUnasPalabritas\",\n\t\"PhoneNumber\":\"099212121\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Users",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Agrega a \"Emilio Ravenna\", operario de puerto."
+					},
+					"response": []
+				},
+				{
+					"name": "Add User - Pablo Lamponne",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Role\":\"TRANSPORTER\",\n\t\"FirstName\":\"Pablo\",\n\t\"LastName\":\"Lamponne\",\n\t\"Username\":\"pLamponne\",\n\t\"Password\":\"NoHaceFaltaSaleSolo\",\n\t\"PhoneNumber\":\"099212121\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Users",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Agrega a \"Pablo Lamponne\", transportador."
+					},
+					"response": []
+				},
+				{
+					"name": "Add User - Gabriel David Medina",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Role\":\"PORT_OPERATOR\",\n\t\"FirstName\":\"Gabriel David\",\n\t\"LastName\":\"Medina\",\n\t\"Username\":\"gdMedina\",\n\t\"Password\":\"MusicaSuperDivertida\",\n\t\"PhoneNumber\":\"099698869\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Users",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Agrega a \"Gabriel David Medina\", operario de patio."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://{{URL}}/api/Users",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Retorna la lista de usuarios registrados en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User with Username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://{{URL}}/api/Users/mSantos",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"mSantos"
+							]
+						},
+						"description": "Retorna los datos del usuario con el nombre de usuario ingresado."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"description": "",
+			"item": [
+				{
+					"name": "Login as default Administrator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"token\", jsonData.access_token);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "theAdministrator",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Victory",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{URL}}/login",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "VehicleController Tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Vehicle - Red Barchetta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"CAR\",\n\t\"Brand\":\"Ferrari\",\n\t\"Model\":\"Barchetta\",\n\t\"Year\":\"1984\",\n\t\"Color\":\"Red\",\n\t\"VIN\":\"RUSH2112RLLTHEBNS\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles"
+							]
+						},
+						"description": "Registra un vehículo, barchetta rojo brillante."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Vehicle - Mercedes Benz Van",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"VAN\",\n\t\"Brand\":\"Mercedes Benz\",\n\t\"Model\":\"BNQR\",\n\t\"Year\":2001,\n\t\"Color\":\"DarkGray\",\n\t\"VIN\":\"NDHFN4758NDM124LO\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles"
+							]
+						},
+						"description": "Agrega los datos de un segundo auto."
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Vehicle - Mercedes Benz Van to BMW SUV",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles/NDHFN4758NDM124LO",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles",
+								"NDHFN4758NDM124LO"
+							]
+						},
+						"description": "Agrega los datos de un segundo auto."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles"
+							]
+						},
+						"description": "Retorna la lista de vehículos registrados en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicle with VIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles/RUSH2112RLLTHEBNS",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles",
+								"RUSH2112RLLTHEBNS"
+							]
+						},
+						"description": "Agrega los datos de un segundo auto."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete vehicle with VIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"BadRequest status code\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles/RUSH2112RLLTHEBNS",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles",
+								"RUSH2112RLLTHEBNS"
+							]
+						},
+						"description": "Agrega los datos de un segundo auto."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ZonesController Tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Zone - \"The Zone\", 42",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\":\"The Zone\",\n\t\"Capacity\":42\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Zones",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Zones"
+							]
+						},
+						"description": "Registra un vehículo, barchetta rojo brillante."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Zone - \"Some other zone\", 99",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\":\"Some other zone\",\n\t\"Capacity\":99\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Zones",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Zones"
+							]
+						},
+						"description": "Agrega otra zona a modificar."
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Zone - \"Some other zone\"",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\":\"Phantom zone\",\n\t\"Capacity\":121\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Zones/Some other zone",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Zones",
+								"Some other zone"
+							]
+						},
+						"description": "Modifica la zona indicada a \"Phantom Zone\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Zones",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Zones",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Zones"
+							]
+						},
+						"description": "Retorna la lista de zonas registradas en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Zone with Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Zones/The Zone",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Zones",
+								"The Zone"
+							]
+						},
+						"description": "Agrega los datos de un segundo auto."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Zone with name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Zones/The Zone",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Zones",
+								"The Zone"
+							]
+						},
+						"description": "Elimina la zona con el nombre indicado."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SubzonesController Tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Subzone - \"The Minizone\", 21",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\":\"The Minizone\",\n\t\"Capacity\":21\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Zones/The Zone/Subzones",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Zones",
+								"The Zone",
+								"Subzones"
+							]
+						},
+						"description": "Registra una subzona dentro de la zona \"The Zone\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Subzone - \"The Tinyzone\", 12",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"    pm.environment.set(\"subzoneToModify\", pm.response.id);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\":\"The Tinyzone\",\n\t\"Capacity\":12\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Zones/The Zone/Subzones",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Zones",
+								"The Zone",
+								"Subzones"
+							]
+						},
+						"description": "Agrega otra subzona a modificar."
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Subzone - \"The Tinyzone\"",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\":\"Some new subzone name\",\n\t\"Capacity\":1\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Subzones/1",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Subzones",
+								"1"
+							]
+						},
+						"description": "Modifica la subzona indicada a \"Some new subzone name\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Subzones",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Subzones",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Subzones"
+							]
+						},
+						"description": "Retorna la lista de subzonas registradas en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Subzone with Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Subzones/1",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Subzones",
+								"1"
+							]
+						},
+						"description": "Agrega los datos de una subzona a partir de su Id."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Subzone with Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Subzones/1",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Subzones",
+								"1"
+							]
+						},
+						"description": "Elimina la zona con el nombre indicado."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "InspectionController Tests",
+			"description": "",
+			"item": []
+		}
+	]
+}

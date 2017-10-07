@@ -131,42 +131,42 @@ namespace Domain
             return Utilities.IsValidVIN(value);
         }
 
-        public ProcessData CurrentState { get; set; }
+        public ProcessData StagesData { get; set; }
 
-        public bool IsLotted => Utilities.IsNotNull(CurrentState.PortLot);
-        public ProcessStages CurrentStage => CurrentState.CurrentStage;
-        public Inspection PortInspection => CurrentState.PortInspection;
-        public Inspection YardInspection => CurrentState.YardInspection;
+        public bool IsLotted => Utilities.IsNotNull(StagesData.PortLot);
+        public ProcessStages CurrentStage => StagesData.CurrentStage;
+        public Inspection PortInspection => StagesData.PortInspection;
+        public Inspection YardInspection => StagesData.YardInspection;
 
         public Lot PortLot
         {
-            get { return CurrentState.PortLot; }
+            get { return StagesData.PortLot; }
             set
             {
-                CurrentState.RegisterPortLot(value);
+                StagesData.RegisterPortLot(value);
             }
         }
 
         public bool IsReadyForTransport()
         {
-            return CurrentState.IsReadyForTransport();
+            return StagesData.IsReadyForTransport();
         }
 
         internal void SetTransportStartData(Transport someTransport)
         {
-            CurrentState.SetTransportStartData(someTransport);
+            StagesData.SetTransportStartData(someTransport);
         }
 
         internal void SetTransportEndData()
         {
-            CurrentState.SetTransportEndData();
+            StagesData.SetTransportEndData();
         }
 
         internal static Vehicle InstanceForTestingPurposes()
         {
             return new Vehicle()
             {
-                CurrentState = new ProcessData()
+                StagesData = new ProcessData()
             };
         }
 
@@ -194,7 +194,7 @@ namespace Domain
             Year = yearToSet;
             Color = colorToSet;
             VIN = VINToSet;
-            CurrentState = new ProcessData();
+            StagesData = new ProcessData();
         }
 
         public override bool Equals(object obj)

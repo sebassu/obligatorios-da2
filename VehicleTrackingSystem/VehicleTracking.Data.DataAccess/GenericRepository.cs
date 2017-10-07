@@ -20,22 +20,33 @@ namespace Persistence
             elements = context.Set<TEntity>();
         }
 
-        protected virtual IEnumerable<TEntity> GetElementsThat(
-            Expression<Func<TEntity, bool>> filter = null)
+        public virtual IEnumerable<TEntity> GetElementsWith(
+            Expression<Func<TEntity, bool>> filter = null,
+            string includeProperties = "")
         {
             IQueryable<TEntity> query = elements;
-            query = AddWhereStatement(filter, query);
+            AddWhereStatement(filter, ref query);
+            AddIncludeProperties(includeProperties, ref query);
             return query.ToList();
         }
 
-        private static IQueryable<TEntity> AddWhereStatement(
-            Expression<Func<TEntity, bool>> filter, IQueryable<TEntity> query)
+        private static void AddWhereStatement(Expression<Func<TEntity, bool>> filter,
+            ref IQueryable<TEntity> query)
         {
             if (Utilities.IsNotNull(filter))
             {
                 query = query.Where(filter);
             }
-            return query;
+        }
+
+        private static void AddIncludeProperties(string includeProperties,
+            ref IQueryable<TEntity> query)
+        {
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
         }
 
         protected virtual TEntity GetById(object id)

@@ -15,7 +15,7 @@ namespace Persistence
             Add(zoneToAdd);
         }
 
-        public IEnumerable<Zone> Elements => GetElementsThat();
+        public IEnumerable<Zone> Elements => GetElementsWith();
 
         public Zone GetZoneWithName(string nameToFind)
         {

@@ -21,7 +21,7 @@ namespace Web.API.Controllers
         }
 
         [HttpPost]
-        [Route("api/Zones/{nameOfContainer}")]
+        [Route("api/Zones/{containerName}/Subzones", Name = "RegisterSubzoneToZone")]
         public IHttpActionResult AddNewSubzoneFromData(string containerName,
             [FromBody]SubzoneDTO subzoneDataToAdd)
         {
@@ -30,7 +30,7 @@ namespace Web.API.Controllers
                 {
                     int additionId = Model.AddNewSubzoneFromData(containerName,
                         subzoneDataToAdd);
-                    return CreatedAtRoute("VTSystemAPI",
+                    return CreatedAtRoute("RegisterSubzoneToZone",
                         new { id = additionId }, subzoneDataToAdd);
                 });
         }

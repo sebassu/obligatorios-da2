@@ -81,15 +81,15 @@ namespace API.Services.Business_Logic
         public void RemoveSubzoneWithId(int idToRemove)
         {
             Subzone subzoneToRemove = Subzones.GetSubzoneWithId(idToRemove);
-            bool isEmptySubzone = subzoneToRemove.Vehicles.Any();
-            if (isEmptySubzone)
+            bool isNonEmptySubzone = subzoneToRemove.Vehicles.Any();
+            if (isNonEmptySubzone)
             {
-                Subzones.RemoveSubzone(subzoneToRemove);
-                Model.SaveChanges();
+                throw new ServiceException(ErrorMessages.CannotRemoveNonEmptySubzone);
             }
             else
             {
-                throw new ServiceException(ErrorMessages.CannotRemoveNonEmptySubzone);
+                Subzones.RemoveSubzone(subzoneToRemove);
+                Model.SaveChanges();
             }
         }
     }
