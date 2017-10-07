@@ -60,6 +60,19 @@ namespace Persistence
             }
         }
 
+        private ILotRepository lots;
+        public ILotRepository Lots
+        {
+            get
+            {
+                if (Utilities.IsNull(lots))
+                {
+                    lots = new LotRepository(context);
+                }
+                return lots;
+            }
+        }
+
         public void DeleteAllDataFromDatabase()
         {
             context.DeleteAllDataFromDatabase();

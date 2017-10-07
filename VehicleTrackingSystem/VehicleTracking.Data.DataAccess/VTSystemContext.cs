@@ -16,6 +16,7 @@ namespace Persistence
         public DbSet<Zone> Zones { get; set; }
         public DbSet<Movement> Movements { get; set; }
         public DbSet<Subzone> Subzones { get; set; }
+        public DbSet<Lot> Lots { get; set; }
 
         public VTSystemContext() : base()
         {
@@ -42,12 +43,14 @@ namespace Persistence
 
         internal void DeleteAllDataFromDatabase()
         {
+            Database.ExecuteSqlCommand("delete from processDatas");
             Database.ExecuteSqlCommand("delete from users");
             Database.ExecuteSqlCommand("delete from locations");
             Database.ExecuteSqlCommand("delete from movements");
             Database.ExecuteSqlCommand("delete from subzones");
             Database.ExecuteSqlCommand("delete from zones");
             Database.ExecuteSqlCommand("delete from vehicles");
+            Database.ExecuteSqlCommand("delete from lots");
         }
     }
 }

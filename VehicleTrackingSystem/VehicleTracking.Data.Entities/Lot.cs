@@ -165,5 +165,23 @@ namespace Domain
                 vehicle.SetTransportStartData(associatedTransport);
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Lot lotToCompareAgainst = obj as Lot;
+            if (Utilities.IsNotNull(lotToCompareAgainst))
+            {
+                return Id.Equals(lotToCompareAgainst.Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
