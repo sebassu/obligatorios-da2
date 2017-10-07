@@ -15,7 +15,6 @@ namespace API.Services
         [Required]
         public string LocationName { get; set; }
 
-        [Required]
         public string ResponsibleUsername { get; set; }
 
         [Required]

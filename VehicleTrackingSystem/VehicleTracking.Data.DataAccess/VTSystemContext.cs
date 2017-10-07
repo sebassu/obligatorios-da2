@@ -16,6 +16,7 @@ namespace Persistence
         public DbSet<Zone> Zones { get; set; }
         public DbSet<Movement> Movements { get; set; }
         public DbSet<Subzone> Subzones { get; set; }
+        public DbSet<Damage> Damages { get; set; }
 
         public VTSystemContext() : base()
         {

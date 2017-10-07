@@ -17,6 +17,7 @@ namespace Persistence
         public void AddNewInspection(Inspection inspectionToAdd)
         {
             Add(inspectionToAdd);
+            context.Damages.AddRange(inspectionToAdd.Damages);
         }
 
         public Inspection GetInspectionWithId(int idToLookup)
@@ -24,7 +25,7 @@ namespace Persistence
             try
             {
                 return elements.Include("ResponsibleUser").Include("Location")
-                    .Include("Damages").Single(i => i.Id == idToLookup);
+                    .Include("Damages.Images").Single(i => i.Id == idToLookup);
             }
             catch (InvalidOperationException)
             {

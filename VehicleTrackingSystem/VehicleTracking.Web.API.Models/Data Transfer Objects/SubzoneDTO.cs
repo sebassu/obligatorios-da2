@@ -11,7 +11,7 @@ namespace API.Services
     {
         public int Id { get; set; }
 
-        public int ContainerId { get; set; }
+        public string ContainerName { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -32,7 +32,7 @@ namespace API.Services
             someSubzone.Name, someSubzone.Capacity)
         {
             SetVehiclesIds(someSubzone);
-            ContainerId = someSubzone.Container.Id;
+            ContainerName = someSubzone.Container.Name;
         }
 
         private void SetVehiclesIds(Subzone someSubzone)

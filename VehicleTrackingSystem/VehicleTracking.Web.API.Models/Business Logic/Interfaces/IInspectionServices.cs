@@ -5,9 +5,9 @@ namespace API.Services.Business_Logic
     public interface IInspectionServices
     {
         int AddNewPortInspectionFromData(string vehicleVIN,
-            InspectionDTO inspectionDataToAdd);
+            string currentUsername, InspectionDTO inspectionDataToAdd);
         int AddNewYardInspectionFromData(string vehicleVIN,
-            InspectionDTO inspectionDataToAdd);
+            string currentUsername, InspectionDTO inspectionDataToAdd);
         IEnumerable<InspectionDTO> GetRegisteredInspections();
         InspectionDTO GetInspectionWithId(int idToLookup);
     }

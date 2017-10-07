@@ -38,27 +38,7 @@ namespace Domain
             return Utilities.IsValidDate(value);
         }
 
-        private User responsibleUser;
-        public User ResponsibleUser
-        {
-            get { return responsibleUser; }
-            set
-            {
-                if (IsValidUser(value))
-                {
-                    responsibleUser = value;
-                }
-                else
-                {
-                    throw new InspectionException(ErrorMessages.UserRoleLocationTypeInvalid);
-                }
-            }
-        }
-
-        protected bool IsValidUser(User value)
-        {
-            return UserCanInspect(value, location);
-        }
+        public User ResponsibleUser { get; set; }
 
         public static bool UserCanInspect(User user, Location location)
         {
@@ -80,27 +60,7 @@ namespace Domain
             return permittedUserRoles.Contains(user.Role);
         }
 
-        private Location location;
-        public Location Location
-        {
-            get { return location; }
-            set
-            {
-                if (IsValidLocation(value))
-                {
-                    location = value;
-                }
-                else
-                {
-                    throw new InspectionException(ErrorMessages.UserRoleLocationTypeInvalid);
-                }
-            }
-        }
-
-        protected bool IsValidLocation(Location value)
-        {
-            return UserCanInspect(responsibleUser, value);
-        }
+        public Location Location { get; set; }
 
         private ICollection<Damage> damages = new List<Damage>();
         public ICollection<Damage> Damages
@@ -153,8 +113,8 @@ namespace Domain
         {
             return new Inspection()
             {
-                location = Location.InstanceForTestingPurposes(),
-                responsibleUser = User.InstanceForTestingPurposes()
+                Location = Location.InstanceForTestingPurposes(),
+                ResponsibleUser = User.InstanceForTestingPurposes()
             };
         }
 
@@ -171,8 +131,8 @@ namespace Domain
         {
             if (UserCanInspect(userToSet, locationToSet))
             {
-                responsibleUser = userToSet;
-                location = locationToSet;
+                ResponsibleUser = userToSet;
+                Location = locationToSet;
                 DateTime = dateTimeToSet;
                 Damages = damagesToSet;
                 VehicleVIN = vehicleToSet.VIN;

@@ -7,6 +7,7 @@ using System.Web.Http;
 namespace Web.API.Controllers
 {
     [RoutePrefix("api/Zones")]
+    [AuthorizeRoles(UserRoles.ADMINISTRATOR)]
     public class ZonesController : BaseController
     {
         internal IZoneServices Model { get; }
