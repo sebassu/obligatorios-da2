@@ -1,7 +1,7 @@
 ﻿using Domain;
 using System;
 
-namespace API.Services.Data_Transfer_Objects
+namespace API.Services
 {
     public class MovementDTOOut
     {

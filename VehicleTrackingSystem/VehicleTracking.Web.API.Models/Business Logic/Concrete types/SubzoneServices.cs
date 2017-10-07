@@ -3,7 +3,7 @@ using Persistence;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace API.Services.Business_Logic
+namespace API.Services
 {
     public class SubzoneServices : ISubzoneServices
     {

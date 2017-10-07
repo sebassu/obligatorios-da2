@@ -1,10 +1,9 @@
 ﻿using Domain;
 using System.Collections.Generic;
 
-
 namespace API.Services
 {
-    interface ILotServices
+    public interface ILotServices
     {
         int AddNewLotFromData(LotDTO lotDataToAdd);
         IEnumerable<LotDTO> GetRegisteredLots();

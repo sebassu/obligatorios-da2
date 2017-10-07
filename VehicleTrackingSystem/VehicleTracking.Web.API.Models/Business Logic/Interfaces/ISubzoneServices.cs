@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace API.Services.Business_Logic
+namespace API.Services
 {
     public interface ISubzoneServices
     {

@@ -58,6 +58,7 @@
     <Compile Include="Exceptions\RepositoryException.cs" />
     <Compile Include="IInspectionRepository.cs" />
     <Compile Include="ILocationRepository.cs" />
+    <Compile Include="IMovementRepository.cs" />
     <Compile Include="InspectionRepository.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="ILotRepository.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="IZoneRepository.cs" />
     <Compile Include="LocationRepository.cs" />
     <Compile Include="LotRepository.cs" />
+    <Compile Include="MovementRepository.cs" />
     <Compile Include="SubzoneRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UserRepository.cs" />

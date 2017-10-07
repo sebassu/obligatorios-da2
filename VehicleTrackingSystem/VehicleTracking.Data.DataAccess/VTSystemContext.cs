@@ -37,6 +37,7 @@ namespace Persistence
             modelBuilder.Entity<Lot>().HasMany(z => z.Vehicles).WithOptional();
             modelBuilder.Entity<Inspection>().HasMany(i => i.Damages).WithRequired()
                 .WillCascadeOnDelete();
+            ProcessDataDatabaseSettings(modelBuilder);
         }
 
         private static void VehicleEntityDatabaseSettings(DbModelBuilder modelBuilder)
@@ -47,6 +48,16 @@ namespace Persistence
             modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
             modelBuilder.Entity<Vehicle>().HasRequired(v => v.StagesData)
                 .WithRequiredDependent().WillCascadeOnDelete();
+        }
+
+        private static void ProcessDataDatabaseSettings(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProcessData>().HasOptional(p => p.PortInspection).WithRequired()
+                .WillCascadeOnDelete();
+            modelBuilder.Entity<ProcessData>().HasOptional(p => p.YardInspection).WithRequired()
+                .WillCascadeOnDelete();
+            modelBuilder.Entity<ProcessData>().HasMany(i => i.YardMovements).WithRequired()
+                .WillCascadeOnDelete();
         }
 
         internal void DeleteAllDataFromDatabase()

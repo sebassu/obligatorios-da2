@@ -84,5 +84,21 @@ namespace Web.API.Controllers
             return BadRequest("Actualmente no se permite eliminar vehículos" +
                 " del sistema.");
         }
+
+        [HttpPost]
+        [Route("{vinToModify}/Movements", Name = "AddMovementToVehicle")]
+        public IHttpActionResult AddMovementToVehicleWith(string vinToModify,
+            MovementDTOIn movementData)
+        {
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    string activeUsername = User.Identity.Name;
+                    int databaseId = Model.AddNewMovementFromData(activeUsername,
+                        vinToModify, movementData);
+                    return CreatedAtRoute("AddMovementToVehicle",
+                        new { id = databaseId }, movementData);
+                });
+        }
     }
 }

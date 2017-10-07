@@ -5,15 +5,10 @@ namespace API.Services
 {
     public class MovementDTOIn
     {
-        public string ResponsibleUsername { get; set; }
-
         [Required]
-        public int DepartureSubzoneId { get; set; }
+        public DateTime DateTime { get; set; }
 
         [Required]
         public int ArrivalSubzoneId { get; set; }
-
-        [Required]
-        public DateTime DateTime { get; set; }
     }
 }

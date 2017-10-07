@@ -178,6 +178,13 @@ namespace Domain
             StagesData.SetTransportEndData();
         }
 
+        public Movement RegisterNewMovementToSubzone(User responsible,
+           DateTime datetimeOfMovement, Subzone destination)
+        {
+            return StagesData.RegisterNewMovementToSubzone(responsible,
+                datetimeOfMovement, destination);
+        }
+
         internal static Vehicle InstanceForTestingPurposes()
         {
             return new Vehicle()

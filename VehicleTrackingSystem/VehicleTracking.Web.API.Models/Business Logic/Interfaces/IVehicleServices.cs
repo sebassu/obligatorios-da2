@@ -12,5 +12,7 @@ namespace API.Services
         void ModifyVehicleWithVIN(string vinToModify,
             VehicleDTO vehicleDataToSet);
         void RemoveVehicleWithVIN(string vinToRemove);
+        int AddNewMovementFromData(string responsibleUsername,
+            string vinToModify, MovementDTOIn movementData);
     }
 }

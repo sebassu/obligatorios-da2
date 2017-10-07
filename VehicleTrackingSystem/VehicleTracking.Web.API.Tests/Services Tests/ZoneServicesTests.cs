@@ -1,9 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using API.Services.Business_Logic;
+﻿using Moq;
 using Domain;
-using API.Services;
 using Persistence;
-using Moq;
+using API.Services;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Web.API.Tests.Services_Tests
 {
