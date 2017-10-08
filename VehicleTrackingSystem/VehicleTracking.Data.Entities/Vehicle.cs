@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Domain
@@ -136,6 +137,15 @@ namespace Domain
         public bool IsLotted => Utilities.IsNotNull(StagesData.PortLot);
         public ProcessStages CurrentStage => StagesData.CurrentStage;
 
+        public Lot PortLot
+        {
+            get { return StagesData.PortLot; }
+            set
+            {
+                StagesData.RegisterPortLot(value);
+            }
+        }
+
         public Inspection PortInspection
         {
             get { return StagesData.PortInspection; }
@@ -144,6 +154,8 @@ namespace Domain
                 StagesData.RegisterPortInspection(value);
             }
         }
+
+        public Transport TransportData => StagesData.TransportData;
 
         public Inspection YardInspection
         {
@@ -154,14 +166,7 @@ namespace Domain
             }
         }
 
-        public Lot PortLot
-        {
-            get { return StagesData.PortLot; }
-            set
-            {
-                StagesData.RegisterPortLot(value);
-            }
-        }
+        public ICollection<Movement> Movements => StagesData.YardMovements;
 
         public bool IsReadyForTransport()
         {

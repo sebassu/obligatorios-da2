@@ -11,5 +11,6 @@ namespace Persistence
         Vehicle GetVehicleWithVIN(string vinToLookup);
         void UpdateVehicle(Vehicle vehicleToModify);
         void RemoveVehicleWithVIN(string usernameToRemove);
+        Vehicle GetFullyLoadedVehicleWithVIN(string vinToLookup);
     }
 }

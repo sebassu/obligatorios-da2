@@ -50,6 +50,7 @@ namespace Domain
         }
 
         public Transport TransportData { get; set; }
+
         public Inspection YardInspection
         {
             get
@@ -60,7 +61,9 @@ namespace Domain
 
         public ICollection<Movement> YardMovements { get; set; }
             = new List<Movement>();
+
         public Subzone YardCurrentLocation { get; set; }
+
         public DateTime? LastDateTimeToValidate { get; set; }
 
         public void RegisterPortLot(Lot value)
@@ -73,6 +76,7 @@ namespace Domain
         {
             ValidateVehicleIsInStage(ProcessStages.PORT);
             ValidatePropertyWasNotSetPreviously(PortInspection);
+            ValidateLengthOfInspectionListIs(0);
             AttemptToAddPortInspectionToInspectionsCollection(inspectionToAdd);
         }
 
@@ -82,7 +86,8 @@ namespace Domain
                 inspectionToAdd.Location.Type == LocationType.PORT;
             if (isValidPortInspectionToSet)
             {
-                inspections.Insert(portInspectionPosition, inspectionToAdd);
+                inspections.Add(inspectionToAdd);
+                SortInspectionsByDate();
             }
             else
             {
@@ -119,7 +124,16 @@ namespace Domain
         {
             ValidateVehicleIsInStage(ProcessStages.YARD);
             ValidatePropertyWasNotSetPreviously(YardInspection);
+            ValidateLengthOfInspectionListIs(1);
             AttemptToAddYardInspectionToInspectionsCollection(inspectionToAdd);
+        }
+
+        private void ValidateLengthOfInspectionListIs(int expectedLength)
+        {
+            if (inspections.Count != expectedLength)
+            {
+                throw new ProcessException(ErrorMessages.InvalidLengthOfInspectionCollection);
+            }
         }
 
         private void AttemptToAddYardInspectionToInspectionsCollection(Inspection inspectionToAdd)
@@ -128,7 +142,8 @@ namespace Domain
                 && inspectionToAdd.Location.Type == LocationType.YARD;
             if (isValidYardInspectionToSet)
             {
-                inspections.Insert(yardInspectionPosition, inspectionToAdd);
+                inspections.Add(inspectionToAdd);
+                SortInspectionsByDate();
             }
             else
             {

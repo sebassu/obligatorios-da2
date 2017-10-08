@@ -31,6 +31,7 @@ namespace Web.API.Controllers
                 {
                     int additionId = Model.AddNewSubzoneFromData(containerName,
                         subzoneDataToAdd);
+                    subzoneDataToAdd.Id = additionId;
                     subzoneDataToAdd.ContainerName = containerName;
                     return CreatedAtRoute("RegisterSubzoneToZone",
                         new { id = additionId }, subzoneDataToAdd);

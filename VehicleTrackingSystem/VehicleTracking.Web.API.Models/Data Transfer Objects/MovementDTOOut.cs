@@ -1,5 +1,7 @@
 ﻿using Domain;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace API.Services
 {
@@ -13,6 +15,12 @@ namespace API.Services
 
         public DateTime DateTime { get; set; }
 
+        internal static ICollection<MovementDTOOut> FromMovements(
+            ICollection<Movement> movements)
+        {
+            return movements.Select(m => FromMovement(m)).ToList();
+        }
+
         internal static MovementDTOOut FromMovement(Movement someMovement)
         {
             return new MovementDTOOut(someMovement);
@@ -20,10 +28,12 @@ namespace API.Services
 
         private MovementDTOOut(Movement someMovement)
         {
+            var departure = someMovement.Departure;
             DateTime = someMovement.DateTime;
-            DepartureSubzone = someMovement.Departure.ToString();
+            DepartureSubzone = Utilities.IsNull(departure) ? "Patio"
+                : departure.ToString();
             ArrivalSubzone = someMovement.Arrival.ToString();
-            ArrivalSubzone = someMovement.ResponsibleUser.Username;
+            ResponsibleUsername = someMovement.ResponsibleUser.Username;
         }
     }
 }

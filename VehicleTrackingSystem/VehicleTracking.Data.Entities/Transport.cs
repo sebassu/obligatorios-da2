@@ -51,10 +51,11 @@ namespace Domain
             }
         }
 
-        private bool IsValidTransportStartDate(DateTime? value)
+        private bool IsValidTransportStartDate(DateTime? valueToSet)
         {
-            return value.HasValue && LotsTransported.All(l => l.Vehicles.All(
-                v => v.PortInspection.DateTime <= value.GetValueOrDefault()));
+            bool isValidDate = valueToSet.HasValue && Utilities.IsValidDate(valueToSet.Value);
+            return isValidDate && LotsTransported.All(l => l.Vehicles.All(
+                v => v.PortInspection.DateTime <= valueToSet.GetValueOrDefault()));
         }
 
         public void FinalizeTransportOnDate(DateTime endTime)
@@ -91,7 +92,9 @@ namespace Domain
 
         private bool IsValidTransportEndDate(DateTime? valueToSet)
         {
-            return !valueToSet.HasValue || valueToSet.Value > startDateTime;
+            bool isNull = !valueToSet.HasValue;
+            return isNull ||
+                (Utilities.IsValidDate(valueToSet.Value) && valueToSet.Value > startDateTime);
         }
 
         public ICollection<Lot> LotsTransported { get; set; }

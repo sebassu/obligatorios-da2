@@ -56,57 +56,15 @@ namespace Domain
             return Utilities.IsValidDate(value);
         }
 
-        private Subzone departure;
-        public Subzone Departure
-        {
-            get { return departure; }
-            set
-            {
-                if (ExistsMovementBetween(value, arrival))
-                {
-                    departure = value;
-                }
-                else
-                {
-                    throw new MovementException(ErrorMessages.DepartureIsInvalid);
-                }
-            }
-        }
+        public Subzone Departure { get; set; }
 
-        private Subzone arrival;
-        public Subzone Arrival
-        {
-            get { return arrival; }
-            set
-            {
-                if (IsValidArrival(departure, value))
-                {
-                    arrival = value;
-                }
-                else
-                {
-                    throw new MovementException(ErrorMessages.ArrivalIsInvalid);
-                }
-            }
-        }
-
-        private bool IsValidArrival(Subzone departure, Subzone arrival)
-        {
-            return Utilities.IsNotNull(arrival) &&
-                ExistsMovementBetween(departure, arrival);
-        }
-
-        protected virtual bool ExistsMovementBetween(Subzone departure,
-            Subzone arrival)
-        {
-            return !arrival.Equals(departure);
-        }
+        public Subzone Arrival { get; set; }
 
         internal static Movement InstanceForTestingPurposes()
         {
             return new Movement()
             {
-                arrival = Subzone.InstanceForTestingPurposes()
+                Arrival = Subzone.InstanceForTestingPurposes()
             };
         }
 
@@ -132,13 +90,19 @@ namespace Domain
             }
         }
 
+        private bool IsValidArrival(Subzone departure, Subzone arrival)
+        {
+            return Utilities.IsNotNull(arrival) &&
+                !arrival.Equals(departure);
+        }
+
         private void SetCreationParameters(User userToSet, DateTime dateTimeToSet,
             Subzone departureToSet, Subzone arrivalToSet)
         {
             ResponsibleUser = userToSet;
             DateTime = dateTimeToSet;
-            departure = departureToSet;
-            arrival = arrivalToSet;
+            Departure = departureToSet;
+            Arrival = arrivalToSet;
         }
 
         public override bool Equals(object obj)

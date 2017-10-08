@@ -14,5 +14,6 @@ namespace API.Services
         void RemoveVehicleWithVIN(string vinToRemove);
         int AddNewMovementFromData(string responsibleUsername,
             string vinToModify, MovementDTOIn movementData);
+        HistoryDTO GetHistoryForVehicleWithVIN(string vinToLookup);
     }
 }

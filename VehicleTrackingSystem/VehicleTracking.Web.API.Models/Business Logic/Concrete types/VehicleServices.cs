@@ -107,17 +107,42 @@ namespace API.Services
         }
 
         public int AddNewMovementFromData(string responsibleUsername, string vinToModify,
-            MovementDTOIn movementData)
+            MovementDTOIn movementDataToAdd)
+        {
+            if (Utilities.IsNotNull(movementDataToAdd))
+            {
+                return AttemptToAddNewMovementFromData(responsibleUsername,
+                    vinToModify, movementDataToAdd);
+            }
+            else
+            {
+                throw new ServiceException(ErrorMessages.NullDTOReference);
+            }
+        }
+
+        private int AttemptToAddNewMovementFromData(string responsibleUsername,
+            string vinToModify, MovementDTOIn movementData)
         {
             User responsible = Model.Users.GetUserWithUsername(responsibleUsername);
             Vehicle movedVehicle = Vehicles.GetVehicleWithVIN(vinToModify);
             Subzone destination = Model.Subzones.GetSubzoneWithId(movementData.ArrivalSubzoneId);
             Movement movementToAdd = movedVehicle.RegisterNewMovementToSubzone(responsible,
                 movementData.DateTime, destination);
+            return AddNewMovement(movedVehicle, movementToAdd);
+        }
+
+        private int AddNewMovement(Vehicle movedVehicle, Movement movementToAdd)
+        {
             Model.Movements.AddNewMovement(movementToAdd);
             Vehicles.UpdateVehicle(movedVehicle);
             Model.SaveChanges();
             return movementToAdd.Id;
+        }
+
+        public HistoryDTO GetHistoryForVehicleWithVIN(string vinToLookup)
+        {
+            Vehicle vehicleFound = Vehicles.GetFullyLoadedVehicleWithVIN(vinToLookup);
+            return HistoryDTO.FromFullyLoadedVehicle(vehicleFound);
         }
     }
 }

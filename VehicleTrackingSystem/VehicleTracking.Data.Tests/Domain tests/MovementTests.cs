@@ -104,12 +104,12 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(MovementException))]
-        public void MovementSetInvalidDepartureEqualsArrivalInvalidTest()
+        public void MovementSetDepartureEqualsArrivalIValidTest()
         {
             var departureToSet = Subzone.InstanceForTestingPurposes();
             Assert.AreEqual(departureToSet, testingMovement.Arrival);
             testingMovement.Departure = departureToSet;
+            Assert.AreSame(departureToSet, testingMovement.Departure);
         }
 
         [TestMethod]
@@ -127,21 +127,20 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(MovementException))]
 
-        public void MovementSetInvalidArrivalNullTest()
+        public void MovementSetNullArrivalValidTest()
         {
             testingMovement.Arrival = null;
         }
 
         [TestMethod]
-        [ExpectedException(typeof(MovementException))]
-        public void MovementSetInvalidArrivalEqualsDepartureInvalidTest()
+        public void MovementSetArrivalEqualsDepartureValidTest()
         {
             Subzone alternativeSubzone = Subzone.CreateNewSubzone("subzone1", 7,
                 Zone.InstanceForTestingPurposes());
             testingMovement.Departure = alternativeSubzone;
             testingMovement.Arrival = alternativeSubzone;
+            Assert.AreEqual(alternativeSubzone, testingMovement.Arrival);
         }
 
         [TestMethod]

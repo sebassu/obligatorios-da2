@@ -196,6 +196,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se detectó un largo inconsistente e inesperado para el largo de la colleción de inspecciones para el estado actual del vehículo..
+        /// </summary>
+        internal static string InvalidLengthOfInspectionCollection {
+            get {
+                return ResourceManager.GetString("InvalidLengthOfInspectionCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error en la colección de lotes recibidos para un transporte: esta debe ser no vacía, y contener lotes no repetidos que aún no hayan sido transportados..
         /// </summary>
         internal static string InvalidLotsInTransport {
@@ -322,7 +331,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La fecha de fin del transporte debe ser posterior a la de inicio..
+        ///   Looks up a localized string similar to La fecha de fin del transporte debe ser posterior a la de inicio, y estar dentro del rango permitido (1/1/1900 - actualidad)..
         /// </summary>
         internal static string TransportEndDateIsInvalid {
             get {
@@ -331,7 +340,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La fecha de inicio del transporte es inválida: debe ser posterior a las fechas registradas para las inspecciones de puerto de los vehículos que contienen los lotes transportados..
+        ///   Looks up a localized string similar to La fecha de inicio del transporte es inválida: debe ser posterior a las fechas registradas para las inspecciones de puerto de los vehículos que contienen los lotes transportados, y estar dentro del rango permitido (1/1/1900 - actualidad)..
         /// </summary>
         internal static string TransportStartDateIsInvalid {
             get {

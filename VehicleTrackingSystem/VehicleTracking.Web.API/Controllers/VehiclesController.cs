@@ -104,5 +104,17 @@ namespace Web.API.Controllers
                         new { id = databaseId }, movementData);
                 });
         }
+
+        [HttpGet]
+        [Route("{vinToLookup}/History")]
+        public IHttpActionResult GetFullHistoryOfVehicleWithVIN(string vinToLookup)
+        {
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    HistoryDTO requestedHistory = Model.GetHistoryForVehicleWithVIN(vinToLookup);
+                    return Ok(requestedHistory);
+                });
+        }
     }
 }

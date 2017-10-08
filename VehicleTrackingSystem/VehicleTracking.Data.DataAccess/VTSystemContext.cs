@@ -50,6 +50,8 @@ namespace Persistence
             modelBuilder.Entity<Vehicle>().Ignore(v => v.PortInspection);
             modelBuilder.Entity<Vehicle>().Ignore(v => v.YardInspection);
             modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
+            modelBuilder.Entity<Vehicle>().Ignore(v => v.TransportData);
+            modelBuilder.Entity<Vehicle>().Ignore(v => v.Movements);
             modelBuilder.Entity<Vehicle>().HasRequired(v => v.StagesData)
                 .WithRequiredDependent().WillCascadeOnDelete();
         }

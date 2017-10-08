@@ -191,5 +191,10 @@ namespace Domain
         {
             return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

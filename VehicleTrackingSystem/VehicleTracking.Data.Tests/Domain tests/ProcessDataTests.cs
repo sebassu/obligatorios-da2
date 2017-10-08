@@ -197,10 +197,11 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void ProcessDataRegisterYardInspectionValidTest()
         {
+            testingData.RegisterPortInspection(Inspection.InstanceForTestingPurposes());
             testingData.CurrentStage = ProcessStages.YARD;
             Assert.AreEqual(ProcessStages.YARD, testingData.CurrentStage);
             testingData.RegisterYardInspection(yardInspectionToSet);
-            Assert.AreSame(yardInspectionToSet, testingData.YardInspection);
+            Assert.AreEqual(yardInspectionToSet, testingData.YardInspection);
         }
 
         [TestMethod]

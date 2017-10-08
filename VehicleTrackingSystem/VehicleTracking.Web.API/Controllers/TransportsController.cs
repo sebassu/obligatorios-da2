@@ -41,7 +41,7 @@ namespace Web.API.Controllers
         [HttpPut]
         [Route("{transportIdToFinalize}")]
         public IHttpActionResult ModifyUserWithUsername(int transportIdToFinalize,
-            [FromUri]DateTime finalizationDateTime)
+            [FromBody]DateTime finalizationDateTime)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate

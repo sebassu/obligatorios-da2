@@ -202,10 +202,10 @@
     <value>Error: la fecha para este movimiento no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a {0}.</value>
   </data>
   <data name="TransportEndDateIsInvalid" xml:space="preserve">
-    <value>La fecha de fin del transporte debe ser posterior a la de inicio.</value>
+    <value>La fecha de fin del transporte debe ser posterior a la de inicio, y estar dentro del rango permitido (1/1/1900 - actualidad).</value>
   </data>
   <data name="TransportStartDateIsInvalid" xml:space="preserve">
-    <value>La fecha de inicio del transporte es inválida: debe ser posterior a las fechas registradas para las inspecciones de puerto de los vehículos que contienen los lotes transportados.</value>
+    <value>La fecha de inicio del transporte es inválida: debe ser posterior a las fechas registradas para las inspecciones de puerto de los vehículos que contienen los lotes transportados, y estar dentro del rango permitido (1/1/1900 - actualidad).</value>
   </data>
   <data name="TransportUserTypeIsInvalid" xml:space="preserve">
     <value>Error: Es necesario estar registrado como un usuario válido de tipo "Administrador" o "Transportador" para poder registrar transportes de lotes.</value>
@@ -236,5 +236,8 @@
   </data>
   <data name="InvalidTransportData" xml:space="preserve">
     <value>Los datos de transporte recibidos para el vehículo son inválidos: el transporte no contiene al lote asociado al mismo. </value>
+  </data>
+  <data name="InvalidLengthOfInspectionCollection" xml:space="preserve">
+    <value>Se detectó un largo inconsistente e inesperado para el largo de la colleción de inspecciones para el estado actual del vehículo.</value>
   </data>
 </root>

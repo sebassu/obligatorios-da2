@@ -57,6 +57,7 @@
     <Compile Include="Business Logic\Interfaces\ISubzoneServices.cs" />
     <Compile Include="Business Logic\ServiceException.cs" />
     <Compile Include="Data Transfer Objects\DamageDTO.cs" />
+    <Compile Include="Data Transfer Objects\HistoryDTO.cs" />
     <Compile Include="Data Transfer Objects\InspectionDTO.cs" />
     <Compile Include="Data Transfer Objects\LotDTO.cs" />
     <Compile Include="Data Transfer Objects\MovementDTOIn.cs" />
