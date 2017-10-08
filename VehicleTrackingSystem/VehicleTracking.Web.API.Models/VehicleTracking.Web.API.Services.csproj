@@ -60,6 +60,7 @@
     <Compile Include="Data Transfer Objects\MovementDTOIn.cs" />
     <Compile Include="Data Transfer Objects\MovementDTOOut.cs" />
     <Compile Include="Data Transfer Objects\SubzoneDTO.cs" />
+    <Compile Include="Data Transfer Objects\TransportDTO.cs" />
     <Compile Include="Data Transfer Objects\UserDTO.cs" />
     <Compile Include="Data Transfer Objects\VehicleDTO.cs" />
     <Compile Include="Data Transfer Objects\ZoneDTO.cs" />
