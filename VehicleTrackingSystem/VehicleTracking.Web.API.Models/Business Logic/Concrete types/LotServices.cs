@@ -23,11 +23,11 @@ namespace API.Services
             Lots = Model.Lots;
         }
 
-        public int AddNewLotFromData(LotDTO lotDataToAdd)
+        public int AddNewLotFromData(string activeUsername, LotDTO lotDataToAdd)
         {
             if (Utilities.IsNotNull(lotDataToAdd))
             {
-                User creator = Model.Users.GetUserWithUsername(lotDataToAdd.CreatorName);
+                User creator = Model.Users.GetUserWithUsername(activeUsername);
                 ICollection<Vehicle> vehicles = GetVehicleList(lotDataToAdd.VehicleVINs);
                 return AttemptToAddLot(creator, vehicles, lotDataToAdd);
             }

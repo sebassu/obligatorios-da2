@@ -23,7 +23,8 @@ namespace Persistence
         {
             try
             {
-                return elements.Single(l => l.Name.Equals(nameToFind));
+                return elements.Include("Vehicles")
+                    .Single(l => l.Name.Equals(nameToFind));
             }
             catch (InvalidOperationException)
             {

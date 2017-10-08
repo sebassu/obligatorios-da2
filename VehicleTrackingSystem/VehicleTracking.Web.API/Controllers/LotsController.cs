@@ -29,7 +29,10 @@ namespace Web.API.Controllers
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    int additionId = Model.AddNewLotFromData(lotDataToAdd);
+                    string activeUsername = User.Identity.Name;
+                    int additionId = Model.AddNewLotFromData(activeUsername,
+                        lotDataToAdd);
+                    lotDataToAdd.CreatorUsername = activeUsername;
                     return CreatedAtRoute("VTSystemAPI",
                         new { id = additionId }, lotDataToAdd);
                 });

@@ -1,5 +1,6 @@
 ﻿using Domain;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace API.Services
@@ -7,9 +8,16 @@ namespace API.Services
     public class LotDTO
     {
         public int Id { get; set; }
-        public string CreatorName { get; set; }
+
+        public string CreatorUsername { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Description { get; set; }
+
+        [Required]
         public ICollection<string> VehicleVINs { get; set; }
 
         internal LotDTO() { }
@@ -19,8 +27,8 @@ namespace API.Services
             return new LotDTO(someLot);
         }
 
-        protected LotDTO(Lot someLot) : this(someLot.Id,
-            someLot.Name, someLot.Description)
+        protected LotDTO(Lot someLot) : this(someLot.Id, someLot.Name,
+            someLot.Description, someLot.Creator.Username)
         {
             SetVehiclesIds(someLot);
         }
@@ -30,19 +38,22 @@ namespace API.Services
             var vehiclesToSet = someLot.Vehicles;
             if (Utilities.IsNotNull(vehiclesToSet))
             {
-                VehicleVINs = vehiclesToSet.Select(v => v.VIN).ToList();
+                VehicleVINs = vehiclesToSet
+                    .Select(v => v.VIN).ToList();
             }
         }
 
         protected LotDTO(int idToSet, string nameToSet,
-            string descriptionToSet)
+            string descriptionToSet, string creatorUsernameToSet)
         {
             Id = idToSet;
             Name = nameToSet;
             Description = descriptionToSet;
+            CreatorUsername = creatorUsernameToSet;
         }
 
-        internal void SetDataToLot(Lot lotToModify, ICollection<Vehicle> list)
+        internal void SetDataToLot(Lot lotToModify,
+            ICollection<Vehicle> list)
         {
             lotToModify.Name = Name;
             lotToModify.Description = Description;
@@ -52,7 +63,8 @@ namespace API.Services
 
         internal Lot ToLot(User creator, ICollection<Vehicle> vehicles)
         {
-            return Lot.CreatorNameDescriptionVehicles(creator, Name, Description, vehicles);
+            return Lot.CreatorNameDescriptionVehicles(creator, Name,
+                Description, vehicles);
         }
     }
 }
