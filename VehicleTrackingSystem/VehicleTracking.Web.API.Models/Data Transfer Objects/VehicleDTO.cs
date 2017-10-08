@@ -32,7 +32,7 @@ namespace API.Services
             return new VehicleDTO(someVehicle);
         }
 
-        protected VehicleDTO(Vehicle someVehicle) : this(someVehicle.Type, someVehicle.Brand,
+        private VehicleDTO(Vehicle someVehicle) : this(someVehicle.Type, someVehicle.Brand,
             someVehicle.Model, someVehicle.Year, someVehicle.Color, someVehicle.VIN)
         { }
 
@@ -42,7 +42,7 @@ namespace API.Services
             return new VehicleDTO(type, brand, model, year, color, VIN);
         }
 
-        protected VehicleDTO(VehicleType typeToSet, string brandToSet, string modelToSet,
+        private VehicleDTO(VehicleType typeToSet, string brandToSet, string modelToSet,
             short yearToSet, string colorToSet, string VINToSet)
         {
             Type = typeToSet;

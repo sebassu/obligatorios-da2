@@ -24,7 +24,7 @@ namespace API.Services
             return new ZoneDTO(someZone);
         }
 
-        protected ZoneDTO(Zone someZone) : this(someZone.Name,
+        private ZoneDTO(Zone someZone) : this(someZone.Name,
             someZone.Capacity)
         {
             var subzonesToSet = someZone.Subzones;
@@ -34,7 +34,7 @@ namespace API.Services
             }
         }
 
-        public static ZoneDTO FromData(string name, int capacity,
+        internal static ZoneDTO FromData(string name, int capacity,
             ICollection<int> subzoneIds = null)
         {
             return new ZoneDTO(name, capacity)
@@ -43,7 +43,7 @@ namespace API.Services
             };
         }
 
-        protected ZoneDTO(string nameToSet, int capacityToSet)
+        private ZoneDTO(string nameToSet, int capacityToSet)
         {
             Name = nameToSet;
             Capacity = capacityToSet;

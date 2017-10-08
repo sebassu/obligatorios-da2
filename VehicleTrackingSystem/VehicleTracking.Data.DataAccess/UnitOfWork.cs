@@ -112,6 +112,19 @@ namespace Persistence
             }
         }
 
+        private ITransportRepository transports;
+        public ITransportRepository Transports
+        {
+            get
+            {
+                if (Utilities.IsNull(transports))
+                {
+                    transports = new TransportRepository(context);
+                }
+                return transports;
+            }
+        }
+
         public void DeleteAllDataFromDatabase()
         {
             context.DeleteAllDataFromDatabase();

@@ -82,13 +82,13 @@ namespace API.Services
 
         public LotDTO GetLotByName(string nameToFind)
         {
-            Lot lotFound = Lots.GetLotByName(nameToFind);
+            Lot lotFound = Lots.GetLotWithName(nameToFind);
             return LotDTO.FromLot(lotFound);
         }
 
         public void ModifyLotWithName(string nameToModify, LotDTO lotDataToSet)
         {
-            if (!Lots.GetLotByName(nameToModify).WasTransported)
+            if (!Lots.GetLotWithName(nameToModify).WasTransported)
             {
                 ServiceUtilities.CheckParameterIsNotNullAndExecute(lotDataToSet,
                 delegate { AttemptToPerformModification(nameToModify, lotDataToSet); });
@@ -111,7 +111,7 @@ namespace API.Services
             }
             else
             {
-                Lot lotFound = Lots.GetLotByName(nameToModify);
+                Lot lotFound = Lots.GetLotWithName(nameToModify);
                 ICollection<Vehicle> vehiclesToSet = GetVehicleList(lotData.VehicleVINs);
                 MarkAddedAndRemovedVehiclesAsModified(lotFound, vehiclesToSet);
                 lotData.SetDataToLot(lotFound, vehiclesToSet);
@@ -137,14 +137,14 @@ namespace API.Services
 
         private bool ChangeCausesRepeatedNames(string nameToModify, LotDTO lotData)
         {
-            string currentName = Lots.GetLotByName(nameToModify).Name;
+            string currentName = Lots.GetLotWithName(nameToModify).Name;
             bool nameChanges = !currentName.Equals(lotData.Name);
             return nameChanges && Lots.ExistsLotWithName(lotData.Name);
         }
 
         public void RemoveLotWithName(string nameToModify)
         {
-            Lot lotToRemove = Lots.GetLotByName(nameToModify);
+            Lot lotToRemove = Lots.GetLotWithName(nameToModify);
             bool wasTransported = lotToRemove.WasTransported;
             if (wasTransported)
             {

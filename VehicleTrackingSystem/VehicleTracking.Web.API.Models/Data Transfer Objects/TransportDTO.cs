@@ -8,6 +8,8 @@ namespace API.Services
 {
     public class TransportDTO
     {
+        public int Id { get; set; }
+
         public string TransporterUsername { get; set; }
 
         [Required]
@@ -18,13 +20,16 @@ namespace API.Services
 
         public DateTime? EndDateTime { get; set; }
 
+        internal TransportDTO() { }
+
         internal static TransportDTO FromTransport(Transport someTransport)
         {
             return new TransportDTO(someTransport);
         }
 
-        public TransportDTO(Transport someTransport)
+        internal TransportDTO(Transport someTransport)
         {
+            Id = someTransport.Id;
             TransporterUsername = someTransport.Transporter.Username;
             StartDateTime = someTransport.StartDateTime.Value;
             TransportedLotsNames = someTransport.LotsTransported

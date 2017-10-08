@@ -17,7 +17,7 @@ namespace API.Services
             return new DamageDTO(someDamage);
         }
 
-        public DamageDTO(Damage someDamage)
+        private DamageDTO(Damage someDamage)
         {
             Description = someDamage.Description;
             Images = someDamage.Images;

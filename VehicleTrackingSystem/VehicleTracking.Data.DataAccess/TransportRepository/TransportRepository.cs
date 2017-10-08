@@ -19,7 +19,7 @@ namespace Persistence
         {
             try
             {
-                return elements.Include("Lots.Vehicles.StagesData")
+                return elements.Include("Transporter").Include("Lots.Vehicles.StagesData")
                     .Single(s => s.Id == idToLookup);
             }
             catch (InvalidOperationException)

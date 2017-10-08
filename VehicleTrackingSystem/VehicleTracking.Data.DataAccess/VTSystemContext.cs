@@ -19,6 +19,7 @@ namespace Persistence
         public DbSet<Subzone> Subzones { get; set; }
         public DbSet<Lot> Lots { get; set; }
         public DbSet<Damage> Damages { get; set; }
+        public DbSet<Transport> Transports { get; set; }
 
         public VTSystemContext() : base()
         {
@@ -38,6 +39,8 @@ namespace Persistence
             LotEntityDatabaseSettings(modelBuilder);
             modelBuilder.Entity<Inspection>().HasMany(i => i.Damages).WithRequired()
                 .WillCascadeOnDelete();
+            modelBuilder.Entity<Transport>().HasMany(t => t.LotsTransported)
+                .WithOptional(l => l.AssociatedTransport);
             ProcessDataDatabaseSettings(modelBuilder);
         }
 
@@ -57,6 +60,7 @@ namespace Persistence
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Lot>().HasMany(l => l.Vehicles).WithOptional();
             modelBuilder.Entity<Lot>().HasRequired(l => l.Creator).WithMany();
+            modelBuilder.Entity<Lot>().Ignore(t => t.WasTransported);
         }
 
         private static void ProcessDataDatabaseSettings(DbModelBuilder modelBuilder)

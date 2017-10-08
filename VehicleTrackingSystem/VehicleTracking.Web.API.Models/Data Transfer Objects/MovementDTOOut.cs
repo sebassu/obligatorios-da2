@@ -18,7 +18,7 @@ namespace API.Services
             return new MovementDTOOut(someMovement);
         }
 
-        public MovementDTOOut(Movement someMovement)
+        private MovementDTOOut(Movement someMovement)
         {
             DateTime = someMovement.DateTime;
             DepartureSubzone = someMovement.Departure.ToString();

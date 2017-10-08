@@ -122,5 +122,14 @@ namespace API.Services {
                 return ResourceManager.GetString("NullDTOReference", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: un transporte sólo puede ser marcado como finalizado por su usuario transportador creador..
+        /// </summary>
+        internal static string TransportFinalizerMustBeCreator {
+            get {
+                return ResourceManager.GetString("TransportFinalizerMustBeCreator", resourceCulture);
+            }
+        }
     }
 }

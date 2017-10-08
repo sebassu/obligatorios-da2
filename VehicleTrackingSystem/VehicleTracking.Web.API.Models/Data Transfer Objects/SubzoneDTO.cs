@@ -28,7 +28,7 @@ namespace API.Services
             return new SubzoneDTO(someSubzone);
         }
 
-        protected SubzoneDTO(Subzone someSubzone) : this(someSubzone.Id,
+        private SubzoneDTO(Subzone someSubzone) : this(someSubzone.Id,
             someSubzone.Name, someSubzone.Capacity)
         {
             SetVehiclesIds(someSubzone);
@@ -44,7 +44,7 @@ namespace API.Services
             }
         }
 
-        protected SubzoneDTO(int idToSet, string nameToSet,
+        private SubzoneDTO(int idToSet, string nameToSet,
             int capacityToSet)
         {
             Id = idToSet;
