@@ -268,7 +268,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: la fecha para este movimiento no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a {0}..
+        ///   Looks up a localized string similar to Error: la fecha y hora para este movimiento no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a &quot;{0}&quot;..
         /// </summary>
         internal static string MovementDateIsInvalid {
             get {

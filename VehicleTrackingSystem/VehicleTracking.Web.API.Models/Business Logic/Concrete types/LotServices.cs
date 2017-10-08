@@ -56,11 +56,7 @@ namespace API.Services
                 !Lots.ExistsLotWithName(lotData.Name);
             if (nameIsNotRegistered)
             {
-                Lot lotToAdd = lotData.ToLot(creator, vehicles);
-                MarkVehicleCollectionAsModified(vehicles);
-                Lots.AddNewLot(lotToAdd);
-                Model.SaveChanges();
-                return lotToAdd.Id;
+                return CreateAndAddLot(creator, vehicles, lotData);
             }
             else
             {
@@ -68,6 +64,16 @@ namespace API.Services
                     ErrorMessages.FieldMustBeUnique, "nombre de lote");
                 throw new ServiceException(errorMessage);
             }
+        }
+
+        private Guid CreateAndAddLot(User creator,
+            ICollection<Vehicle> vehicles, LotDTO lotData)
+        {
+            Lot lotToAdd = lotData.ToLot(creator, vehicles);
+            MarkVehicleCollectionAsModified(vehicles);
+            Lots.AddNewLot(lotToAdd);
+            Model.SaveChanges();
+            return lotToAdd.Id;
         }
 
         public IEnumerable<LotDTO> GetRegisteredLots()
@@ -88,20 +94,24 @@ namespace API.Services
 
         public void ModifyLotWithName(string nameToModify, LotDTO lotDataToSet)
         {
-            if (!Lots.GetLotWithName(nameToModify).WasTransported)
-            {
-                ServiceUtilities.CheckParameterIsNotNullAndExecute(lotDataToSet,
-                delegate { AttemptToPerformModification(nameToModify, lotDataToSet); });
-            }
-            else
-            {
-                string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.LotWasTransported);
-                throw new ServiceException(errorMessage);
-            }
+            ServiceUtilities.CheckParameterIsNotNullAndExecute(lotDataToSet,
+            delegate { AttemptToPerformModification(nameToModify, lotDataToSet); });
         }
 
         private void AttemptToPerformModification(string nameToModify, LotDTO lotData)
+        {
+            Lot lotFound = Lots.GetLotWithName(nameToModify);
+            if (!lotFound.WasTransported)
+            {
+                ModifyLotWithData(nameToModify, lotData, lotFound);
+            }
+            else
+            {
+                throw new ServiceException(ErrorMessages.LotWasTransported);
+            }
+        }
+
+        private void ModifyLotWithData(string nameToModify, LotDTO lotData, Lot lotFound)
         {
             if (ChangeCausesRepeatedNames(nameToModify, lotData))
             {
@@ -111,13 +121,17 @@ namespace API.Services
             }
             else
             {
-                Lot lotFound = Lots.GetLotWithName(nameToModify);
-                ICollection<Vehicle> vehiclesToSet = GetVehicleList(lotData.VehicleVINs);
-                MarkAddedAndRemovedVehiclesAsModified(lotFound, vehiclesToSet);
-                lotData.SetDataToLot(lotFound, vehiclesToSet);
-                Lots.UpdateLot(lotFound);
-                Model.SaveChanges();
+                SetLotPropertiesAndSaveChanges(lotData, lotFound);
             }
+        }
+
+        private void SetLotPropertiesAndSaveChanges(LotDTO lotData, Lot lotFound)
+        {
+            ICollection<Vehicle> vehiclesToSet = GetVehicleList(lotData.VehicleVINs);
+            MarkAddedAndRemovedVehiclesAsModified(lotFound, vehiclesToSet);
+            lotData.SetDataToLot(lotFound, vehiclesToSet);
+            Lots.UpdateLot(lotFound);
+            Model.SaveChanges();
         }
 
         private void MarkAddedAndRemovedVehiclesAsModified(Lot lotFound,

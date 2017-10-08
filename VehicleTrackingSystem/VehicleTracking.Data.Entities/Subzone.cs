@@ -48,7 +48,7 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                        ErrorMessages.CapacityIsInvalid, value, Math.Max(Vehicles.Count, 0));
+                        ErrorMessages.CapacityIsInvalid, value, Vehicles.Count);
                     throw new SubzoneException(errorMessage);
                 }
             }
@@ -57,7 +57,7 @@ namespace Domain
         protected bool IsValidCapacity(int value)
         {
             return Utilities.ValidMinimumCapacity(value) &&
-                value > Vehicles.Count;
+                value >= Vehicles.Count;
         }
 
         public Zone Container

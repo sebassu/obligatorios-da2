@@ -164,7 +164,11 @@ namespace Domain
             }
             else
             {
-                throw new ProcessException(ErrorMessages.MovementDateIsInvalid);
+                var culture = CultureInfo.CurrentCulture;
+                string errorMessage = string.Format(culture,
+                    ErrorMessages.MovementDateIsInvalid, LastDateTimeToValidate
+                    .Value.ToString(culture));
+                throw new ProcessException(errorMessage);
             }
         }
 

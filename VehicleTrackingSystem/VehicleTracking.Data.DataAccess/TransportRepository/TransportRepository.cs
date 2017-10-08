@@ -26,7 +26,7 @@ namespace Persistence
                 return elements.Include("Transporter").Include("LotsTransported.Vehicles.StagesData")
                     .Single(t => t.Id == idToLookup);
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
                     ErrorMessages.CouldNotFindField, "identificador de transporte", idToLookup);

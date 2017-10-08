@@ -1333,6 +1333,7 @@
 								"exec": [
 									"pm.test(\"Successful POST request\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"    pm.environment.set(\"miniZone\", pm.response.id);",
 									"});"
 								]
 							}
@@ -1719,7 +1720,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"DateTime\":\"Sun, 08 Oct 2017 16:56:16 GMT\"\n\t\"ArrivalSubzoneId\":1\n}"
+							"raw": "{\n\t\"DateTime\":\"Sun, 08 Oct 2017 14:30:19 GMT\",\n\t\"ArrivalSubzoneId\":\"2\"\n}"
 						},
 						"url": {
 							"raw": "http://{{URL}}/api/Vehicles/{{redBarchetta}}/Movements",
@@ -2438,7 +2439,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"StartDateTime\":\"Sun, 08 Oct 2017 15:02:19 GMT\",\n\t\"TransportedLotsNames\":[\"El lote\"]\n}"
+							"raw": "{\n\t\"StartDateTime\":\"Sun, 08 Oct 2017 14:02:19 GMT\",\n\t\"TransportedLotsNames\":[\"El lote\"]\n}"
 						},
 						"url": {
 							"raw": "http://{{URL}}/api/Transports",
@@ -2452,6 +2453,64 @@
 							]
 						},
 						"description": "Registra un nuevo transporte para los lotes ingresados."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transports",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"    pm.environment.set(\"transportId\", pm.response.id);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"StartDateTime\":\"Sun, 08 Oct 2017 15:02:19 GMT\",\n\t\"TransportedLotsNames\":[\"El lote\"]\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Transports",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Transports"
+							]
+						},
+						"description": "Retorna la lista de transportes registrados en el sistema."
 					},
 					"response": []
 				},
