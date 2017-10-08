@@ -65,9 +65,9 @@ namespace Persistence
 
         private static void ProcessDataDatabaseSettings(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProcessData>().HasOptional(p => p.PortInspection).WithRequired()
-                .WillCascadeOnDelete();
-            modelBuilder.Entity<ProcessData>().HasOptional(p => p.YardInspection).WithRequired()
+            modelBuilder.Entity<ProcessData>().Ignore(p => p.PortInspection);
+            modelBuilder.Entity<ProcessData>().Ignore(p => p.YardInspection);
+            modelBuilder.Entity<ProcessData>().HasMany(p => p.Inspections).WithRequired()
                 .WillCascadeOnDelete();
             modelBuilder.Entity<ProcessData>().HasMany(i => i.YardMovements).WithRequired()
                 .WillCascadeOnDelete();

@@ -178,11 +178,20 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Se recibió una entrada inválida al guardar los datos del proceso asociado a un vehículo, respecto del campo &quot;{0}&quot;..
+        ///   Looks up a localized string similar to La colección de inspecciones a registrar no puede ser nula..
         /// </summary>
-        internal static string InvalidDataOnProcess {
+        internal static string InspectionCollectionIsNull {
             get {
-                return ResourceManager.GetString("InvalidDataOnProcess", resourceCulture);
+                return ResourceManager.GetString("InspectionCollectionIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se recibió una inspección {0} inválida. Verifique que la ubicación de la misma es coherente con el campo al cual se intenta asignar..
+        /// </summary>
+        internal static string InvalidInspectionData {
+            get {
+                return ResourceManager.GetString("InvalidInspectionData", resourceCulture);
             }
         }
         
@@ -201,6 +210,15 @@ namespace Domain {
         internal static string InvalidOperationOnVehicle {
             get {
                 return ResourceManager.GetString("InvalidOperationOnVehicle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Los datos de transporte recibidos para el vehículo son inválidos: el transporte no contiene al lote asociado al mismo. .
+        /// </summary>
+        internal static string InvalidTransportData {
+            get {
+                return ResourceManager.GetString("InvalidTransportData", resourceCulture);
             }
         }
         

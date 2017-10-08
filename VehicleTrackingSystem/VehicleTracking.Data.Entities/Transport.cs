@@ -77,11 +77,10 @@ namespace Domain
             get { return endDateTime; }
             set
             {
-                bool canSetEndOfTransport = startDateTime.HasValue &&
-                    IsValidTransportEndDate(value);
+                bool canSetEndOfTransport = IsValidTransportEndDate(value);
                 if (canSetEndOfTransport)
                 {
-                    endDateTime = value.GetValueOrDefault();
+                    endDateTime = value;
                 }
                 else
                 {
@@ -90,9 +89,9 @@ namespace Domain
             }
         }
 
-        private bool IsValidTransportEndDate(DateTime? value)
+        private bool IsValidTransportEndDate(DateTime? valueToSet)
         {
-            return value.GetValueOrDefault() > startDateTime.Value;
+            return !valueToSet.HasValue || valueToSet.Value > startDateTime;
         }
 
         public ICollection<Lot> LotsTransported { get; set; }

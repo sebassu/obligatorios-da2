@@ -177,9 +177,6 @@
   <data name="InvalidOperationOnVehicle" xml:space="preserve">
     <value>Se intentó realizar una operación inválida para el estado actual del vehículo en el proceso.</value>
   </data>
-  <data name="InvalidDataOnProcess" xml:space="preserve">
-    <value>Se recibió una entrada inválida al guardar los datos del proceso asociado a un vehículo, respecto del campo "{0}".</value>
-  </data>
   <data name="ProcessAlreadySetProperty" xml:space="preserve">
     <value>No es posible cambiar los datos asociados a este elemento del proceso: ya fueron asignados.</value>
   </data>
@@ -230,5 +227,14 @@
   </data>
   <data name="DamageCollectionIsInvalid" xml:space="preserve">
     <value>Error al recibir la lista de daños para una inspección: ésta no puede ser nula ni contener elementos repetidos.</value>
+  </data>
+  <data name="InspectionCollectionIsNull" xml:space="preserve">
+    <value>La colección de inspecciones a registrar no puede ser nula.</value>
+  </data>
+  <data name="InvalidInspectionData" xml:space="preserve">
+    <value>Se recibió una inspección {0} inválida. Verifique que la ubicación de la misma es coherente con el campo al cual se intenta asignar.</value>
+  </data>
+  <data name="InvalidTransportData" xml:space="preserve">
+    <value>Los datos de transporte recibidos para el vehículo son inválidos: el transporte no contiene al lote asociado al mismo. </value>
   </data>
 </root>

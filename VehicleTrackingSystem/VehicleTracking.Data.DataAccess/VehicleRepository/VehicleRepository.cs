@@ -30,9 +30,9 @@ namespace Persistence
         {
             try
             {
-                return elements.Include("StagesData.PortInspection").Include("StagesData.PortLot")
-                    .Include("StagesData.TransportData").Include("StagesData.YardInspection")
-                    .Include("StagesData.YardMovements").Include("StagesData.YardCurrentLocation")
+                return elements.Include("StagesData.PortLot").Include("StagesData.TransportData")
+                    .Include("StagesData.Inspections").Include("StagesData.YardMovements")
+                    .Include("StagesData.YardCurrentLocation")
                     .Single(v => v.VIN.Equals(vinToFind));
             }
             catch (InvalidOperationException)

@@ -24,7 +24,7 @@ namespace Persistence
             try
             {
                 return elements.Include("Creator").Include("AssociatedTransport")
-                    .Include("Vehicles.StagesData.PortLot").Single(l => l.Name.Equals(nameToFind));
+                    .Include("Vehicles.StagesData.Inspections").Single(l => l.Name.Equals(nameToFind));
             }
             catch (InvalidOperationException)
             {
