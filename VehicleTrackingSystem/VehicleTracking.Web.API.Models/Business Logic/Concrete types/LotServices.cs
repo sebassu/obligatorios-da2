@@ -1,11 +1,8 @@
 ﻿using Domain;
 using Persistence;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace API.Services
 {
@@ -40,12 +37,26 @@ namespace API.Services
             }
         }
 
-        private int AttemptToAddLot(User creator, ICollection<Vehicle> vehicles, LotDTO lotData)
+        private ICollection<Vehicle> GetVehicleList(ICollection<string> vinsToFind)
         {
-            bool nameIsNotRegistered = !Lots.ExistsLotWithName(lotData.Name);
+            ICollection<Vehicle> result = new List<Vehicle>();
+            foreach (string VIN in vinsToFind)
+            {
+                Vehicle vehicleFound = Model.Vehicles.GetVehicleWithVIN(VIN);
+                result.Add(vehicleFound);
+            }
+            return result;
+        }
+
+        private int AttemptToAddLot(User creator, ICollection<Vehicle> vehicles,
+            LotDTO lotData)
+        {
+            bool nameIsNotRegistered =
+                !Lots.ExistsLotWithName(lotData.Name);
             if (nameIsNotRegistered)
             {
                 Lot lotToAdd = lotData.ToLot(creator, vehicles);
+                MarkVehicleCollectionAsModified(vehicles);
                 Lots.AddNewLot(lotToAdd);
                 Model.SaveChanges();
                 return lotToAdd.Id;
@@ -56,16 +67,6 @@ namespace API.Services
                     ErrorMessages.FieldMustBeUnique, "nombre de lote");
                 throw new ServiceException(errorMessage);
             }
-        }
-
-        private ICollection<Vehicle> GetVehicleList(ICollection<string> list)
-        {
-            ICollection<Vehicle> vehicles = new List<Vehicle>();
-            foreach(string v in list)
-            {
-                vehicles.Add(Model.Vehicles.GetVehicleWithVIN(v));
-            }
-            return vehicles;
         }
 
         public IEnumerable<LotDTO> GetRegisteredLots()
@@ -101,7 +102,7 @@ namespace API.Services
 
         private void AttemptToPerformModification(string nameToModify, LotDTO lotData)
         {
-            if (ChangeCausesRepeatedNames(nameToModify ,lotData))
+            if (ChangeCausesRepeatedNames(nameToModify, lotData))
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
                     ErrorMessages.FieldMustBeUnique, "nombre de lote");
@@ -110,10 +111,26 @@ namespace API.Services
             else
             {
                 Lot lotFound = Lots.GetLotByName(nameToModify);
-                ICollection<Vehicle> vehicles = GetVehicleList(lotData.VehicleVINs);
-                lotData.SetDataToLot(lotFound, vehicles);
+                ICollection<Vehicle> vehiclesToSet = GetVehicleList(lotData.VehicleVINs);
+                MarkAddedAndRemovedVehiclesAsModified(lotFound, vehiclesToSet);
+                lotData.SetDataToLot(lotFound, vehiclesToSet);
                 Lots.UpdateLot(lotFound);
                 Model.SaveChanges();
+            }
+        }
+
+        private void MarkAddedAndRemovedVehiclesAsModified(Lot lotFound,
+            ICollection<Vehicle> vehiclesToSet)
+        {
+            MarkVehicleCollectionAsModified(vehiclesToSet.Except(lotFound.Vehicles));
+            MarkVehicleCollectionAsModified(lotFound.Vehicles.Except(vehiclesToSet));
+        }
+
+        private void MarkVehicleCollectionAsModified(IEnumerable<Vehicle> vehicles)
+        {
+            foreach (var vehicle in vehicles)
+            {
+                Model.Vehicles.UpdateVehicle(vehicle);
             }
         }
 
@@ -124,7 +141,7 @@ namespace API.Services
             return nameChanges && Lots.ExistsLotWithName(lotData.Name);
         }
 
-        public void RemoveZoneWithName(string nameToModify)
+        public void RemoveLotWithName(string nameToModify)
         {
             Lot lotToRemove = Lots.GetLotByName(nameToModify);
             bool wasTransported = lotToRemove.WasTransported;
@@ -134,6 +151,8 @@ namespace API.Services
             }
             else
             {
+                MarkVehicleCollectionAsModified(lotToRemove.Vehicles);
+                lotToRemove.Vehicles = new List<Vehicle>();
                 Lots.RemoveLotWithName(nameToModify);
                 Model.SaveChanges();
             }

@@ -37,6 +37,7 @@ namespace Web.API.Controllers
         }
 
         [HttpGet]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR)]
         public IHttpActionResult GetRegisteredZones()
         {
             return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredZones);
@@ -57,6 +58,7 @@ namespace Web.API.Controllers
 
         [HttpGet]
         [Route("{nameToLookup}")]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR)]
         public IHttpActionResult GetZoneByName(string nameToLookup)
         {
             return ExecuteActionAndReturnOutcome(

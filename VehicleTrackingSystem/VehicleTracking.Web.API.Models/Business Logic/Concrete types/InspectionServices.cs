@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Domain;
 
-namespace API.Services.Business_Logic
+namespace API.Services
 {
     public class InspectionServices : IInspectionServices
     {

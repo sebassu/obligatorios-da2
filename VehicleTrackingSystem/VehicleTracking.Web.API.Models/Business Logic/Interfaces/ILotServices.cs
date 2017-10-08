@@ -1,6 +1,4 @@
-﻿using Domain;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 
 namespace API.Services
 {
@@ -10,6 +8,6 @@ namespace API.Services
         IEnumerable<LotDTO> GetRegisteredLots();
         LotDTO GetLotByName(string nameToFind);
         void ModifyLotWithName(string nameToModify, LotDTO lotDataToSet);
-        void RemoveZoneWithName(string nameToModify);
+        void RemoveLotWithName(string nameToModify);
     }
 }

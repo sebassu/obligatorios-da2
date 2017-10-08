@@ -7,9 +7,9 @@ namespace Web.API.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Lots")]
+    [AuthorizeRoles(UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR)]
     public class LotsController : BaseController
     {
-
         internal ILotServices Model { get; }
 
         public LotsController()
@@ -80,13 +80,13 @@ namespace Web.API.Controllers
         }
 
         [HttpDelete]
-        [Route("{nameToModify}")]
+        [Route("{nameToRemove}")]
         public IHttpActionResult RemoveLotWithName(string nameToRemove)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    Model.RemoveZoneWithName(nameToRemove);
+                    Model.RemoveLotWithName(nameToRemove);
                     return Ok();
                 });
         }

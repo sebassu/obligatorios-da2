@@ -4,14 +4,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
 
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 namespace Persistence
 {
-   internal class LotRepository : GenericRepository<Lot>, ILotRepository
+    internal class LotRepository : GenericRepository<Lot>, ILotRepository
     {
         public LotRepository(VTSystemContext someContext) : base(someContext) { }
 
@@ -19,6 +16,7 @@ namespace Persistence
         {
             Add(lotToAdd);
         }
+
         public IEnumerable<Lot> Elements => GetElementsWith();
 
         public Lot GetLotByName(string nameToFind)
@@ -30,7 +28,7 @@ namespace Persistence
             catch (InvalidOperationException)
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.CouldNotFindField, "nombre", nameToFind);
+                    ErrorMessages.CouldNotFindField, "nombre de lote", nameToFind);
                 throw new RepositoryException(errorMessage);
             }
         }
@@ -39,7 +37,7 @@ namespace Persistence
         {
             Update(lotToModify);
         }
-        
+
         public void RemoveLotWithName(string nameToRemove)
         {
             var lotToRemove = GetLotByName(nameToRemove);
@@ -55,7 +53,5 @@ namespace Persistence
         {
             return elements.Any(l => l.Name.Equals(nameToFind));
         }
-
-
     }
 }

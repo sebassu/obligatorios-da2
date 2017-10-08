@@ -1,5 +1,4 @@
 ﻿using API.Services;
-using API.Services.Business_Logic;
 using Domain;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -40,6 +39,7 @@ namespace Web.API.Controllers
 
         [HttpGet]
         [Route("api/Subzones")]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR)]
         public IHttpActionResult GetRegisteredSubzones()
         {
             return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredSubzones);
@@ -60,6 +60,7 @@ namespace Web.API.Controllers
 
         [HttpGet]
         [Route("api/Subzones/{idToLookup}")]
+        [AuthorizeRoles(UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR)]
         public IHttpActionResult GetSubzoneWithId(int idToLookup)
         {
             return ExecuteActionAndReturnOutcome(
