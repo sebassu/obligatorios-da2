@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Persistence;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace API.Services
             Lots = Model.Lots;
         }
 
-        public int AddNewLotFromData(string activeUsername, LotDTO lotDataToAdd)
+        public Guid AddNewLotFromData(string activeUsername, LotDTO lotDataToAdd)
         {
             if (Utilities.IsNotNull(lotDataToAdd))
             {
@@ -48,7 +49,7 @@ namespace API.Services
             return result;
         }
 
-        private int AttemptToAddLot(User creator, ICollection<Vehicle> vehicles,
+        private Guid AttemptToAddLot(User creator, ICollection<Vehicle> vehicles,
             LotDTO lotData)
         {
             bool nameIsNotRegistered =
@@ -152,7 +153,6 @@ namespace API.Services
             else
             {
                 MarkVehicleCollectionAsModified(lotToRemove.Vehicles);
-                lotToRemove.Vehicles = new List<Vehicle>();
                 Lots.RemoveLotWithName(nameToModify);
                 Model.SaveChanges();
             }

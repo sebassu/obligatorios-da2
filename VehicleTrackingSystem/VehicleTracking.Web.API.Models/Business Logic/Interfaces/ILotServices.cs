@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace API.Services
 {
     public interface ILotServices
     {
-        int AddNewLotFromData(string activeUsername,
+        Guid AddNewLotFromData(string activeUsername,
             LotDTO lotDataToAdd);
         IEnumerable<LotDTO> GetRegisteredLots();
         LotDTO GetLotByName(string nameToFind);

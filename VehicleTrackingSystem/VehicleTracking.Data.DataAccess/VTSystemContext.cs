@@ -1,4 +1,5 @@
 ﻿using Domain;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
@@ -34,7 +35,7 @@ namespace Persistence
                 .WithRequired(s => s.Container);
             modelBuilder.Entity<Subzone>().HasMany(z => z.Vehicles)
                 .WithOptional();
-            modelBuilder.Entity<Lot>().HasMany(z => z.Vehicles).WithOptional();
+            LotEntityDatabaseSettings(modelBuilder);
             modelBuilder.Entity<Inspection>().HasMany(i => i.Damages).WithRequired()
                 .WillCascadeOnDelete();
             ProcessDataDatabaseSettings(modelBuilder);
@@ -48,6 +49,14 @@ namespace Persistence
             modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
             modelBuilder.Entity<Vehicle>().HasRequired(v => v.StagesData)
                 .WithRequiredDependent().WillCascadeOnDelete();
+        }
+
+        private static void LotEntityDatabaseSettings(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Lot>().Property(l => l.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            modelBuilder.Entity<Lot>().HasMany(l => l.Vehicles).WithOptional();
+            modelBuilder.Entity<Lot>().HasRequired(l => l.Creator).WithMany();
         }
 
         private static void ProcessDataDatabaseSettings(DbModelBuilder modelBuilder)

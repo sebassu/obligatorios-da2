@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -26,8 +27,9 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void LotSetIdValidTest()
         {
-            testingLot.Id = 42;
-            Assert.AreEqual(42, testingLot.Id);
+            var idToSet = Guid.NewGuid();
+            testingLot.Id = idToSet;
+            Assert.AreEqual(idToSet, testingLot.Id);
         }
 
         [TestMethod]

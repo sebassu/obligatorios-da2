@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
+using System;
 
 namespace Domain
 {
@@ -9,9 +10,9 @@ namespace Domain
         private static readonly IReadOnlyCollection<UserRoles> validCreatorRoles =
             new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.PORT_OPERATOR }.AsReadOnly();
 
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
-        public User Creator { get; }
+        public User Creator { get; set; }
 
         private string name;
         public string Name

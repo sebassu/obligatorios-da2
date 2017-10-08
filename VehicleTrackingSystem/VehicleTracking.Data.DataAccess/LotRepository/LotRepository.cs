@@ -17,13 +17,13 @@ namespace Persistence
             Add(lotToAdd);
         }
 
-        public IEnumerable<Lot> Elements => GetElementsWith();
+        public IEnumerable<Lot> Elements => GetElementsWith(null, "Creator");
 
         public Lot GetLotByName(string nameToFind)
         {
             try
             {
-                return elements.Include("Vehicles")
+                return elements.Include("Creator").Include("Vehicles.StagesData.PortLot")
                     .Single(l => l.Name.Equals(nameToFind));
             }
             catch (InvalidOperationException)

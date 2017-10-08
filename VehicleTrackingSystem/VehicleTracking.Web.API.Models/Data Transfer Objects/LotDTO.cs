@@ -7,8 +7,6 @@ namespace API.Services
 {
     public class LotDTO
     {
-        public int Id { get; set; }
-
         public string CreatorUsername { get; set; }
 
         [Required]
@@ -27,7 +25,7 @@ namespace API.Services
             return new LotDTO(someLot);
         }
 
-        protected LotDTO(Lot someLot) : this(someLot.Id, someLot.Name,
+        protected LotDTO(Lot someLot) : this(someLot.Name,
             someLot.Description, someLot.Creator.Username)
         {
             SetVehiclesIds(someLot);
@@ -43,10 +41,9 @@ namespace API.Services
             }
         }
 
-        protected LotDTO(int idToSet, string nameToSet,
-            string descriptionToSet, string creatorUsernameToSet)
+        protected LotDTO(string nameToSet, string descriptionToSet,
+            string creatorUsernameToSet)
         {
-            Id = idToSet;
             Name = nameToSet;
             Description = descriptionToSet;
             CreatorUsername = creatorUsernameToSet;
@@ -58,7 +55,6 @@ namespace API.Services
             lotToModify.Name = Name;
             lotToModify.Description = Description;
             lotToModify.Vehicles = list;
-
         }
 
         internal Lot ToLot(User creator, ICollection<Vehicle> vehicles)

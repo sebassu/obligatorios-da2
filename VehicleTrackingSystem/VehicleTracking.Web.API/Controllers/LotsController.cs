@@ -30,7 +30,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     string activeUsername = User.Identity.Name;
-                    int additionId = Model.AddNewLotFromData(activeUsername,
+                    var additionId = Model.AddNewLotFromData(activeUsername,
                         lotDataToAdd);
                     lotDataToAdd.CreatorUsername = activeUsername;
                     return CreatedAtRoute("VTSystemAPI",
