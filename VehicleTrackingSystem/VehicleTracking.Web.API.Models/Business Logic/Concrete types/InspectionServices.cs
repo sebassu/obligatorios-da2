@@ -26,12 +26,11 @@ namespace API.Services
         {
             ValidateNonNullDTO(inspectionDataToAdd);
             Vehicle vehicleToSet = Model.Vehicles.GetVehicleWithVIN(vehicleVIN);
-            Inspection inspectionToAdd = CreateInspectionFromDTOData(vehicleToSet, currentUsername,
-                inspectionDataToAdd);
+            Inspection inspectionToAdd = CreateInspectionFromDTOData(vehicleToSet,
+                currentUsername, inspectionDataToAdd);
             vehicleToSet.PortInspection = inspectionToAdd;
-            inspectionToAdd.Damages = new List<Damage> { Damage.CreateNewDamage("aa", new List<string>() { "bb", "ccc" }), Damage.CreateNewDamage("a", new List<string>() { "aa" }) };
-            return AddNewDataAndSaveChanges(inspectionDataToAdd,
-                vehicleToSet, inspectionToAdd);
+            return AddNewDataAndSaveChanges(inspectionDataToAdd, vehicleToSet,
+                inspectionToAdd);
         }
 
         public int AddNewYardInspectionFromData(string vehicleVIN, string currentUsername,
@@ -51,7 +50,8 @@ namespace API.Services
         {
             User responsible = Model.Users.GetUserWithUsername(currentUsername);
             Location locationToSet = Model.Locations.GetLocationWithName(inspectionDataToAdd.LocationName);
-            Inspection inspectionToAdd = inspectionDataToAdd.ToInspection(responsible, locationToSet, vehicleToSet);
+            Inspection inspectionToAdd = inspectionDataToAdd.ToInspection(responsible,
+                locationToSet, vehicleToSet);
             return inspectionToAdd;
         }
 

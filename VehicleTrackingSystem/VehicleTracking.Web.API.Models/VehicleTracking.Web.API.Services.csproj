@@ -57,6 +57,8 @@
     <Compile Include="Data Transfer Objects\DamageDTO.cs" />
     <Compile Include="Data Transfer Objects\InspectionDTO.cs" />
     <Compile Include="Data Transfer Objects\LotDTO.cs" />
+    <Compile Include="Data Transfer Objects\MovementDTOIn.cs" />
+    <Compile Include="Data Transfer Objects\MovementDTOOut.cs" />
     <Compile Include="Data Transfer Objects\SubzoneDTO.cs" />
     <Compile Include="Data Transfer Objects\UserDTO.cs" />
     <Compile Include="Data Transfer Objects\VehicleDTO.cs" />

@@ -11,6 +11,7 @@ namespace Persistence
         ISubzoneRepository Subzones { get; }
         ILotRepository Lots { get; }
         ILocationRepository Locations { get; }
+        IMovementRepository Movements { get; }
         void SaveChanges();
     }
 }

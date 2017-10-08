@@ -4,7 +4,7 @@ using System.Globalization;
 using Domain;
 using System.Linq;
 
-namespace API.Services.Business_Logic
+namespace API.Services
 {
     public class ZoneServices : IZoneServices
     {

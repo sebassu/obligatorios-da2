@@ -99,6 +99,19 @@ namespace Persistence
             }
         }
 
+        private IMovementRepository movements;
+        public IMovementRepository Movements
+        {
+            get
+            {
+                if (Utilities.IsNull(movements))
+                {
+                    movements = new MovementRepository(context);
+                }
+                return movements;
+            }
+        }
+
         public void DeleteAllDataFromDatabase()
         {
             context.DeleteAllDataFromDatabase();

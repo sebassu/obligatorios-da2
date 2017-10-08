@@ -1,9 +1,6 @@
 ﻿using Domain;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using Persistence;
@@ -32,9 +29,11 @@ namespace Data.Tests.Persistence_tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR1");
             Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR2");
-            ICollection<Vehicle> list = new List<Vehicle>();
-            list.Add(vehicleToAdd1);
-            list.Add(vehicleToAdd2);
+            ICollection<Vehicle> list = new List<Vehicle>
+            {
+                vehicleToAdd1,
+                vehicleToAdd2
+            };
             Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 1", "Only Ferrari lot.", list);
             AddNewLotAndSaveChanges(lotToVerify);
             CollectionAssert.Contains(testingLotRepository.Elements.ToList(), lotToVerify);
@@ -56,9 +55,11 @@ namespace Data.Tests.Persistence_tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR3");
             Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR4");
-            ICollection<Vehicle> list = new List<Vehicle>();
-            list.Add(vehicleToAdd1);
-            list.Add(vehicleToAdd2);
+            ICollection<Vehicle> list = new List<Vehicle>
+            {
+                vehicleToAdd1,
+                vehicleToAdd2
+            };
             Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 2", "Only Ferrari lot.", list);
             AddNewLotAndSaveChanges(lotToVerify);
             RemoveLotWithIdAndSaveChanges(lotToVerify.Name);
@@ -75,9 +76,11 @@ namespace Data.Tests.Persistence_tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR3");
             Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR4");
-            ICollection<Vehicle> list = new List<Vehicle>();
-            list.Add(vehicleToAdd1);
-            list.Add(vehicleToAdd2);
+            ICollection<Vehicle> list = new List<Vehicle>
+            {
+                vehicleToAdd1,
+                vehicleToAdd2
+            };
             Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 3", "Only Ferrari lot.", list);
             RemoveLotWithIdAndSaveChanges(lotToVerify.Name);
         }
@@ -91,9 +94,11 @@ namespace Data.Tests.Persistence_tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR5");
             Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR6");
-            ICollection<Vehicle> list = new List<Vehicle>();
-            list.Add(vehicleToAdd1);
-            list.Add(vehicleToAdd2);
+            ICollection<Vehicle> list = new List<Vehicle>
+            {
+                vehicleToAdd1,
+                vehicleToAdd2
+            };
             Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 4", "Only Ferrari lot.", list);
             AddNewLotAndSaveChanges(lotToVerify);
             list.Remove(vehicleToAdd1);
@@ -130,9 +135,11 @@ namespace Data.Tests.Persistence_tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR2");
             Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR1");
-            ICollection<Vehicle> list = new List<Vehicle>();
-            list.Add(vehicleToAdd1);
-            list.Add(vehicleToAdd2);
+            ICollection<Vehicle> list = new List<Vehicle>
+            {
+                vehicleToAdd1,
+                vehicleToAdd2
+            };
             Lot notAddedLot = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 5", "Only Ferrari lot.", list);
             UpdateLotAndSaveChanges(notAddedLot);
         }
@@ -146,9 +153,11 @@ namespace Data.Tests.Persistence_tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR2");
             Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR1");
-            ICollection<Vehicle> list = new List<Vehicle>();
-            list.Add(vehicleToAdd1);
-            list.Add(vehicleToAdd2);
+            ICollection<Vehicle> list = new List<Vehicle>
+            {
+                vehicleToAdd1,
+                vehicleToAdd2
+            };
             Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 5", "Only Ferrari lot.", list);
             AddNewLotAndSaveChanges(lotToVerify);
             Lot result = testingLotRepository.GetLotByName(lotToVerify.Name);
@@ -171,9 +180,11 @@ namespace Data.Tests.Persistence_tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR5");
             Vehicle vehicleToAdd2 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR6");
-            ICollection<Vehicle> list = new List<Vehicle>();
-            list.Add(vehicleToAdd1);
-            list.Add(vehicleToAdd2);
+            ICollection<Vehicle> list = new List<Vehicle>
+            {
+                vehicleToAdd1,
+                vehicleToAdd2
+            };
             Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 5", "Only Ferrari lot.", list);
             AddNewLotAndSaveChanges(lotToVerify);
             bool result = testingLotRepository.ExistsLotWithName(

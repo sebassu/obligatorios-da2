@@ -105,5 +105,19 @@ namespace API.Services
             Vehicles.RemoveVehicleWithVIN(vinToRemove);
             Model.SaveChanges();
         }
+
+        public int AddNewMovementFromData(string responsibleUsername, string vinToModify,
+            MovementDTOIn movementData)
+        {
+            User responsible = Model.Users.GetUserWithUsername(responsibleUsername);
+            Vehicle movedVehicle = Vehicles.GetVehicleWithVIN(vinToModify);
+            Subzone destination = Model.Subzones.GetSubzoneWithId(movementData.ArrivalSubzoneId);
+            Movement movementToAdd = movedVehicle.RegisterNewMovementToSubzone(responsible,
+                movementData.DateTime, destination);
+            Model.Movements.AddNewMovement(movementToAdd);
+            Vehicles.UpdateVehicle(movedVehicle);
+            Model.SaveChanges();
+            return movementToAdd.Id;
+        }
     }
 }

@@ -68,18 +68,32 @@ namespace Persistence
             }
         }
 
-        protected void AttemptToRemove(TEntity elementToRemove)
+        protected void AttemptToRemove(TEntity entityToRemove)
         {
-            PerformAttachIfCorresponds(elementToRemove);
-            elements.Remove(elementToRemove);
+            PerformActionIfElementExistsInCollection(entityToRemove,
+                delegate
+                {
+                    AttachIfIsValid(entityToRemove);
+                    elements.Remove(entityToRemove);
+                });
         }
 
         protected void Update(TEntity entityToUpdate)
         {
-            if (ElementExistsInCollection(entityToUpdate))
+            PerformActionIfElementExistsInCollection(entityToUpdate,
+                delegate
+                {
+                    AttachIfIsValid(entityToUpdate);
+                    context.Entry(entityToUpdate).State = EntityState.Modified;
+                });
+        }
+
+        private void PerformActionIfElementExistsInCollection(TEntity element,
+            Action actionToPerform)
+        {
+            if (ElementExistsInCollection(element))
             {
-                AttachIfIsValid(entityToUpdate);
-                context.Entry(entityToUpdate).State = EntityState.Modified;
+                actionToPerform.Invoke();
             }
             else
             {
