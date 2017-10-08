@@ -240,4 +240,7 @@
   <data name="InvalidLengthOfInspectionCollection" xml:space="preserve">
     <value>Se detectó un largo inconsistente e inesperado para el largo de la colleción de inspecciones para el estado actual del vehículo.</value>
   </data>
+  <data name="YardInspectionRequiredBeforeMovement" xml:space="preserve">
+    <value>Error: es necesario registrar una inspección de patio válida antes de mover el vehículo a una subzona.</value>
+  </data>
 </root>

@@ -250,7 +250,9 @@ namespace Data.Tests.Domain_tests
         {
             var someDateTime = DateTime.Now;
             Assert.AreEqual(UserRoles.ADMINISTRATOR, movementValidResponsible.Role);
+            testingData.RegisterPortInspection(portInspectionToSet);
             testingData.CurrentStage = ProcessStages.YARD;
+            testingData.RegisterYardInspection(yardInspectionToSet);
             var result = testingData.RegisterNewMovementToSubzone(movementValidResponsible,
                someDateTime, firstDestination);
             Assert.AreSame(movementValidResponsible, result.ResponsibleUser);
@@ -264,7 +266,9 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void ProcessDataRegisterSecondMovementToSubzoneValidTest()
         {
+            testingData.RegisterPortInspection(portInspectionToSet);
             testingData.CurrentStage = ProcessStages.YARD;
+            testingData.RegisterYardInspection(yardInspectionToSet);
             var firstResult = testingData.RegisterNewMovementToSubzone(movementValidResponsible,
                 DateTime.Today, firstDestination);
             var secondResult = testingData.RegisterNewMovementToSubzone(movementValidResponsible,

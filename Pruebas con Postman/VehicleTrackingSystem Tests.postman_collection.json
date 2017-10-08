@@ -543,7 +543,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"Type\":\"CAR\",\n\t\"Brand\":\"Ferrari\",\n\t\"Model\":\"Barchetta\",\n\t\"Year\":\"1984\",\n\t\"Color\":\"Red\",\n\t\"VIN\":\"RUSH2112RLLTHEBNS\"\n}"
+							"raw": "{\n\t\"Type\":\"CAR\",\n\t\"Brand\":\"Ferrari\",\n\t\"Model\":\"Barchetta\",\n\t\"Year\":\"1984\",\n\t\"Color\":\"Red\",\n\t\"VIN\":\"RUSH2112MVNGPCTRS\"\n}"
 						},
 						"url": {
 							"raw": "http://{{URL}}/api/Vehicles",
@@ -570,7 +570,7 @@
 								"exec": [
 									"pm.test(\"Successful POST request\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
-									"    pm.environment.set(\"nonRedBarchetta\", pm.response.vin);",
+									"    pm.environment.set(\"nonRedBarchetta\", JSON.parse(responseBody).vin);",
 									"});"
 								]
 							}
@@ -601,7 +601,65 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"Type\":\"VAN\",\n\t\"Brand\":\"Mercedes Benz\",\n\t\"Model\":\"BNQR\",\n\t\"Year\":2001,\n\t\"Color\":\"DarkGray\",\n\t\"VIN\":\"NDHFN4758NDR124LO\"\n}"
+							"raw": "{\n\t\"Type\":\"VAN\",\n\t\"Brand\":\"Mercedes Benz\",\n\t\"Model\":\"BNQR\",\n\t\"Year\":2001,\n\t\"Color\":\"DarkGray\",\n\t\"VIN\":\"NDHFX4758NDSP24LO\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles"
+							]
+						},
+						"description": "Agrega los datos de un segundo auto."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Vehicle - AoE car",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"    pm.environment.set(\"aoeCar\", JSON.parse(responseBody).vin);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"CAR\",\n\t\"Brand\":\"AOE\",\n\t\"Model\":\"Bullet car\",\n\t\"Year\":1990,\n\t\"Color\":\"Blue\",\n\t\"VIN\":\"HOWDOYUTURNTHISON\"\n}"
 						},
 						"url": {
 							"raw": "http://{{URL}}/api/Vehicles",
@@ -730,6 +788,65 @@
 							]
 						},
 						"description": "Retorna la lista de vehículos registrados en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Get History of Vehicle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Type\":\"SUV\",\n\t\"Brand\":\"BMW\",\n\t\"Model\":\"Some Random Words\",\n\t\"Year\":1999,\n\t\"Color\":\"SteelBlue\",\n\t\"VIN\":\"SOMEOTHERVIN12345\"\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles/{{redBarchetta}}/History",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles",
+								"{{redBarchetta}}",
+								"History"
+							]
+						},
+						"description": "Retorna el histórico completo de un vehículo con el VIN ingresado."
 					},
 					"response": []
 				},
@@ -1559,11 +1676,370 @@
 			]
 		},
 		{
+			"name": "MovementController Tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Movement - Red Barchetta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"DateTime\":\"Sun, 08 Oct 2017 16:56:16 GMT\"\n\t\"ArrivalSubzoneId\":1\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles/{{redBarchetta}}/Movements",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles",
+								"{{redBarchetta}}",
+								"Movements"
+							]
+						},
+						"description": "Mueve el vehículo \"Red Barchetta\" a la subzona \"The Minizone\"."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LotController Tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Lot - \"El lote\"",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\": \"El lote\",\n\t\"Description\": \"Muy buen lote\",\n\t\"VehicleVINs\": [\"{{redBarchetta}}\", \"{{nonRedBarchetta}}\"]\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Lots",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Lots"
+							]
+						},
+						"description": "Agrega un nuevo lote con los vehículos \"RedBarchetta\" y \"NonRedBarchetta\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Lot - \"El lote\"",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK response code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\": \"Mismo lote otro nombre\",\n\t\"Description\": \"Excelentemente buen lote\",\n\t\"VehicleVINs\": [\"{{redBarchetta}}\", \"HOWDOYUTURNTHISON\"]\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Lots/El lote",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Lots",
+								"El lote"
+							]
+						},
+						"description": "Modifica al lote anteriormente creado, cambiándole la descripción, nombre y vehículos dejando a \"RedBarchetta\", sacando a \"NonRedBarchetta\" y agregando a \"aoeCar\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lots",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK response code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\": \"El lote\",\n\t\"Description\": \"Muy buen lote\",\n\t\"VehicleVINs\": [\"{{redBarchetta}}\", \"{{nonRedBarchetta}}\"]\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Lots",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Lots"
+							]
+						},
+						"description": "Retorna los lotes registrados en el sistema."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lot with Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK response code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\": \"El lote\",\n\t\"Description\": \"Muy buen lote\",\n\t\"VehicleVINs\": [\"{{redBarchetta}}\", \"{{nonRedBarchetta}}\"]\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Lots/El lote",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Lots",
+								"El lote"
+							]
+						},
+						"description": "Retorna los datos completos asociados al lote \"El lote\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Lot with name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK response code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Lots/El lote",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Lots",
+								"El lote"
+							]
+						},
+						"description": "Elimina si es posible al lote con el nombre seleccionado."
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "InspectionController Tests",
 			"description": "",
 			"item": [
 				{
-					"name": "Add Empty Inspection",
+					"name": "Add Empty PortInspection",
 					"event": [
 						{
 							"listen": "test",
@@ -1622,7 +2098,126 @@
 					"response": []
 				},
 				{
-					"name": "Add Inspection with Damages",
+					"name": "Add Empty YardInspection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"LocationName\":\"Scotland Yard\",\n\t\"DateTime\":\"2013-10-21T13:28:06.419Z\",\n\t\"Damages\":[]\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles/{{redBarchetta}}/YardInspection",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles",
+								"{{redBarchetta}}",
+								"YardInspection"
+							]
+						},
+						"description": "Se agrega una inspección sin daños al vehículo \"Red Barchetta\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Add PortInspection with Damages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"    pm.environment.set(\"complexInspection\", pm.response.id);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"LocationName\":\"Puerto Ochenta Ochenta\",\n\t\"DateTime\":\"2013-10-21T13:28:06.419Z\",\n\t\"Damages\": [\n        {\n            \"description\": \"Cierto daño\",\n            \"images\": [\n                \"Imagen 1\",\n                \"Imagen 2\"\n            ]\n        },\n        {\n            \"description\": \"Otro daño\",\n            \"images\": [\n                \"Imagen 3\"\n            ]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Vehicles/{{nonRedBarchetta}}/PortInspection",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Vehicles",
+								"{{nonRedBarchetta}}",
+								"PortInspection"
+							]
+						},
+						"description": "Se agrega una inspección con daños al vehículo que no es \"Red Barchetta\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Add YardInspection with Damages",
 					"event": [
 						{
 							"listen": "test",
@@ -1799,9 +2394,126 @@
 			]
 		},
 		{
-			"name": "MovementController Tests",
+			"name": "TransportController Tests",
 			"description": "",
-			"item": []
+			"item": [
+				{
+					"name": "Start new Transport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"    pm.environment.set(\"transportId\", pm.response.id);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"StartDateTime\":\"Sun, 08 Oct 2017 15:02:19 GMT\",\n\t\"TransportedLotsNames\":[\"El lote\"]\n}"
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Transports",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Transports"
+							]
+						},
+						"description": "Registra un nuevo transporte para los lotes ingresados."
+					},
+					"response": []
+				},
+				{
+					"name": "Finalize transport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"OK response code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"Sun, 08 Oct 2017 14:04:19 GMT\""
+						},
+						"url": {
+							"raw": "http://{{URL}}/api/Transports/1",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"Transports",
+								"1"
+							]
+						},
+						"description": "Finaliza un transporte previamente creado."
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

@@ -157,6 +157,7 @@ namespace Domain
             DateTime dateTimeOfMovement, Subzone destination)
         {
             ValidateVehicleIsInStage(ProcessStages.YARD);
+            ValidateVehicleWasInspectedInYard();
             if (dateTimeOfMovement > LastDateTimeToValidate.GetValueOrDefault())
             {
                 return AttemptToAddNewMovement(responsible, dateTimeOfMovement, destination);
@@ -164,6 +165,14 @@ namespace Domain
             else
             {
                 throw new ProcessException(ErrorMessages.MovementDateIsInvalid);
+            }
+        }
+
+        private void ValidateVehicleWasInspectedInYard()
+        {
+            if (Utilities.IsNull(YardInspection))
+            {
+                throw new ProcessException(ErrorMessages.YardInspectionRequiredBeforeMovement);
             }
         }
 

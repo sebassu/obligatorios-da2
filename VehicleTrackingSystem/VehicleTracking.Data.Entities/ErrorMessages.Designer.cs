@@ -403,6 +403,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: es necesario registrar una inspección de patio válida antes de mover el vehículo a una subzona..
+        /// </summary>
+        internal static string YardInspectionRequiredBeforeMovement {
+            get {
+                return ResourceManager.GetString("YardInspectionRequiredBeforeMovement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Año inválido: &quot;{0}&quot;. El año no puede ser mayor al actual ni menor a 1900..
         /// </summary>
         internal static string YearIsInvalid {
