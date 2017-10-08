@@ -160,7 +160,7 @@ namespace Data.Tests.Persistence_tests
             };
             Lot lotToVerify = Lot.CreatorNameDescriptionVehicles(userToAdd, "Lot 5", "Only Ferrari lot.", list);
             AddNewLotAndSaveChanges(lotToVerify);
-            Lot result = testingLotRepository.GetLotByName(lotToVerify.Name);
+            Lot result = testingLotRepository.GetLotWithName(lotToVerify.Name);
             Assert.AreEqual(lotToVerify, result);
         }
 
@@ -168,7 +168,7 @@ namespace Data.Tests.Persistence_tests
         [ExpectedException(typeof(RepositoryException))]
         public void LRepositoryGetLotByNameUnaddedNameInvalidTest()
         {
-            testingLotRepository.GetLotByName("Not existing zone");
+            testingLotRepository.GetLotWithName("Not existing zone");
         }
 
         [TestMethod]

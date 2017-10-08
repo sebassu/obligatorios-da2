@@ -287,7 +287,7 @@ namespace Data.Tests.Domain_tests
         public void LotWasTransportedValidTest()
         {
             Assert.IsFalse(testingLot.WasTransported);
-            testingLot.WasTransported = true;
+            testingLot.AssociatedTransport = Transport.InstanceForTestingPurposes();
             Assert.IsTrue(testingLot.WasTransported);
         }
     }

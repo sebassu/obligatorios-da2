@@ -19,10 +19,10 @@ namespace Persistence
         {
             try
             {
-                return elements.Include("Lots.Vehicles.StagesData")
-                    .Single(s => s.Id == idToLookup);
+                return elements.Include("Transporter").Include("LotsTransported.Vehicles.StagesData")
+                    .Single(t => t.Id == idToLookup);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
                 string errorMessage = string.Format(CultureInfo.CurrentCulture,
                     ErrorMessages.CouldNotFindField, "identificador de transporte", idToLookup);

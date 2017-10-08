@@ -32,18 +32,18 @@ namespace API.Services
             return new UserDTO(someUser);
         }
 
-        protected UserDTO(User someUser) : this(someUser.Role, someUser.FirstName,
+        private UserDTO(User someUser) : this(someUser.Role, someUser.FirstName,
             someUser.LastName, someUser.Username, someUser.Password.Length.ToString(),
             someUser.PhoneNumber)
         { }
 
-        public static UserDTO FromData(UserRoles role, string firstName, string lastName,
+        internal static UserDTO FromData(UserRoles role, string firstName, string lastName,
             string username, string password, string phoneNumber)
         {
             return new UserDTO(role, firstName, lastName, username, password, phoneNumber);
         }
 
-        protected UserDTO(UserRoles roleToSet, string firstNameToSet, string lastNameToSet,
+        private UserDTO(UserRoles roleToSet, string firstNameToSet, string lastNameToSet,
             string usernameToSet, string passwordToSet, string phoneNumberToSet)
         {
             Role = roleToSet;

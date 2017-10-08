@@ -191,7 +191,7 @@ namespace Web.API.Services_Tests
                 "mSantos", "DisculpeFuegoTiene", "099424242");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(userToModify.Username))
-                .Returns(userToModify).Verifiable(); ;
+                .Returns(userToModify).Verifiable();
             var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
             mockUnitOfWork.Verify();

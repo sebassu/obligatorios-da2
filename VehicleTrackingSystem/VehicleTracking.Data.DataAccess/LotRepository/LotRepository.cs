@@ -19,12 +19,12 @@ namespace Persistence
 
         public IEnumerable<Lot> Elements => GetElementsWith(null, "Creator");
 
-        public Lot GetLotByName(string nameToFind)
+        public Lot GetLotWithName(string nameToFind)
         {
             try
             {
-                return elements.Include("Creator").Include("Vehicles.StagesData.PortLot")
-                    .Single(l => l.Name.Equals(nameToFind));
+                return elements.Include("Creator").Include("AssociatedTransport")
+                    .Include("Vehicles.StagesData.Inspections").Single(l => l.Name.Equals(nameToFind));
             }
             catch (InvalidOperationException)
             {
@@ -41,7 +41,7 @@ namespace Persistence
 
         public void RemoveLotWithName(string nameToRemove)
         {
-            var lotToRemove = GetLotByName(nameToRemove);
+            var lotToRemove = GetLotWithName(nameToRemove);
             AttemptToRemove(lotToRemove);
         }
 

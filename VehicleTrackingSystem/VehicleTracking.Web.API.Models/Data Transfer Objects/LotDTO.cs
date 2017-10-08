@@ -25,7 +25,7 @@ namespace API.Services
             return new LotDTO(someLot);
         }
 
-        protected LotDTO(Lot someLot) : this(someLot.Name,
+        private LotDTO(Lot someLot) : this(someLot.Name,
             someLot.Description, someLot.Creator.Username)
         {
             SetVehiclesIds(someLot);
@@ -41,7 +41,7 @@ namespace API.Services
             }
         }
 
-        protected LotDTO(string nameToSet, string descriptionToSet,
+        private LotDTO(string nameToSet, string descriptionToSet,
             string creatorUsernameToSet)
         {
             Name = nameToSet;

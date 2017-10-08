@@ -30,7 +30,7 @@ namespace API.Services
             return new InspectionDTO(someInspection);
         }
 
-        protected InspectionDTO(Inspection someInspection) :
+        private InspectionDTO(Inspection someInspection) :
             this(someInspection.Id, someInspection.VehicleVIN, someInspection.Location.Name,
                 someInspection.ResponsibleUser.Username, someInspection.DateTime)
         {
@@ -47,7 +47,7 @@ namespace API.Services
             }
         }
 
-        public InspectionDTO(int idToSet, string vinToSet, string locationNameToSet,
+        private InspectionDTO(int idToSet, string vinToSet, string locationNameToSet,
             string usernameToSet, DateTime dateTimeToSet)
         {
             Id = idToSet;

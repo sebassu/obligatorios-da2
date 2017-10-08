@@ -82,14 +82,21 @@ namespace Domain
 
         internal void FinalizeTransport()
         {
-            WasTransported = true;
             foreach (var vehicle in vehicles)
             {
                 vehicle.SetTransportEndData();
             }
         }
 
-        public bool WasTransported { get; set; }
+        public Transport AssociatedTransport { get; set; }
+
+        public bool WasTransported
+        {
+            get
+            {
+                return Utilities.IsNotNull(AssociatedTransport);
+            }
+        }
 
         private bool IsValidVehicleListToSet(ICollection<Vehicle> vehiclesToSet)
         {
@@ -158,12 +165,12 @@ namespace Domain
                 validCreatorRoles.Contains(someUser.Role);
         }
 
-        internal void MarkAsTransported(Transport associatedTransport)
+        internal void MarkAsTransported(Transport someTransport)
         {
-            WasTransported = true;
+            AssociatedTransport = someTransport;
             foreach (var vehicle in vehicles)
             {
-                vehicle.SetTransportStartData(associatedTransport);
+                vehicle.SetTransportStartData(someTransport);
             }
         }
 

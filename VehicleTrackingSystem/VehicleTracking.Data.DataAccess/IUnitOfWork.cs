@@ -12,6 +12,7 @@ namespace Persistence
         ILotRepository Lots { get; }
         ILocationRepository Locations { get; }
         IMovementRepository Movements { get; }
+        ITransportRepository Transports { get; }
         void SaveChanges();
     }
 }
