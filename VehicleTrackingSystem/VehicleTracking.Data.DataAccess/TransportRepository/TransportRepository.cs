@@ -2,6 +2,7 @@
 using Domain;
 using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Persistence
 {
@@ -14,6 +15,9 @@ namespace Persistence
         {
             Add(transportToAdd);
         }
+
+        public IEnumerable<Transport> Elements => GetElementsWith(null,
+            "Transporter,LotsTransported");
 
         public Transport GetTransportWithId(int idToLookup)
         {

@@ -76,7 +76,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.ModifyVehicleWithVIN(vinToModify, vehicleDataToSet);
-                    return Ok();
+                    return Ok(ResponseMessages.SuccessfulModification);
                 });
         }
 
@@ -85,8 +85,7 @@ namespace Web.API.Controllers
         [Route("{vinToRemove}")]
         public IHttpActionResult RemoveVehicleWithVIN(string vinToRemove)
         {
-            return BadRequest("Actualmente no se permite eliminar vehículos" +
-                " del sistema.");
+            return BadRequest(ResponseMessages.VehicleRemovalIsUnsupported);
         }
 
         [HttpPost]

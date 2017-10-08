@@ -2,6 +2,7 @@
 using System;
 using System.Web.Http;
 using API.Services;
+using System.Collections.Generic;
 
 namespace Web.API.Controllers
 {
@@ -36,6 +37,26 @@ namespace Web.API.Controllers
                     return CreatedAtRoute("VTSystemAPI",
                         new { id = additionId }, transportDataToAdd);
                 });
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetRegisteredTransports()
+        {
+            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredTransports);
+        }
+
+        private IHttpActionResult AttemptToGetRegisteredTransports()
+        {
+            IEnumerable<TransportDTO> transports =
+                Model.GetRegisteredTransports();
+            if (Utilities.IsNotNull(transports))
+            {
+                return Ok(transports);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPut]

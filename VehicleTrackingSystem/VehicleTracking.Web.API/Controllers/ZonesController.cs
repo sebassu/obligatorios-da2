@@ -78,7 +78,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.ModifyZoneWithName(nameToModify, userDataToSet);
-                    return Ok();
+                    return Ok(ResponseMessages.SuccessfulModification);
                 });
         }
 
@@ -92,7 +92,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.RemoveZoneWithName(nameToRemove);
-                    return Ok();
+                    return Ok(ResponseMessages.SuccessfulRemoval);
                 });
         }
     }

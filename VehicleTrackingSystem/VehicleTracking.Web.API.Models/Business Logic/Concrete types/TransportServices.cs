@@ -46,6 +46,16 @@ namespace API.Services
             return result;
         }
 
+        public ICollection<TransportDTO> GetRegisteredTransports()
+        {
+            var result = new List<TransportDTO>();
+            foreach (var transport in Transports.Elements)
+            {
+                result.Add(TransportDTO.FromTransport(transport));
+            }
+            return result.AsReadOnly();
+        }
+
         public void FinalizeTransport(string activeUsername,
             int transportIdToFinalize, DateTime finalizationDateTime)
         {

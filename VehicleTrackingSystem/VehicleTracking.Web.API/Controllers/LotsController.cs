@@ -78,7 +78,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.ModifyLotWithName(nameToModify, lotDataToSet);
-                    return Ok();
+                    return Ok(ResponseMessages.SuccessfulModification);
                 });
         }
 
@@ -90,7 +90,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.RemoveLotWithName(nameToRemove);
-                    return Ok();
+                    return Ok(ResponseMessages.SuccessfulRemoval);
                 });
         }
     }

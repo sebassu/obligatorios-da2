@@ -82,7 +82,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.ModifySubzoneWithId(idToModify, userDataToSet);
-                    return Ok();
+                    return Ok(ResponseMessages.SuccessfulModification);
                 });
         }
 
@@ -95,7 +95,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.RemoveSubzoneWithId(idToRemove);
-                    return Ok();
+                    return Ok(ResponseMessages.SuccessfulRemoval);
                 });
         }
     }

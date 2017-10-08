@@ -76,7 +76,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.ModifyUserWithUsername(usernameToModify, userDataToSet);
-                    return Ok();
+                    return Ok(ResponseMessages.SuccessfulModification);
                 });
         }
 
@@ -88,7 +88,7 @@ namespace Web.API.Controllers
                 delegate
                 {
                     Model.RemoveUserWithUsername(usernameToRemove);
-                    return Ok();
+                    return Ok(ResponseMessages.SuccessfulRemoval);
                 });
         }
     }
