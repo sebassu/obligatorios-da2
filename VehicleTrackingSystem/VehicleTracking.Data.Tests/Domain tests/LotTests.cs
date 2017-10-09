@@ -290,5 +290,59 @@ namespace Data.Tests.Domain_tests
             testingLot.AssociatedTransport = Transport.InstanceForTestingPurposes();
             Assert.IsTrue(testingLot.WasTransported);
         }
+        [TestMethod]
+        public void LotEqualsReflexiveTest()
+        {
+            Assert.AreEqual(testingLot, testingLot);
+        }
+
+        [TestMethod]
+        public void LotEqualsSymmetricTest()
+        {
+            Lot secondTestingLot = Lot.InstanceForTestingPurposes();
+            Assert.AreEqual(testingLot, secondTestingLot);
+            Assert.AreEqual(secondTestingLot, testingLot);
+        }
+
+        [TestMethod]
+        public void LotEqualsTransitiveTest()
+        {
+            testingLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot", "Some description", testingVehicles);
+            ICollection<Vehicle> testingVehicles1 = new List<Vehicle>(
+            new Vehicle[] {
+                Vehicle.InstanceForTestingPurposes()
+            });
+            Lot secondTetingLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot", 
+                "Some description", testingVehicles1);
+            ICollection<Vehicle> testingVehicles2 = new List<Vehicle>(
+            new Vehicle[] {
+                Vehicle.InstanceForTestingPurposes()
+            });
+            Lot thirdTestingLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot",
+                "Some description", testingVehicles2);
+            Assert.AreEqual(testingLot, secondTetingLot);
+            Assert.AreEqual(secondTetingLot, thirdTestingLot);
+            Assert.AreEqual(testingLot, thirdTestingLot);
+        }
+
+        [TestMethod]
+        public void LotEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingLot, null);
+        }
+
+        [TestMethod]
+        public void LotEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingLot, someRandomObject);
+        }
+
+        [TestMethod]
+        public void LotGetHashCodeTest()
+        {
+            object testingLotAsObject = testingLot;
+            Assert.AreEqual(testingLotAsObject.GetHashCode(), testingLot.GetHashCode());
+        }
     }
 }

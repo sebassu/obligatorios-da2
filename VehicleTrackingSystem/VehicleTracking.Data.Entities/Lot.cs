@@ -179,7 +179,7 @@ namespace Domain
             Lot lotToCompareAgainst = obj as Lot;
             if (Utilities.IsNotNull(lotToCompareAgainst))
             {
-                return Id.Equals(lotToCompareAgainst.Id);
+                return Name.Equals(lotToCompareAgainst.Name);
             }
             else
             {
