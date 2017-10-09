@@ -13,10 +13,8 @@ namespace Data.Tests.Domain_tests
     {
         private static Lot testingLot;
         private static readonly User testingCreator = User.InstanceForTestingPurposes();
-        private static readonly ICollection<Vehicle> testingVehicles = new List<Vehicle>(
-            new Vehicle[] {
-                Vehicle.InstanceForTestingPurposes()
-            });
+        private static readonly ICollection<Vehicle> testingVehicles =
+            new List<Vehicle>() { Vehicle.InstanceForTestingPurposes() };
 
         [TestInitialize]
         public void TestSetup()
@@ -307,22 +305,22 @@ namespace Data.Tests.Domain_tests
         [TestMethod]
         public void LotEqualsTransitiveTest()
         {
-            testingLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot", "Some description", testingVehicles);
-            ICollection<Vehicle> testingVehicles1 = new List<Vehicle>(
-            new Vehicle[] {
+            Lot firstTestingLot = CreateNewTestingLot();
+            Lot secondTestingLot = CreateNewTestingLot();
+            Lot thirdTestingLot = CreateNewTestingLot();
+            Assert.AreEqual(firstTestingLot, secondTestingLot);
+            Assert.AreEqual(secondTestingLot, thirdTestingLot);
+            Assert.AreEqual(firstTestingLot, thirdTestingLot);
+        }
+
+        private static Lot CreateNewTestingLot()
+        {
+            ICollection<Vehicle> someTestingVehicles = new List<Vehicle>() {
                 Vehicle.InstanceForTestingPurposes()
-            });
-            Lot secondTetingLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot", 
-                "Some description", testingVehicles1);
-            ICollection<Vehicle> testingVehicles2 = new List<Vehicle>(
-            new Vehicle[] {
-                Vehicle.InstanceForTestingPurposes()
-            });
+            };
             Lot thirdTestingLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot",
-                "Some description", testingVehicles2);
-            Assert.AreEqual(testingLot, secondTetingLot);
-            Assert.AreEqual(secondTetingLot, thirdTestingLot);
-            Assert.AreEqual(testingLot, thirdTestingLot);
+                "Some description", someTestingVehicles);
+            return thirdTestingLot;
         }
 
         [TestMethod]

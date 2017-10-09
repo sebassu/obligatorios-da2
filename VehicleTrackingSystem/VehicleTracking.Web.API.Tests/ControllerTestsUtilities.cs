@@ -13,10 +13,11 @@ namespace Web.API.Tests
         public static void VerifyMethodReturnsOkResponse(Func<IHttpActionResult> methodToTest,
             Mock mockVehicleServices)
         {
-            IHttpActionResult result = methodToTest.Invoke();
+            IHttpActionResult obtainedResult = methodToTest.Invoke();
             mockVehicleServices.VerifyAll();
+            var result = obtainedResult as OkNegotiatedContentResult<string>;
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(OkResult));
+            Assert.IsNotNull(result.Content);
         }
 
         public static void VerifyMethodReturnsBadRequestResponse(Func<IHttpActionResult> methodToTest,
