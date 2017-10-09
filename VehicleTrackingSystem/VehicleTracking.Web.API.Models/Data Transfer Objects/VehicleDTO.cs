@@ -25,6 +25,8 @@ namespace API.Services
         [Required]
         public short Year { get; set; }
 
+        public string CurrentStage { get; set; }
+
         internal VehicleDTO() { }
 
         internal static VehicleDTO FromVehicle(Vehicle someVehicle)
@@ -34,7 +36,9 @@ namespace API.Services
 
         private VehicleDTO(Vehicle someVehicle) : this(someVehicle.Type, someVehicle.Brand,
             someVehicle.Model, someVehicle.Year, someVehicle.Color, someVehicle.VIN)
-        { }
+        {
+            CurrentStage = someVehicle.CurrentStage.ToString();
+        }
 
         public static VehicleDTO FromData(VehicleType type, string brand, string model,
            short year, string color, string VIN)

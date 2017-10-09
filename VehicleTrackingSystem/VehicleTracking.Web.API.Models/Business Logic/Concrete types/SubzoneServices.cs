@@ -1,7 +1,6 @@
 ﻿using Domain;
 using Persistence;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace API.Services
 {
@@ -81,10 +80,11 @@ namespace API.Services
         public void RemoveSubzoneWithId(int idToRemove)
         {
             Subzone subzoneToRemove = Subzones.GetSubzoneWithId(idToRemove);
-            bool isNonEmptySubzone = subzoneToRemove.Vehicles.Any();
-            if (isNonEmptySubzone)
+            bool subzoneHostedVehicles =
+                Model.Movements.SubzoneParticipatesInSomeMovement(subzoneToRemove);
+            if (subzoneHostedVehicles)
             {
-                throw new ServiceException(ErrorMessages.CannotRemoveNonEmptySubzone);
+                throw new ServiceException(ErrorMessages.CannotRemoveSubzone);
             }
             else
             {

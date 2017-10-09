@@ -154,7 +154,7 @@ namespace Domain
             }
         }
 
-        internal bool IsReadyForTransport()
+        public bool IsReadyForTransport()
         {
             return vehicles.All(v => v.IsReadyForTransport());
         }

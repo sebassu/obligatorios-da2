@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using Persistence;
 
-namespace Data.Tests.Persistence_tests
+namespace Data.Persistence_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

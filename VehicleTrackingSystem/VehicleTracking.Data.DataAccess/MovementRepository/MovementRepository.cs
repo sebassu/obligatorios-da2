@@ -13,6 +13,12 @@ namespace Persistence
             Add(movementToAdd);
         }
 
+        public bool SubzoneParticipatesInSomeMovement(Subzone subzoneToVerify)
+        {
+            return elements.Any(m => m.Departure.Equals(subzoneToVerify) ||
+                m.Arrival.Equals(subzoneToVerify));
+        }
+
         protected override bool ElementExistsInCollection(Movement entityToUpdate)
         {
             return Utilities.IsNotNull(entityToUpdate)

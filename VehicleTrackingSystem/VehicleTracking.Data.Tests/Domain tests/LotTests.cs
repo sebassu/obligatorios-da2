@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Data.Tests.Domain_tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -341,6 +341,58 @@ namespace Data.Tests.Domain_tests
         {
             object testingLotAsObject = testingLot;
             Assert.AreEqual(testingLotAsObject.GetHashCode(), testingLot.GetHashCode());
+        }
+
+        public void LotToStringTest1()
+        {
+            Assert.AreEqual("Lote inválido.", testingLot.ToString());
+        }
+
+        [TestMethod]
+        public void LotToStringTest2()
+        {
+            testingLot.Name = "El lotecito";
+            Assert.AreEqual("El lotecito", testingLot.ToString());
+        }
+
+        [TestMethod]
+        public void LotFinalizeTransportValidTest()
+        {
+            Vehicle someVehicle = Vehicle.InstanceForTestingPurposes();
+            someVehicle.PortInspection = Inspection.InstanceForTestingPurposes();
+            ICollection<Vehicle> someTestingVehicles = new List<Vehicle>() { someVehicle };
+            testingLot.FinalizeTransport();
+            Assert.IsTrue(testingLot.Vehicles.All(v
+                => v.CurrentStage == ProcessStages.YARD));
+        }
+
+        [TestMethod]
+        public void LotIsReadyForTransportTestingLotNoVehiclesTest()
+        {
+            Assert.IsTrue(testingLot.IsReadyForTransport());
+        }
+
+        [TestMethod]
+        public void LotIsReadyForTransportTest()
+        {
+            Vehicle someVehicle = Vehicle.InstanceForTestingPurposes();
+            someVehicle.PortInspection = Inspection.InstanceForTestingPurposes();
+            ICollection<Vehicle> someTestingVehicles = new List<Vehicle>() { someVehicle };
+            Lot someLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot",
+                "Some description", someTestingVehicles);
+            Assert.IsTrue(testingLot.IsReadyForTransport());
+        }
+
+        [TestMethod]
+        public void LotIsNotReadyForTransportBecauseOfOneVehicleTest()
+        {
+            Vehicle someVehicle = Vehicle.InstanceForTestingPurposes();
+            someVehicle.PortInspection = Inspection.InstanceForTestingPurposes();
+            ICollection<Vehicle> someTestingVehicles = new List<Vehicle>() { someVehicle,
+                Vehicle.InstanceForTestingPurposes() };
+            Lot someLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot",
+                "Some description", someTestingVehicles);
+            Assert.IsFalse(someLot.IsReadyForTransport());
         }
     }
 }

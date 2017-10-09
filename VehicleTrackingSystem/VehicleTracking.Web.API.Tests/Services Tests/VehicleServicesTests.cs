@@ -7,7 +7,7 @@ using System.Linq;
 using Moq;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Web.API.Tests.Services_Tests
+namespace Web.API.Services_Tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

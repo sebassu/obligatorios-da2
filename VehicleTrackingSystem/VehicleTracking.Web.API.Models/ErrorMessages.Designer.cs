@@ -70,20 +70,20 @@ namespace API.Services {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No es posible eliminar a la subzona: contiene vehículos dentro..
-        /// </summary>
-        internal static string CannotRemoveNonEmptySubzone {
-            get {
-                return ResourceManager.GetString("CannotRemoveNonEmptySubzone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No es posible eliminar a la zona: contiene subzonas..
         /// </summary>
         internal static string CannotRemoveNonEmptyZone {
             get {
                 return ResourceManager.GetString("CannotRemoveNonEmptyZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No es posible eliminar a la subzona: se encuentra asociada a movimientos del histórico..
+        /// </summary>
+        internal static string CannotRemoveSubzone {
+            get {
+                return ResourceManager.GetString("CannotRemoveSubzone", resourceCulture);
             }
         }
         

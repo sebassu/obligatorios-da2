@@ -5,7 +5,7 @@ using Domain;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Data.Tests.Domain_tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

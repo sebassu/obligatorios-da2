@@ -17,7 +17,8 @@ namespace Persistence
             Add(lotToAdd);
         }
 
-        public IEnumerable<Lot> Elements => GetElementsWith(null, "Creator");
+        public IEnumerable<Lot> Elements => GetElementsWith(null, "Creator," +
+            "AssociatedTransport,Vehicles.StagesData.Inspections");
 
         public Lot GetLotWithName(string nameToFind)
         {

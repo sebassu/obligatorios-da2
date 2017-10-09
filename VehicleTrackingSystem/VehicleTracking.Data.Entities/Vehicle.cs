@@ -57,7 +57,8 @@ namespace Domain
 
         protected bool IsValidModel(string value)
         {
-            return Utilities.ContainsLettersOrDigitsOnly(value) || Utilities.ContainsLettersOrSpacesOnly(value);
+            return Utilities.ContainsLettersOrDigitsOnly(value)
+                || Utilities.ContainsLettersOrSpacesOnly(value);
         }
 
         private short year;

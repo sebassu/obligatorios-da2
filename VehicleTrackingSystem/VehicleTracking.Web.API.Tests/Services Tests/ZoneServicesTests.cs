@@ -3,10 +3,12 @@ using Domain;
 using Persistence;
 using API.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Web.API.Tests.Services_Tests
+namespace Web.API.Services_Tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ZoneServicesTests
     {
         public class VehicleServicesTests

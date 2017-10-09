@@ -18,6 +18,8 @@ namespace API.Services
         [Required]
         public ICollection<string> VehicleVINs { get; set; }
 
+        public bool IsReadyForTransport { get; set; }
+
         internal LotDTO() { }
 
         internal static LotDTO FromLot(Lot someLot)
@@ -28,17 +30,8 @@ namespace API.Services
         private LotDTO(Lot someLot) : this(someLot.Name,
             someLot.Description, someLot.Creator.Username)
         {
-            SetVehiclesIds(someLot);
-        }
-
-        private void SetVehiclesIds(Lot someLot)
-        {
-            var vehiclesToSet = someLot.Vehicles;
-            if (Utilities.IsNotNull(vehiclesToSet))
-            {
-                VehicleVINs = vehiclesToSet
-                    .Select(v => v.VIN).ToList();
-            }
+            VehicleVINs = someLot.Vehicles.Select(v => v.VIN).ToList();
+            IsReadyForTransport = someLot.IsReadyForTransport();
         }
 
         private LotDTO(string nameToSet, string descriptionToSet,
