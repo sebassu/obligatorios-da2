@@ -20,11 +20,11 @@ namespace Data.Domain_Tests
         public void VehicleInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingVehicle.Id);
-            Assert.AreEqual("Audi", testingVehicle.Brand);
-            Assert.AreEqual("Q5", testingVehicle.Model);
-            Assert.AreEqual(2016, testingVehicle.Year);
-            Assert.AreEqual("Blue", testingVehicle.Color);
-            Assert.AreEqual("QWERTYUI123456789", testingVehicle.VIN);
+            Assert.AreEqual("Marca inválida", testingVehicle.Brand);
+            Assert.AreEqual("Vehículo inválido", testingVehicle.Model);
+            Assert.AreEqual(1800, testingVehicle.Year);
+            Assert.AreEqual("Color inválido", testingVehicle.Color);
+            Assert.AreEqual("VININVLDOVNINVLDO", testingVehicle.VIN);
             Assert.AreEqual(VehicleType.CAR, testingVehicle.Type);
         }
 
@@ -329,8 +329,8 @@ namespace Data.Domain_Tests
         [TestMethod]
         public void VehicleToStringTest1()
         {
-            Assert.AreEqual("QWERTYUI123456789. Audi Q5. 2016",
-                testingVehicle.ToString());
+            Assert.AreEqual("VININVLDOVNINVLDO. Marca inválida " +
+                "Vehículo inválido. 1800", testingVehicle.ToString());
         }
 
         [TestMethod]

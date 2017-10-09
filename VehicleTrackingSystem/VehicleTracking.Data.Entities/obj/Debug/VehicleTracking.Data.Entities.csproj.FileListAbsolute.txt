@@ -1,0 +1,6 @@
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Data.Entities\bin\Debug\VehicleTracking.Data.Entities.dll
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Data.Entities\bin\Debug\VehicleTracking.Data.Entities.pdb
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Data.Entities\obj\Debug\Domain.ErrorMessages.resources
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Data.Entities\obj\Debug\VehicleTracking.Data.Entities.csproj.GenerateResource.Cache
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Data.Entities\obj\Debug\VehicleTracking.Data.Entities.dll
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Data.Entities\obj\Debug\VehicleTracking.Data.Entities.pdb

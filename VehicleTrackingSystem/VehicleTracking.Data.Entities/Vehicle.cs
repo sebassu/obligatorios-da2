@@ -201,11 +201,11 @@ namespace Domain
 
         protected Vehicle()
         {
-            brand = "Audi";
-            model = "Q5";
-            year = 2016;
-            color = "Blue";
-            vin = "QWERTYUI123456789";
+            brand = "Marca inválida";
+            model = "Vehículo inválido";
+            year = 1800;
+            color = "Color inválido";
+            vin = "VININVLDOVNINVLDO";
         }
 
         public static Vehicle CreateNewVehicle(VehicleType type, string brand, string model,
