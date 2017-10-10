@@ -1,0 +1,14 @@
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\VehicleTracking.Web.API.Services.dll
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\VehicleTracking.Web.API.Services.pdb
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\VehicleTracking.Data.DataAccess.dll
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\VehicleTracking.Data.Entities.dll
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\EntityFramework.dll
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\VehicleTracking.Data.DataAccess.pdb
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\VehicleTracking.Data.DataAccess.dll.config
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\VehicleTracking.Data.Entities.pdb
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\EntityFramework.xml
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\obj\Debug\VehicleTracking.Web.API.Services.csprojResolveAssemblyReference.cache
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\obj\Debug\API.Services.ErrorMessages.resources
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\obj\Debug\VehicleTracking.Web.API.Services.csproj.GenerateResource.Cache
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\obj\Debug\VehicleTracking.Web.API.Services.dll
+C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\obj\Debug\VehicleTracking.Web.API.Services.pdb

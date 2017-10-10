@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BrandIsInvalid" xml:space="preserve">
+    <value>Marca inválida: "{0}". Solo se permite ingresar caracteres alfabéticos o espacios para este campo requerido.</value>
+  </data>
+  <data name="ColorIsInvalid" xml:space="preserve">
+    <value>El color "{0}"  no es valido. Solo se permite ingresar caracteres alfabéticos o espacios para este campo requerido.</value>
+  </data>
+  <data name="DateIsInvalid" xml:space="preserve">
+    <value>Fecha inválida. No puede ser mayor a la fecha actual ni menor a 01/01/1900.</value>
+  </data>
+  <data name="DescriptionIsInvalid" xml:space="preserve">
+    <value>La descripción no es válida, no puede ser vacia.</value>
+  </data>
+  <data name="ImageIsInvalid" xml:space="preserve">
+    <value>La imagen recibida no es válida.</value>
+  </data>
+  <data name="CollectionIsInvalid" xml:space="preserve">
+    <value>La lista no puede ser vacia. Debe contener al menos un objeto, y no contener elementos repetidos.</value>
+  </data>
+  <data name="LocationIsInvalid" xml:space="preserve">
+    <value>Se debe seleccionar un lugar para poder proceder.</value>
+  </data>
+  <data name="ModelIsInvalid" xml:space="preserve">
+    <value>Modelo inválido: "{0}". Solo se permiten ingresar caracteres alfabéticos, numéricos o espacios para este campo.</value>
+  </data>
+  <data name="NameIsInvalid" xml:space="preserve">
+    <value>{0} inválido: "{1}". Solamente se permite ingresar caracteres alfabéticos o espacios para este campo requerido.</value>
+  </data>
+  <data name="PasswordIsInvalid" xml:space="preserve">
+    <value>Es necesario ingresar una contraseña no vacía.</value>
+  </data>
+  <data name="PhoneNumberIsInvalid" xml:space="preserve">
+    <value>Número telefónico inválido: "{0}". Se aceptan únicamente teléfonos siguiendo el formato uruguayo.</value>
+  </data>
+  <data name="ResponsibleUserIsInvalid" xml:space="preserve">
+    <value>Usuario inválido. Es necesario contar con mayores privilegios para poder completar la acción seleccionada.</value>
+  </data>
+  <data name="UsernameIsInvalid" xml:space="preserve">
+    <value>El usuario "{0}" es inválido: se permiten únicamente aquellos no vacíos con letras o números, sin espacios.</value>
+  </data>
+  <data name="UserRoleLocationTypeInvalid" xml:space="preserve">
+    <value>La combinación Rol de Usuario-Ubicación recibida no es válida.</value>
+  </data>
+  <data name="VINIsInvalid" xml:space="preserve">
+    <value>El VIN "{0}" es inválido. Sólo se permite ingresar caracteres alfabéticos y numéricos para este campo, y el largo debe ser de exactamente 17 caracteres.</value>
+  </data>
+  <data name="YearIsInvalid" xml:space="preserve">
+    <value>Año inválido: "{0}". El año no puede ser mayor al actual ni menor a 1900.</value>
+  </data>
+  <data name="InvalidVehicleCollectionForLot" xml:space="preserve">
+    <value>Error: la colección de vehículos a agregar al lote no puede ser vacía, ni puede contener vehículos ya asociados a otros lotes o repetidos.</value>
+  </data>
+  <data name="LotUnauthorizedUserType" xml:space="preserve">
+    <value>Es necesario estar registrado como "Operario de Puerto" o "Administrador" para poder registrar Lotes.</value>
+  </data>
+  <data name="EndOfProcess" xml:space="preserve">
+    <value>Error: la etapa actual es la etapa final del Proceso.</value>
+  </data>
+  <data name="InvalidOperationOnVehicle" xml:space="preserve">
+    <value>Se intentó realizar una operación inválida para el estado actual del vehículo en el proceso.</value>
+  </data>
+  <data name="ProcessAlreadySetProperty" xml:space="preserve">
+    <value>No es posible cambiar los datos asociados a este elemento del proceso: ya fueron asignados.</value>
+  </data>
+  <data name="ZoneNameIsInvalid" xml:space="preserve">
+    <value>{0} inválido: "{1}". Solamente se permite ingresar caracteres alfabéticos con espacios y/o números para este campo.</value>
+  </data>
+  <data name="CapacityIsInvalid" xml:space="preserve">
+    <value>Capacidad de "{0}" inválida. La misma debe ser mayor o igual a {1}.</value>
+  </data>
+  <data name="ZoneIsInvalid" xml:space="preserve">
+    <value>La zona no puede ser nula.</value>
+  </data>
+  <data name="ArrivalIsInvalid" xml:space="preserve">
+    <value>La subzona de llegada no puede ser nula ni igual a la de partida; el vehículo no sería movido.</value>
+  </data>
+  <data name="DepartureIsInvalid" xml:space="preserve">
+    <value>La subzona de partida no puede ser igual a la de llegada; no resulta un movimiento válido.</value>
+  </data>
+  <data name="InvalidLotsInTransport" xml:space="preserve">
+    <value>Error en la colección de lotes recibidos para un transporte: esta debe ser no vacía, y contener lotes no repetidos que aún no hayan sido transportados.</value>
+  </data>
+  <data name="MovementDateIsInvalid" xml:space="preserve">
+    <value>Error: la fecha y hora para este movimiento no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a "{0}".</value>
+  </data>
+  <data name="TransportEndDateIsInvalid" xml:space="preserve">
+    <value>La fecha de fin del transporte debe ser posterior a la de inicio, y estar dentro del rango permitido (1/1/1900 - actualidad).</value>
+  </data>
+  <data name="TransportStartDateIsInvalid" xml:space="preserve">
+    <value>La fecha de inicio del transporte es inválida: debe ser posterior a las fechas registradas para las inspecciones de puerto de los vehículos que contienen los lotes transportados, y estar dentro del rango permitido (1/1/1900 - actualidad).</value>
+  </data>
+  <data name="TransportUserTypeIsInvalid" xml:space="preserve">
+    <value>Error: Es necesario estar registrado como un usuario válido de tipo "Administrador" o "Transportador" para poder registrar transportes de lotes.</value>
+  </data>
+  <data name="UnknownLocationType" xml:space="preserve">
+    <value>Tipo de lugar desconocido recibido.</value>
+  </data>
+  <data name="UnknownUserRole" xml:space="preserve">
+    <value>Tipo de usuario desconocido recibido.</value>
+  </data>
+  <data name="ElementNotFound" xml:space="preserve">
+    <value>No se encontró al elemento en la colección.</value>
+  </data>
+  <data name="FullSubzone" xml:space="preserve">
+    <value>La subzona a la que se intenta agregar un vehículo se encuentra llena.</value>
+  </data>
+  <data name="SubzoneIsInvalidForZone" xml:space="preserve">
+    <value>No es posible agregar esta subzona: una zona no puede contener subzonas repetidas, ni superarse la capacidad de ésta por la suma de las capacidades de sus subzonas.</value>
+  </data>
+  <data name="DamageCollectionIsInvalid" xml:space="preserve">
+    <value>Error al recibir la lista de daños para una inspección: ésta no puede ser nula ni contener elementos repetidos.</value>
+  </data>
+  <data name="InspectionCollectionIsNull" xml:space="preserve">
+    <value>La colección de inspecciones a registrar no puede ser nula.</value>
+  </data>
+  <data name="InvalidInspectionData" xml:space="preserve">
+    <value>Se recibió una inspección {0} inválida. Verifique que la ubicación de la misma es coherente con el campo al cual se intenta asignar.</value>
+  </data>
+  <data name="InvalidTransportData" xml:space="preserve">
+    <value>Los datos de transporte recibidos para el vehículo son inválidos: el transporte no contiene al lote asociado al mismo. </value>
+  </data>
+  <data name="InvalidLengthOfInspectionCollection" xml:space="preserve">
+    <value>Se detectó un largo inconsistente e inesperado para el largo de la colleción de inspecciones para el estado actual del vehículo.</value>
+  </data>
+  <data name="YardInspectionRequiredBeforeMovement" xml:space="preserve">
+    <value>Error: es necesario registrar una inspección de patio válida antes de mover el vehículo a una subzona.</value>
+  </data>
+</root>
