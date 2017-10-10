@@ -1,4 +1,0 @@
-C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\VehicleTracking.Web.API.Models.dll
-C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\bin\Debug\VehicleTracking.Web.API.Models.pdb
-C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\obj\Debug\VehicleTracking.Web.API.Models.dll
-C:\Users\Sebastián\Documents\Obligatorios_194973_200604\VehicleTrackingSystem\VehicleTracking.Web.API.Models\obj\Debug\VehicleTracking.Web.API.Models.pdb
