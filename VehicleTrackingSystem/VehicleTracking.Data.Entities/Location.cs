@@ -34,7 +34,6 @@ namespace Domain
             return Utilities.ContainsLettersOrSpacesOnly(value);
         }
 
-
         internal static Location InstanceForTestingPurposes()
         {
             return new Location();
@@ -61,7 +60,7 @@ namespace Domain
             Location locationToCompareAgainst = obj as Location;
             if (Utilities.IsNotNull(locationToCompareAgainst))
             {
-                return Id.Equals(locationToCompareAgainst.Id);
+                return name.Equals(locationToCompareAgainst.name);
             }
             else
             {

@@ -79,7 +79,6 @@ namespace Persistence
         {
             Database.ExecuteSqlCommand("delete from processDatas");
             Database.ExecuteSqlCommand("delete from users");
-            Database.ExecuteSqlCommand("delete from locations");
             Database.ExecuteSqlCommand("delete from movements");
             Database.ExecuteSqlCommand("delete from subzones");
             Database.ExecuteSqlCommand("delete from zones");
