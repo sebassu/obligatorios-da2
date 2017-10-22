@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Domain;
 using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Persistence
 {

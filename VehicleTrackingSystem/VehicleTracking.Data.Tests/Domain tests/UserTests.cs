@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Data.Domain_Tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Data.Domain_Tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -25,7 +25,7 @@ namespace Data.Domain_Tests
             Assert.AreEqual(0, testingVehicle.Id);
             Assert.AreEqual("Marca inválida", testingVehicle.Brand);
             Assert.AreEqual("Vehículo inválido", testingVehicle.Model);
-            Assert.AreEqual(1800, testingVehicle.Year);
+            Assert.AreEqual(1912, testingVehicle.Year);
             Assert.AreEqual("Color inválido", testingVehicle.Color);
             Assert.AreEqual("VININVLDOVNINVLDO", testingVehicle.VIN);
             Assert.AreEqual(VehicleType.CAR, testingVehicle.Type);
@@ -334,7 +334,7 @@ namespace Data.Domain_Tests
         public void VehicleToStringTest1()
         {
             Assert.AreEqual("VININVLDOVNINVLDO. Marca inválida " +
-                "Vehículo inválido. 1800", testingVehicle.ToString());
+                "Vehículo inválido. 1912", testingVehicle.ToString());
         }
 
         [TestMethod]

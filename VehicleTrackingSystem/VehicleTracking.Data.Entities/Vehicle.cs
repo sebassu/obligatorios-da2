@@ -203,7 +203,7 @@ namespace Domain
         {
             brand = "Marca inválida";
             model = "Vehículo inválido";
-            year = 1800;
+            year = 1912;
             color = "Color inválido";
             vin = "VININVLDOVNINVLDO";
         }

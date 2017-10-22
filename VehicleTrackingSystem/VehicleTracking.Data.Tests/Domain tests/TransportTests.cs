@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Data.Tests.Domain_tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

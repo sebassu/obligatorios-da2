@@ -4,7 +4,7 @@ using Domain;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Data.Domain_Tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
