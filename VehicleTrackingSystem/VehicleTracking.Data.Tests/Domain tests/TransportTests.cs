@@ -1,9 +1,9 @@
 ﻿using Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Tests.Domain_tests
 {
@@ -12,10 +12,11 @@ namespace Data.Tests.Domain_tests
     public class TransportTests
     {
         private static Transport testingTransport;
-        private static readonly User testingUser = User.InstanceForTestingPurposes();
-        private static Lot lot1;
-        private static Lot lot2;
-        private static Lot lot3;
+        private static readonly User testingUser =
+            User.InstanceForTestingPurposes();
+        private static Lot testingLot1;
+        private static Lot testingLot2;
+        private static Lot testingLot3;
         private static Vehicle vehicleInLot3;
 
         [ClassInitialize]
@@ -34,10 +35,10 @@ namespace Data.Tests.Domain_tests
             lot1Vehicle2PortInspection.DateTime = new DateTime(2011, 10, 11);
             var lot1Vehicle1 = Vehicle.InstanceForTestingPurposes();
             var lot1Vehicle2 = Vehicle.InstanceForTestingPurposes();
-            lot1Vehicle1.StagesData.PortInspection = lot1Vehicle1PortInspection;
-            lot1Vehicle2.StagesData.PortInspection = lot1Vehicle2PortInspection;
-            lot1 = Lot.InstanceForTestingPurposes();
-            lot1.Vehicles = new List<Vehicle> { lot1Vehicle1, lot1Vehicle2 };
+            lot1Vehicle1.PortInspection = lot1Vehicle1PortInspection;
+            lot1Vehicle2.PortInspection = lot1Vehicle2PortInspection;
+            testingLot1 = Lot.InstanceForTestingPurposes();
+            testingLot1.Vehicles = new List<Vehicle> { lot1Vehicle1, lot1Vehicle2 };
         }
 
         private static void InitializeSecondTestingLot()
@@ -45,10 +46,10 @@ namespace Data.Tests.Domain_tests
             var vehicleInspection = Inspection.InstanceForTestingPurposes();
             vehicleInspection.DateTime = new DateTime(2013, 9, 9);
             var testingVehicle = Vehicle.InstanceForTestingPurposes();
-            testingVehicle.StagesData.PortInspection = vehicleInspection;
-            lot2 = Lot.InstanceForTestingPurposes();
-            lot2.Id = 42;
-            lot2.Vehicles = new List<Vehicle> { testingVehicle };
+            testingVehicle.PortInspection = vehicleInspection;
+            testingLot2 = Lot.InstanceForTestingPurposes();
+            testingLot2.Id = Guid.NewGuid();
+            testingLot2.Vehicles = new List<Vehicle> { testingVehicle };
         }
 
         private static void InitializeThirdTestingLot()
@@ -56,9 +57,9 @@ namespace Data.Tests.Domain_tests
             var vehicleInspection = Inspection.InstanceForTestingPurposes();
             vehicleInspection.DateTime = new DateTime(2011, 9, 9);
             vehicleInLot3 = Vehicle.InstanceForTestingPurposes();
-            vehicleInLot3.StagesData.PortInspection = vehicleInspection;
-            lot3 = Lot.InstanceForTestingPurposes();
-            lot3.Vehicles = new List<Vehicle> { vehicleInLot3 };
+            vehicleInLot3.PortInspection = vehicleInspection;
+            testingLot3 = Lot.InstanceForTestingPurposes();
+            testingLot3.Vehicles = new List<Vehicle> { vehicleInLot3 };
         }
 
         [TestInitialize]
@@ -153,7 +154,7 @@ namespace Data.Tests.Domain_tests
         public void TransportSetTransportStartDateTimeOneLotValidTest()
         {
             var dateTimeToSet = DateTime.Now;
-            testingTransport.LotsTransported = new List<Lot> { lot1 };
+            testingTransport.LotsTransported = new List<Lot> { testingLot1 };
             testingTransport.StartDateTime = dateTimeToSet;
             Assert.AreEqual(dateTimeToSet, testingTransport.StartDateTime);
         }
@@ -162,16 +163,15 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(TransportException))]
         public void TransportSetTransportStartDateTimeOneLotInvalidTest()
         {
-            var dateTimeToSet = new DateTime(2010, 2, 6);
-            testingTransport.LotsTransported = new List<Lot> { lot1 };
-            testingTransport.StartDateTime = dateTimeToSet;
+            testingTransport.LotsTransported = new List<Lot> { testingLot1 };
+            testingTransport.StartDateTime = new DateTime(2010, 2, 6);
         }
 
         [TestMethod]
         public void TransportSetTransportStartDateTimeMultipleLotsValidTest()
         {
             var dateTimeToSet = DateTime.Now;
-            testingTransport.LotsTransported = new List<Lot> { lot1, lot2 };
+            testingTransport.LotsTransported = new List<Lot> { testingLot1, testingLot2 };
             testingTransport.StartDateTime = dateTimeToSet;
             Assert.AreEqual(dateTimeToSet, testingTransport.StartDateTime);
         }
@@ -180,18 +180,16 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(TransportException))]
         public void TransportSetTransportStartDateTimeMultipleLotsInvalidForBothTest()
         {
-            var dateTimeToSet = new DateTime(1912, 2, 6);
-            testingTransport.LotsTransported = new List<Lot> { lot1, lot2 };
-            testingTransport.StartDateTime = dateTimeToSet;
+            testingTransport.LotsTransported = new List<Lot> { testingLot1, testingLot2 };
+            testingTransport.StartDateTime = new DateTime(1912, 2, 6);
         }
 
         [TestMethod]
         [ExpectedException(typeof(TransportException))]
         public void TransportSetTransportStartDateTimeMultipleLotsInvalidForOneTest()
         {
-            var dateTimeToSet = new DateTime(2012, 2, 6);
-            testingTransport.LotsTransported = new List<Lot> { lot1, lot2 };
-            testingTransport.StartDateTime = dateTimeToSet;
+            testingTransport.LotsTransported = new List<Lot> { testingLot1, testingLot2 };
+            testingTransport.StartDateTime = new DateTime(2012, 2, 6);
         }
 
         [TestMethod]
@@ -214,9 +212,16 @@ namespace Data.Tests.Domain_tests
         [ExpectedException(typeof(TransportException))]
         public void TransportSetTransportEndDateTimeBeforeStartInvalidTest()
         {
-            var dateTimeToSet = new DateTime(1990, 2, 1);
             testingTransport.StartDateTime = new DateTime(1999, 2, 1);
-            testingTransport.EndDateTime = dateTimeToSet;
+            testingTransport.EndDateTime = new DateTime(1990, 2, 1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransportException))]
+        public void TransportSetInvalidTransportEndDateTimeTest()
+        {
+            testingTransport.StartDateTime = new DateTime(1999, 2, 1);
+            testingTransport.EndDateTime = new DateTime(1812, 12, 1);
         }
 
         [TestMethod]
@@ -227,18 +232,17 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(TransportException))]
-        public void TransportSetNullTransportEndDateTimeInvalidTest()
+        public void TransportSetNullTransportEndDateTimeValidTest()
         {
-            testingTransport.StartDateTime = new DateTime(1990, 2, 1);
             testingTransport.EndDateTime = null;
+            Assert.IsNull(testingTransport.EndDateTime);
         }
 
         [TestMethod]
         public void TransportParameterFactoryMethodValidTest()
         {
             var dateTimeToSet = DateTime.Now;
-            var lotsToSet = new List<Lot> { lot1, lot2 };
+            var lotsToSet = new List<Lot> { testingLot1, testingLot2 };
             var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
                 dateTimeToSet, lotsToSet);
             Assert.AreSame(testingUser, createdTransport.Transporter);
@@ -246,8 +250,8 @@ namespace Data.Tests.Domain_tests
             CollectionAssert.AreEqual(lotsToSet,
                 createdTransport.LotsTransported.ToList());
             Assert.IsNull(createdTransport.EndDateTime);
-            Assert.IsTrue(lot1.WasTransported);
-            Assert.IsTrue(lot2.WasTransported);
+            Assert.IsTrue(testingLot1.WasTransported);
+            Assert.IsTrue(testingLot2.WasTransported);
         }
 
         [TestMethod]
@@ -257,7 +261,7 @@ namespace Data.Tests.Domain_tests
             var transporterToSet = User.CreateNewUser(UserRoles.YARD_OPERATOR, "Emilio",
                 "Ravenna", "eRavenna", "HablarUnasPalabritas", "099699669"); ;
             Transport.FromTransporterDateTimeLots(transporterToSet,
-                DateTime.Now, new List<Lot> { lot1, lot2 });
+                DateTime.Now, new List<Lot> { testingLot1, testingLot2 });
         }
 
         [TestMethod]
@@ -265,7 +269,7 @@ namespace Data.Tests.Domain_tests
         public void TransportParameterFactoryMethodNullUserInvalidTest()
         {
             Transport.FromTransporterDateTimeLots(null,
-                DateTime.Now, new List<Lot> { lot1, lot2 });
+                DateTime.Now, new List<Lot> { testingLot1, testingLot2 });
         }
 
         [TestMethod]
@@ -273,7 +277,7 @@ namespace Data.Tests.Domain_tests
         public void TransportParameterFactoryMethodInvalidDateTimeTest()
         {
             Transport.FromTransporterDateTimeLots(testingUser,
-                new DateTime(1975, 1, 1), new List<Lot> { lot1, lot2 });
+                new DateTime(1975, 1, 1), new List<Lot> { testingLot1, testingLot2 });
         }
 
         [TestMethod]
@@ -297,7 +301,7 @@ namespace Data.Tests.Domain_tests
         public void TransportParameterFactoryMethodLotCollectionWithDuplicatesInvalidTest()
         {
             var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
-               DateTime.Now, new List<Lot> { lot1, lot1 });
+               DateTime.Now, new List<Lot> { testingLot1, testingLot1 });
         }
 
         [TestMethod]
@@ -305,7 +309,7 @@ namespace Data.Tests.Domain_tests
         public void TransportParameterFactoryMethodLotCollectionWithTransportedLotsInvalidTest()
         {
             Lot testingLot = Lot.InstanceForTestingPurposes();
-            testingLot.WasTransported = true;
+            testingLot.AssociatedTransport = Transport.InstanceForTestingPurposes();
             var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
                DateTime.Now, new List<Lot> { testingLot });
         }
@@ -324,7 +328,7 @@ namespace Data.Tests.Domain_tests
         public void TransportFinishTransportValidTest()
         {
             var endDateTimeToSet = DateTime.Now;
-            var lotsToSet = new List<Lot> { lot3 };
+            var lotsToSet = new List<Lot> { testingLot3 };
             var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
                 new DateTime(2015, 3, 3), lotsToSet);
             createdTransport.FinalizeTransportOnDate(endDateTimeToSet);
