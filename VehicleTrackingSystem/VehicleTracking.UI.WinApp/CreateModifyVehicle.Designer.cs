@@ -136,6 +136,7 @@
             this.YearTxt.Size = new System.Drawing.Size(150, 26);
             this.YearTxt.TabIndex = 9;
             this.YearTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.YearTxt_KeyPress);
+            this.YearTxt.Leave += new System.EventHandler(this.YearTxt_Leave);
             // 
             // YearLbl
             // 

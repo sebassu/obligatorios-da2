@@ -17,6 +17,7 @@ namespace VehicleTracking.UI.WinApp
         Panel CardPanel;
         VehicleDTO SelectedVehicle;
         string Origin;
+        IVehicleServices Instance;
 
         public CreateModifyVehicle(Panel cardPanel, string origin, VehicleDTO selectedVehicle)
         {
@@ -24,6 +25,7 @@ namespace VehicleTracking.UI.WinApp
             Origin = origin;
             SelectedVehicle = selectedVehicle;
             LoadInfo();
+            Instance = new VehicleServices();
             InitializeComponent();
         }
 
@@ -37,9 +39,11 @@ namespace VehicleTracking.UI.WinApp
                 ModelTxt.Text = SelectedVehicle.Model;
                 ColorTxt.Text = SelectedVehicle.Color;
                 YearTxt.Text =  SelectedVehicle.Year.ToString();
+                OkBtn.Text = "Modificar";
             }else
             {
                 TitleLbl.Text = "Agregar vehículo";
+                OkBtn.Text = "Agregar";
             }
         }
 
@@ -73,6 +77,23 @@ namespace VehicleTracking.UI.WinApp
             YearTxt.ForeColor = Color.Black;
         }
 
+        private void YearTxt_Leave(object sender, EventArgs e)
+        {
+            short year;
+            if (!short.TryParse(YearTxt.Text, out year))
+            {
+                MessageBox.Show("El año solo puede contener números", "Error");
+                if (Origin.Equals("modify"))
+                {
+                    YearTxt.Text = SelectedVehicle.Year.ToString();
+                }
+                else
+                {
+                    YearTxt.Text = "";
+                }
+            }
+        }
+
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             CardPanel.Controls.Clear();
@@ -80,23 +101,22 @@ namespace VehicleTracking.UI.WinApp
 
         private void OkBtn_Click(object sender, EventArgs e)
         {
+            VehicleDTO vehicle = new VehicleDTO();
+            vehicle.VIN = VINTxt.Text;
+            vehicle.Brand = BrandTxt.Text;
+            vehicle.Model = ModelTxt.Text;
+            vehicle.Color = ColorTxt.Text;
+            vehicle.Year = short.Parse(YearTxt.Text);
             if (Origin.Equals("modify"))
             {
-                ModifyVehicle();
-            }else
-            {
-                CreateVehicle();
+                Instance.ModifyVehicleWithVIN(VINTxt.Text, vehicle);
             }
-        }
-
-        private void ModifyVehicle()
-        {
-
-        }
-
-        private void CreateVehicle()
-        {
-
+            else
+            {
+                Instance.AddNewVehicleFromData(vehicle);
+            }
+            CardPanel.Controls.Clear();
+            CardPanel.Controls.Add(new VehicleUserControl(CardPanel));
         }
     }
 }

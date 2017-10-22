@@ -27,7 +27,7 @@ namespace API.Services
 
         public string CurrentStage { get; set; }
 
-        internal VehicleDTO() { }
+        public VehicleDTO() { }
 
         internal static VehicleDTO FromVehicle(Vehicle someVehicle)
         {
