@@ -44,6 +44,7 @@ namespace Domain
         {
             name = "Lugar inválido";
         }
+
         public static Location CreateNewLocation(LocationType type, string name)
         {
             return new Location(type, name);

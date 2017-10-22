@@ -325,16 +325,32 @@ namespace Data.Tests.Domain_tests
         }
 
         [TestMethod]
-        public void TransportFinishTransportValidTest()
+        public void TransportFinalizeTransportValidTest()
         {
             var endDateTimeToSet = DateTime.Now;
             var lotsToSet = new List<Lot> { testingLot3 };
             var createdTransport = Transport.FromTransporterDateTimeLots(testingUser,
                 new DateTime(2015, 3, 3), lotsToSet);
             createdTransport.FinalizeTransportOnDate(endDateTimeToSet);
+            AssertTransportDataIsCorrect(endDateTimeToSet, createdTransport);
+            AssertFinalizeTransportSetsDataOnVehicles(lotsToSet, createdTransport);
+        }
+
+        private static void AssertTransportDataIsCorrect(DateTime endDateTimeToSet,
+            Transport createdTransport)
+        {
             Assert.AreSame(createdTransport, vehicleInLot3.StagesData.TransportData);
             Assert.AreEqual(endDateTimeToSet, createdTransport.EndDateTime);
             Assert.AreEqual(ProcessStages.YARD, vehicleInLot3.CurrentStage);
+        }
+
+        private static void AssertFinalizeTransportSetsDataOnVehicles(List<Lot> lotsToSet,
+            Transport createdTransport)
+        {
+            Assert.IsTrue(lotsToSet.All(l => l.Vehicles.All(
+                v => v.StagesData.LastDateTimeToValidate == createdTransport.EndDateTime)));
+            Assert.IsTrue(lotsToSet.All(l => l.Vehicles.All(
+                v => createdTransport.Equals(v.TransportData))));
         }
     }
 }

@@ -15,8 +15,8 @@ namespace Persistence
 
         public bool SubzoneParticipatesInSomeMovement(Subzone subzoneToVerify)
         {
-            return elements.Any(m => m.Departure.Equals(subzoneToVerify) ||
-                m.Arrival.Equals(subzoneToVerify));
+            return elements.Any(m => m.Departure.Id == subzoneToVerify.Id ||
+                m.Arrival.Id == subzoneToVerify.Id);
         }
 
         protected override bool ElementExistsInCollection(Movement entityToUpdate)
