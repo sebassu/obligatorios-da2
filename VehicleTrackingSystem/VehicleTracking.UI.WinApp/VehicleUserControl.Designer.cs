@@ -54,9 +54,11 @@
             this.VehicleListBox.Name = "VehicleListBox";
             this.VehicleListBox.Size = new System.Drawing.Size(163, 264);
             this.VehicleListBox.TabIndex = 0;
+            this.VehicleListBox.SelectedIndexChanged += new System.EventHandler(this.VehicleListBox_SelectedIndexChanged);
             // 
             // ArrowBtn
             // 
+            this.ArrowBtn.Enabled = false;
             this.ArrowBtn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.ArrowBtn.FlatAppearance.BorderSize = 0;
             this.ArrowBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -68,7 +70,6 @@
             this.ArrowBtn.TabIndex = 1;
             this.ArrowBtn.Text = "]";
             this.ArrowBtn.UseVisualStyleBackColor = true;
-            this.ArrowBtn.Click += new System.EventHandler(this.ArrowBtn_Click);
             // 
             // ViewPnl
             // 
@@ -162,6 +163,7 @@
             this.AddVehicleBtn.TabIndex = 4;
             this.AddVehicleBtn.Text = "Agregar";
             this.AddVehicleBtn.UseVisualStyleBackColor = true;
+            this.AddVehicleBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AddVehicleBtn_MouseClick);
             // 
             // DeleteVehicleBtn
             // 
@@ -176,7 +178,7 @@
             this.DeleteVehicleBtn.TabIndex = 5;
             this.DeleteVehicleBtn.Text = "Eliminar";
             this.DeleteVehicleBtn.UseVisualStyleBackColor = true;
-            this.DeleteVehicleBtn.Click += new System.EventHandler(this.DeleteVehicleBtn_Click);
+            this.DeleteVehicleBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DeleteVehicleBtn_MouseClick);
             // 
             // ModifyBtn
             // 
@@ -191,7 +193,7 @@
             this.ModifyBtn.TabIndex = 6;
             this.ModifyBtn.Text = "Modificar";
             this.ModifyBtn.UseVisualStyleBackColor = true;
-            this.ModifyBtn.Click += new System.EventHandler(this.ModifyBtn_Click);
+            this.ModifyBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ModifyBtn_MouseClick);
             // 
             // VehicleUserControl
             // 

@@ -79,10 +79,22 @@ namespace VehicleTracking.UI.WinApp
             FlowBtn.FlatAppearance.BorderSize = 0;
         }
 
-        private void VehicleBtn_Click(object sender, EventArgs e)
+        private void VehicleBtn_MouseClick(object sender, MouseEventArgs e)
         {
             cardPanel.Controls.Clear();
             cardPanel.Controls.Add(new VehicleUserControl(cardPanel));
+        }
+
+        private void ZoneBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            cardPanel.Controls.Clear();
+            cardPanel.Controls.Add(new ZoneUserControl(cardPanel));
+        }
+
+        private void SubzoneBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            cardPanel.Controls.Clear();
+            cardPanel.Controls.Add(new SubzoneUserControl(cardPanel));
         }
     }
 }

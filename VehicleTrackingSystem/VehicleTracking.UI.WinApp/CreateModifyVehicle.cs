@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using API.Services;
+using Domain;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -102,18 +103,24 @@ namespace VehicleTracking.UI.WinApp
         private void OkBtn_Click(object sender, EventArgs e)
         {
             VehicleDTO vehicle = new VehicleDTO();
-            vehicle.VIN = VINTxt.Text;
-            vehicle.Brand = BrandTxt.Text;
-            vehicle.Model = ModelTxt.Text;
-            vehicle.Color = ColorTxt.Text;
-            vehicle.Year = short.Parse(YearTxt.Text);
-            if (Origin.Equals("modify"))
+            try
             {
-                Instance.ModifyVehicleWithVIN(VINTxt.Text, vehicle);
-            }
-            else
+                vehicle.VIN = VINTxt.Text;
+                vehicle.Brand = BrandTxt.Text;
+                vehicle.Model = ModelTxt.Text;
+                vehicle.Color = ColorTxt.Text;
+                vehicle.Year = short.Parse(YearTxt.Text);
+                if (Origin.Equals("modify"))
+                {
+                    Instance.ModifyVehicleWithVIN(VINTxt.Text, vehicle);
+                }
+                else
+                {
+                    Instance.AddNewVehicleFromData(vehicle);
+                }
+            }catch (VehicleTrackingException ex)
             {
-                Instance.AddNewVehicleFromData(vehicle);
+                MessageBox.Show(ex.Message, "Error");
             }
             CardPanel.Controls.Clear();
             CardPanel.Controls.Add(new VehicleUserControl(CardPanel));

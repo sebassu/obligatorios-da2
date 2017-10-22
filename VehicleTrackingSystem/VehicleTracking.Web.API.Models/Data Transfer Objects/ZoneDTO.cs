@@ -17,7 +17,7 @@ namespace API.Services
 
         public ICollection<int> SubzoneIds { get; set; }
 
-        internal ZoneDTO() { }
+        public ZoneDTO() { }
 
         internal static ZoneDTO FromZone(Zone someZone)
         {

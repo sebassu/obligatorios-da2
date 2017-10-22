@@ -37,7 +37,7 @@ namespace VehicleTracking.UI.WinApp
             }
         }
 
-        private void ArrowBtn_Click(object sender, EventArgs e)
+        private void VehicleListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             String VIN = VehicleListBox.GetItemText(VehicleListBox.SelectedItem);
             SelectedVehicle = Instance.GetVehicleWithVIN(VIN);
@@ -48,13 +48,20 @@ namespace VehicleTracking.UI.WinApp
             YearLbl.Text = "Año: " + SelectedVehicle.Year;
         }
 
-        private void DeleteVehicleBtn_Click(object sender, EventArgs e)
+        private void DeleteVehicleBtn_MouseClick(object sender, MouseEventArgs e)
         {
             if (VehicleListBox.SelectedItem != null)
             {
-                Instance.RemoveVehicleWithVIN(SelectedVehicle.VIN);
-                LoadListBox();
-                CleanLabels();
+                try
+                {
+                    Instance.RemoveVehicleWithVIN(SelectedVehicle.VIN);
+                    LoadListBox();
+                    CleanLabels();
+                }
+                catch (VehicleTrackingException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error");
+                }
             }
             else
             {
@@ -71,18 +78,25 @@ namespace VehicleTracking.UI.WinApp
             YearLbl.Text = "Año";
         }
 
-        private void ModifyBtn_Click(object sender, EventArgs e)
+        private void ModifyBtn_MouseClick(object sender, MouseEventArgs e)
         {
             if (VehicleListBox.SelectedItem != null)
             {
                 CardPnl.Controls.Clear();
-                CardPnl.Controls.Add(new CreateModifyVehicle(CardPnl, 
+                CardPnl.Controls.Add(new CreateModifyVehicle(CardPnl,
                     "modify", SelectedVehicle));
             }
             else
             {
                 MessageBox.Show("Debe seleccionar un vehículo", "Error");
             }
+        }
+
+        private void AddVehicleBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            CardPnl.Controls.Clear();
+            CardPnl.Controls.Add(new CreateModifyVehicle(CardPnl,
+                "add", null));
         }
     }
 }

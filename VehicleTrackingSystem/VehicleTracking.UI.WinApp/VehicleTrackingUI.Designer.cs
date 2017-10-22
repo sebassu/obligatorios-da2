@@ -83,7 +83,7 @@
             this.VehicleBtn.TabIndex = 1;
             this.VehicleBtn.Text = "Vehículos";
             this.VehicleBtn.UseVisualStyleBackColor = false;
-            this.VehicleBtn.Click += new System.EventHandler(this.VehicleBtn_Click);
+            this.VehicleBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.VehicleBtn_MouseClick);
             this.VehicleBtn.MouseLeave += new System.EventHandler(this.VehicleBtn_MouseLeave);
             this.VehicleBtn.MouseHover += new System.EventHandler(this.VehicleBtn_MouseHover);
             // 
@@ -102,6 +102,7 @@
             this.ZoneBtn.TabIndex = 2;
             this.ZoneBtn.Text = "Zonas";
             this.ZoneBtn.UseVisualStyleBackColor = false;
+            this.ZoneBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ZoneBtn_MouseClick);
             this.ZoneBtn.MouseLeave += new System.EventHandler(this.ZoneBtn_MouseLeave);
             this.ZoneBtn.MouseHover += new System.EventHandler(this.ZoneBtn_MouseHover);
             // 
@@ -118,8 +119,9 @@
             this.SubzoneBtn.Name = "SubzoneBtn";
             this.SubzoneBtn.Size = new System.Drawing.Size(142, 43);
             this.SubzoneBtn.TabIndex = 3;
-            this.SubzoneBtn.Text = "Sub zonas";
+            this.SubzoneBtn.Text = "Subzonas";
             this.SubzoneBtn.UseVisualStyleBackColor = false;
+            this.SubzoneBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SubzoneBtn_MouseClick);
             this.SubzoneBtn.MouseLeave += new System.EventHandler(this.SubzoneBtn_MouseLeave);
             this.SubzoneBtn.MouseHover += new System.EventHandler(this.SubzoneBtn_MouseHover);
             // 
