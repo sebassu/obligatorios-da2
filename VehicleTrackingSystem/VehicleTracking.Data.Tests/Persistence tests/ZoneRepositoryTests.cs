@@ -1,8 +1,8 @@
 ﻿using Domain;
 using System.Linq;
+using Persistence;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Persistence;
 
 namespace Data.Tests.Persistence_tests
 {
@@ -12,6 +12,7 @@ namespace Data.Tests.Persistence_tests
     {
         private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();
         private static IZoneRepository testingZoneRepository;
+        private const string unaddedName = "This is not a zone's name";
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
@@ -51,6 +52,58 @@ namespace Data.Tests.Persistence_tests
         public void ZRepositoryAddNewZoneNullInvalidTest()
         {
             AddNewZoneAndSaveChanges(null);
+        }
+        #endregion
+
+        #region GetZoneWithName tests
+        [TestMethod]
+        public void ZRepositoryGetZoneWithNameValidTest()
+        {
+            var nameToLookup = "Very particular added name";
+            var addedZone = Zone.CreateNewZone(nameToLookup, 42);
+            AddNewZoneAndSaveChanges(addedZone);
+            Zone result = testingZoneRepository.GetZoneWithName(nameToLookup);
+            Assert.AreEqual(addedZone, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void ZRepositoryGetZoneWithUnaddedNameInvalidTest()
+        {
+            testingZoneRepository.GetZoneWithName(unaddedName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void ZRepositoryGetZoneWithNullNameInvalidTest()
+        {
+            testingZoneRepository.GetZoneWithName(null);
+        }
+        #endregion
+
+        #region ExistsZoneWithName tests
+        [TestMethod]
+        public void ZRepositoryExistsZoneWithNameValidTest()
+        {
+            var nameToLookup = "El habitual espacio";
+            Zone zoneToVerify = Zone.CreateNewZone(nameToLookup, 6);
+            AddNewZoneAndSaveChanges(zoneToVerify);
+            bool result = testingZoneRepository.ExistsZoneWithName(nameToLookup);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ZRepositoryExistsZoneWithUnaddedNameValidTest()
+        {
+            bool result = testingZoneRepository.ExistsZoneWithName(unaddedName);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void ZRepositoryNoZoneWithNullNameExists()
+        {
+            bool result = testingZoneRepository.ExistsZoneWithName(null);
+            Assert.IsFalse(result);
         }
         #endregion
 
@@ -103,24 +156,6 @@ namespace Data.Tests.Persistence_tests
             RemoveZoneAndSaveChanges(zoneToVerify);
             CollectionAssert.DoesNotContain(testingZoneRepository.Elements.ToList(),
                 zoneToVerify);
-        }
-        #endregion
-
-        #region ExistsZoneWithName tests
-        [TestMethod]
-        public void ZRepositoryExistsZoneWithNameValidTest()
-        {
-            Zone zoneToVerify = Zone.CreateNewZone("El habitual espacio", 6);
-            AddNewZoneAndSaveChanges(zoneToVerify);
-            bool result = testingZoneRepository.ExistsZoneWithName("El habitual espacio");
-            Assert.IsTrue(result);
-        }
-
-        [TestMethod]
-        public void ZRepositoryExistsZoneWithUnaddedNameValidTest()
-        {
-            bool result = testingZoneRepository.ExistsZoneWithName("Voglio entrare");
-            Assert.IsFalse(result);
         }
         #endregion
 
