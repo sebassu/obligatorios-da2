@@ -18,11 +18,5 @@ namespace Persistence
             return elements.Any(m => m.Departure.Id == subzoneToVerify.Id ||
                 m.Arrival.Id == subzoneToVerify.Id);
         }
-
-        protected override bool ElementExistsInCollection(Movement entityToUpdate)
-        {
-            return Utilities.IsNotNull(entityToUpdate)
-                && elements.Any(m => m.Id == entityToUpdate.Id);
-        }
     }
 }

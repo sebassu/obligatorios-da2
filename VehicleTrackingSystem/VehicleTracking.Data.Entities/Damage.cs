@@ -31,7 +31,7 @@ namespace Domain
             return Utilities.IsNotEmpty(value);
         }
 
-        private ICollection<string> images;
+        private ICollection<string> images = new List<string>();
         public ICollection<string> Images
         {
             get { return images; }

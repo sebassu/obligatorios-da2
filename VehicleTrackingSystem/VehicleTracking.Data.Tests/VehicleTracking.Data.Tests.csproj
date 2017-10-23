@@ -71,6 +71,7 @@
     <Compile Include="Persistence tests\LotRepositoryTests.cs" />
     <Compile Include="Persistence tests\SubzoneRepositoryTests.cs" />
     <Compile Include="Persistence tests\LocationRepositoryTests.cs" />
+    <Compile Include="Persistence tests\InspectionRepositoryTests.cs" />
     <Compile Include="Persistence tests\UserRepositoryTests.cs" />
     <Compile Include="Persistence tests\VehicleRepositoryTests.cs" />
     <Compile Include="Persistence tests\ZoneRepositoryTests.cs" />

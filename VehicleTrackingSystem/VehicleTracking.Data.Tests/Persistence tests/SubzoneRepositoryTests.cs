@@ -35,7 +35,7 @@ namespace Data.Persistence_tests
         }
 
         [TestMethod]
-        public void SZRepositoryAddSubzoneNotExistingZoneValidTest()
+        public void SZRepositoryAddSubzoneNonExistingZoneValidTest()
         {
             Zone testingZone = Zone.CreateNewZone("Zonep", 23);
             Subzone testingSubzone = Subzone.CreateNewSubzone("Subzone", 22,
@@ -65,7 +65,8 @@ namespace Data.Persistence_tests
             Assert.AreEqual(testingZone, subzoneToVerify.Container);
         }
 
-        private void SetSubzoneData(Subzone subzoneToVerify, string nameToSet, int capacityToSet, Zone zoneToSet)
+        private void SetSubzoneData(Subzone subzoneToVerify,
+            string nameToSet, int capacityToSet, Zone zoneToSet)
         {
             subzoneToVerify.Name = nameToSet;
             subzoneToVerify.Capacity = capacityToSet;
@@ -86,7 +87,8 @@ namespace Data.Persistence_tests
         public void SZRepositoryRemoveSubzoneValidTest()
         {
             Zone testingZone = Zone.CreateNewZone("Some new zone1", 8);
-            Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone", 6, testingZone);
+            Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone",
+                6, testingZone);
             AddNewZoneAndSaveChanges(testingZone);
             AddNewSubzoneAndSaveChanges(subzoneToVerify);
             RemoveSubzoneAndSaveChanges(subzoneToVerify);
@@ -99,7 +101,8 @@ namespace Data.Persistence_tests
         {
             Zone testingZone = Zone.CreateNewZone("Zone21", 8);
             AddNewZoneAndSaveChanges(testingZone);
-            Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone 2", 6, testingZone);
+            Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone 2",
+                6, testingZone);
             Vehicle vehicleToAdd = Vehicle.InstanceForTestingPurposes();
             subzoneToVerify.Vehicles.Add(vehicleToAdd);
             AddNewSubzoneAndSaveChanges(subzoneToVerify);

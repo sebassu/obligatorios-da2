@@ -22,10 +22,11 @@ namespace Data.Persistence_tests
             testingLotRepository = testingUnitOfWork.Lots;
         }
 
+        #region AddNewLot tests
         [TestMethod]
         public void LRepositoryAddNewLotValidTest()
         {
-            Lot lotToVerify = GetNewTestingLotWithName("Lot 1");
+            Lot lotToVerify = GetNewValidTestingLotWithName("Lot 1");
             AddNewLotAndSaveChanges(lotToVerify);
             CollectionAssert.Contains(testingLotRepository.Elements.ToList(), lotToVerify);
         }
@@ -36,28 +37,13 @@ namespace Data.Persistence_tests
         {
             AddNewLotAndSaveChanges(null);
         }
+        #endregion
 
-        [TestMethod]
-        public void LRepositoryRemoveLotValidTest()
-        {
-            Lot lotToVerify = GetNewTestingLotWithName("Lot 2");
-            AddNewLotAndSaveChanges(lotToVerify);
-            RemoveLotWithIdAndSaveChanges(lotToVerify.Name);
-            CollectionAssert.DoesNotContain(testingLotRepository.Elements.ToList(), lotToVerify);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
-        public void LRepositoryRemoveLotNotInRepositoryInvalidTest()
-        {
-            Lot lotToVerify = GetNewTestingLotWithName("Lot 3");
-            RemoveLotWithIdAndSaveChanges(lotToVerify.Name);
-        }
-
+        #region UpdateLotWithId tests
         [TestMethod]
         public void LRepositoryModifyLotValidTest()
         {
-            Lot lotToVerify = GetNewTestingLotWithName("Lot 4");
+            Lot lotToVerify = GetNewValidTestingLotWithName("Lot 4");
             AddNewLotAndSaveChanges(lotToVerify);
             var newVehicleList = new List<Vehicle>() {
                 Vehicle.InstanceForTestingPurposes() };
@@ -88,14 +74,16 @@ namespace Data.Persistence_tests
         [ExpectedException(typeof(RepositoryException))]
         public void LRepositoryModifyNotAddedLotInvalidTest()
         {
-            Lot notAddedLot = GetNewTestingLotWithName("Lot 5");
+            Lot notAddedLot = GetNewValidTestingLotWithName("Lot 5");
             UpdateLotAndSaveChanges(notAddedLot);
         }
+        #endregion
 
+        #region GetLotWithName tests
         [TestMethod]
-        public void LRepositoryGetLotByNameValidTest()
+        public void LRepositoryGetLotWithNameValidTest()
         {
-            Lot lotToVerify = GetNewTestingLotWithName("Lot 6");
+            Lot lotToVerify = GetNewValidTestingLotWithName("Lot 6");
             AddNewLotAndSaveChanges(lotToVerify);
             Lot result = testingLotRepository.GetLotWithName(lotToVerify.Name);
             Assert.AreEqual(lotToVerify, result);
@@ -103,15 +91,24 @@ namespace Data.Persistence_tests
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void LRepositoryGetLotByNameUnaddedNameInvalidTest()
+        public void LRepositoryGetLotWithUnaddedNameInvalidTest()
         {
-            testingLotRepository.GetLotWithName("Non-existing zone");
+            testingLotRepository.GetLotWithName("Non-existing lot");
         }
 
         [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void LRepositoryGetLotWithNullNameInvalidTest()
+        {
+            testingLotRepository.GetLotWithName(null);
+        }
+        #endregion
+
+        #region ExistsLotWithName tests
+        [TestMethod]
         public void LRepositoryExistsLotWithNameAddedTest()
         {
-            Lot lotToVerify = GetNewTestingLotWithName("Lot 7");
+            Lot lotToVerify = GetNewValidTestingLotWithName("Lot 7");
             AddNewLotAndSaveChanges(lotToVerify);
             bool result = testingLotRepository.ExistsLotWithName(
                 lotToVerify.Name);
@@ -126,7 +123,34 @@ namespace Data.Persistence_tests
             Assert.IsFalse(result);
         }
 
-        private static Lot GetNewTestingLotWithName(string nameToSet)
+        [TestMethod]
+        public void LRepositoryNoLotWithNullNameExistsTest()
+        {
+            bool result = testingLotRepository.ExistsLotWithName(null);
+            Assert.IsFalse(result);
+        }
+        #endregion
+
+        #region RemoveLotWithId tests
+        [TestMethod]
+        public void LRepositoryRemoveLotWithIdValidTest()
+        {
+            Lot lotToVerify = GetNewValidTestingLotWithName("Lot 2");
+            AddNewLotAndSaveChanges(lotToVerify);
+            RemoveLotWithIdAndSaveChanges(lotToVerify.Name);
+            CollectionAssert.DoesNotContain(testingLotRepository.Elements.ToList(), lotToVerify);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void LRepositoryRemoveLotWithIdNotInRepositoryInvalidTest()
+        {
+            Lot lotToVerify = GetNewValidTestingLotWithName("Lot 3");
+            RemoveLotWithIdAndSaveChanges(lotToVerify.Name);
+        }
+        #endregion
+
+        private static Lot GetNewValidTestingLotWithName(string nameToSet)
         {
             Vehicle vehicleToAdd1 = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR1");

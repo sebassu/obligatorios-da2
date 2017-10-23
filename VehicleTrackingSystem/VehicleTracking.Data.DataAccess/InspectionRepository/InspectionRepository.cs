@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Domain;
+﻿using Domain;
+using System;
 using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Persistence
 {
-    internal class InspectionRepository : GenericRepository<Inspection>, IInspectionRepository
+    internal class InspectionRepository : GenericRepository<Inspection>,
+        IInspectionRepository
     {
         public InspectionRepository(VTSystemContext someContext)
             : base(someContext) { }
@@ -33,12 +34,6 @@ namespace Persistence
                     ErrorMessages.CouldNotFindField, "identificador de inspección", idToLookup);
                 throw new RepositoryException(errorMessage);
             }
-        }
-
-        protected override bool ElementExistsInCollection(Inspection entityToUpdate)
-        {
-            return Utilities.IsNotNull(entityToUpdate) &&
-                elements.Any(i => i.Id == entityToUpdate.Id);
         }
     }
 }
