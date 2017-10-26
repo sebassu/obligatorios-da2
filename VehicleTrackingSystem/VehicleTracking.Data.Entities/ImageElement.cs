@@ -41,5 +41,24 @@ namespace Domain
         }
 
         protected ImageElement() { }
+
+        public static ImageElement FromImageData(string
+            imageDataToSet)
+        {
+            return new ImageElement(imageDataToSet);
+        }
+
+        protected ImageElement(string imageDataToSet)
+        {
+            try
+            {
+                ImageData = Convert.FromBase64String(imageDataToSet);
+            }
+            catch (SystemException)
+            {
+                throw new VehicleTrackingException(
+                    ErrorMessages.StringIsNotInBase64Format);
+            }
+        }
     }
 }

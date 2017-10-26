@@ -331,6 +331,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error al convertir la cadena de caracteres recibida a binario: no se encontraba en el formato esperado (base 64)..
+        /// </summary>
+        internal static string StringIsNotInBase64Format {
+            get {
+                return ResourceManager.GetString("StringIsNotInBase64Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No es posible agregar esta subzona: una zona no puede contener subzonas repetidas, ni superarse la capacidad de ésta por la suma de las capacidades de sus subzonas..
         /// </summary>
         internal static string SubzoneIsInvalidForZone {
