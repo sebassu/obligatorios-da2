@@ -95,5 +95,13 @@ namespace Data.Domain_tests
         {
             ImageElement.FromImageData(null);
         }
+
+        [TestMethod]
+        public void ImageElementStringifiedImageValidTest()
+        {
+            var imageDataToSet = Convert.ToBase64String(testImageBinaryData);
+            testingImageElement = ImageElement.FromImageData(imageDataToSet);
+            Assert.AreEqual(imageDataToSet, testingImageElement.StringifiedImage);
+        }
     }
 }
