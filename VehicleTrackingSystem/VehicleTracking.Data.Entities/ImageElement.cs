@@ -35,6 +35,14 @@ namespace Domain
             }
         }
 
+        public string StringifiedImage
+        {
+            get
+            {
+                return Convert.ToBase64String(ImageData);
+            }
+        }
+
         internal static ImageElement InstanceForTestingPurposes()
         {
             return new ImageElement();

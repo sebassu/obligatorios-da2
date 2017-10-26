@@ -12,6 +12,8 @@ namespace Data.Tests.Persistence_tests
     {
         private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();
         private static IInspectionRepository testingInspectionRepository;
+        private static readonly User testingCreator = User.CreateNewUser(UserRoles.PORT_OPERATOR,
+            "Emilio", "Ravenna", "eRavenna", "HablarUnasPalabritas", "099212121");
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
@@ -74,11 +76,10 @@ namespace Data.Tests.Persistence_tests
 
         private static Inspection GetNewValidTestingInspection()
         {
-            User creator = User.InstanceForTestingPurposes();
             var location = testingUnitOfWork.Locations.Elements.First();
             var testingVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS");
-            var inspectionToAdd = Inspection.CreateNewInspection(creator, location,
+            var inspectionToAdd = Inspection.CreateNewInspection(testingCreator, location,
                 DateTime.Now, new List<Damage>(), testingVehicle);
             testingVehicle.PortInspection = inspectionToAdd;
             testingUnitOfWork.Vehicles.AddNewVehicle(testingVehicle);

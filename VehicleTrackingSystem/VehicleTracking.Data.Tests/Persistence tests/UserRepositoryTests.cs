@@ -148,7 +148,7 @@ namespace Data.Persistence_tests
         private static void RemoveAllAdministrators()
         {
             var administrators = testingUserRepository.Elements.Where(u =>
-                u.Role == UserRoles.ADMINISTRATOR).ToList();
+                u.Role == UserRoles.ADMINISTRATOR).Distinct().ToList();
             foreach (var administrator in administrators)
             {
                 RemoveUserWithUsernameAndSaveChanges(administrator.Username);
