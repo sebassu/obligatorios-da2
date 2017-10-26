@@ -105,7 +105,7 @@ namespace Data.Domain_tests
         public void InspectionSetValidDamagesListTest()
         {
             testingInspection.Damages = damageList;
-            Assert.IsTrue(testingInspection.Damages.SequenceEqual(damageList));
+            Assert.AreSame(damageList, testingInspection.Damages);
         }
 
         [TestMethod]
@@ -162,11 +162,11 @@ namespace Data.Domain_tests
             DateTime alternativeDateTime = DateTime.Today;
             testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
                 alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
-            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
-            Assert.AreEqual(alternativeLocation, testingInspection.Location);
+            Assert.AreSame(alternativeUser, testingInspection.ResponsibleUser);
+            Assert.AreSame(alternativeLocation, testingInspection.Location);
             Assert.AreEqual(alternativeDateTime, testingInspection.DateTime);
-            Assert.IsTrue(damageList.SequenceEqual(testingInspection.Damages));
-            Assert.AreEqual(Vehicle.InstanceForTestingPurposes().VIN, testingInspection.VehicleVIN);
+            CollectionAssert.AreEqual(damageList, testingInspection.Damages.ToList());
+            Assert.AreSame(Vehicle.InstanceForTestingPurposes().VIN, testingInspection.VehicleVIN);
         }
 
         [TestMethod]
@@ -189,7 +189,7 @@ namespace Data.Domain_tests
             testingInspection = Inspection.CreateNewInspection(alternativeUser, null,
                 alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
         }
-        
+
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
         public void InspectionParameterFactoryMethodInvalidDateTimeTest()
