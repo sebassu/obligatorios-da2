@@ -26,7 +26,7 @@ namespace Persistence
             try
             {
                 return elements.Include("ResponsibleUser").Include("Location")
-                    .Include("Damages.Images").Single(i => i.Id == idToLookup);
+                    .Include("Damages.ImageElements").Single(i => i.Id == idToLookup);
             }
             catch (InvalidOperationException)
             {

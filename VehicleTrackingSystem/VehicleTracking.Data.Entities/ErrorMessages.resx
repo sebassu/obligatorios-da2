@@ -243,4 +243,10 @@
   <data name="YardInspectionRequiredBeforeMovement" xml:space="preserve">
     <value>Error: es necesario registrar una inspección de patio válida antes de mover el vehículo a una subzona.</value>
   </data>
+  <data name="BinaryInformationIsNotAnImage" xml:space="preserve">
+    <value>La cadena de caracteres binarios recibida no está asociada a una imagen.</value>
+  </data>
+  <data name="StringIsNotInBase64Format" xml:space="preserve">
+    <value>Error al convertir la cadena de caracteres recibida a binario: no se encontraba en el formato esperado (base 64).</value>
+  </data>
 </root>

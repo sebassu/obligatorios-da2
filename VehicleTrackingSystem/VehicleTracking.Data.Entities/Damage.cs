@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Domain
 {
@@ -31,15 +32,21 @@ namespace Domain
             return Utilities.IsNotEmpty(value);
         }
 
-        private ICollection<string> images = new List<string>();
+        public ICollection<ImageElement> ImageElements { get; set; }
+
         public ICollection<string> Images
         {
-            get { return images; }
+            get
+            {
+                var imageStringsToReturn = ImageElements.Select(i => i.StringifiedImage);
+                return imageStringsToReturn.ToList();
+            }
             set
             {
                 if (Utilities.IsValidItemEnumeration(value))
                 {
-                    images = value;
+                    var imageElementsToAdd = value.Select(i => ImageElement.FromImageData(i));
+                    ImageElements = imageElementsToAdd.ToList();
                 }
                 else
                 {
@@ -56,7 +63,7 @@ namespace Domain
         protected Damage()
         {
             description = "This damage has a description";
-            images = new List<string>() { "newImage" };
+            ImageElements = new List<ImageElement>();
         }
 
         public static Damage CreateNewDamage(string description,

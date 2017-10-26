@@ -20,6 +20,7 @@ namespace Persistence
         public DbSet<Lot> Lots { get; set; }
         public DbSet<Damage> Damages { get; set; }
         public DbSet<Transport> Transports { get; set; }
+        public DbSet<ImageElement> ImageElements { get; set; }
 
         public VTSystemContext() : base()
         {
@@ -37,10 +38,12 @@ namespace Persistence
             modelBuilder.Entity<Subzone>().HasMany(z => z.Vehicles)
                 .WithOptional();
             LotEntityDatabaseSettings(modelBuilder);
-            modelBuilder.Entity<Inspection>().HasMany(i => i.Damages).WithRequired()
-                .WillCascadeOnDelete();
+            modelBuilder.Entity<Inspection>().HasMany(i => i.Damages)
+                .WithRequired().WillCascadeOnDelete();
             modelBuilder.Entity<Transport>().HasMany(t => t.LotsTransported)
                 .WithOptional(l => l.AssociatedTransport);
+            modelBuilder.Entity<Damage>().Ignore(d => d.Images);
+            modelBuilder.Entity<ImageElement>().Ignore(d => d.StringifiedImage);
             ProcessDataDatabaseSettings(modelBuilder);
         }
 

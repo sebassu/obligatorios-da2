@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,6 +58,7 @@
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\VehicleException.cs" />
     <Compile Include="Exceptions\ZoneException.cs" />
+    <Compile Include="ImageElement.cs" />
     <Compile Include="Inspection.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Lot.cs" />
