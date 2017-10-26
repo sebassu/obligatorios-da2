@@ -2,6 +2,7 @@
 using System.IO;
 using System.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Data.Domain_tests
 {
@@ -62,6 +63,37 @@ namespace Data.Domain_tests
         public void ImageElementSetImageNullDataInvalidTest()
         {
             testingImageElement.ImageData = null;
+        }
+
+        [TestMethod]
+        public void ImageElementFromImageDataValidTest()
+        {
+            var imageDataToSet = Convert.ToBase64String(testImageBinaryData);
+            testingImageElement = ImageElement.FromImageData(imageDataToSet);
+            CollectionAssert.AreEqual(testImageBinaryData,
+                testingImageElement.ImageData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleTrackingException))]
+        public void ImageElementFromImageRandomDataInvalidTest()
+        {
+            ImageElement.FromImageData("En el" +
+                " habitual espacio lírico.");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleTrackingException))]
+        public void ImageElementFromImageEmptyDataInvalidTest()
+        {
+            ImageElement.FromImageData("");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleTrackingException))]
+        public void ImageElementFromImageNullDataInvalidTest()
+        {
+            ImageElement.FromImageData(null);
         }
     }
 }
