@@ -22,9 +22,9 @@ namespace Data.Persistence_tests
         [TestMethod]
         public void LCRepositoryElementsAreDefaultLocationsValidTest()
         {
-            var expectedLocations = VTSystemDatabaseInitializer
+            var defaultLocations = VTSystemDatabaseInitializer
                 .defaultSystemLocations.ToList();
-            CollectionAssert.AreEqual(expectedLocations,
+            CollectionAssert.AreEqual(defaultLocations,
                 testingLocationRepository.Elements.ToList());
         }
 
