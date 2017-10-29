@@ -18,5 +18,14 @@ namespace Persistence
             Add(logRecordToAdd);
             return logRecordToAdd;
         }
+
+        public LoggingRecord RegisterVehicleImport(User responsible)
+        {
+            LoggingRecord logRecordToAdd =
+                LoggingRecord.FromResponsibleActionPerformed(responsible,
+                LoggedActions.VEHICLE_IMPORT);
+            Add(logRecordToAdd);
+            return logRecordToAdd;
+        }
     }
 }

@@ -180,5 +180,13 @@ namespace Data.Domain_tests
         {
             Assert.AreNotEqual(testingLoggingRecord, null);
         }
+
+        [TestMethod]
+        public void LoggingRecordGetHashCodeTest()
+        {
+            object testingLoggingRecordAsObject = testingLoggingRecord;
+            Assert.AreEqual(testingLoggingRecordAsObject.GetHashCode(),
+                testingLoggingRecord.GetHashCode());
+        }
     }
 }

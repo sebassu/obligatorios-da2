@@ -252,4 +252,7 @@
   <data name="LoggingElementIdentifierIsInvalid" xml:space="preserve">
     <value>El identificador de elemento para registro de una acción en el histórico es inválido: permite únicamente caracteres alfanuméricos.</value>
   </data>
+  <data name="InvalidUserRoleForLogging" xml:space="preserve">
+    <value>Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella.</value>
+  </data>
 </root>
