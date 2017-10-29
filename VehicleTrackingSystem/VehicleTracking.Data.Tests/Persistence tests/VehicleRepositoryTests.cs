@@ -18,6 +18,7 @@ namespace Data.Persistence_tests
         public static void ClassSetup(TestContext context)
         {
             testingVehicleRepository = testingUnitOfWork.Vehicles;
+            Assert.IsNotNull(testingVehicleRepository);
         }
 
         #region AddNewVehicle tests
@@ -215,6 +216,21 @@ namespace Data.Persistence_tests
             RemoveVehicleWithVINAndSaveChanges(null);
         }
         #endregion
+
+        [TestMethod]
+        public void GRepositoryPerformAttachTest()
+        {
+            using (var secondUnitOfWork = new UnitOfWork())
+            {
+                Vehicle vehicleToAttach = Vehicle.InstanceForTestingPurposes();
+                AddNewVehicleAndSaveChanges(vehicleToAttach);
+                var secondVehicles = secondUnitOfWork.Vehicles;
+                var castRepostory = secondVehicles as GenericRepository<Vehicle>;
+                castRepostory.PerformAttachIfCorresponds(vehicleToAttach);
+                Assert.IsTrue(secondUnitOfWork.context.Entry(vehicleToAttach).State
+                    == System.Data.Entity.EntityState.Unchanged);
+            }
+        }
 
         private static void AddNewVehicleAndSaveChanges(Vehicle vehicleToAdd)
         {

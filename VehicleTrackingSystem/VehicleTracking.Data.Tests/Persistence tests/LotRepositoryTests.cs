@@ -20,6 +20,7 @@ namespace Data.Persistence_tests
         public static void ClassSetup(TestContext context)
         {
             testingLotRepository = testingUnitOfWork.Lots;
+            Assert.IsNotNull(testingLotRepository);
         }
 
         #region AddNewLot tests

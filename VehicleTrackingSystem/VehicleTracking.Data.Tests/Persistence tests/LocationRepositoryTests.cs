@@ -17,6 +17,7 @@ namespace Data.Persistence_tests
         public static void ClassSetup(TestContext context)
         {
             testingLocationRepository = testingUnitOfWork.Locations;
+            Assert.IsNotNull(testingLocationRepository);
         }
 
         [TestMethod]
@@ -28,6 +29,7 @@ namespace Data.Persistence_tests
                 testingLocationRepository.Elements.ToList());
         }
 
+        #region GetLocationWithName tests
         [TestMethod]
         public void LCRepositoryGetLocationWithNameValidTest()
         {
@@ -58,5 +60,24 @@ namespace Data.Persistence_tests
         {
             testingLocationRepository.GetLocationWithName(null);
         }
+        #endregion
+
+        #region Default ElementExistsInCollection tests
+        [TestMethod]
+        public void LRepositoryElementExistsInCollectionExistingElementTest()
+        {
+            var addedLocation = testingLocationRepository.Elements.First();
+            var castRepostory = testingLocationRepository as GenericRepository<Location>;
+            Assert.IsFalse(castRepostory.ElementExistsInCollection(addedLocation));
+        }
+
+        [TestMethod]
+        public void LRepositoryElementExistsInCollectionUnaddedElementTest()
+        {
+            var unaddedLocation = Location.InstanceForTestingPurposes();
+            var castRepostory = testingLocationRepository as GenericRepository<Location>;
+            Assert.IsFalse(castRepostory.ElementExistsInCollection(unaddedLocation));
+        }
+        #endregion
     }
 }

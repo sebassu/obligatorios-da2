@@ -21,6 +21,7 @@ namespace Data.Persistence_tests
         public static void ClassSetup(TestContext context)
         {
             testingMovementRepository = testingUnitOfWork.Movements;
+            Assert.IsNotNull(testingMovementRepository);
         }
 
         #region AddNewMovement tests
@@ -73,8 +74,26 @@ namespace Data.Persistence_tests
         [ExpectedException(typeof(RepositoryException))]
         public void MRepositoryNullSubzoneParticipatesInAnyMovementInvalidTest()
         {
-            Assert.IsFalse(testingMovementRepository
-                .SubzoneParticipatesInSomeMovement(null));
+            testingMovementRepository.SubzoneParticipatesInSomeMovement(null);
+        }
+        #endregion
+
+        #region Default ElementExistsInCollection tests
+        [TestMethod]
+        public void MRepositoryElementExistsInCollectionExistingElementTest()
+        {
+            var addedMovement = GetNewValidTestingMovement();
+            AddNewMovementAndSaveChanges(addedMovement);
+            var castRepostory = testingMovementRepository as GenericRepository<Movement>;
+            Assert.IsFalse(castRepostory.ElementExistsInCollection(addedMovement));
+        }
+
+        [TestMethod]
+        public void MRepositoryElementExistsInCollectionUnaddedElementTest()
+        {
+            var unaddedMovement = Movement.InstanceForTestingPurposes();
+            var castRepostory = testingMovementRepository as GenericRepository<Movement>;
+            Assert.IsFalse(castRepostory.ElementExistsInCollection(unaddedMovement));
         }
         #endregion
 

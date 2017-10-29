@@ -18,6 +18,7 @@ namespace Data.Persistence_tests
         public static void ClassSetup(TestContext context)
         {
             testingZoneRepository = testingUnitOfWork.Zones;
+            Assert.IsNotNull(testingZoneRepository);
         }
 
         #region AddNewZone tests

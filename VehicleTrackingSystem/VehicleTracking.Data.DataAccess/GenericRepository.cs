@@ -5,6 +5,7 @@ using System.Resources;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 [assembly: NeutralResourcesLanguage("es")]
 namespace Persistence
@@ -96,12 +97,12 @@ namespace Persistence
             }
         }
 
-        protected virtual bool ElementExistsInCollection(TEntity entityToUpdate)
+        internal virtual bool ElementExistsInCollection(TEntity entityToUpdate)
         {
             return false;
         }
 
-        protected void PerformAttachIfCorresponds(TEntity element)
+        internal void PerformAttachIfCorresponds(TEntity element)
         {
             if (context.Entry(element).State == EntityState.Detached)
             {

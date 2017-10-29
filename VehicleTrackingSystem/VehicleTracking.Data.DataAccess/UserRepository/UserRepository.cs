@@ -59,7 +59,7 @@ namespace Persistence
                 administrators.Single().Username == usernameToRemove;
         }
 
-        protected override bool ElementExistsInCollection(User value)
+        internal override bool ElementExistsInCollection(User value)
         {
             return Utilities.IsNotNull(value) && elements.Any(u
                 => u.Id == value.Id);

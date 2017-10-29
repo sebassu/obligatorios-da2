@@ -11,14 +11,13 @@ namespace Data.Persistence_tests
     public class SubzoneRepositoryTests
     {
         private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();
-        private static IZoneRepository testingZoneRepository;
         private static ISubzoneRepository testingSubzoneRepository;
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
         {
-            testingZoneRepository = testingUnitOfWork.Zones;
             testingSubzoneRepository = testingUnitOfWork.Subzones;
+            Assert.IsNotNull(testingSubzoneRepository);
         }
 
         #region AddNewSubzone tests

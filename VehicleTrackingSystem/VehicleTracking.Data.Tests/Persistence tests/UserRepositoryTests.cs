@@ -30,6 +30,7 @@ namespace Data.Persistence_tests
         public static void ClassSetup(TestContext context)
         {
             testingUserRepository = testingUnitOfWork.Users;
+            Assert.IsNotNull(testingUserRepository);
         }
 
         [TestMethod]

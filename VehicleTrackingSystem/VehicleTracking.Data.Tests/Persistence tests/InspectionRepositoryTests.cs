@@ -19,6 +19,7 @@ namespace Data.Tests.Persistence_tests
         public static void ClassSetup(TestContext context)
         {
             testingInspectionRepository = testingUnitOfWork.Inspections;
+            Assert.IsNotNull(testingInspectionRepository);
         }
 
         #region AddNewLot tests
@@ -71,6 +72,25 @@ namespace Data.Tests.Persistence_tests
         public void IRepositoryGetInspectionWithNonExistentIdInvalidTest()
         {
             testingInspectionRepository.GetInspectionWithId(42);
+        }
+        #endregion
+
+        #region Default ElementExistsInCollection tests
+        [TestMethod]
+        public void IRepositoryElementExistsInCollectionExistingElementTest()
+        {
+            var addedInspection = GetNewValidTestingInspection();
+            AddNewInspectionAndSaveChanges(addedInspection);
+            var castRepostory = testingInspectionRepository as GenericRepository<Inspection>;
+            Assert.IsFalse(castRepostory.ElementExistsInCollection(addedInspection));
+        }
+
+        [TestMethod]
+        public void IRepositoryElementExistsInCollectionUnaddedElementTest()
+        {
+            var unaddedInspection = Inspection.InstanceForTestingPurposes();
+            var castRepostory = testingInspectionRepository as GenericRepository<Inspection>;
+            Assert.IsFalse(castRepostory.ElementExistsInCollection(unaddedInspection));
         }
         #endregion
 

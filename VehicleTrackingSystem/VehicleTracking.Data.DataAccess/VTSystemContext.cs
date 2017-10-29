@@ -1,8 +1,8 @@
 ﻿using Domain;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations.Schema;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 namespace Persistence
@@ -80,6 +80,7 @@ namespace Persistence
 
         internal void DeleteAllDataFromDatabase()
         {
+            Database.ExecuteSqlCommand("delete from transports");
             Database.ExecuteSqlCommand("delete from processDatas");
             Database.ExecuteSqlCommand("delete from users");
             Database.ExecuteSqlCommand("delete from movements");

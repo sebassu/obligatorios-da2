@@ -39,7 +39,7 @@ namespace Persistence
             Update(transportToModify);
         }
 
-        protected override bool ElementExistsInCollection(Transport entityToUpdate)
+        internal override bool ElementExistsInCollection(Transport entityToUpdate)
         {
             return Utilities.IsNotNull(entityToUpdate)
                 && elements.Any(t => t.Id == entityToUpdate.Id);

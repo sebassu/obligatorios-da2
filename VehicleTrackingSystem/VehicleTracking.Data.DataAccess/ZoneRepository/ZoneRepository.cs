@@ -42,7 +42,7 @@ namespace Persistence
             AttemptToRemove(zoneToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Zone value)
+        internal override bool ElementExistsInCollection(Zone value)
         {
             return Utilities.IsNotNull(value) && elements.Any(z => z.Id == value.Id);
         }

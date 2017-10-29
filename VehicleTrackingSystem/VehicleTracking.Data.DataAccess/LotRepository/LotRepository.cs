@@ -46,7 +46,7 @@ namespace Persistence
             AttemptToRemove(lotToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Lot value)
+        internal override bool ElementExistsInCollection(Lot value)
         {
             return Utilities.IsNotNull(value) && elements.Any(l => l.Id == value.Id);
         }

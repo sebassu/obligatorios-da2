@@ -79,8 +79,7 @@ namespace Data.Domain_tests
         public void TransportInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingTransport.Id);
-            Assert.AreEqual(User.InstanceForTestingPurposes(),
-                testingTransport.Transporter);
+            Assert.IsNull(testingTransport.Transporter);
             Assert.IsNotNull(testingTransport.LotsTransported);
             Assert.AreEqual(0, testingTransport.LotsTransported.Count);
         }
