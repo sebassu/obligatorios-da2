@@ -34,12 +34,12 @@
             this.AddZoneBtn = new System.Windows.Forms.Button();
             this.TitleLbl = new System.Windows.Forms.Label();
             this.ViewPnl = new System.Windows.Forms.Panel();
+            this.PhoneLbl = new System.Windows.Forms.Label();
+            this.UsernameLbl = new System.Windows.Forms.Label();
             this.RoleLbl = new System.Windows.Forms.Label();
             this.LastNameLbl = new System.Windows.Forms.Label();
             this.FirstNameLbl = new System.Windows.Forms.Label();
             this.UserListBox = new System.Windows.Forms.ListBox();
-            this.UsernameLbl = new System.Windows.Forms.Label();
-            this.PhoneLbl = new System.Windows.Forms.Label();
             this.ViewPnl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +67,7 @@
             this.ModifyZoneBtn.TabIndex = 20;
             this.ModifyZoneBtn.Text = "Modificar";
             this.ModifyZoneBtn.UseVisualStyleBackColor = true;
+            this.ModifyZoneBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ModifyZoneBtn_MouseClick);
             // 
             // DeleteZoneBtn
             // 
@@ -81,6 +82,7 @@
             this.DeleteZoneBtn.TabIndex = 19;
             this.DeleteZoneBtn.Text = "Eliminar";
             this.DeleteZoneBtn.UseVisualStyleBackColor = true;
+            this.DeleteZoneBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DeleteZoneBtn_MouseClick);
             // 
             // AddZoneBtn
             // 
@@ -120,6 +122,28 @@
             this.ViewPnl.Name = "ViewPnl";
             this.ViewPnl.Size = new System.Drawing.Size(166, 161);
             this.ViewPnl.TabIndex = 16;
+            // 
+            // PhoneLbl
+            // 
+            this.PhoneLbl.AutoSize = true;
+            this.PhoneLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PhoneLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.PhoneLbl.Location = new System.Drawing.Point(1, 130);
+            this.PhoneLbl.Name = "PhoneLbl";
+            this.PhoneLbl.Size = new System.Drawing.Size(71, 20);
+            this.PhoneLbl.TabIndex = 4;
+            this.PhoneLbl.Text = "Telefono";
+            // 
+            // UsernameLbl
+            // 
+            this.UsernameLbl.AutoSize = true;
+            this.UsernameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UsernameLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.UsernameLbl.Location = new System.Drawing.Point(1, 101);
+            this.UsernameLbl.Name = "UsernameLbl";
+            this.UsernameLbl.Size = new System.Drawing.Size(121, 20);
+            this.UsernameLbl.TabIndex = 3;
+            this.UsernameLbl.Text = "Nombre usuario";
             // 
             // RoleLbl
             // 
@@ -166,28 +190,6 @@
             this.UserListBox.Size = new System.Drawing.Size(163, 264);
             this.UserListBox.TabIndex = 15;
             this.UserListBox.SelectedIndexChanged += new System.EventHandler(this.UserListBox_SelectedIndexChanged);
-            // 
-            // UsernameLbl
-            // 
-            this.UsernameLbl.AutoSize = true;
-            this.UsernameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UsernameLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.UsernameLbl.Location = new System.Drawing.Point(1, 101);
-            this.UsernameLbl.Name = "UsernameLbl";
-            this.UsernameLbl.Size = new System.Drawing.Size(121, 20);
-            this.UsernameLbl.TabIndex = 3;
-            this.UsernameLbl.Text = "Nombre usuario";
-            // 
-            // PhoneLbl
-            // 
-            this.PhoneLbl.AutoSize = true;
-            this.PhoneLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PhoneLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.PhoneLbl.Location = new System.Drawing.Point(1, 130);
-            this.PhoneLbl.Name = "PhoneLbl";
-            this.PhoneLbl.Size = new System.Drawing.Size(71, 20);
-            this.PhoneLbl.TabIndex = 4;
-            this.PhoneLbl.Text = "Telefono";
             // 
             // UserUserControl
             // 

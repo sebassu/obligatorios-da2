@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using API.Services;
+using Domain;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -51,6 +52,46 @@ namespace VehicleTracking.UI.WinApp
             CardPanel.Controls.Clear();
             CardPanel.Controls.Add(new CreateModifyUser(CardPanel,
                 "add", null));
+        }
+
+        private void ModifyZoneBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (UserListBox.SelectedItem != null)
+            {
+                CardPanel.Controls.Clear();
+                CardPanel.Controls.Add(new CreateModifyUser(CardPanel,
+                    "modify", SelectedUser));
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un usuario", "Error");
+            }
+        }
+
+        private void DeleteZoneBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (UserListBox.SelectedItem != null)
+            {
+                try
+                {
+                    Instance.RemoveUserWithUsername(SelectedUser.Username);
+                    LoadListBox();
+                    CleanLabels();
+                }
+                catch (VehicleTrackingException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error");
+                }
+            }
+        }
+
+        private void CleanLabels()
+        {
+            RoleLbl.Text = "Rol";
+            FirstNameLbl.Text = "Nombre";
+            LastNameLbl.Text = "Apellido";
+            PhoneLbl.Text = "Telefono";
+            UsernameLbl.Text = "Usuario";
         }
     }
 }

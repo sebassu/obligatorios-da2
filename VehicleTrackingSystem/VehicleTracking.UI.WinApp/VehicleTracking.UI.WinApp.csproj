@@ -61,6 +61,12 @@
     <Compile Include="CreateModifySubzone.Designer.cs">
       <DependentUpon>CreateModifySubzone.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateModifyUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreateModifyUser.Designer.cs">
+      <DependentUpon>CreateModifyUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateModifyVehicle.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     </Compile>
     <EmbeddedResource Include="CreateModifySubzone.resx">
       <DependentUpon>CreateModifySubzone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateModifyUser.resx">
+      <DependentUpon>CreateModifyUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateModifyVehicle.resx">
       <DependentUpon>CreateModifyVehicle.cs</DependentUpon>
