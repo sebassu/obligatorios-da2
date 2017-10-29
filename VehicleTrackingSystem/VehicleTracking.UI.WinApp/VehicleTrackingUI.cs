@@ -15,9 +15,9 @@ namespace VehicleTracking.UI.WinApp
     {
         public VehicleTrackingUI()
         {
+            InitializeComponent();
             ShowLogin();
             EnableMenuButtons();
-            InitializeComponent();
         }
 
 

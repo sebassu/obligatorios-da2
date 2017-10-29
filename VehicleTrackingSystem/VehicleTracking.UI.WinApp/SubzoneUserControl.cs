@@ -20,9 +20,10 @@ namespace VehicleTracking.UI.WinApp
 
         public SubzoneUserControl(Panel cardPnl)
         {
+            InitializeComponent();
             Instance = new SubzoneServices();
             CardPnl = cardPnl;
-            InitializeComponent();
+            LoadListBox();
         }
 
         private void LoadListBox()
@@ -40,11 +41,17 @@ namespace VehicleTracking.UI.WinApp
         {
             string[] SelectedId = 
                 SubzoneListBox.GetItemText(SubzoneListBox.SelectedItem).Split('-');
-            int id = int.Parse(SelectedId[0]);
-            SelectedSubzone = Instance.GetSubzoneWithId(id);
-            NameLbl.Text = "Nombre: " + SelectedSubzone.Name;
-            CapacityLbl.Text = "Capacidad: " + SelectedSubzone.Capacity;
-            ZoneLbl.Text = "Zona: " + SelectedSubzone.ContainerName;
+            try
+            {
+                int id = int.Parse(SelectedId[0]);
+                SelectedSubzone = Instance.GetSubzoneWithId(id);
+                NameLbl.Text = "Nombre: " + SelectedSubzone.Name;
+                CapacityLbl.Text = "Capacidad: " + SelectedSubzone.Capacity;
+                ZoneLbl.Text = "Zona: " + SelectedSubzone.ContainerName;
+            }catch(Exception)
+            {
+                MessageBox.Show("Debe seleccionar una subzona", "Error");
+            }
         }
 
         private void AddSubzoneBtn_MouseClick(object sender, MouseEventArgs e)

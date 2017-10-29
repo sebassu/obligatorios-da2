@@ -173,7 +173,7 @@
             this.CancelBtn.TabIndex = 11;
             this.CancelBtn.Text = "Cancelar";
             this.CancelBtn.UseVisualStyleBackColor = true;
-            this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
+            this.CancelBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CancelBtn_MouseClick);
             // 
             // OkBtn
             // 
@@ -188,7 +188,7 @@
             this.OkBtn.TabIndex = 12;
             this.OkBtn.Text = "Button 1";
             this.OkBtn.UseVisualStyleBackColor = true;
-            this.OkBtn.Click += new System.EventHandler(this.OkBtn_Click);
+            this.OkBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OkBtn_MouseClick);
             // 
             // CreateModifyVehicle
             // 

@@ -22,20 +22,20 @@ namespace VehicleTracking.UI.WinApp
 
         public CreateModifyZone(Panel cardPnl, string origin, ZoneDTO selectedZone)
         {
+            InitializeComponent();
             Instance = new ZoneServices();
             CardPnl = cardPnl;
             Origin = origin;
             SelectedZone = selectedZone;
             LoadInfo();
-            InitializeComponent();
         }
 
         private void LoadInfo()
         {
             if (Origin.Equals("modify"))
             {
-                NameLbl.Text = SelectedZone.Name;
-                CapacityLbl.Text = SelectedZone.Capacity.ToString();
+                NameTxt.Text = SelectedZone.Name;
+                CapacityTxt.Text = SelectedZone.Capacity.ToString();
                 TitleLbl.Text = "Modificar zona";
                 OkBtn.Text = "Modificar";
             }
@@ -46,13 +46,13 @@ namespace VehicleTracking.UI.WinApp
             }
         }
 
-        private void NameTxt_KeyPress(object sender, KeyPressEventArgs e)
+        private void NameTxt_MouseClick(object sender, MouseEventArgs e)
         {
             NameTxt.Text = "";
             NameTxt.ForeColor = Color.Black;
         }
 
-        private void CapacityTxt_KeyPress(object sender, KeyPressEventArgs e)
+        private void CapacityTxt_MouseClick(object sender, MouseEventArgs e)
         {
             CapacityTxt.Text = "";
             CapacityTxt.ForeColor = Color.Black;
@@ -89,7 +89,7 @@ namespace VehicleTracking.UI.WinApp
                 zone.Capacity = int.Parse(CapacityTxt.Text);
                 if (Origin.Equals("modify"))
                 {
-                    Instance.ModifyZoneWithName(NameTxt.Text, zone);
+                    Instance.ModifyZoneWithName(SelectedZone.Name, zone);
                 }
                 else
                 {

@@ -23,12 +23,12 @@ namespace VehicleTracking.UI.WinApp
 
         public CreateModifyVehicle(Panel cardPanel, string origin, VehicleDTO selectedVehicle)
         {
+            InitializeComponent();
+            Instance = new VehicleServices();
             CardPanel = cardPanel;
             Origin = origin;
             SelectedVehicle = selectedVehicle;
             LoadInfo();
-            Instance = new VehicleServices();
-            InitializeComponent();
         }
 
         private void LoadInfo()
@@ -96,12 +96,12 @@ namespace VehicleTracking.UI.WinApp
             }
         }
 
-        private void CancelBtn_Click(object sender, EventArgs e)
+        private void CancelBtn_MouseClick(object sender, MouseEventArgs e)
         {
             CardPanel.Controls.Clear();
         }
 
-        private void OkBtn_Click(object sender, EventArgs e)
+        private void OkBtn_MouseClick(object sender, MouseEventArgs e)
         {
             VehicleDTO vehicle = new VehicleDTO();
             try
@@ -119,7 +119,8 @@ namespace VehicleTracking.UI.WinApp
                 {
                     Instance.AddNewVehicleFromData(vehicle);
                 }
-            }catch (VehicleTrackingException ex)
+            }
+            catch (VehicleTrackingException ex)
             {
                 MessageBox.Show(ex.Message, "Error");
             }

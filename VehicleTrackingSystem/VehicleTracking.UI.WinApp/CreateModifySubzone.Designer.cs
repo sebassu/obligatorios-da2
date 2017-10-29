@@ -99,7 +99,7 @@
             this.CapacityTxt.Name = "CapacityTxt";
             this.CapacityTxt.Size = new System.Drawing.Size(150, 26);
             this.CapacityTxt.TabIndex = 16;
-            this.CapacityTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CapacityTxt_KeyPress);
+            this.CapacityTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CapacityTxt_MouseClick);
             // 
             // CapacityLbl
             // 
@@ -120,7 +120,7 @@
             this.NameTxt.Name = "NameTxt";
             this.NameTxt.Size = new System.Drawing.Size(150, 26);
             this.NameTxt.TabIndex = 14;
-            this.NameTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NameTxt_KeyPress);
+            this.NameTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NameTxt_MouseClick);
             // 
             // NameLbl
             // 

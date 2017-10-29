@@ -13,9 +13,6 @@ namespace VehicleTracking.UI.WinApp
 {
     public partial class Login : UserControl
     {
-
-        private VTSystemContext Instance;
-
         public Login()
         {
             InitializeComponent();

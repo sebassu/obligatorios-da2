@@ -20,10 +20,10 @@ namespace VehicleTracking.UI.WinApp
 
         public ZoneUserControl(Panel cardPanel)
         {
+            InitializeComponent();
             Instance = new ZoneServices();
             CardPnl = cardPanel;
             LoadListBox();
-            InitializeComponent();
         }
 
         private void LoadListBox()
@@ -48,15 +48,22 @@ namespace VehicleTracking.UI.WinApp
 
         private void DeleteZoneBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            if (ZoneListBox.SelectedItem != null)
+            try
             {
-                Instance.RemoveZoneWithName(SelectedZone.Name);
-                LoadListBox();
-                CleanLabels();
+                if (ZoneListBox.SelectedItem != null)
+                {
+                    Instance.RemoveZoneWithName(SelectedZone.Name);
+                    LoadListBox();
+                    CleanLabels();
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una zona", "Error");
+                }
             }
-            else
+            catch(ServiceException ex)
             {
-                MessageBox.Show("Debe seleccionar un vehículo", "Error");
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 

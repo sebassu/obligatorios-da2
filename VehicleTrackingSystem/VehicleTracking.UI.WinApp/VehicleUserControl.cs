@@ -20,10 +20,10 @@ namespace VehicleTracking.UI.WinApp
 
         public VehicleUserControl(Panel cardPnl)
         {
+            InitializeComponent();
             Instance = new VehicleServices();
             CardPnl = cardPnl;
             LoadListBox();
-            InitializeComponent();
         }
 
         private void LoadListBox()

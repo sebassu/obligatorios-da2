@@ -23,6 +23,7 @@ namespace VehicleTracking.UI.WinApp
 
         public CreateModifySubzone(Panel cardPanel, string origin, SubzoneDTO selectedSubzone)
         {
+            InitializeComponent();
             IUnitOfWork unitOfWork = new UnitOfWork();
             SubzoneInstance = new SubzoneServices(unitOfWork);
             ZoneIntance = new ZoneServices(unitOfWork);
@@ -30,15 +31,16 @@ namespace VehicleTracking.UI.WinApp
             Origin = origin;
             SelectedSubzone = selectedSubzone;
             LoadInfo();
-            InitializeComponent();
         }
 
         private void LoadInfo()
         {
+            LoadComboBox();
             if (Origin.Equals("modify"))
             {
                 NameTxt.Text = SelectedSubzone.Name;
                 CapacityTxt.Text = SelectedSubzone.Capacity.ToString();
+                ZoneComboBox.SelectedItem = SelectedSubzone.ContainerName;
                 TitleLbl.Text = "Modificar subzona";
                 OkBtn.Text = "Modificar";
             }
@@ -47,7 +49,7 @@ namespace VehicleTracking.UI.WinApp
                 TitleLbl.Text = "Agregar subzona";
                 OkBtn.Text = "Agregar";
             }
-            LoadComboBox();
+            
         }
 
         private void LoadComboBox()
@@ -64,13 +66,13 @@ namespace VehicleTracking.UI.WinApp
             CardPnl.Controls.Clear();
         }
 
-        private void NameTxt_KeyPress(object sender, KeyPressEventArgs e)
+        private void NameTxt_MouseClick(object sender, MouseEventArgs e)
         {
             NameTxt.Text = "";
             NameTxt.ForeColor = Color.Black;
         }
 
-        private void CapacityTxt_KeyPress(object sender, KeyPressEventArgs e)
+        private void CapacityTxt_MouseClick(object sender, MouseEventArgs e)
         {
             CapacityTxt.Text = "";
             CapacityTxt.ForeColor = Color.Black;
@@ -83,7 +85,7 @@ namespace VehicleTracking.UI.WinApp
             {
                 subzone.Name = NameTxt.Text;
                 subzone.Capacity = int.Parse(CapacityTxt.Text);
-                subzone.ContainerName = ZoneComboBox.SelectedItem.ToString();
+                    subzone.ContainerName = ZoneComboBox.SelectedItem.ToString();
                 if (Origin.Equals("modify"))
                 {
                     SubzoneInstance.ModifySubzoneWithId(SelectedSubzone.Id, subzone);
@@ -97,6 +99,14 @@ namespace VehicleTracking.UI.WinApp
             catch (VehicleTrackingException ex)
             {
                 MessageBox.Show(ex.Message, "Error");
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Debe seleccionar una zona", "Error");
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Debe ingresar la capacidad con números", "Error");
             }
             CardPnl.Controls.Clear();
             CardPnl.Controls.Add(new SubzoneUserControl(CardPnl));

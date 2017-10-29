@@ -42,7 +42,7 @@
             this.TitleLbl.AutoSize = true;
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(228, 64);
+            this.TitleLbl.Location = new System.Drawing.Point(191, 64);
             this.TitleLbl.Name = "TitleLbl";
             this.TitleLbl.Size = new System.Drawing.Size(109, 39);
             this.TitleLbl.TabIndex = 15;
@@ -56,7 +56,7 @@
             this.CapacityTxt.Name = "CapacityTxt";
             this.CapacityTxt.Size = new System.Drawing.Size(150, 26);
             this.CapacityTxt.TabIndex = 14;
-            this.CapacityTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CapacityTxt_KeyPress);
+            this.CapacityTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CapacityTxt_MouseClick);
             this.CapacityTxt.Leave += new System.EventHandler(this.CapacityTxt_Leave);
             // 
             // CapacityLbl
@@ -78,7 +78,7 @@
             this.NameTxt.Name = "NameTxt";
             this.NameTxt.Size = new System.Drawing.Size(150, 26);
             this.NameTxt.TabIndex = 12;
-            this.NameTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NameTxt_KeyPress);
+            this.NameTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NameTxt_MouseClick);
             // 
             // NameLbl
             // 
