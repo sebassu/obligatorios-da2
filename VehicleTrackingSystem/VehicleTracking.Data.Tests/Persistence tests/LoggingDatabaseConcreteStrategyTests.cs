@@ -45,5 +45,29 @@ namespace Data.Persistence_tests
         {
             testingStrategy.RegisterUserLogin(null);
         }
+
+        [TestMethod]
+        public void LDCStrategyRegisterVehicleImportValidTest()
+        {
+            var logProduced = testingStrategy.RegisterVehicleImport(testingResponsible);
+            testingUnitOfWork.SaveChanges();
+            CollectionAssert.Contains(testingStrategy.Log.ToList(), logProduced);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LoggingException))]
+        public void LDCStrategyRegisterVehicleImportWithNonAdministratorInvalidTest()
+        {
+            User someOtherUser = User.InstanceForTestingPurposes();
+            someOtherUser.Role = UserRoles.SALESMAN;
+            testingStrategy.RegisterVehicleImport(someOtherUser);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LoggingException))]
+        public void LDCStrategyRegisterNullUserForVehicleImportInvalidTest()
+        {
+            testingStrategy.RegisterVehicleImport(null);
+        }
     }
 }
