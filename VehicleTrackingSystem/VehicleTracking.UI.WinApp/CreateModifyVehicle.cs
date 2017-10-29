@@ -114,7 +114,7 @@ namespace VehicleTracking.UI.WinApp
                 vehicle.Year = short.Parse(YearTxt.Text);
                 if (Origin.Equals("modify"))
                 {
-                    Instance.ModifyVehicleWithVIN(VINTxt.Text, vehicle);
+                    Instance.ModifyVehicleWithVIN(SelectedVehicle.VIN, vehicle);
                 }
                 else
                 {

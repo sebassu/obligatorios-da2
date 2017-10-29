@@ -92,6 +92,12 @@
     <Compile Include="SubzoneUserControl.Designer.cs">
       <DependentUpon>SubzoneUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserUserControl.Designer.cs">
+      <DependentUpon>UserUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="VehicleTrackingUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubzoneUserControl.resx">
       <DependentUpon>SubzoneUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserUserControl.resx">
+      <DependentUpon>UserUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VehicleTrackingUI.resx">
       <DependentUpon>VehicleTrackingUI.cs</DependentUpon>

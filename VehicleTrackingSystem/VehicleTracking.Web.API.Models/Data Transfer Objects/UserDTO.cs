@@ -25,7 +25,7 @@ namespace API.Services
         [Required]
         public string PhoneNumber { get; set; }
 
-        internal UserDTO() { }
+        public UserDTO() { }
 
         internal static UserDTO FromUser(User someUser)
         {
