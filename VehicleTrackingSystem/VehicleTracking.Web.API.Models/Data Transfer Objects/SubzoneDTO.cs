@@ -21,7 +21,7 @@ namespace API.Services
 
         public ICollection<string> VehicleVINs { get; set; }
 
-        internal SubzoneDTO() { }
+        public SubzoneDTO() { }
 
         internal static SubzoneDTO FromSubzone(Subzone someSubzone)
         {

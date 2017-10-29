@@ -52,6 +52,7 @@
             this.OkBtn.TabIndex = 25;
             this.OkBtn.Text = "Button 1";
             this.OkBtn.UseVisualStyleBackColor = true;
+            this.OkBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OkBtn_MouseClick);
             // 
             // CancelBtn
             // 
@@ -66,6 +67,7 @@
             this.CancelBtn.TabIndex = 24;
             this.CancelBtn.Text = "Cancelar";
             this.CancelBtn.UseVisualStyleBackColor = true;
+            this.CancelBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CancelBtn_MouseClick);
             // 
             // TitleLbl
             // 
@@ -97,6 +99,7 @@
             this.CapacityTxt.Name = "CapacityTxt";
             this.CapacityTxt.Size = new System.Drawing.Size(150, 26);
             this.CapacityTxt.TabIndex = 16;
+            this.CapacityTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CapacityTxt_KeyPress);
             // 
             // CapacityLbl
             // 
@@ -117,6 +120,7 @@
             this.NameTxt.Name = "NameTxt";
             this.NameTxt.Size = new System.Drawing.Size(150, 26);
             this.NameTxt.TabIndex = 14;
+            this.NameTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NameTxt_KeyPress);
             // 
             // NameLbl
             // 
