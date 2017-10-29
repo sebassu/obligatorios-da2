@@ -2,10 +2,12 @@
 
 namespace Domain
 {
-    public enum LoggedActions { USER_CREATION, VEHICLE_IMPORT }
+    public enum LoggedActions { LOGIN, VEHICLE_IMPORT }
 
     public class LoggingRecord
     {
+        public int Id { get; set; }
+
         private User responsible;
         public User Responsible
         {
@@ -31,37 +33,26 @@ namespace Domain
 
         public LoggedActions ActionPerformed { get; set; }
 
-        private string elementIdentifier;
-        public string ElementIdentifier
-        {
-            get { return elementIdentifier; }
-            set
-            {
-                if (IsValidElementIdentifier(value))
-                {
-                    elementIdentifier = value;
-                }
-                else
-                {
-                    throw new LoggingRecordException(
-                        ErrorMessages.LoggingElementIdentifierIsInvalid);
-                }
-            }
-        }
-
-        protected bool IsValidElementIdentifier(string value)
-        {
-            return Utilities.ContainsLettersOrDigitsOnly(value);
-        }
-
-        public DateTime DateTime { get; protected set; } = DateTime.Now;
+        public DateTime DateTime { get; set; } = DateTime.Now;
 
         internal static LoggingRecord InstanceForTestingPurposes()
         {
-            return new LoggingRecord()
-            {
-                elementIdentifier = "Registro de acción inválido."
-            };
+            return new LoggingRecord();
+        }
+
+        protected LoggingRecord() { }
+
+        public static LoggingRecord FromResponsibleActionPerformed(User responsible,
+            LoggedActions actionPerformed)
+        {
+            return new LoggingRecord(responsible, actionPerformed);
+        }
+
+        protected LoggingRecord(User responsibleToSet,
+            LoggedActions actionPerformedToSet)
+        {
+            Responsible = responsibleToSet;
+            ActionPerformed = actionPerformedToSet;
         }
     }
 }
