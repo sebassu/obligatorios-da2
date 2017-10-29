@@ -19,10 +19,15 @@ namespace Data.Domain_tests
         public void LoggingRecordInstanceForTestingPurposesTest()
         {
             Assert.IsNull(testingLoggingRecord.Responsible);
-            Assert.AreEqual("Registro de acción inválido.",
-                testingLoggingRecord.ElementIdentifier);
             Assert.AreEqual(DateTime.Today,
                 testingLoggingRecord.DateTime.Date);
+        }
+
+        [TestMethod]
+        public void LoggingRecordSetIdentifierValidTest()
+        {
+            testingLoggingRecord.Id = 42;
+            Assert.AreEqual(42, testingLoggingRecord.Id);
         }
 
         [TestMethod]
@@ -87,45 +92,46 @@ namespace Data.Domain_tests
         [TestMethod]
         public void LoggingRecordSetActionTypeUserCreationValidTest()
         {
-            testingLoggingRecord.ActionPerformed = LoggedActions.USER_CREATION;
-            Assert.AreEqual(LoggedActions.USER_CREATION,
+            testingLoggingRecord.ActionPerformed = LoggedActions.LOGIN;
+            Assert.AreEqual(LoggedActions.LOGIN,
                 testingLoggingRecord.ActionPerformed);
         }
 
         [TestMethod]
-        public void LoggingRecordSetElementIdentifierUsernameValidTest()
+        public void LoggingRecordSetDateTimeValidTest()
         {
-            testingLoggingRecord.ElementIdentifier = "mSantos";
-            Assert.AreEqual("mSantos", testingLoggingRecord.ElementIdentifier);
+            testingLoggingRecord.DateTime = DateTime.MinValue;
+            Assert.AreEqual(DateTime.MinValue,
+                testingLoggingRecord.DateTime);
         }
 
         [TestMethod]
-        public void LoggingRecordSetElementIdentifierVINValidTest()
+        public void LoggingRecordParameterFactoryMethodValidTest()
         {
-            testingLoggingRecord.ElementIdentifier = "RUSH2112MVNGPCTRS";
-            Assert.AreEqual("RUSH2112MVNGPCTRS",
-                testingLoggingRecord.ElementIdentifier);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(LoggingRecordException))]
-        public void LoggingRecordSetElementPunctuationIdentifierInvalidTest()
-        {
-            testingLoggingRecord.ElementIdentifier = "32*/*@^--&#&$";
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(LoggingRecordException))]
-        public void LoggingRecordSetElementEmptyIdentifierInvalidTest()
-        {
-            testingLoggingRecord.ElementIdentifier = "";
+            User administrator = User.InstanceForTestingPurposes();
+            testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
+                administrator, LoggedActions.LOGIN);
+            Assert.AreSame(administrator, testingLoggingRecord.Responsible);
+            Assert.AreEqual(LoggedActions.LOGIN, testingLoggingRecord.ActionPerformed);
+            Assert.AreEqual(DateTime.Today, testingLoggingRecord.DateTime.Date);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LoggingRecordException))]
-        public void LoggingRecordSetElementNullIdentifierInvalidTest()
+        public void LoggingRecordParameterFactoryMethodInvalidUserRoleTest()
         {
-            testingLoggingRecord.ElementIdentifier = null;
+            User responsibleToSet = User.InstanceForTestingPurposes();
+            responsibleToSet.Role = UserRoles.SALESMAN;
+            testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
+                responsibleToSet, LoggedActions.LOGIN);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LoggingRecordException))]
+        public void LoggingRecordParameterFactoryMethodNullUserInvalidTest()
+        {
+            testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
+                null, LoggedActions.LOGIN);
         }
     }
 }
