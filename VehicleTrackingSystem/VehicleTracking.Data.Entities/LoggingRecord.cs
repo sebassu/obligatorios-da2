@@ -2,6 +2,8 @@
 
 namespace Domain
 {
+    public enum LoggedActions { USER_CREATION, VEHICLE_IMPORT }
+
     public class LoggingRecord
     {
         private User responsible;
@@ -21,6 +23,8 @@ namespace Domain
             }
         }
 
+        public LoggedActions ActionPerformed { get; internal set; }
+
         private bool IsValidAdministrator(User someUser)
         {
             return Utilities.IsNotNull(someUser)
@@ -29,7 +33,7 @@ namespace Domain
 
         public string Identifier { get; internal set; }
         public DateTime DateTime { get; internal set; }
-
+        
         internal static LoggingRecord InstanceForTestingPurposes()
         {
             return new LoggingRecord()
