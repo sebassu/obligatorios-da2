@@ -74,5 +74,21 @@ namespace Data.Domain_tests
         {
             testingLoggingRecord.Responsible = null;
         }
+
+        [TestMethod]
+        public void LoggingRecordSetActionPerformedImportValidTest()
+        {
+            testingLoggingRecord.ActionPerformed = LoggedActions.VEHICLE_IMPORT;
+            Assert.AreEqual(LoggedActions.VEHICLE_IMPORT,
+                testingLoggingRecord.ActionPerformed);
+        }
+
+        [TestMethod]
+        public void LoggingRecordSetActionTypeUserCreationValidTest()
+        {
+            testingLoggingRecord.ActionPerformed = LoggedActions.USER_CREATION;
+            Assert.AreEqual(LoggedActions.USER_CREATION,
+                testingLoggingRecord.ActionPerformed);
+        }
     }
 }
