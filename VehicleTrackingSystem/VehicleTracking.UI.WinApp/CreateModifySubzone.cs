@@ -64,7 +64,7 @@ namespace VehicleTracking.UI.WinApp
         private void CancelBtn_MouseClick(object sender, MouseEventArgs e)
         {
             CardPnl.Controls.Clear();
-            CardPnl.Controls.Add(new ZoneUserControl(CardPnl));
+            CardPnl.Controls.Add(new SubzoneUserControl(CardPnl));
         }
 
         private void NameTxt_MouseClick(object sender, MouseEventArgs e)
@@ -77,6 +77,23 @@ namespace VehicleTracking.UI.WinApp
         {
             CapacityTxt.Text = "";
             CapacityTxt.ForeColor = Color.Black;
+        }
+
+        private void CapacityTxt_Leave(object sender, EventArgs e)
+        {
+            int cap;
+            if (!int.TryParse(CapacityTxt.Text, out cap))
+            {
+                MessageBox.Show("La capacidad solo puede contener números", "Error");
+                if (Origin.Equals("modify"))
+                {
+                    CapacityTxt.Text = SelectedSubzone.Capacity.ToString();
+                }
+                else
+                {
+                    CapacityTxt.Text = "";
+                }
+            }
         }
 
         private void OkBtn_MouseClick(object sender, MouseEventArgs e)

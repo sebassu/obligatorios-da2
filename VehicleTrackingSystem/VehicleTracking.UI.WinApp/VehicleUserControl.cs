@@ -95,7 +95,7 @@ namespace VehicleTracking.UI.WinApp
         private void AddVehicleBtn_MouseClick(object sender, MouseEventArgs e)
         {
             CardPnl.Controls.Clear();
-            CardPnl.Controls.Add(new CreateModifySubzone(CardPnl,
+            CardPnl.Controls.Add(new CreateModifyVehicle(CardPnl,
                 "add", null));
         }
     }

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -15,7 +14,6 @@ namespace VehicleTracking.UI.WinApp
 {
     public partial class CreateModifyVehicle : UserControl
     {
-
         Panel CardPanel;
         VehicleDTO SelectedVehicle;
         string Origin;
@@ -28,6 +26,7 @@ namespace VehicleTracking.UI.WinApp
             CardPanel = cardPanel;
             Origin = origin;
             SelectedVehicle = selectedVehicle;
+
             LoadInfo();
         }
 
@@ -40,9 +39,10 @@ namespace VehicleTracking.UI.WinApp
                 BrandTxt.Text = SelectedVehicle.Brand;
                 ModelTxt.Text = SelectedVehicle.Model;
                 ColorTxt.Text = SelectedVehicle.Color;
-                YearTxt.Text =  SelectedVehicle.Year.ToString();
+                YearTxt.Text = SelectedVehicle.Year.ToString();
                 OkBtn.Text = "Modificar";
-            }else
+            }
+            else
             {
                 TitleLbl.Text = "Agregar vehículo";
                 OkBtn.Text = "Agregar";
@@ -120,13 +120,18 @@ namespace VehicleTracking.UI.WinApp
                 {
                     Instance.AddNewVehicleFromData(vehicle);
                 }
+                CardPanel.Controls.Clear();
+                CardPanel.Controls.Add(new VehicleUserControl(CardPanel));
             }
             catch (VehicleTrackingException ex)
             {
                 MessageBox.Show(ex.Message, "Error");
             }
-            CardPanel.Controls.Clear();
-            CardPanel.Controls.Add(new VehicleUserControl(CardPanel));
+            catch (FormatException)
+            {
+                MessageBox.Show("El año no puede ser vacio", "Error");
+            }
         }
     }
 }
+

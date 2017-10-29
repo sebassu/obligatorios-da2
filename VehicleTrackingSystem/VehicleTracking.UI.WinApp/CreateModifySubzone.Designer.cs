@@ -46,7 +46,7 @@
             this.OkBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OkBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.OkBtn.Location = new System.Drawing.Point(288, 269);
+            this.OkBtn.Location = new System.Drawing.Point(467, 259);
             this.OkBtn.Name = "OkBtn";
             this.OkBtn.Size = new System.Drawing.Size(119, 46);
             this.OkBtn.TabIndex = 25;
@@ -61,7 +61,7 @@
             this.CancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.CancelBtn.Location = new System.Drawing.Point(161, 269);
+            this.CancelBtn.Location = new System.Drawing.Point(340, 259);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(117, 46);
             this.CancelBtn.TabIndex = 24;
@@ -74,7 +74,7 @@
             this.TitleLbl.AutoSize = true;
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(169, 78);
+            this.TitleLbl.Location = new System.Drawing.Point(348, 68);
             this.TitleLbl.Name = "TitleLbl";
             this.TitleLbl.Size = new System.Drawing.Size(109, 39);
             this.TitleLbl.TabIndex = 23;
@@ -85,7 +85,7 @@
             this.ZoneLbl.AutoSize = true;
             this.ZoneLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ZoneLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ZoneLbl.Location = new System.Drawing.Point(148, 216);
+            this.ZoneLbl.Location = new System.Drawing.Point(327, 206);
             this.ZoneLbl.Name = "ZoneLbl";
             this.ZoneLbl.Size = new System.Drawing.Size(59, 24);
             this.ZoneLbl.TabIndex = 17;
@@ -95,18 +95,19 @@
             // 
             this.CapacityTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CapacityTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.CapacityTxt.Location = new System.Drawing.Point(259, 173);
+            this.CapacityTxt.Location = new System.Drawing.Point(438, 163);
             this.CapacityTxt.Name = "CapacityTxt";
             this.CapacityTxt.Size = new System.Drawing.Size(150, 26);
             this.CapacityTxt.TabIndex = 16;
             this.CapacityTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CapacityTxt_MouseClick);
+            this.CapacityTxt.Leave += new System.EventHandler(this.CapacityTxt_Leave);
             // 
             // CapacityLbl
             // 
             this.CapacityLbl.AutoSize = true;
             this.CapacityLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CapacityLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.CapacityLbl.Location = new System.Drawing.Point(148, 175);
+            this.CapacityLbl.Location = new System.Drawing.Point(327, 165);
             this.CapacityLbl.Name = "CapacityLbl";
             this.CapacityLbl.Size = new System.Drawing.Size(105, 24);
             this.CapacityLbl.TabIndex = 15;
@@ -116,7 +117,7 @@
             // 
             this.NameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NameTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.NameTxt.Location = new System.Drawing.Point(259, 132);
+            this.NameTxt.Location = new System.Drawing.Point(438, 122);
             this.NameTxt.Name = "NameTxt";
             this.NameTxt.Size = new System.Drawing.Size(150, 26);
             this.NameTxt.TabIndex = 14;
@@ -127,7 +128,7 @@
             this.NameLbl.AutoSize = true;
             this.NameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NameLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.NameLbl.Location = new System.Drawing.Point(148, 134);
+            this.NameLbl.Location = new System.Drawing.Point(327, 124);
             this.NameLbl.Name = "NameLbl";
             this.NameLbl.Size = new System.Drawing.Size(84, 24);
             this.NameLbl.TabIndex = 13;
@@ -137,7 +138,7 @@
             // 
             this.ZoneComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ZoneComboBox.FormattingEnabled = true;
-            this.ZoneComboBox.Location = new System.Drawing.Point(259, 217);
+            this.ZoneComboBox.Location = new System.Drawing.Point(438, 207);
             this.ZoneComboBox.Name = "ZoneComboBox";
             this.ZoneComboBox.Size = new System.Drawing.Size(148, 28);
             this.ZoneComboBox.TabIndex = 26;
@@ -157,7 +158,7 @@
             this.Controls.Add(this.NameTxt);
             this.Controls.Add(this.NameLbl);
             this.Name = "CreateModifySubzone";
-            this.Size = new System.Drawing.Size(573, 378);
+            this.Size = new System.Drawing.Size(901, 365);
             this.ResumeLayout(false);
             this.PerformLayout();
 

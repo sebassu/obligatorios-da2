@@ -28,152 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.VINLbl = new System.Windows.Forms.Label();
-            this.VINTxt = new System.Windows.Forms.TextBox();
-            this.BrandTxt = new System.Windows.Forms.TextBox();
-            this.BrandLbl = new System.Windows.Forms.Label();
-            this.ModelTxt = new System.Windows.Forms.TextBox();
-            this.ModelLbl = new System.Windows.Forms.Label();
-            this.ColorTxt = new System.Windows.Forms.TextBox();
-            this.ColorLbl = new System.Windows.Forms.Label();
+            this.OkBtn = new System.Windows.Forms.Button();
+            this.CancelBtn = new System.Windows.Forms.Button();
+            this.TitleLbl = new System.Windows.Forms.Label();
             this.YearTxt = new System.Windows.Forms.TextBox();
             this.YearLbl = new System.Windows.Forms.Label();
-            this.TitleLbl = new System.Windows.Forms.Label();
-            this.CancelBtn = new System.Windows.Forms.Button();
-            this.OkBtn = new System.Windows.Forms.Button();
+            this.ColorTxt = new System.Windows.Forms.TextBox();
+            this.ColorLbl = new System.Windows.Forms.Label();
+            this.ModelTxt = new System.Windows.Forms.TextBox();
+            this.ModelLbl = new System.Windows.Forms.Label();
+            this.BrandTxt = new System.Windows.Forms.TextBox();
+            this.BrandLbl = new System.Windows.Forms.Label();
+            this.VINTxt = new System.Windows.Forms.TextBox();
+            this.VINLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // VINLbl
-            // 
-            this.VINLbl.AutoSize = true;
-            this.VINLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VINLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.VINLbl.Location = new System.Drawing.Point(166, 95);
-            this.VINLbl.Name = "VINLbl";
-            this.VINLbl.Size = new System.Drawing.Size(46, 24);
-            this.VINLbl.TabIndex = 0;
-            this.VINLbl.Text = "VIN:";
-            // 
-            // VINTxt
-            // 
-            this.VINTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VINTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.VINTxt.Location = new System.Drawing.Point(258, 93);
-            this.VINTxt.Name = "VINTxt";
-            this.VINTxt.Size = new System.Drawing.Size(150, 26);
-            this.VINTxt.TabIndex = 1;
-            this.VINTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.VINTxt_MouseClick);
-            // 
-            // BrandTxt
-            // 
-            this.BrandTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BrandTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.BrandTxt.Location = new System.Drawing.Point(258, 134);
-            this.BrandTxt.Name = "BrandTxt";
-            this.BrandTxt.Size = new System.Drawing.Size(150, 26);
-            this.BrandTxt.TabIndex = 3;
-            this.BrandTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.BrandTxt_MouseClick);
-            // 
-            // BrandLbl
-            // 
-            this.BrandLbl.AutoSize = true;
-            this.BrandLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BrandLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.BrandLbl.Location = new System.Drawing.Point(166, 136);
-            this.BrandLbl.Name = "BrandLbl";
-            this.BrandLbl.Size = new System.Drawing.Size(67, 24);
-            this.BrandLbl.TabIndex = 2;
-            this.BrandLbl.Text = "Marca:";
-            // 
-            // ModelTxt
-            // 
-            this.ModelTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ModelTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.ModelTxt.Location = new System.Drawing.Point(258, 175);
-            this.ModelTxt.Name = "ModelTxt";
-            this.ModelTxt.Size = new System.Drawing.Size(150, 26);
-            this.ModelTxt.TabIndex = 5;
-            this.ModelTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ModelTxt_MouseClick);
-            // 
-            // ModelLbl
-            // 
-            this.ModelLbl.AutoSize = true;
-            this.ModelLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ModelLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ModelLbl.Location = new System.Drawing.Point(166, 177);
-            this.ModelLbl.Name = "ModelLbl";
-            this.ModelLbl.Size = new System.Drawing.Size(79, 24);
-            this.ModelLbl.TabIndex = 4;
-            this.ModelLbl.Text = "Modelo:";
-            // 
-            // ColorTxt
-            // 
-            this.ColorTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ColorTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.ColorTxt.Location = new System.Drawing.Point(257, 217);
-            this.ColorTxt.Name = "ColorTxt";
-            this.ColorTxt.Size = new System.Drawing.Size(150, 26);
-            this.ColorTxt.TabIndex = 7;
-            this.ColorTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorTxt_MouseClick);
-            // 
-            // ColorLbl
-            // 
-            this.ColorLbl.AutoSize = true;
-            this.ColorLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ColorLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ColorLbl.Location = new System.Drawing.Point(166, 221);
-            this.ColorLbl.Name = "ColorLbl";
-            this.ColorLbl.Size = new System.Drawing.Size(60, 24);
-            this.ColorLbl.TabIndex = 6;
-            this.ColorLbl.Text = "Color:";
-            // 
-            // YearTxt
-            // 
-            this.YearTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.YearTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.YearTxt.Location = new System.Drawing.Point(257, 257);
-            this.YearTxt.Name = "YearTxt";
-            this.YearTxt.Size = new System.Drawing.Size(150, 26);
-            this.YearTxt.TabIndex = 9;
-            this.YearTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.YearTxt_MouseClick);
-            this.YearTxt.Leave += new System.EventHandler(this.YearTxt_Leave);
-            // 
-            // YearLbl
-            // 
-            this.YearLbl.AutoSize = true;
-            this.YearLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.YearLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.YearLbl.Location = new System.Drawing.Point(166, 257);
-            this.YearLbl.Name = "YearLbl";
-            this.YearLbl.Size = new System.Drawing.Size(50, 24);
-            this.YearLbl.TabIndex = 8;
-            this.YearLbl.Text = "Año:";
-            // 
-            // TitleLbl
-            // 
-            this.TitleLbl.AutoSize = true;
-            this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(261, 34);
-            this.TitleLbl.Name = "TitleLbl";
-            this.TitleLbl.Size = new System.Drawing.Size(109, 39);
-            this.TitleLbl.TabIndex = 10;
-            this.TitleLbl.Text = "label1";
-            // 
-            // CancelBtn
-            // 
-            this.CancelBtn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.CancelBtn.FlatAppearance.BorderSize = 6;
-            this.CancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CancelBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.CancelBtn.Location = new System.Drawing.Point(170, 302);
-            this.CancelBtn.Name = "CancelBtn";
-            this.CancelBtn.Size = new System.Drawing.Size(117, 46);
-            this.CancelBtn.TabIndex = 11;
-            this.CancelBtn.Text = "Cancelar";
-            this.CancelBtn.UseVisualStyleBackColor = true;
-            this.CancelBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CancelBtn_MouseClick);
             // 
             // OkBtn
             // 
@@ -182,13 +50,145 @@
             this.OkBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OkBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.OkBtn.Location = new System.Drawing.Point(297, 302);
+            this.OkBtn.Location = new System.Drawing.Point(457, 296);
             this.OkBtn.Name = "OkBtn";
             this.OkBtn.Size = new System.Drawing.Size(119, 46);
-            this.OkBtn.TabIndex = 12;
+            this.OkBtn.TabIndex = 25;
             this.OkBtn.Text = "Button 1";
             this.OkBtn.UseVisualStyleBackColor = true;
             this.OkBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OkBtn_MouseClick);
+            // 
+            // CancelBtn
+            // 
+            this.CancelBtn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.CancelBtn.FlatAppearance.BorderSize = 6;
+            this.CancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CancelBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.CancelBtn.Location = new System.Drawing.Point(330, 296);
+            this.CancelBtn.Name = "CancelBtn";
+            this.CancelBtn.Size = new System.Drawing.Size(117, 46);
+            this.CancelBtn.TabIndex = 24;
+            this.CancelBtn.Text = "Cancelar";
+            this.CancelBtn.UseVisualStyleBackColor = true;
+            this.CancelBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CancelBtn_MouseClick);
+            // 
+            // TitleLbl
+            // 
+            this.TitleLbl.AutoSize = true;
+            this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.TitleLbl.Location = new System.Drawing.Point(380, 27);
+            this.TitleLbl.Name = "TitleLbl";
+            this.TitleLbl.Size = new System.Drawing.Size(109, 39);
+            this.TitleLbl.TabIndex = 23;
+            this.TitleLbl.Text = "label1";
+            // 
+            // YearTxt
+            // 
+            this.YearTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.YearTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.YearTxt.Location = new System.Drawing.Point(403, 251);
+            this.YearTxt.Name = "YearTxt";
+            this.YearTxt.Size = new System.Drawing.Size(187, 26);
+            this.YearTxt.TabIndex = 22;
+            this.YearTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.YearTxt_MouseClick);
+            this.YearTxt.Leave += new System.EventHandler(this.YearTxt_Leave);
+            // 
+            // YearLbl
+            // 
+            this.YearLbl.AutoSize = true;
+            this.YearLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.YearLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.YearLbl.Location = new System.Drawing.Point(312, 251);
+            this.YearLbl.Name = "YearLbl";
+            this.YearLbl.Size = new System.Drawing.Size(50, 24);
+            this.YearLbl.TabIndex = 21;
+            this.YearLbl.Text = "Año:";
+            // 
+            // ColorTxt
+            // 
+            this.ColorTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ColorTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.ColorTxt.Location = new System.Drawing.Point(403, 211);
+            this.ColorTxt.Name = "ColorTxt";
+            this.ColorTxt.Size = new System.Drawing.Size(187, 26);
+            this.ColorTxt.TabIndex = 20;
+            this.ColorTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorTxt_MouseClick);
+            // 
+            // ColorLbl
+            // 
+            this.ColorLbl.AutoSize = true;
+            this.ColorLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ColorLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.ColorLbl.Location = new System.Drawing.Point(312, 215);
+            this.ColorLbl.Name = "ColorLbl";
+            this.ColorLbl.Size = new System.Drawing.Size(60, 24);
+            this.ColorLbl.TabIndex = 19;
+            this.ColorLbl.Text = "Color:";
+            // 
+            // ModelTxt
+            // 
+            this.ModelTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ModelTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.ModelTxt.Location = new System.Drawing.Point(404, 169);
+            this.ModelTxt.Name = "ModelTxt";
+            this.ModelTxt.Size = new System.Drawing.Size(186, 26);
+            this.ModelTxt.TabIndex = 18;
+            this.ModelTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ModelTxt_MouseClick);
+            // 
+            // ModelLbl
+            // 
+            this.ModelLbl.AutoSize = true;
+            this.ModelLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ModelLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.ModelLbl.Location = new System.Drawing.Point(312, 171);
+            this.ModelLbl.Name = "ModelLbl";
+            this.ModelLbl.Size = new System.Drawing.Size(79, 24);
+            this.ModelLbl.TabIndex = 17;
+            this.ModelLbl.Text = "Modelo:";
+            // 
+            // BrandTxt
+            // 
+            this.BrandTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BrandTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.BrandTxt.Location = new System.Drawing.Point(404, 128);
+            this.BrandTxt.Name = "BrandTxt";
+            this.BrandTxt.Size = new System.Drawing.Size(186, 26);
+            this.BrandTxt.TabIndex = 16;
+            this.BrandTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.BrandTxt_MouseClick);
+            // 
+            // BrandLbl
+            // 
+            this.BrandLbl.AutoSize = true;
+            this.BrandLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BrandLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.BrandLbl.Location = new System.Drawing.Point(312, 130);
+            this.BrandLbl.Name = "BrandLbl";
+            this.BrandLbl.Size = new System.Drawing.Size(67, 24);
+            this.BrandLbl.TabIndex = 15;
+            this.BrandLbl.Text = "Marca:";
+            // 
+            // VINTxt
+            // 
+            this.VINTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VINTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.VINTxt.Location = new System.Drawing.Point(404, 87);
+            this.VINTxt.Name = "VINTxt";
+            this.VINTxt.Size = new System.Drawing.Size(186, 26);
+            this.VINTxt.TabIndex = 14;
+            this.VINTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.VINTxt_MouseClick);
+            // 
+            // VINLbl
+            // 
+            this.VINLbl.AutoSize = true;
+            this.VINLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VINLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.VINLbl.Location = new System.Drawing.Point(312, 89);
+            this.VINLbl.Name = "VINLbl";
+            this.VINLbl.Size = new System.Drawing.Size(46, 24);
+            this.VINLbl.TabIndex = 13;
+            this.VINLbl.Text = "VIN:";
             // 
             // CreateModifyVehicle
             // 
@@ -208,9 +208,8 @@
             this.Controls.Add(this.BrandLbl);
             this.Controls.Add(this.VINTxt);
             this.Controls.Add(this.VINLbl);
-            this.Location = new System.Drawing.Point(573, 378);
             this.Name = "CreateModifyVehicle";
-            this.Size = new System.Drawing.Size(573, 378);
+            this.Size = new System.Drawing.Size(901, 365);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,18 +217,18 @@
 
         #endregion
 
-        private System.Windows.Forms.Label VINLbl;
-        private System.Windows.Forms.TextBox VINTxt;
-        private System.Windows.Forms.TextBox BrandTxt;
-        private System.Windows.Forms.Label BrandLbl;
-        private System.Windows.Forms.TextBox ModelTxt;
-        private System.Windows.Forms.Label ModelLbl;
-        private System.Windows.Forms.TextBox ColorTxt;
-        private System.Windows.Forms.Label ColorLbl;
+        private System.Windows.Forms.Button OkBtn;
+        private System.Windows.Forms.Button CancelBtn;
+        private System.Windows.Forms.Label TitleLbl;
         private System.Windows.Forms.TextBox YearTxt;
         private System.Windows.Forms.Label YearLbl;
-        private System.Windows.Forms.Label TitleLbl;
-        private System.Windows.Forms.Button CancelBtn;
-        private System.Windows.Forms.Button OkBtn;
+        private System.Windows.Forms.TextBox ColorTxt;
+        private System.Windows.Forms.Label ColorLbl;
+        private System.Windows.Forms.TextBox ModelTxt;
+        private System.Windows.Forms.Label ModelLbl;
+        private System.Windows.Forms.TextBox BrandTxt;
+        private System.Windows.Forms.Label BrandLbl;
+        private System.Windows.Forms.TextBox VINTxt;
+        private System.Windows.Forms.Label VINLbl;
     }
 }

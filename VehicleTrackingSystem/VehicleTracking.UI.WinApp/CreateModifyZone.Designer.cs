@@ -42,7 +42,7 @@
             this.TitleLbl.AutoSize = true;
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(191, 64);
+            this.TitleLbl.Location = new System.Drawing.Point(384, 63);
             this.TitleLbl.Name = "TitleLbl";
             this.TitleLbl.Size = new System.Drawing.Size(109, 39);
             this.TitleLbl.TabIndex = 15;
@@ -52,7 +52,7 @@
             // 
             this.CapacityTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CapacityTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.CapacityTxt.Location = new System.Drawing.Point(225, 164);
+            this.CapacityTxt.Location = new System.Drawing.Point(418, 163);
             this.CapacityTxt.Name = "CapacityTxt";
             this.CapacityTxt.Size = new System.Drawing.Size(150, 26);
             this.CapacityTxt.TabIndex = 14;
@@ -64,7 +64,7 @@
             this.CapacityLbl.AutoSize = true;
             this.CapacityLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CapacityLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.CapacityLbl.Location = new System.Drawing.Point(133, 164);
+            this.CapacityLbl.Location = new System.Drawing.Point(326, 163);
             this.CapacityLbl.Name = "CapacityLbl";
             this.CapacityLbl.Size = new System.Drawing.Size(86, 24);
             this.CapacityLbl.TabIndex = 13;
@@ -74,7 +74,7 @@
             // 
             this.NameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NameTxt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.NameTxt.Location = new System.Drawing.Point(225, 125);
+            this.NameTxt.Location = new System.Drawing.Point(418, 124);
             this.NameTxt.Name = "NameTxt";
             this.NameTxt.Size = new System.Drawing.Size(150, 26);
             this.NameTxt.TabIndex = 12;
@@ -85,7 +85,7 @@
             this.NameLbl.AutoSize = true;
             this.NameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NameLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.NameLbl.Location = new System.Drawing.Point(133, 125);
+            this.NameLbl.Location = new System.Drawing.Point(326, 124);
             this.NameLbl.Name = "NameLbl";
             this.NameLbl.Size = new System.Drawing.Size(84, 24);
             this.NameLbl.TabIndex = 11;
@@ -98,7 +98,7 @@
             this.OkBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OkBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.OkBtn.Location = new System.Drawing.Point(291, 224);
+            this.OkBtn.Location = new System.Drawing.Point(484, 223);
             this.OkBtn.Name = "OkBtn";
             this.OkBtn.Size = new System.Drawing.Size(119, 46);
             this.OkBtn.TabIndex = 17;
@@ -113,7 +113,7 @@
             this.CancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.CancelBtn.Location = new System.Drawing.Point(164, 224);
+            this.CancelBtn.Location = new System.Drawing.Point(357, 223);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(117, 46);
             this.CancelBtn.TabIndex = 16;
@@ -134,7 +134,7 @@
             this.Controls.Add(this.NameTxt);
             this.Controls.Add(this.NameLbl);
             this.Name = "CreateModifyZone";
-            this.Size = new System.Drawing.Size(573, 378);
+            this.Size = new System.Drawing.Size(901, 365);
             this.ResumeLayout(false);
             this.PerformLayout();
 

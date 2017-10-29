@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.VehicleListBox = new System.Windows.Forms.ListBox();
-            this.ArrowBtn = new System.Windows.Forms.Button();
             this.ViewPnl = new System.Windows.Forms.Panel();
             this.YearLbl = new System.Windows.Forms.Label();
             this.ColorLbl = new System.Windows.Forms.Label();
@@ -40,6 +39,7 @@
             this.AddVehicleBtn = new System.Windows.Forms.Button();
             this.DeleteVehicleBtn = new System.Windows.Forms.Button();
             this.ModifyBtn = new System.Windows.Forms.Button();
+            this.ArrowLbl = new System.Windows.Forms.Label();
             this.ViewPnl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,26 +50,11 @@
             this.VehicleListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.VehicleListBox.FormattingEnabled = true;
             this.VehicleListBox.ItemHeight = 20;
-            this.VehicleListBox.Location = new System.Drawing.Point(48, 77);
+            this.VehicleListBox.Location = new System.Drawing.Point(205, 73);
             this.VehicleListBox.Name = "VehicleListBox";
-            this.VehicleListBox.Size = new System.Drawing.Size(163, 264);
+            this.VehicleListBox.Size = new System.Drawing.Size(183, 264);
             this.VehicleListBox.TabIndex = 0;
             this.VehicleListBox.SelectedIndexChanged += new System.EventHandler(this.VehicleListBox_SelectedIndexChanged);
-            // 
-            // ArrowBtn
-            // 
-            this.ArrowBtn.Enabled = false;
-            this.ArrowBtn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.ArrowBtn.FlatAppearance.BorderSize = 0;
-            this.ArrowBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ArrowBtn.Font = new System.Drawing.Font("Wingdings 3", 54.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.ArrowBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ArrowBtn.Location = new System.Drawing.Point(247, 171);
-            this.ArrowBtn.Name = "ArrowBtn";
-            this.ArrowBtn.Size = new System.Drawing.Size(75, 75);
-            this.ArrowBtn.TabIndex = 1;
-            this.ArrowBtn.Text = "]";
-            this.ArrowBtn.UseVisualStyleBackColor = true;
             // 
             // ViewPnl
             // 
@@ -79,9 +64,9 @@
             this.ViewPnl.Controls.Add(this.ModelLbl);
             this.ViewPnl.Controls.Add(this.BrandLbl);
             this.ViewPnl.Controls.Add(this.VINLbl);
-            this.ViewPnl.Location = new System.Drawing.Point(343, 148);
+            this.ViewPnl.Location = new System.Drawing.Point(500, 144);
             this.ViewPnl.Name = "ViewPnl";
-            this.ViewPnl.Size = new System.Drawing.Size(166, 133);
+            this.ViewPnl.Size = new System.Drawing.Size(204, 133);
             this.ViewPnl.TabIndex = 2;
             // 
             // YearLbl
@@ -144,7 +129,7 @@
             this.TitleLbl.AutoSize = true;
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(41, 19);
+            this.TitleLbl.Location = new System.Drawing.Point(198, 15);
             this.TitleLbl.Name = "TitleLbl";
             this.TitleLbl.Size = new System.Drawing.Size(190, 42);
             this.TitleLbl.TabIndex = 3;
@@ -157,7 +142,7 @@
             this.AddVehicleBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddVehicleBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddVehicleBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.AddVehicleBtn.Location = new System.Drawing.Point(441, 77);
+            this.AddVehicleBtn.Location = new System.Drawing.Point(598, 73);
             this.AddVehicleBtn.Name = "AddVehicleBtn";
             this.AddVehicleBtn.Size = new System.Drawing.Size(106, 44);
             this.AddVehicleBtn.TabIndex = 4;
@@ -172,7 +157,7 @@
             this.DeleteVehicleBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteVehicleBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DeleteVehicleBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.DeleteVehicleBtn.Location = new System.Drawing.Point(431, 297);
+            this.DeleteVehicleBtn.Location = new System.Drawing.Point(588, 293);
             this.DeleteVehicleBtn.Name = "DeleteVehicleBtn";
             this.DeleteVehicleBtn.Size = new System.Drawing.Size(116, 44);
             this.DeleteVehicleBtn.TabIndex = 5;
@@ -187,7 +172,7 @@
             this.ModifyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ModifyBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ModifyBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ModifyBtn.Location = new System.Drawing.Point(308, 297);
+            this.ModifyBtn.Location = new System.Drawing.Point(465, 293);
             this.ModifyBtn.Name = "ModifyBtn";
             this.ModifyBtn.Size = new System.Drawing.Size(117, 44);
             this.ModifyBtn.TabIndex = 6;
@@ -195,20 +180,31 @@
             this.ModifyBtn.UseVisualStyleBackColor = true;
             this.ModifyBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ModifyBtn_MouseClick);
             // 
+            // ArrowLbl
+            // 
+            this.ArrowLbl.AutoSize = true;
+            this.ArrowLbl.Font = new System.Drawing.Font("Wingdings 3", 54.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.ArrowLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.ArrowLbl.Location = new System.Drawing.Point(394, 170);
+            this.ArrowLbl.Name = "ArrowLbl";
+            this.ArrowLbl.Size = new System.Drawing.Size(104, 83);
+            this.ArrowLbl.TabIndex = 15;
+            this.ArrowLbl.Text = "]";
+            // 
             // VehicleUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.Controls.Add(this.ArrowLbl);
             this.Controls.Add(this.ModifyBtn);
             this.Controls.Add(this.DeleteVehicleBtn);
             this.Controls.Add(this.AddVehicleBtn);
             this.Controls.Add(this.TitleLbl);
             this.Controls.Add(this.ViewPnl);
-            this.Controls.Add(this.ArrowBtn);
             this.Controls.Add(this.VehicleListBox);
             this.Name = "VehicleUserControl";
-            this.Size = new System.Drawing.Size(573, 378);
+            this.Size = new System.Drawing.Size(901, 365);
             this.ViewPnl.ResumeLayout(false);
             this.ViewPnl.PerformLayout();
             this.ResumeLayout(false);
@@ -219,7 +215,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox VehicleListBox;
-        private System.Windows.Forms.Button ArrowBtn;
         private System.Windows.Forms.Panel ViewPnl;
         private System.Windows.Forms.Label YearLbl;
         private System.Windows.Forms.Label ColorLbl;
@@ -230,5 +225,6 @@
         private System.Windows.Forms.Button AddVehicleBtn;
         private System.Windows.Forms.Button DeleteVehicleBtn;
         private System.Windows.Forms.Button ModifyBtn;
+        private System.Windows.Forms.Label ArrowLbl;
     }
 }

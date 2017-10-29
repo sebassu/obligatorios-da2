@@ -95,13 +95,17 @@ namespace VehicleTracking.UI.WinApp
                 {
                     Instance.AddNewZoneFromData(zone);
                 }
+                CardPnl.Controls.Clear();
+                CardPnl.Controls.Add(new ZoneUserControl(CardPnl));
             }
             catch (VehicleTrackingException ex)
             {
                 MessageBox.Show(ex.Message, "Error");
             }
-            CardPnl.Controls.Clear();
-            CardPnl.Controls.Add(new ZoneUserControl(CardPnl));
+            catch (FormatException)
+            {
+                MessageBox.Show("La capacidad no puede ser vacia", "Error");
+            }
         }
     }
 }
