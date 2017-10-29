@@ -50,6 +50,7 @@
     <Compile Include="Exceptions\DamageException.cs" />
     <Compile Include="Exceptions\InspectionException.cs" />
     <Compile Include="Exceptions\LocationException.cs" />
+    <Compile Include="Exceptions\LoggingException.cs" />
     <Compile Include="Exceptions\LotException.cs" />
     <Compile Include="Exceptions\MovementException.cs" />
     <Compile Include="Exceptions\SubzoneException.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="ImageElement.cs" />
     <Compile Include="Inspection.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="LoggingRecord.cs" />
     <Compile Include="Lot.cs" />
     <Compile Include="Movement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

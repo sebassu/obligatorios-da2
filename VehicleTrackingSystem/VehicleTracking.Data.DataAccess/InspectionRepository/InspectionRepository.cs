@@ -13,7 +13,7 @@ namespace Persistence
             : base(someContext) { }
 
         public IEnumerable<Inspection> Elements => GetElementsWith(null,
-            "ResponsibleUser,Location");
+            "Responsible,Location");
 
         public void AddNewInspection(Inspection inspectionToAdd)
         {
@@ -25,7 +25,7 @@ namespace Persistence
         {
             try
             {
-                return elements.Include("ResponsibleUser").Include("Location")
+                return elements.Include("Responsible").Include("Location")
                     .Include("Damages.ImageElements").Single(i => i.Id == idToLookup);
             }
             catch (InvalidOperationException)

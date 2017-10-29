@@ -30,7 +30,7 @@ namespace Data.Domain_tests
         {
             Assert.AreEqual(0, testingInspection.Id);
             Assert.AreEqual(Location.InstanceForTestingPurposes(), testingInspection.Location);
-            Assert.AreEqual(User.InstanceForTestingPurposes(), testingInspection.ResponsibleUser);
+            Assert.AreEqual(User.InstanceForTestingPurposes(), testingInspection.Responsible);
             Assert.IsNotNull(testingInspection.Damages);
             Assert.AreEqual(0, testingInspection.Damages.Count);
         }
@@ -64,26 +64,26 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        public void InspectionSetValidResponsibleUserTest()
+        public void InspectionSetValidResponsibleTest()
         {
             User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez",
                 "miUsuario", "pass", "097364857");
-            testingInspection.ResponsibleUser = alternativeUser;
-            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
+            testingInspection.Responsible = alternativeUser;
+            Assert.AreEqual(alternativeUser, testingInspection.Responsible);
         }
 
         [TestMethod]
-        public void InspectionSetNullResponsibleUserValidTest()
+        public void InspectionSetNullResponsibleValidTest()
         {
-            testingInspection.ResponsibleUser = null;
+            testingInspection.Responsible = null;
         }
 
         [TestMethod]
-        public void InspectionSetTransporterResponsibleUserValidTest()
+        public void InspectionSetTransporterResponsibleValidTest()
         {
             User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan", "Perez",
                 "miUsuario", "pass", "26061199");
-            testingInspection.ResponsibleUser = alternativeUser;
+            testingInspection.Responsible = alternativeUser;
         }
 
         [TestMethod]
@@ -149,8 +149,8 @@ namespace Data.Domain_tests
         {
             User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
                 "097364857");
-            testingInspection.ResponsibleUser = alternativeUser;
-            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
+            testingInspection.Responsible = alternativeUser;
+            Assert.AreEqual(alternativeUser, testingInspection.Responsible);
         }
 
         [TestMethod]
@@ -162,7 +162,7 @@ namespace Data.Domain_tests
             DateTime alternativeDateTime = DateTime.Today;
             testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
                 alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
-            Assert.AreSame(alternativeUser, testingInspection.ResponsibleUser);
+            Assert.AreSame(alternativeUser, testingInspection.Responsible);
             Assert.AreSame(alternativeLocation, testingInspection.Location);
             Assert.AreEqual(alternativeDateTime, testingInspection.DateTime);
             CollectionAssert.AreEqual(damageList, testingInspection.Damages.ToList());
@@ -171,7 +171,7 @@ namespace Data.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionParameterFactoryMethodInvalidResponsibleUserTest()
+        public void InspectionParameterFactoryMethodInvalidResponsibleTest()
         {
             Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
             DateTime alternativeDateTime = DateTime.Today;

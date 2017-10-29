@@ -1,6 +1,5 @@
 ﻿using Domain;
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Persistence
 {
@@ -137,7 +136,6 @@ namespace Persistence
 
         private bool disposed = false;
 
-        [ExcludeFromCodeCoverage]
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
@@ -150,7 +148,6 @@ namespace Persistence
             disposed = true;
         }
 
-        [ExcludeFromCodeCoverage]
         public void Dispose()
         {
             Dispose(true);

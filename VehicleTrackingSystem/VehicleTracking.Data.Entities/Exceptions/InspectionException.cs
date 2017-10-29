@@ -6,6 +6,5 @@ namespace Domain
     public class InspectionException : VehicleTrackingException
     {
         public InspectionException(string message) : base(message) { }
-
     }
 }
