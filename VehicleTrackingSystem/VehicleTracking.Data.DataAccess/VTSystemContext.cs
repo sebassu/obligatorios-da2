@@ -21,6 +21,7 @@ namespace Persistence
         public DbSet<Damage> Damages { get; set; }
         public DbSet<Transport> Transports { get; set; }
         public DbSet<ImageElement> ImageElements { get; set; }
+        public DbSet<LoggingRecord> LoggingRecords { get; set; }
 
         public VTSystemContext() : base()
         {
@@ -32,19 +33,28 @@ namespace Persistence
         {
             base.OnModelCreating(modelBuilder);
             Configuration.LazyLoadingEnabled = false;
+            InspectionEntityDatabaseSettings(modelBuilder);
             VehicleEntityDatabaseSettings(modelBuilder);
+            ProcessDataDatabaseSettings(modelBuilder);
+            LotEntityDatabaseSettings(modelBuilder);
             modelBuilder.Entity<Zone>().HasMany(z => z.Subzones)
                 .WithRequired(s => s.Container);
             modelBuilder.Entity<Subzone>().HasMany(z => z.Vehicles)
                 .WithOptional();
-            LotEntityDatabaseSettings(modelBuilder);
-            modelBuilder.Entity<Inspection>().HasMany(i => i.Damages)
-                .WithRequired().WillCascadeOnDelete();
             modelBuilder.Entity<Transport>().HasMany(t => t.LotsTransported)
                 .WithOptional(l => l.AssociatedTransport);
+            modelBuilder.Entity<LoggingRecord>().HasRequired(r => r.Responsible)
+                .WithOptional().WillCascadeOnDelete(); ;
             modelBuilder.Entity<Damage>().Ignore(d => d.Images);
             modelBuilder.Entity<ImageElement>().Ignore(d => d.StringifiedImage);
-            ProcessDataDatabaseSettings(modelBuilder);
+        }
+
+        private static void InspectionEntityDatabaseSettings(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Inspection>().HasMany(i => i.Damages)
+                .WithRequired().WillCascadeOnDelete();
+            modelBuilder.Entity<Inspection>().HasRequired(i => i.Responsible)
+                .WithOptional().WillCascadeOnDelete();
         }
 
         private static void VehicleEntityDatabaseSettings(DbModelBuilder modelBuilder)
@@ -80,6 +90,9 @@ namespace Persistence
 
         internal void DeleteAllDataFromDatabase()
         {
+            Database.ExecuteSqlCommand("delete from imageElements");
+            Database.ExecuteSqlCommand("delete from damages");
+            Database.ExecuteSqlCommand("delete from inspections");
             Database.ExecuteSqlCommand("delete from transports");
             Database.ExecuteSqlCommand("delete from processDatas");
             Database.ExecuteSqlCommand("delete from users");
