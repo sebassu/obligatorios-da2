@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using API.Services;
 using Domain;
@@ -40,6 +36,8 @@ namespace VehicleTracking.UI.WinApp
                 UsernameTxt.Text = SelectedUser.Username;
                 RoleComboBox.SelectedItem = SelectedUser.Role;
                 RoleComboBox.Enabled = false;
+                TitleLbl.Text = "Modificar usuario";
+                OkBtn.Text = "Modificar";
             }
             else
             {
@@ -49,10 +47,10 @@ namespace VehicleTracking.UI.WinApp
             }
         }
 
-        private void LoadComboBox()//se cae aca
+        private void LoadComboBox()
         {
             var roles = Enum.GetNames(typeof(UserRoles)).Cast<UserRoles>();
-            foreach (UserRoles role in roles)
+            foreach (UserRoles role in roles)//se cae aca
             {
                 RoleComboBox.Items.Add(role);
             }
