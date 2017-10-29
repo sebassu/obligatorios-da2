@@ -62,7 +62,7 @@
             this.VINTxt.Name = "VINTxt";
             this.VINTxt.Size = new System.Drawing.Size(150, 26);
             this.VINTxt.TabIndex = 1;
-            this.VINTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.VINTxt_KeyPress);
+            this.VINTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.VINTxt_MouseClick);
             // 
             // BrandTxt
             // 
@@ -72,7 +72,7 @@
             this.BrandTxt.Name = "BrandTxt";
             this.BrandTxt.Size = new System.Drawing.Size(150, 26);
             this.BrandTxt.TabIndex = 3;
-            this.BrandTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BrandTxt_KeyPress);
+            this.BrandTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.BrandTxt_MouseClick);
             // 
             // BrandLbl
             // 
@@ -93,7 +93,7 @@
             this.ModelTxt.Name = "ModelTxt";
             this.ModelTxt.Size = new System.Drawing.Size(150, 26);
             this.ModelTxt.TabIndex = 5;
-            this.ModelTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ModelTxt_KeyPress);
+            this.ModelTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ModelTxt_MouseClick);
             // 
             // ModelLbl
             // 
@@ -114,7 +114,7 @@
             this.ColorTxt.Name = "ColorTxt";
             this.ColorTxt.Size = new System.Drawing.Size(150, 26);
             this.ColorTxt.TabIndex = 7;
-            this.ColorTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ColorTxt_KeyPress);
+            this.ColorTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorTxt_MouseClick);
             // 
             // ColorLbl
             // 
@@ -135,7 +135,7 @@
             this.YearTxt.Name = "YearTxt";
             this.YearTxt.Size = new System.Drawing.Size(150, 26);
             this.YearTxt.TabIndex = 9;
-            this.YearTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.YearTxt_KeyPress);
+            this.YearTxt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.YearTxt_MouseClick);
             this.YearTxt.Leave += new System.EventHandler(this.YearTxt_Leave);
             // 
             // YearLbl

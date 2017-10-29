@@ -74,7 +74,7 @@
             this.TitleLbl.AutoSize = true;
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(252, 75);
+            this.TitleLbl.Location = new System.Drawing.Point(169, 78);
             this.TitleLbl.Name = "TitleLbl";
             this.TitleLbl.Size = new System.Drawing.Size(109, 39);
             this.TitleLbl.TabIndex = 23;

@@ -49,31 +49,31 @@ namespace VehicleTracking.UI.WinApp
             }
         }
 
-        private void VINTxt_KeyPress(object sender, KeyPressEventArgs e)
+        private void VINTxt_MouseClick(object sender, MouseEventArgs e)
         {
             VINTxt.Text = "";
             VINTxt.ForeColor = Color.Black;
         }
 
-        private void BrandTxt_KeyPress(object sender, KeyPressEventArgs e)
+        private void BrandTxt_MouseClick(object sender, MouseEventArgs e)
         {
             BrandTxt.Text = "";
             BrandTxt.ForeColor = Color.Black;
         }
 
-        private void ModelTxt_KeyPress(object sender, KeyPressEventArgs e)
+        private void ModelTxt_MouseClick(object sender, MouseEventArgs e)
         {
             ModelTxt.Text = "";
             ModelTxt.ForeColor = Color.Black;
         }
 
-        private void ColorTxt_KeyPress(object sender, KeyPressEventArgs e)
+        private void ColorTxt_MouseClick(object sender, MouseEventArgs e)
         {
             ColorTxt.Text = "";
             ColorTxt.ForeColor = Color.Black;
         }
 
-        private void YearTxt_KeyPress(object sender, KeyPressEventArgs e)
+        private void YearTxt_MouseClick(object sender, MouseEventArgs e)
         {
             YearTxt.Text = "";
             YearTxt.ForeColor = Color.Black;
@@ -99,6 +99,7 @@ namespace VehicleTracking.UI.WinApp
         private void CancelBtn_MouseClick(object sender, MouseEventArgs e)
         {
             CardPanel.Controls.Clear();
+            CardPanel.Controls.Add(new VehicleUserControl(CardPanel));
         }
 
         private void OkBtn_MouseClick(object sender, MouseEventArgs e)

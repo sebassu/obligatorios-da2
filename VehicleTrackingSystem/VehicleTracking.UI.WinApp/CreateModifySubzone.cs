@@ -64,6 +64,7 @@ namespace VehicleTracking.UI.WinApp
         private void CancelBtn_MouseClick(object sender, MouseEventArgs e)
         {
             CardPnl.Controls.Clear();
+            CardPnl.Controls.Add(new ZoneUserControl(CardPnl));
         }
 
         private void NameTxt_MouseClick(object sender, MouseEventArgs e)
@@ -95,6 +96,8 @@ namespace VehicleTracking.UI.WinApp
                     SubzoneInstance.AddNewSubzoneFromData(subzone.ContainerName, subzone);
 
                 }
+                CardPnl.Controls.Clear();
+                CardPnl.Controls.Add(new SubzoneUserControl(CardPnl));
             }
             catch (VehicleTrackingException ex)
             {
@@ -108,8 +111,6 @@ namespace VehicleTracking.UI.WinApp
             {
                 MessageBox.Show("Debe ingresar la capacidad con números", "Error");
             }
-            CardPnl.Controls.Clear();
-            CardPnl.Controls.Add(new SubzoneUserControl(CardPnl));
         }
     }
 }
