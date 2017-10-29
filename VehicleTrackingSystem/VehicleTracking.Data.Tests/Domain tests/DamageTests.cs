@@ -3,14 +3,40 @@ using System.Diagnostics.CodeAnalysis;
 using Domain;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
+using System.Drawing;
+using System;
 
-namespace Data.Domain_Tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
     public class DamageTests
     {
         private static Damage testingDamage;
+        private static List<string> imagesDataToAdd;
+        private static string testImagesLocation = Directory.GetParent(
+            Directory.GetCurrentDirectory()).Parent.FullName + "\\Resources\\";
+
+        [ClassInitialize]
+        public static void ClassSetup(TestContext context)
+        {
+            ImageConverter converter = new ImageConverter();
+            var image1Data = GetImageDataFromFileWithName("TestImage1.jpg",
+                converter);
+            var image2Data = GetImageDataFromFileWithName("TestImage2.jpg",
+                converter);
+            imagesDataToAdd = new List<string> { image1Data, image2Data };
+        }
+
+        private static string GetImageDataFromFileWithName(string fileName,
+            ImageConverter converter)
+        {
+            var testImage = Image.FromFile(testImagesLocation + fileName);
+            var testImageData = converter.ConvertTo(testImage,
+                typeof(byte[])) as byte[];
+            return Convert.ToBase64String(testImageData);
+        }
 
         [TestInitialize]
         public void TestSetup()
@@ -22,7 +48,7 @@ namespace Data.Domain_Tests
         public void DamageInstanceForTestingPurposesTest()
         {
             Assert.AreEqual("This damage has a description", testingDamage.Description);
-            Assert.IsTrue(testingDamage.Images.Contains("newImage"));
+            Assert.IsNotNull(testingDamage.Images);
         }
 
         [TestMethod]
@@ -70,13 +96,9 @@ namespace Data.Domain_Tests
         [TestMethod]
         public void DamageSetValidImagesListTest()
         {
-            List<string> aux = new List<string>
-            {
-                "Image1",
-                "Image2"
-            };
-            testingDamage.Images = aux;
-            Assert.IsTrue(testingDamage.Images.SequenceEqual(aux));
+            testingDamage.Images = imagesDataToAdd;
+            CollectionAssert.AreEqual(imagesDataToAdd,
+                testingDamage.Images.ToList());
         }
 
         [TestMethod]
@@ -96,26 +118,17 @@ namespace Data.Domain_Tests
         [TestMethod]
         public void DamageParameterFactoryMethodValidTest()
         {
-            List<string> aux = new List<string>
-            {
-                "Image1",
-                "Image2"
-            };
-            testingDamage = Damage.CreateNewDamage("A description", aux);
+            testingDamage = Damage.CreateNewDamage("A description", imagesDataToAdd);
             Assert.AreEqual("A description", testingDamage.Description);
-            Assert.IsTrue(aux.SequenceEqual(testingDamage.Images));
+            CollectionAssert.AreEqual(imagesDataToAdd,
+                testingDamage.Images.ToList());
         }
 
         [TestMethod]
         [ExpectedException(typeof(DamageException))]
         public void DamageParameterFactoryMethodInvalidDescriptionTest()
         {
-            List<string> aux = new List<string>
-            {
-                "Image1",
-                "Image2"
-            };
-            testingDamage = Damage.CreateNewDamage("", aux);
+            testingDamage = Damage.CreateNewDamage("", imagesDataToAdd);
         }
 
         [TestMethod]
@@ -129,7 +142,8 @@ namespace Data.Domain_Tests
         [ExpectedException(typeof(DamageException))]
         public void DamageParameterFactoryMethodInvalidImagesEmptyTest()
         {
-            testingDamage = Damage.CreateNewDamage("Some description", new List<string>());
+            testingDamage = Damage.CreateNewDamage("Some description",
+                new List<string>());
         }
 
         [TestMethod]
@@ -162,7 +176,8 @@ namespace Data.Domain_Tests
         public void UserGetHashCodeTest()
         {
             object testingDamageAsObject = testingDamage;
-            Assert.AreEqual(testingDamageAsObject.GetHashCode(), testingDamage.GetHashCode());
+            Assert.AreEqual(testingDamageAsObject.GetHashCode(),
+                testingDamage.GetHashCode());
         }
     }
 }

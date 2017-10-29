@@ -82,7 +82,7 @@ namespace Persistence
             AttemptToRemove(vehicleToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Vehicle value)
+        internal override bool ElementExistsInCollection(Vehicle value)
         {
             return Utilities.IsNotNull(value) && elements.Any(v => v.Id == value.Id);
         }

@@ -114,7 +114,8 @@ namespace Domain
             return new Inspection()
             {
                 Location = Location.InstanceForTestingPurposes(),
-                ResponsibleUser = User.InstanceForTestingPurposes()
+                ResponsibleUser = User.InstanceForTestingPurposes(),
+                dateTime = new DateTime(1900, 1, 1)
             };
         }
 

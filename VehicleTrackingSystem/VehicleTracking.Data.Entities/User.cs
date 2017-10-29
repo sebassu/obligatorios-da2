@@ -138,10 +138,10 @@ namespace Domain
         protected User()
         {
             firstName = "Usuario";
-            lastName = "inválido.";
+            lastName = "inválido";
             username = "usuarioinválido";
             password = "Contraseña inválida.";
-            phoneNumber = "Teléfono inválido.";
+            phoneNumber = "099424242";
         }
 
         public static User CreateNewUser(UserRoles role, string firstName, string lastName,

@@ -1,8 +1,8 @@
 ﻿using Domain;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations.Schema;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 namespace Persistence
@@ -20,6 +20,7 @@ namespace Persistence
         public DbSet<Lot> Lots { get; set; }
         public DbSet<Damage> Damages { get; set; }
         public DbSet<Transport> Transports { get; set; }
+        public DbSet<ImageElement> ImageElements { get; set; }
 
         public VTSystemContext() : base()
         {
@@ -37,10 +38,12 @@ namespace Persistence
             modelBuilder.Entity<Subzone>().HasMany(z => z.Vehicles)
                 .WithOptional();
             LotEntityDatabaseSettings(modelBuilder);
-            modelBuilder.Entity<Inspection>().HasMany(i => i.Damages).WithRequired()
-                .WillCascadeOnDelete();
+            modelBuilder.Entity<Inspection>().HasMany(i => i.Damages)
+                .WithRequired().WillCascadeOnDelete();
             modelBuilder.Entity<Transport>().HasMany(t => t.LotsTransported)
                 .WithOptional(l => l.AssociatedTransport);
+            modelBuilder.Entity<Damage>().Ignore(d => d.Images);
+            modelBuilder.Entity<ImageElement>().Ignore(d => d.StringifiedImage);
             ProcessDataDatabaseSettings(modelBuilder);
         }
 
@@ -77,9 +80,9 @@ namespace Persistence
 
         internal void DeleteAllDataFromDatabase()
         {
+            Database.ExecuteSqlCommand("delete from transports");
             Database.ExecuteSqlCommand("delete from processDatas");
             Database.ExecuteSqlCommand("delete from users");
-            Database.ExecuteSqlCommand("delete from locations");
             Database.ExecuteSqlCommand("delete from movements");
             Database.ExecuteSqlCommand("delete from subzones");
             Database.ExecuteSqlCommand("delete from zones");

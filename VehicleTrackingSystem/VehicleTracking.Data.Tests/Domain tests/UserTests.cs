@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Data.Domain_Tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -21,10 +21,10 @@ namespace Data.Domain_Tests
         {
             Assert.AreEqual(UserRoles.ADMINISTRATOR, testingUser.Role);
             Assert.AreEqual("Usuario", testingUser.FirstName);
-            Assert.AreEqual("inválido.", testingUser.LastName);
+            Assert.AreEqual("inválido", testingUser.LastName);
             Assert.AreEqual("usuarioinválido", testingUser.Username);
             Assert.AreEqual("Contraseña inválida.", testingUser.Password);
-            Assert.AreEqual("Teléfono inválido.", testingUser.PhoneNumber);
+            Assert.AreEqual("099424242", testingUser.PhoneNumber);
         }
 
         [TestMethod]
@@ -386,7 +386,7 @@ namespace Data.Domain_Tests
         [TestMethod]
         public void UserToStringTest1()
         {
-            Assert.AreEqual("Usuario inválido. <usuarioinválido>",
+            Assert.AreEqual("Usuario inválido <usuarioinválido>",
                 testingUser.ToString());
         }
 

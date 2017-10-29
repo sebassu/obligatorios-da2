@@ -5,7 +5,7 @@ using API.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Web.API.Services_Tests
+namespace Web.API.Services_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

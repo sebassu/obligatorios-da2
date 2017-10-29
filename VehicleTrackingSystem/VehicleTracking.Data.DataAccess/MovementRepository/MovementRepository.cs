@@ -1,12 +1,16 @@
 ﻿using Domain;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Persistence
 {
-    internal class MovementRepository : GenericRepository<Movement>, IMovementRepository
+    internal class MovementRepository : GenericRepository<Movement>,
+        IMovementRepository
     {
         public MovementRepository(VTSystemContext someContext)
             : base(someContext) { }
+
+        internal IEnumerable<Movement> Elements => GetElementsWith();
 
         public void AddNewMovement(Movement movementToAdd)
         {
@@ -15,14 +19,16 @@ namespace Persistence
 
         public bool SubzoneParticipatesInSomeMovement(Subzone subzoneToVerify)
         {
-            return elements.Any(m => m.Departure.Equals(subzoneToVerify) ||
-                m.Arrival.Equals(subzoneToVerify));
-        }
-
-        protected override bool ElementExistsInCollection(Movement entityToUpdate)
-        {
-            return Utilities.IsNotNull(entityToUpdate)
-                && elements.Any(m => m.Id == entityToUpdate.Id);
+            if (Utilities.IsNotNull(subzoneToVerify))
+            {
+                return elements.Any(m => (m.Departure != null
+                    && m.Departure.Id == subzoneToVerify.Id) ||
+                    (m.Arrival != null && m.Arrival.Id == subzoneToVerify.Id));
+            }
+            else
+            {
+                throw new RepositoryException(ErrorMessages.NullObjectRecieved);
+            }
         }
     }
 }

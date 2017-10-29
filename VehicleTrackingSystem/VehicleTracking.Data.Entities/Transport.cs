@@ -102,10 +102,7 @@ namespace Domain
 
         internal static Transport InstanceForTestingPurposes()
         {
-            return new Transport()
-            {
-                transporter = User.InstanceForTestingPurposes()
-            };
+            return new Transport();
         }
 
         protected Transport() { }

@@ -1,8 +1,8 @@
 ﻿using Domain;
-using System.Linq;
-using System.Collections.Generic;
 using System;
+using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Persistence
 {
@@ -25,12 +25,6 @@ namespace Persistence
                     ErrorMessages.CouldNotFindField, "lugar", nameToLookup);
                 throw new RepositoryException(errorMessage);
             }
-        }
-
-        protected override bool ElementExistsInCollection(Location entityToUpdate)
-        {
-            return Utilities.IsNotNull(entityToUpdate) &&
-                elements.Any(i => i.Id == entityToUpdate.Id);
         }
     }
 }

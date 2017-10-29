@@ -4,7 +4,7 @@ using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Data.Persistence_Tests
+namespace Data.Persistence_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -30,6 +30,7 @@ namespace Data.Persistence_Tests
         public static void ClassSetup(TestContext context)
         {
             testingUserRepository = testingUnitOfWork.Users;
+            Assert.IsNotNull(testingUserRepository);
         }
 
         [TestMethod]
@@ -148,7 +149,7 @@ namespace Data.Persistence_Tests
         private static void RemoveAllAdministrators()
         {
             var administrators = testingUserRepository.Elements.Where(u =>
-                u.Role == UserRoles.ADMINISTRATOR).ToList();
+                u.Role == UserRoles.ADMINISTRATOR).Distinct().ToList();
             foreach (var administrator in administrators)
             {
                 RemoveUserWithUsernameAndSaveChanges(administrator.Username);

@@ -6,7 +6,7 @@ namespace Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private VTSystemContext context = new VTSystemContext();
+        internal VTSystemContext context = new VTSystemContext();
 
         private IUserRepository users;
         public IUserRepository Users
