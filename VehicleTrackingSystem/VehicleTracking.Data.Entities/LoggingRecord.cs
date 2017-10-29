@@ -18,12 +18,10 @@ namespace Domain
                 }
                 else
                 {
-                    throw new LoggingException(ErrorMessages.ResponsibleUserIsInvalid);
+                    throw new LoggingRecordException(ErrorMessages.ResponsibleUserIsInvalid);
                 }
             }
         }
-
-        public LoggedActions ActionPerformed { get; internal set; }
 
         private bool IsValidAdministrator(User someUser)
         {
@@ -31,14 +29,38 @@ namespace Domain
                 && someUser.Role == UserRoles.ADMINISTRATOR;
         }
 
-        public string Identifier { get; internal set; }
-        public DateTime DateTime { get; internal set; }
-        
+        public LoggedActions ActionPerformed { get; set; }
+
+        private string elementIdentifier;
+        public string ElementIdentifier
+        {
+            get { return elementIdentifier; }
+            set
+            {
+                if (IsValidElementIdentifier(value))
+                {
+                    elementIdentifier = value;
+                }
+                else
+                {
+                    throw new LoggingRecordException(
+                        ErrorMessages.LoggingElementIdentifierIsInvalid);
+                }
+            }
+        }
+
+        protected bool IsValidElementIdentifier(string value)
+        {
+            return Utilities.ContainsLettersOrDigitsOnly(value);
+        }
+
+        public DateTime DateTime { get; protected set; } = DateTime.Now;
+
         internal static LoggingRecord InstanceForTestingPurposes()
         {
             return new LoggingRecord()
             {
-                Identifier = "Registro de acción inválido."
+                elementIdentifier = "Registro de acción inválido."
             };
         }
     }

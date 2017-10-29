@@ -136,7 +136,6 @@ namespace Persistence
 
         private bool disposed = false;
 
-        [ExcludeFromCodeCoverage]
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

@@ -259,6 +259,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El identificador de elemento para registro de una acción en el histórico es inválido: permite únicamente caracteres alfanuméricos..
+        /// </summary>
+        internal static string LoggingElementIdentifierIsInvalid {
+            get {
+                return ResourceManager.GetString("LoggingElementIdentifierIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Es necesario estar registrado como &quot;Operario de Puerto&quot; o &quot;Administrador&quot; para poder registrar Lotes..
         /// </summary>
         internal static string LotUnauthorizedUserType {
