@@ -20,8 +20,9 @@ namespace Data.Domain_tests
         {
             Assert.IsNull(testingLoggingRecord.Responsible);
             Assert.AreEqual("Registro de acción inválido.",
-                testingLoggingRecord.Identifier);
-            Assert.AreEqual(DateTime.MinValue, testingLoggingRecord.DateTime);
+                testingLoggingRecord.ElementIdentifier);
+            Assert.AreEqual(DateTime.Today,
+                testingLoggingRecord.DateTime.Date);
         }
 
         [TestMethod]
@@ -33,7 +34,7 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingException))]
+        [ExpectedException(typeof(LoggingRecordException))]
         public void LoggingRecordSetPortOperatorResponsibleInvalidTest()
         {
             User responsibleToSet = User.InstanceForTestingPurposes();
@@ -42,7 +43,7 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingException))]
+        [ExpectedException(typeof(LoggingRecordException))]
         public void LoggingRecordSetTransporterResponsibleInvalidTest()
         {
             User responsibleToSet = User.InstanceForTestingPurposes();
@@ -51,7 +52,7 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingException))]
+        [ExpectedException(typeof(LoggingRecordException))]
         public void LoggingRecordSetYardOperatorResponsibleInvalidTest()
         {
             User responsibleToSet = User.InstanceForTestingPurposes();
@@ -60,7 +61,7 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingException))]
+        [ExpectedException(typeof(LoggingRecordException))]
         public void LoggingRecordSetSalesmanResponsibleInvalidTest()
         {
             User responsibleToSet = User.InstanceForTestingPurposes();
@@ -69,7 +70,7 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingException))]
+        [ExpectedException(typeof(LoggingRecordException))]
         public void LoggingRecordSetNullResponsibleInvalidTest()
         {
             testingLoggingRecord.Responsible = null;
@@ -89,6 +90,42 @@ namespace Data.Domain_tests
             testingLoggingRecord.ActionPerformed = LoggedActions.USER_CREATION;
             Assert.AreEqual(LoggedActions.USER_CREATION,
                 testingLoggingRecord.ActionPerformed);
+        }
+
+        [TestMethod]
+        public void LoggingRecordSetElementIdentifierUsernameValidTest()
+        {
+            testingLoggingRecord.ElementIdentifier = "mSantos";
+            Assert.AreEqual("mSantos", testingLoggingRecord.ElementIdentifier);
+        }
+
+        [TestMethod]
+        public void LoggingRecordSetElementIdentifierVINValidTest()
+        {
+            testingLoggingRecord.ElementIdentifier = "RUSH2112MVNGPCTRS";
+            Assert.AreEqual("RUSH2112MVNGPCTRS",
+                testingLoggingRecord.ElementIdentifier);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LoggingRecordException))]
+        public void LoggingRecordSetElementPunctuationIdentifierInvalidTest()
+        {
+            testingLoggingRecord.ElementIdentifier = "32*/*@^--&#&$";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LoggingRecordException))]
+        public void LoggingRecordSetElementEmptyIdentifierInvalidTest()
+        {
+            testingLoggingRecord.ElementIdentifier = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LoggingRecordException))]
+        public void LoggingRecordSetElementNullIdentifierInvalidTest()
+        {
+            testingLoggingRecord.ElementIdentifier = null;
         }
     }
 }
