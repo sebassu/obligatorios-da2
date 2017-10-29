@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 
 namespace Persistence
 {
@@ -13,6 +14,7 @@ namespace Persistence
         ILocationRepository Locations { get; }
         IMovementRepository Movements { get; }
         ITransportRepository Transports { get; }
+        ILoggingStrategy LoggingStrategy { get; }
         void SaveChanges();
     }
 }

@@ -59,6 +59,7 @@
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\VehicleException.cs" />
     <Compile Include="Exceptions\ZoneException.cs" />
+    <Compile Include="ILoggingStrategy.cs" />
     <Compile Include="ImageElement.cs" />
     <Compile Include="Inspection.cs" />
     <Compile Include="Location.cs" />

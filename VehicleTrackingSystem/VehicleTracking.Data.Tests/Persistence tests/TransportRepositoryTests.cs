@@ -82,7 +82,7 @@ namespace Data.Persistence_tests
         [ExpectedException(typeof(RepositoryException))]
         public void TRepositoryGetTransportWithUnregisteredIdInvalidTest()
         {
-            testingTransportRepository.GetTransportWithId(42);
+            testingTransportRepository.GetTransportWithId(9999);
         }
         #endregion
 

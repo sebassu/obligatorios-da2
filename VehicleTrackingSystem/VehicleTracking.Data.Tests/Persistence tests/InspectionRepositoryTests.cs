@@ -5,7 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Data.Tests.Persistence_tests
+namespace Data.Persistence_tests
 {
     [TestClass]
     public class InspectionRepositoryTests

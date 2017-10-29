@@ -8,28 +8,7 @@ namespace Domain
     {
         public int Id { get; set; }
 
-        private User responsible;
-        public User Responsible
-        {
-            get { return responsible; }
-            set
-            {
-                if (IsValidAdministrator(value))
-                {
-                    responsible = value;
-                }
-                else
-                {
-                    throw new LoggingRecordException(ErrorMessages.ResponsibleUserIsInvalid);
-                }
-            }
-        }
-
-        private bool IsValidAdministrator(User someUser)
-        {
-            return Utilities.IsNotNull(someUser)
-                && someUser.Role == UserRoles.ADMINISTRATOR;
-        }
+        public User Responsible { get; set; }
 
         public LoggedActions ActionPerformed { get; set; }
 
@@ -51,8 +30,49 @@ namespace Domain
         protected LoggingRecord(User responsibleToSet,
             LoggedActions actionPerformedToSet)
         {
+            if (IsValidUserForAction(responsibleToSet,
+                actionPerformedToSet))
+            {
+                SetCreationAttributes(responsibleToSet, actionPerformedToSet);
+            }
+            else
+            {
+                throw new LoggingException(
+                    ErrorMessages.InvalidUserRoleForLogging);
+            }
+        }
+
+        private bool IsValidUserForAction(User someUser,
+            LoggedActions actionPerformed)
+        {
+            bool isNotNull = Utilities.IsNotNull(someUser);
+            return isNotNull && (actionPerformed == LoggedActions.VEHICLE_IMPORT ?
+                someUser.Role == UserRoles.ADMINISTRATOR : true);
+        }
+
+        private void SetCreationAttributes(User responsibleToSet,
+            LoggedActions actionPerformedToSet)
+        {
             Responsible = responsibleToSet;
             ActionPerformed = actionPerformedToSet;
+        }
+
+        public override bool Equals(object obj)
+        {
+            LoggingRecord recordToCompareAgainst = obj as LoggingRecord;
+            if (Utilities.IsNotNull(recordToCompareAgainst))
+            {
+                return Id.Equals(recordToCompareAgainst.Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

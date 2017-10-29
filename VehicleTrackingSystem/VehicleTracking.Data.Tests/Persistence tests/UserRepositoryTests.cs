@@ -18,6 +18,9 @@ namespace Data.Persistence_tests
         public static void AssemblySetup(TestContext context)
         {
             testingUnitOfWork.DeleteAllDataFromDatabase();
+            User defaultAdministrator = User.CreateNewUser(UserRoles.ADMINISTRATOR,
+                "The", "Administrator", "theAdministrator", "Victory", "099424242");
+            AddNewUserAndSaveChanges(defaultAdministrator);
         }
 
         [AssemblyCleanup]
@@ -258,7 +261,7 @@ namespace Data.Persistence_tests
 
         private static void AddNewUserAndSaveChanges(User userToAdd)
         {
-            testingUserRepository.AddNewUser(userToAdd);
+            testingUnitOfWork.Users.AddNewUser(userToAdd);
             testingUnitOfWork.SaveChanges();
         }
 

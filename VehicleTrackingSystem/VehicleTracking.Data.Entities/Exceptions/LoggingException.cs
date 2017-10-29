@@ -3,8 +3,8 @@
 namespace Domain
 {
     [Serializable]
-    public class LoggingRecordException : VehicleTrackingException
+    public class LoggingException : VehicleTrackingException
     {
-        public LoggingRecordException(string message) : base(message) { }
+        public LoggingException(string message) : base(message) { }
     }
 }

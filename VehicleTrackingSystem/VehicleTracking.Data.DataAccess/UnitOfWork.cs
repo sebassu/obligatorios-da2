@@ -124,6 +124,19 @@ namespace Persistence
             }
         }
 
+        private ILoggingStrategy loggingStrategy;
+        public ILoggingStrategy LoggingStrategy
+        {
+            get
+            {
+                if (Utilities.IsNull(loggingStrategy))
+                {
+                    loggingStrategy = new LoggingDatabaseConcreteStrategy(context);
+                }
+                return loggingStrategy;
+            }
+        }
+
         public void DeleteAllDataFromDatabase()
         {
             context.DeleteAllDataFromDatabase();
