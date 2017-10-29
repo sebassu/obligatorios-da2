@@ -33,52 +33,52 @@ namespace Data.Domain_tests
         [TestMethod]
         public void LoggingRecordSetValidResponsibleTest()
         {
-            User administrator = User.InstanceForTestingPurposes();
-            testingLoggingRecord.Responsible = administrator;
-            Assert.AreEqual(administrator, testingLoggingRecord.Responsible);
+            User responsibleToSet = User.InstanceForTestingPurposes();
+            testingLoggingRecord.Responsible = responsibleToSet;
+            Assert.AreEqual(responsibleToSet, testingLoggingRecord.Responsible);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingRecordException))]
-        public void LoggingRecordSetPortOperatorResponsibleInvalidTest()
+        public void LoggingRecordSetPortOperatorResponsibleValidTest()
         {
             User responsibleToSet = User.InstanceForTestingPurposes();
             responsibleToSet.Role = UserRoles.PORT_OPERATOR;
             testingLoggingRecord.Responsible = responsibleToSet;
+            Assert.AreEqual(responsibleToSet, testingLoggingRecord.Responsible);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingRecordException))]
-        public void LoggingRecordSetTransporterResponsibleInvalidTest()
+        public void LoggingRecordSetTransporterResponsibleValidTest()
         {
             User responsibleToSet = User.InstanceForTestingPurposes();
             responsibleToSet.Role = UserRoles.TRANSPORTER;
             testingLoggingRecord.Responsible = responsibleToSet;
+            Assert.AreEqual(responsibleToSet, testingLoggingRecord.Responsible);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingRecordException))]
-        public void LoggingRecordSetYardOperatorResponsibleInvalidTest()
+        public void LoggingRecordSetYardOperatorResponsibleValidTest()
         {
             User responsibleToSet = User.InstanceForTestingPurposes();
             responsibleToSet.Role = UserRoles.YARD_OPERATOR;
             testingLoggingRecord.Responsible = responsibleToSet;
+            Assert.AreEqual(responsibleToSet, testingLoggingRecord.Responsible);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingRecordException))]
-        public void LoggingRecordSetSalesmanResponsibleInvalidTest()
+        public void LoggingRecordSetSalesmanResponsibleValidTest()
         {
             User responsibleToSet = User.InstanceForTestingPurposes();
             responsibleToSet.Role = UserRoles.SALESMAN;
             testingLoggingRecord.Responsible = responsibleToSet;
+            Assert.AreEqual(responsibleToSet, testingLoggingRecord.Responsible);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingRecordException))]
-        public void LoggingRecordSetNullResponsibleInvalidTest()
+        public void LoggingRecordSetNullResponsibleValidTest()
         {
             testingLoggingRecord.Responsible = null;
+            Assert.IsNull(testingLoggingRecord.Responsible);
         }
 
         [TestMethod]
@@ -106,7 +106,7 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        public void LoggingRecordParameterFactoryMethodValidTest()
+        public void LoggingRecordParameterFactoryMethodAdministratorValidTest()
         {
             User administrator = User.InstanceForTestingPurposes();
             testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
@@ -117,21 +117,68 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingRecordException))]
-        public void LoggingRecordParameterFactoryMethodInvalidUserRoleTest()
+        public void LoggingRecordParameterFactoryMethodOtherRoleValidTest()
         {
             User responsibleToSet = User.InstanceForTestingPurposes();
             responsibleToSet.Role = UserRoles.SALESMAN;
             testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
                 responsibleToSet, LoggedActions.LOGIN);
+            Assert.AreSame(responsibleToSet, testingLoggingRecord.Responsible);
+            Assert.AreEqual(LoggedActions.LOGIN, testingLoggingRecord.ActionPerformed);
+            Assert.AreEqual(DateTime.Today, testingLoggingRecord.DateTime.Date);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LoggingRecordException))]
+        [ExpectedException(typeof(LoggingException))]
+        public void LoggingRecordParameterFactoryInvalidRoleForActionTest()
+        {
+            User responsibleToSet = User.InstanceForTestingPurposes();
+            responsibleToSet.Role = UserRoles.TRANSPORTER;
+            testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
+                responsibleToSet, LoggedActions.VEHICLE_IMPORT);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LoggingException))]
         public void LoggingRecordParameterFactoryMethodNullUserInvalidTest()
         {
             testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
                 null, LoggedActions.LOGIN);
+        }
+
+        [TestMethod]
+        public void LoggingRecordEqualsSameObjectValidTest()
+        {
+            Assert.AreEqual(testingLoggingRecord, testingLoggingRecord);
+        }
+
+        [TestMethod]
+        public void LoggingRecordEqualsSameIdValidTest()
+        {
+            var someOtherLoggingRecord = LoggingRecord.InstanceForTestingPurposes();
+            someOtherLoggingRecord.Id = testingLoggingRecord.Id;
+            Assert.AreEqual(testingLoggingRecord, someOtherLoggingRecord);
+        }
+
+        [TestMethod]
+        public void LoggingRecordEqualsDifferentIdTest()
+        {
+            var someOtherLoggingRecord = LoggingRecord.InstanceForTestingPurposes();
+            someOtherLoggingRecord.Id = testingLoggingRecord.Id + 42;
+            Assert.AreNotEqual(testingLoggingRecord, someOtherLoggingRecord);
+        }
+
+        [TestMethod]
+        public void LoggingRecordEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingLoggingRecord, someRandomObject);
+        }
+
+        [TestMethod]
+        public void LoggingRecordEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingLoggingRecord, null);
         }
     }
 }
