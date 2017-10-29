@@ -5,7 +5,6 @@ using System.Resources;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 [assembly: NeutralResourcesLanguage("es")]
 namespace Persistence

@@ -60,8 +60,8 @@ namespace Data.Tests.Persistence_tests
             AddNewInspectionAndSaveChanges(inspectionToVerify);
             Inspection result = testingInspectionRepository
                 .GetInspectionWithId(inspectionToVerify.Id);
-            Assert.AreEqual(inspectionToVerify.ResponsibleUser,
-                result.ResponsibleUser);
+            Assert.AreEqual(inspectionToVerify.Responsible,
+                result.Responsible);
             Assert.AreEqual(inspectionToVerify.Location, result.Location);
             CollectionAssert.AreEqual(inspectionToVerify.Damages.ToList(),
                 result.Damages.ToList());

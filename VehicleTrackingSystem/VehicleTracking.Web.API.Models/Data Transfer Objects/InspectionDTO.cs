@@ -32,7 +32,7 @@ namespace API.Services
 
         private InspectionDTO(Inspection someInspection) :
             this(someInspection.Id, someInspection.VehicleVIN, someInspection.Location.Name,
-                someInspection.ResponsibleUser.Username, someInspection.DateTime)
+                someInspection.Responsible.Username, someInspection.DateTime)
         {
             SetDamageDTOs(someInspection);
         }
