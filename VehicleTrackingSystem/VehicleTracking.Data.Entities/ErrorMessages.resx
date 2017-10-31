@@ -255,4 +255,7 @@
   <data name="InvalidUserRoleForLogging" xml:space="preserve">
     <value>Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella.</value>
   </data>
+  <data name="BuyerIsNull" xml:space="preserve">
+    <value>Se recibió una referencia a un objeto de tipo "Customer" nula.</value>
+  </data>
 </root>

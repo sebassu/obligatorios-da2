@@ -55,6 +55,7 @@
     <Compile Include="Exceptions\LoggingException.cs" />
     <Compile Include="Exceptions\LotException.cs" />
     <Compile Include="Exceptions\MovementException.cs" />
+    <Compile Include="Exceptions\SaleException.cs" />
     <Compile Include="Exceptions\SubzoneException.cs" />
     <Compile Include="Exceptions\ProcessException.cs" />
     <Compile Include="Exceptions\TransportException.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Lot.cs" />
     <Compile Include="Movement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sale.cs" />
     <Compile Include="Subzone.cs" />
     <Compile Include="ProcessData.cs" />
     <Compile Include="Transport.cs" />

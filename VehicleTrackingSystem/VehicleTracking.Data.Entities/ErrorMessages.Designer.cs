@@ -88,6 +88,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se recibió una referencia a un objeto de tipo &quot;Customer&quot; nula..
+        /// </summary>
+        internal static string BuyerIsNull {
+            get {
+                return ResourceManager.GetString("BuyerIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Capacidad de &quot;{0}&quot; inválida. La misma debe ser mayor o igual a {1}..
         /// </summary>
         internal static string CapacityIsInvalid {
