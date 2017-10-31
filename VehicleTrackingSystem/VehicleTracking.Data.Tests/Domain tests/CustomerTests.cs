@@ -68,5 +68,40 @@ namespace Data.Domain_tests
         {
             testingCustomer.Name = null;
         }
+
+        [TestMethod]
+        public void CustomerSetValidPhoneNumberTest()
+        {
+            testingCustomer.PhoneNumber = "29024546";
+            Assert.AreEqual("29024546", testingCustomer.PhoneNumber);
+        }
+
+        [TestMethod]
+        public void CustomerSetValidPhoneNumberStartingWith0Test()
+        {
+            testingCustomer.PhoneNumber = "091946954";
+            Assert.AreEqual("091946954", testingCustomer.PhoneNumber);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CustomerException))]
+        public void CustomerSetInvalidPhoneNumberStartingWithDouble0Test()
+        {
+            testingCustomer.PhoneNumber = "00123456";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CustomerException))]
+        public void CustomerSetInvalidPhoneNumberLettersTest()
+        {
+            testingCustomer.PhoneNumber = "QueTal987654";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CustomerException))]
+        public void CustomerSetInvalidPhoneNumberTooLongTest()
+        {
+            testingCustomer.PhoneNumber = "987654321123456789";
+        }
     }
 }
