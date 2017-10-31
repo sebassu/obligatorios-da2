@@ -28,6 +28,30 @@ namespace Domain
             return Utilities.ContainsLettersOrSpacesOnly(value);
         }
 
+        private string phoneNumber;
+        public string PhoneNumber
+        {
+            get { return phoneNumber; }
+            set
+            {
+                if (IsValidPhoneNumber(value))
+                {
+                    phoneNumber = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.PhoneNumberIsInvalid, value);
+                    throw new CustomerException(errorMessage);
+                }
+            }
+        }
+
+        protected bool IsValidPhoneNumber(string value)
+        {
+            return Utilities.HasValidPhoneFormat(value);
+        }
+
         internal static Customer InstanceForTestingPurposes()
         {
             return new Customer();
