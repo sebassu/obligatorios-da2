@@ -1,4 +1,6 @@
-﻿namespace Domain
+﻿using System.Globalization;
+
+namespace Domain
 {
     public class Sale
     {
@@ -22,6 +24,30 @@
         protected static bool IsValidBuyer(Customer value)
         {
             return Utilities.IsNotNull(value);
+        }
+
+        private string vehicleVIN;
+        public string VehicleVIN
+        {
+            get { return vehicleVIN; }
+            set
+            {
+                if (IsValidVIN(value))
+                {
+                    vehicleVIN = value;
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                       ErrorMessages.VINIsInvalid, value);
+                    throw new SaleException(errorMessage);
+                }
+            }
+        }
+
+        protected bool IsValidVIN(string value)
+        {
+            return Utilities.IsValidVIN(value);
         }
 
         private int sellingPrice;
