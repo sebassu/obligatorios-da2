@@ -124,7 +124,7 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        public void InspectionSetValidVINTest()
+        public void InspectionSetValidVehicleVINTest()
         {
             testingInspection.VehicleVIN = "QAZWSXEDCRFV12345";
             Assert.AreEqual("QAZWSXEDCRFV12345", testingInspection.VehicleVIN);
@@ -132,16 +132,44 @@ namespace Data.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionSetInvalidVINShortTest()
+        public void InspectionSetInvalidVehicleVINTooShortTest()
         {
             testingInspection.VehicleVIN = "QWERT12345";
         }
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionSetInvalidVINLongTest()
+        public void InspectionSetInvalidVehicleVINTooLongTest()
         {
             testingInspection.VehicleVIN = "QWERTY1234567890QWERTY";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionSetInvalidVehicleVINPunctuationTest()
+        {
+            testingInspection.VehicleVIN = "1212^@% --- (((*//&#^%&^";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionSetInvalidVehicleVINSpacesTest()
+        {
+            testingInspection.VehicleVIN = "  \n\n\t    \t \t \n";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionSetInvalidVehicleVINEmptyTest()
+        {
+            testingInspection.VehicleVIN = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionSetNullVehicleVINInvalidTest()
+        {
+            testingInspection.VehicleVIN = null;
         }
 
         [TestMethod]

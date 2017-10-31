@@ -98,7 +98,7 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.VINIsInvalid, "VIN", value);
+                       ErrorMessages.VINIsInvalid, value);
                     throw new InspectionException(errorMessage);
                 }
             }
