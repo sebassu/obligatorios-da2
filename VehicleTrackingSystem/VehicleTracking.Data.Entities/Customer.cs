@@ -60,6 +60,18 @@ namespace Domain
         protected Customer()
         {
             name = "Cliente inválido";
+            phoneNumber = "099424242";
+        }
+
+        public static Customer FromNamePhoneNumber(string name, string phoneNumber)
+        {
+            return new Customer(name, phoneNumber);
+        }
+
+        public Customer(string nameToSet, string phoneNumberToSet)
+        {
+            Name = nameToSet;
+            PhoneNumber = phoneNumberToSet;
         }
     }
 }
