@@ -358,6 +358,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Precio de venta para un vehículo inválido: debe ser mayor a cero..
+        /// </summary>
+        internal static string SalePriceMustBePositive {
+            get {
+                return ResourceManager.GetString("SalePriceMustBePositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error al convertir la cadena de caracteres recibida a binario: no se encontraba en el formato esperado (base 64)..
         /// </summary>
         internal static string StringIsNotInBase64Format {

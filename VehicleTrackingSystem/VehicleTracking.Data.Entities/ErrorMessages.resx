@@ -258,4 +258,7 @@
   <data name="BuyerIsNull" xml:space="preserve">
     <value>Se recibió una referencia a un objeto de tipo "Customer" nula.</value>
   </data>
+  <data name="SalePriceMustBePositive" xml:space="preserve">
+    <value>Precio de venta para un vehículo inválido: debe ser mayor a cero.</value>
+  </data>
 </root>
