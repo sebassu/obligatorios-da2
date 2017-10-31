@@ -103,5 +103,27 @@ namespace Data.Domain_tests
         {
             testingCustomer.PhoneNumber = "987654321123456789";
         }
+
+        [TestMethod]
+        public void CustomerParameterFactoryMethodValidTest()
+        {
+            testingCustomer = Customer.FromNamePhoneNumber("Mario Santos", "099424242");
+            Assert.AreEqual("Mario Santos", testingCustomer.Name);
+            Assert.AreEqual("099424242", testingCustomer.PhoneNumber);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CustomerException))]
+        public void CustomerParameterFactoryMethodInvalidNameTest()
+        {
+            Customer.FromNamePhoneNumber("78#&$^%* ))_==798/*", "099424242");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CustomerException))]
+        public void CustomerParameterFactoryMethodInvalidPhoneNumberTest()
+        {
+            Customer.FromNamePhoneNumber("Mario Santos", null);
+        }
     }
 }
