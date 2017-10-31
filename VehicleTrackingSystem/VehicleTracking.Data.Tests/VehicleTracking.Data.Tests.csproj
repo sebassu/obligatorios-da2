@@ -69,6 +69,7 @@
     <Compile Include="Domain tests\ImageElementTests.cs" />
     <Compile Include="Domain tests\LoggingRecordTests.cs" />
     <Compile Include="Domain tests\CustomerTests.cs" />
+    <Compile Include="Domain tests\SaleTests.cs" />
     <Compile Include="Domain tests\UserTests.cs" />
     <Compile Include="Domain tests\VehicleTests.cs" />
     <Compile Include="Domain tests\ZoneTests.cs" />

@@ -18,6 +18,7 @@ namespace Data.Domain_tests
         public void CustomerInstanceForTestingPurposesTest()
         {
             Assert.AreEqual("Cliente inválido", testingCustomer.Name);
+            Assert.AreEqual("099424242", testingCustomer.PhoneNumber);
         }
 
         [TestMethod]
