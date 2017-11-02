@@ -1,4 +1,5 @@
 ﻿using Domain;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
@@ -103,6 +104,27 @@ namespace Data.Domain_tests
         public void SaleSetNullVehicleVINInvalidTest()
         {
             testingSale.VehicleVIN = null;
+        }
+
+        [TestMethod]
+        public void SaleSetValidDateTimeTest()
+        {
+            testingSale.DateTime = DateTime.Today;
+            Assert.AreEqual(DateTime.Today, testingSale.DateTime);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SaleException))]
+        public void SaleSetInvalidFutureDateTest()
+        {
+            testingSale.DateTime = new DateTime(2112, 12, 24, 3, 40, 15);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SaleException))]
+        public void SaleSetInvalidPastDateTimeTest()
+        {
+            testingSale.DateTime = new DateTime(1812, 3, 12, 12, 33, 58);
         }
     }
 }

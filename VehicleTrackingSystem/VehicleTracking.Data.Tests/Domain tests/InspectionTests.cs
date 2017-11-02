@@ -51,14 +51,14 @@ namespace Data.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionSetInvalidDatePassTodayTest()
+        public void InspectionSetInvalidFutureDateTest()
         {
             testingInspection.DateTime = new DateTime(2019, 9, 24, 10, 9, 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionSetInvalidDateTimeOldTest()
+        public void InspectionSetInvalidPastDateTimeTest()
         {
             testingInspection.DateTime = new DateTime(1856, 8, 30, 12, 8, 9);
         }
