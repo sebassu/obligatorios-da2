@@ -194,6 +194,34 @@ namespace Data.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVINTooLongTest()
+        {
+            testingVehicle.VIN = "ASDFGHJKL123456789";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVINTooShortTest()
+        {
+            testingVehicle.VIN = "ASDFGH12345";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVINPunctuationTest()
+        {
+            testingVehicle.VIN = "!@$#%@ @(*# ^";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVINSpacesTest()
+        {
+            testingVehicle.VIN = " \n\t    \t\n\t  ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
         public void VehicleSetInvalidVINEmptyTest()
         {
             testingVehicle.VIN = "";
@@ -201,37 +229,9 @@ namespace Data.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVINOnlySpacesTest()
-        {
-            testingVehicle.VIN = "   \n\n\t  ";
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(VehicleException))]
         public void VehicleSetInvalidVINNullTest()
         {
             testingVehicle.VIN = null;
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVINPunctuationTest()
-        {
-            testingVehicle.VIN = "!@$#%^";
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVINLongerTest()
-        {
-            testingVehicle.VIN = "ASDFGHJKL123456789";
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVINShorterTest()
-        {
-            testingVehicle.VIN = "ASDFGH12345";
         }
 
         [TestMethod]

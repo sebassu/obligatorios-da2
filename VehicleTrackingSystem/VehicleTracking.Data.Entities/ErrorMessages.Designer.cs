@@ -88,6 +88,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se recibió una referencia a un objeto de tipo &quot;Customer&quot; nula..
+        /// </summary>
+        internal static string BuyerIsNull {
+            get {
+                return ResourceManager.GetString("BuyerIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Capacidad de &quot;{0}&quot; inválida. La misma debe ser mayor o igual a {1}..
         /// </summary>
         internal static string CapacityIsInvalid {
@@ -259,6 +268,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se recibió un vehículo inválido para ser vendido al registrar una venta..
+        /// </summary>
+        internal static string InvalidVehicleForSale {
+            get {
+                return ResourceManager.GetString("InvalidVehicleForSale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se debe seleccionar un lugar para poder proceder..
         /// </summary>
         internal static string LocationIsInvalid {
@@ -345,6 +363,15 @@ namespace Domain {
         internal static string ResponsibleUserIsInvalid {
             get {
                 return ResourceManager.GetString("ResponsibleUserIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Precio de venta para un vehículo inválido: debe ser mayor a cero..
+        /// </summary>
+        internal static string SalePriceMustBePositive {
+            get {
+                return ResourceManager.GetString("SalePriceMustBePositive", resourceCulture);
             }
         }
         

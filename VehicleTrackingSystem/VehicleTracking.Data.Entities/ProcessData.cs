@@ -142,6 +142,7 @@ namespace Domain
                 && inspectionToAdd.Location.Type == LocationType.YARD;
             if (isValidYardInspectionToSet)
             {
+                ValidateDateOfActionIsCoherent(inspectionToAdd.DateTime);
                 inspections.Add(inspectionToAdd);
                 SortInspectionsByDate();
             }
@@ -158,18 +159,8 @@ namespace Domain
         {
             ValidateVehicleIsInStage(ProcessStages.YARD);
             ValidateVehicleWasInspectedInYard();
-            if (dateTimeOfMovement > LastDateTimeToValidate.GetValueOrDefault())
-            {
-                return AttemptToAddNewMovement(responsible, dateTimeOfMovement, destination);
-            }
-            else
-            {
-                var culture = CultureInfo.CurrentCulture;
-                string errorMessage = string.Format(culture,
-                    ErrorMessages.MovementDateIsInvalid, LastDateTimeToValidate
-                    .Value.ToString(culture));
-                throw new ProcessException(errorMessage);
-            }
+            ValidateDateOfActionIsCoherent(dateTimeOfMovement);
+            return AttemptToAddNewMovement(responsible, dateTimeOfMovement, destination);
         }
 
         private void ValidateVehicleWasInspectedInYard()
@@ -210,6 +201,18 @@ namespace Domain
             if (CurrentStage != expectedStage)
             {
                 throw new ProcessException(ErrorMessages.InvalidOperationOnVehicle);
+            }
+        }
+
+        private void ValidateDateOfActionIsCoherent(DateTime dateTimeOfMovement)
+        {
+            if (dateTimeOfMovement <= LastDateTimeToValidate.GetValueOrDefault())
+            {
+                var culture = CultureInfo.CurrentCulture;
+                string errorMessage = string.Format(culture,
+                    ErrorMessages.MovementDateIsInvalid, LastDateTimeToValidate
+                    .Value.ToString(culture));
+                throw new ProcessException(errorMessage);
             }
         }
     }

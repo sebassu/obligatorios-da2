@@ -289,7 +289,7 @@ namespace Data.Domain_tests
         [ExpectedException(typeof(UserException))]
         public void UserParameterFactoryMethodInvalidFirstNameTest()
         {
-            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "1&6 1a2-*!3", "Ravenna",
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "1&6 1a2-*!3", "Ravenna",
                 "emravenna", "contraseñaVálida123", "099212121");
         }
 
@@ -297,7 +297,7 @@ namespace Data.Domain_tests
         [ExpectedException(typeof(UserException))]
         public void UserParameterFactoryMethodInvalidLastNameTest()
         {
-            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", ";#d1 -($!#",
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", ";#d1 -($!#",
                 "emravenna", "contraseñaVálida123", "099212121");
         }
 
@@ -305,7 +305,7 @@ namespace Data.Domain_tests
         [ExpectedException(typeof(UserException))]
         public void UserParameterFactoryMethodInvalidUsernameTest()
         {
-            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
                 "12! $^#&", "contraseñaVálida123", "099212121");
         }
 
@@ -313,7 +313,7 @@ namespace Data.Domain_tests
         [ExpectedException(typeof(UserException))]
         public void UserParameterFactoryMethodInvalidPasswordTest()
         {
-            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
                 "emravenna", "", "099212121");
         }
 
@@ -321,7 +321,7 @@ namespace Data.Domain_tests
         [ExpectedException(typeof(UserException))]
         public void UserParameterFactoryMethodInvalidPhoneNumberTest()
         {
-            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
                 "emravenna", "contraseñaVálida123", "0A# .0!&1-2");
         }
 

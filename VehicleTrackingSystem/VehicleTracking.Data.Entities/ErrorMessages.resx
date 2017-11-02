@@ -255,4 +255,13 @@
   <data name="InvalidUserRoleForLogging" xml:space="preserve">
     <value>Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella.</value>
   </data>
+  <data name="BuyerIsNull" xml:space="preserve">
+    <value>Se recibió una referencia a un objeto de tipo "Customer" nula.</value>
+  </data>
+  <data name="SalePriceMustBePositive" xml:space="preserve">
+    <value>Precio de venta para un vehículo inválido: debe ser mayor a cero.</value>
+  </data>
+  <data name="InvalidVehicleForSale" xml:space="preserve">
+    <value>Se recibió un vehículo inválido para ser vendido al registrar una venta.</value>
+  </data>
 </root>
