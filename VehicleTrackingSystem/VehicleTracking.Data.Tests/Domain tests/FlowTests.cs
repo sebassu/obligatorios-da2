@@ -34,14 +34,45 @@ namespace Data.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(FlowException))]
-        public void FlowSetRequiredSubzonesEmptyListInvalidTest()
+        public void FlowSetRequiredSubzonesEmptyEnumerationInvalidTest()
         {
             testingFlow.RequiredSubzoneNames = new List<string>();
         }
 
         [TestMethod]
         [ExpectedException(typeof(FlowException))]
-        public void FlowSetRequiredSubzonesNullListInvalidTest()
+        public void FlowSetRequiredSubzonesNullEnumerationInvalidTest()
+        {
+            testingFlow.RequiredSubzoneNames = null;
+        }
+
+        [TestMethod]
+        public void FlowParameterFactoryMethodValidTest()
+        {
+            testingFlow = Flow.FromSubzoneNames(testingSubzoneNames);
+            Assert.AreSame(testingSubzoneNames, testingFlow.RequiredSubzoneNames);
+            Assert.AreEqual("A,B,C", testingFlow.EncodedSubzoneNames);
+        }
+
+        [TestMethod]
+        public void FlowParameterFactoryMethodWithDuplicatesValidTest()
+        {
+            var subzoneNamesWithDuplicates = new List<string>() { "A", "A" };
+            testingFlow = Flow.FromSubzoneNames(subzoneNamesWithDuplicates);
+            Assert.AreSame(subzoneNamesWithDuplicates, testingFlow.RequiredSubzoneNames);
+            Assert.AreEqual("A,A", testingFlow.EncodedSubzoneNames);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FlowException))]
+        public void FlowParameterFactoryMethodEmptyEnumerationInvalidTest()
+        {
+            testingFlow.RequiredSubzoneNames = new List<string>();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FlowException))]
+        public void FlowParameterFactoryMethodNullEnumerationInvalidTest()
         {
             testingFlow.RequiredSubzoneNames = null;
         }
