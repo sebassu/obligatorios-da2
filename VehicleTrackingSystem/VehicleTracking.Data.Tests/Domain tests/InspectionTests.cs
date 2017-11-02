@@ -58,7 +58,7 @@ namespace Data.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionSetInvalidPastDateTimeTest()
+        public void InspectionSetInvalidFarPastDateTimeTest()
         {
             testingInspection.DateTime = new DateTime(1856, 8, 30, 12, 8, 9);
         }
