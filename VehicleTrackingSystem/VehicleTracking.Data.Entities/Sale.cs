@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Domain
 {
@@ -70,6 +71,28 @@ namespace Domain
         protected bool IsValidPrice(int value)
         {
             return value > 0;
+        }
+
+        private DateTime dateTime;
+        public DateTime DateTime
+        {
+            get { return dateTime; }
+            set
+            {
+                if (IsValidSaleDate(value))
+                {
+                    dateTime = value;
+                }
+                else
+                {
+                    throw new SaleException(ErrorMessages.DateIsInvalid);
+                }
+            }
+        }
+
+        protected bool IsValidSaleDate(DateTime value)
+        {
+            return Utilities.IsValidDate(value);
         }
 
         internal static Sale InstanceForTestingPurposes()
