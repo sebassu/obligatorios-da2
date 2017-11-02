@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VehicleTracking.UI.WinApp
 {
-    class SaleFlowUserControl
+    public partial class SaleFlowUserControl : UserControl
     {
+        public SaleFlowUserControl()
+        {
+            InitializeComponent();
+        }
     }
 }
