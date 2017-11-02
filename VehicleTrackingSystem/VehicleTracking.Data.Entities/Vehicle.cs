@@ -169,6 +169,8 @@ namespace Domain
 
         public ICollection<Movement> Movements => StagesData.YardMovements;
 
+        public bool IsReadyForSale { get; internal set; }
+
         public bool IsReadyForTransport()
         {
             return StagesData.IsReadyForTransport();

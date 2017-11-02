@@ -268,6 +268,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se recibió un vehículo inválido para ser vendido al registrar una venta..
+        /// </summary>
+        internal static string InvalidVehicleForSale {
+            get {
+                return ResourceManager.GetString("InvalidVehicleForSale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se debe seleccionar un lugar para poder proceder..
         /// </summary>
         internal static string LocationIsInvalid {

@@ -101,5 +101,35 @@ namespace Domain
         }
 
         private Sale() { }
+
+        public static Sale FromBuyerVehiclePriceDateTime(Customer buyer,
+            Vehicle vehicleToSell, int price, DateTime datetime)
+        {
+            return new Sale(buyer, vehicleToSell, price, datetime);
+        }
+
+        public Sale(Customer buyer, Vehicle vehicleToSell,
+            int priceToSet, DateTime DateTimeToSet)
+        {
+            bool vehicleCanBeSold = Utilities.IsNotNull(vehicleToSell)
+                && vehicleToSell.IsReadyForSale;
+            if (vehicleCanBeSold)
+            {
+                SetCreationAttributes(buyer, vehicleToSell, priceToSet, DateTimeToSet);
+            }
+            else
+            {
+                throw new SaleException(ErrorMessages.InvalidVehicleForSale);
+            }
+        }
+
+        private void SetCreationAttributes(Customer buyer, Vehicle vehicleSold,
+            int priceToSet, DateTime DateTimeToSet)
+        {
+            Buyer = buyer;
+            VehicleVIN = vehicleSold.VIN;
+            SellingPrice = priceToSet;
+            DateTime = DateTimeToSet;
+        }
     }
 }
