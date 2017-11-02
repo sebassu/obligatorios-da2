@@ -234,7 +234,6 @@
             this.Controls.Add(this.FirstNameLbl);
             this.Name = "CreateModifyUser";
             this.Size = new System.Drawing.Size(901, 365);
-            this.Load += new System.EventHandler(this.CreateModifyUser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

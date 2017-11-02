@@ -49,16 +49,11 @@ namespace VehicleTracking.UI.WinApp
 
         private void LoadComboBox()
         {
-            var roles = Enum.GetNames(typeof(UserRoles)).Cast<UserRoles>();
-            foreach (UserRoles role in roles)//se cae aca
+            var roles = Enum.GetNames(typeof(UserRoles));
+            foreach (string role in roles)
             {
                 RoleComboBox.Items.Add(role);
             }
-        }
-
-        private void CreateModifyUser_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void FirstNameTxt_MouseClick(object sender, MouseEventArgs e)
@@ -102,7 +97,7 @@ namespace VehicleTracking.UI.WinApp
             UserDTO user= new UserDTO();
             try
             {
-                user.Role = (UserRoles)RoleComboBox.SelectedItem;
+                user.Role = (UserRoles)RoleComboBox.SelectedIndex;
                 user.FirstName = FirstNameTxt.Text;
                 user.LastName = LastNameTxt.Text;
                 user.PhoneNumber = PhoneTxt.Text;
