@@ -34,7 +34,7 @@ namespace VehicleTracking.UI.WinApp
                 LastNameTxt.Text = SelectedUser.LastName;
                 PhoneTxt.Text = SelectedUser.PhoneNumber;
                 UsernameTxt.Text = SelectedUser.Username;
-                RoleComboBox.SelectedItem = SelectedUser.Role;
+                RoleComboBox.SelectedValue = SelectedUser.Role;
                 RoleComboBox.Enabled = false;
                 TitleLbl.Text = "Modificar usuario";
                 OkBtn.Text = "Modificar";
@@ -97,18 +97,27 @@ namespace VehicleTracking.UI.WinApp
             UserDTO user= new UserDTO();
             try
             {
-                user.Role = (UserRoles)RoleComboBox.SelectedIndex;
                 user.FirstName = FirstNameTxt.Text;
                 user.LastName = LastNameTxt.Text;
                 user.PhoneNumber = PhoneTxt.Text;
                 user.Username = UsernameTxt.Text;
-                user.Password = PasswordTxt.Text;
                 if (Origin.Equals("modify"))
                 {
+                    if (PasswordTxt.Text.Equals(""))
+                    {
+                        user.Password = SelectedUser.Password;
+                    }
+                    else
+                    {
+                        user.Password = PasswordTxt.Text;
+                    }
+                    user.Role = SelectedUser.Role;
                     Instance.ModifyUserWithUsername(SelectedUser.Username, user);
                 }
                 else
                 {
+                    user.Role = (UserRoles)RoleComboBox.SelectedIndex;
+                    user.Password = PasswordTxt.Text;
                     Instance.AddNewUserFromData(user);
                 }
                 CardPanel.Controls.Clear();
