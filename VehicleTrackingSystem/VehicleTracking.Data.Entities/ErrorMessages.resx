@@ -133,7 +133,7 @@
     <value>La imagen recibida no es válida.</value>
   </data>
   <data name="CollectionIsInvalid" xml:space="preserve">
-    <value>La lista no puede ser vacia. Debe contener al menos un objeto, y no contener elementos repetidos.</value>
+    <value>La lista no puede ser vacía. Debe contener al menos un objeto, y no contener elementos repetidos.</value>
   </data>
   <data name="LocationIsInvalid" xml:space="preserve">
     <value>Se debe seleccionar un lugar para poder proceder.</value>
@@ -263,5 +263,8 @@
   </data>
   <data name="InvalidVehicleForSale" xml:space="preserve">
     <value>Se recibió un vehículo inválido para ser vendido al registrar una venta.</value>
+  </data>
+  <data name="FlowMustContainSubzones" xml:space="preserve">
+    <value>Error al registrar un nuevo flujo: se espera que éste contenga al menos una subzona requerida.</value>
   </data>
 </root>

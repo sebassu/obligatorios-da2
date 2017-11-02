@@ -106,7 +106,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La lista no puede ser vacia. Debe contener al menos un objeto, y no contener elementos repetidos..
+        ///   Looks up a localized string similar to La lista no puede ser vacía. Debe contener al menos un objeto, y no contener elementos repetidos..
         /// </summary>
         internal static string CollectionIsInvalid {
             get {
@@ -174,6 +174,15 @@ namespace Domain {
         internal static string EndOfProcess {
             get {
                 return ResourceManager.GetString("EndOfProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al registrar un nuevo flujo: se espera que éste contenga al menos una subzona requerida..
+        /// </summary>
+        internal static string FlowMustContainSubzones {
+            get {
+                return ResourceManager.GetString("FlowMustContainSubzones", resourceCulture);
             }
         }
         

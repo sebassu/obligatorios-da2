@@ -50,6 +50,7 @@
     </Compile>
     <Compile Include="Exceptions\CustomerException.cs" />
     <Compile Include="Exceptions\DamageException.cs" />
+    <Compile Include="Exceptions\FlowException.cs" />
     <Compile Include="Exceptions\InspectionException.cs" />
     <Compile Include="Exceptions\LocationException.cs" />
     <Compile Include="Exceptions\LoggingException.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\VehicleException.cs" />
     <Compile Include="Exceptions\ZoneException.cs" />
+    <Compile Include="Flow.cs" />
     <Compile Include="ILoggingStrategy.cs" />
     <Compile Include="ImageElement.cs" />
     <Compile Include="Inspection.cs" />
