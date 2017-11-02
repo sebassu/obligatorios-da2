@@ -5,7 +5,12 @@ namespace Domain
 {
     public class Flow
     {
+        private const string separator = ",";
+
+        public string EncodedSubzoneNames { get; set; }
+
         private IEnumerable<string> requiredSubzoneNames;
+
         public IEnumerable<string> RequiredSubzoneNames
         {
             get { return requiredSubzoneNames; }
@@ -33,5 +38,16 @@ namespace Domain
         }
 
         private Flow() { }
+
+        public static Flow FromSubzoneNames(IEnumerable<string> subzoneNames)
+        {
+            return new Flow(subzoneNames);
+        }
+
+        public Flow(IEnumerable<string> subzoneNamesToSet)
+        {
+            RequiredSubzoneNames = subzoneNamesToSet;
+            EncodedSubzoneNames = string.Join(separator, subzoneNamesToSet);
+        }
     }
 }
