@@ -15,20 +15,33 @@ namespace Data.Domain_tests
         public static void ClassSetup(TestContext context)
         {
             testingBuyer = Customer.InstanceForTestingPurposes();
-            testingVehicleForSale = Vehicle.InstanceForTestingPurposes();
-            testingVehicleForSale.IsReadyForSale = true;
         }
 
         [TestInitialize]
         public void TestSetup()
         {
             testingSale = Sale.InstanceForTestingPurposes();
+            testingVehicleForSale = Vehicle.InstanceForTestingPurposes();
+            testingVehicleForSale.CurrentStage = ProcessStages.READY_FOR_SALE;
+            testingVehicleForSale.StagesData.LastDateTimeToValidate =
+                new DateTime(2017, 9, 2);
         }
 
         [TestMethod]
         public void SaleInstanceForTestingPurposesTest()
         {
             Assert.IsNull(testingSale.Buyer);
+            Assert.IsNull(testingSale.VehicleVIN);
+            Assert.AreEqual(0, testingSale.SellingPrice);
+            Assert.AreEqual(new DateTime(1900, 1, 1),
+                testingSale.DateTime);
+        }
+
+        [TestMethod]
+        public void SaleSetIdValidTest()
+        {
+            testingSale.Id = 42;
+            Assert.AreEqual(42, testingSale.Id);
         }
 
         [TestMethod]
@@ -147,6 +160,7 @@ namespace Data.Domain_tests
             Assert.AreEqual(testingVehicleForSale.VIN, testingSale.VehicleVIN);
             Assert.AreEqual(2112, testingSale.SellingPrice);
             Assert.AreEqual(dateTimeToSet, testingSale.DateTime);
+            Assert.AreSame(testingSale, testingVehicleForSale.SaleRecord);
         }
 
         [TestMethod]
@@ -204,6 +218,35 @@ namespace Data.Domain_tests
         {
             Sale.FromBuyerVehiclePriceDateTime(testingBuyer, testingVehicleForSale,
                 5500, new DateTime(1812, 12, 24));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SaleException))]
+        public void SaleParameterFactoryMethodNonReadyVehicleInvalidTest()
+        {
+            var nonReadyVehicle = Vehicle.InstanceForTestingPurposes();
+            testingSale = Sale.FromBuyerVehiclePriceDateTime(testingBuyer,
+                nonReadyVehicle, 2112, DateTime.Today);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SaleException))]
+        public void SaleParameterFactoryMethodAlreadySoldVehicleInvalidTest()
+        {
+            testingSale = Sale.FromBuyerVehiclePriceDateTime(testingBuyer,
+                testingVehicleForSale, 2112, DateTime.Today);
+            testingSale = Sale.FromBuyerVehiclePriceDateTime(testingBuyer,
+                testingVehicleForSale, 2112, DateTime.Today);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void SaleParameterFactoryMethodInvalidDateTimeForVehicleStatusTest()
+        {
+            testingVehicleForSale.StagesData.LastDateTimeToValidate =
+                new DateTime(2019, 1, 1);
+            testingSale = Sale.FromBuyerVehiclePriceDateTime(testingBuyer,
+                testingVehicleForSale, 2112, DateTime.Today);
         }
     }
 }
