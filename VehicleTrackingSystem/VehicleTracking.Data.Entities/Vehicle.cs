@@ -136,7 +136,12 @@ namespace Domain
         public ProcessData StagesData { get; set; }
 
         public bool IsLotted => Utilities.IsNotNull(StagesData.PortLot);
-        public ProcessStages CurrentStage => StagesData.CurrentStage;
+
+        public ProcessStages CurrentStage
+        {
+            get { return StagesData.CurrentStage; }
+            internal set { StagesData.CurrentStage = value; }
+        }
 
         public Lot PortLot
         {
@@ -169,7 +174,7 @@ namespace Domain
 
         public ICollection<Movement> Movements => StagesData.YardMovements;
 
-        public bool IsReadyForSale { get; internal set; }
+        public bool IsReadyForSale => CurrentStage == ProcessStages.READY_FOR_SALE;
 
         public bool IsReadyForTransport()
         {
@@ -191,6 +196,13 @@ namespace Domain
         {
             return StagesData.RegisterNewMovementToSubzone(responsible,
                 datetimeOfMovement, destination);
+        }
+
+        public Sale SaleRecord => StagesData.SaleRecord;
+
+        internal void RegisterSale(Sale associatedSale)
+        {
+            StagesData.RegisterVehicleSale(associatedSale);
         }
 
         internal static Vehicle InstanceForTestingPurposes()

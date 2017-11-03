@@ -22,6 +22,13 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
+        public void CustomerSetIdValidTest()
+        {
+            testingCustomer.Id = 42;
+            Assert.AreEqual(42, testingCustomer.Id);
+        }
+
+        [TestMethod]
         public void CustomerSetValidNameTest()
         {
             testingCustomer.Name = "Marcos Mundstock";

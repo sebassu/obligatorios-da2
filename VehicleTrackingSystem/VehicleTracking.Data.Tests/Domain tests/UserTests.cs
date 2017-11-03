@@ -28,6 +28,13 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
+        public void UserSetIdValidTest()
+        {
+            testingUser.Id = 42;
+            Assert.AreEqual(42, testingUser.Id);
+        }
+
+        [TestMethod]
         public void UserSetValidFirstNameTest()
         {
             testingUser.FirstName = "Mario";

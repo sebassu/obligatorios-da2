@@ -370,5 +370,52 @@ namespace Data.Domain_tests
         {
             testingData.Inspections = null;
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterVehicleSaleWhenAlreadySetInvalidTest()
+        {
+            testingData.SaleRecord = Sale.InstanceForTestingPurposes();
+            testingData.RegisterVehicleSale(Sale.InstanceForTestingPurposes());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterNullVehicleSaleInvalidTest()
+        {
+            testingData.RegisterVehicleSale(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterVehicleSaleOnInvalidStagePortTest()
+        {
+            testingData.CurrentStage = ProcessStages.PORT;
+            testingData.RegisterVehicleSale(Sale.InstanceForTestingPurposes());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterVehicleSaleOnInvalidStageTransportTest()
+        {
+            testingData.CurrentStage = ProcessStages.TRANSPORT;
+            testingData.RegisterVehicleSale(Sale.InstanceForTestingPurposes());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterVehicleSaleOnInvalidStageYardTest()
+        {
+            testingData.CurrentStage = ProcessStages.YARD;
+            testingData.RegisterVehicleSale(Sale.InstanceForTestingPurposes());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterVehicleSaleOnInvalidStageStuckInProcessTest()
+        {
+            testingData.CurrentStage = ProcessStages.STUCK_IN_PROCESS;
+            testingData.RegisterVehicleSale(Sale.InstanceForTestingPurposes());
+        }
     }
 }
