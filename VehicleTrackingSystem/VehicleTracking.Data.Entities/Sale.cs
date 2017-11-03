@@ -5,6 +5,8 @@ namespace Domain
 {
     public class Sale
     {
+        public int Id { get; set; }
+
         private Customer buyer;
         public Customer Buyer
         {
@@ -97,7 +99,10 @@ namespace Domain
 
         internal static Sale InstanceForTestingPurposes()
         {
-            return new Sale();
+            return new Sale()
+            {
+                dateTime = new DateTime(1900, 1, 1)
+            };
         }
 
         private Sale() { }
@@ -115,7 +120,9 @@ namespace Domain
                 && vehicleToSell.IsReadyForSale;
             if (vehicleCanBeSold)
             {
-                SetCreationAttributes(buyer, vehicleToSell, priceToSet, DateTimeToSet);
+                SetCreationAttributes(buyer, vehicleToSell,
+                    priceToSet, DateTimeToSet);
+                vehicleToSell.RegisterSale(this);
             }
             else
             {

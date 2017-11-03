@@ -5,7 +5,11 @@ using System.Collections.Generic;
 
 namespace Domain
 {
-    public enum ProcessStages { PORT, TRANSPORT, YARD }
+    public enum ProcessStages
+    {
+        STUCK_IN_PROCESS, PORT, TRANSPORT,
+        YARD, READY_FOR_SALE, SOLD
+    }
 
     public class ProcessData
     {
@@ -63,6 +67,8 @@ namespace Domain
             = new List<Movement>();
 
         public Subzone YardCurrentLocation { get; set; }
+
+        public Sale SaleRecord { get; set; }
 
         public DateTime? LastDateTimeToValidate { get; set; }
 
@@ -182,6 +188,15 @@ namespace Domain
             return movementToAdd;
         }
 
+        internal void RegisterVehicleSale(Sale associatedSale)
+        {
+            ValidatePropertyWasNotSetPreviously(SaleRecord);
+            ValidateVehicleIsInStage(ProcessStages.READY_FOR_SALE);
+            ValidateDateOfActionIsCoherent(associatedSale.DateTime);
+            SaleRecord = associatedSale;
+            CurrentStage = ProcessStages.SOLD;
+        }
+
         internal bool IsReadyForTransport()
         {
             return CurrentStage == ProcessStages.PORT &&
@@ -210,7 +225,7 @@ namespace Domain
             {
                 var culture = CultureInfo.CurrentCulture;
                 string errorMessage = string.Format(culture,
-                    ErrorMessages.MovementDateIsInvalid, LastDateTimeToValidate
+                    ErrorMessages.DateTimeForActionIsInvalid, LastDateTimeToValidate
                     .Value.ToString(culture));
                 throw new ProcessException(errorMessage);
             }

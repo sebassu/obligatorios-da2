@@ -142,6 +142,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: la fecha y hora para esta acción no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a &quot;{0}&quot;..
+        /// </summary>
+        internal static string DateTimeForActionIsInvalid {
+            get {
+                return ResourceManager.GetString("DateTimeForActionIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La subzona de partida no puede ser igual a la de llegada; no resulta un movimiento válido..
         /// </summary>
         internal static string DepartureIsInvalid {
@@ -309,15 +318,6 @@ namespace Domain {
         internal static string ModelIsInvalid {
             get {
                 return ResourceManager.GetString("ModelIsInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error: la fecha y hora para este movimiento no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a &quot;{0}&quot;..
-        /// </summary>
-        internal static string MovementDateIsInvalid {
-            get {
-                return ResourceManager.GetString("MovementDateIsInvalid", resourceCulture);
             }
         }
         

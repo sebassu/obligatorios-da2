@@ -198,8 +198,8 @@
   <data name="InvalidLotsInTransport" xml:space="preserve">
     <value>Error en la colección de lotes recibidos para un transporte: esta debe ser no vacía, y contener lotes no repetidos que aún no hayan sido transportados.</value>
   </data>
-  <data name="MovementDateIsInvalid" xml:space="preserve">
-    <value>Error: la fecha y hora para este movimiento no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a "{0}".</value>
+  <data name="DateTimeForActionIsInvalid" xml:space="preserve">
+    <value>Error: la fecha y hora para esta acción no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a "{0}".</value>
   </data>
   <data name="TransportEndDateIsInvalid" xml:space="preserve">
     <value>La fecha de fin del transporte debe ser posterior a la de inicio, y estar dentro del rango permitido (1/1/1900 - actualidad).</value>

@@ -22,6 +22,8 @@ namespace Persistence
         public DbSet<Transport> Transports { get; set; }
         public DbSet<ImageElement> ImageElements { get; set; }
         public DbSet<LoggingRecord> LoggingRecords { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         public VTSystemContext() : base()
         {
@@ -47,6 +49,8 @@ namespace Persistence
                 .WithOptional().WillCascadeOnDelete(); ;
             modelBuilder.Entity<Damage>().Ignore(d => d.Images);
             modelBuilder.Entity<ImageElement>().Ignore(d => d.StringifiedImage);
+            modelBuilder.Entity<Sale>().HasRequired(s => s.Buyer)
+                .WithRequiredDependent().WillCascadeOnDelete();
         }
 
         private static void InspectionEntityDatabaseSettings(DbModelBuilder modelBuilder)
@@ -65,6 +69,7 @@ namespace Persistence
             modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
             modelBuilder.Entity<Vehicle>().Ignore(v => v.TransportData);
             modelBuilder.Entity<Vehicle>().Ignore(v => v.Movements);
+            modelBuilder.Entity<Vehicle>().Ignore(v => v.SaleRecord);
             modelBuilder.Entity<Vehicle>().HasRequired(v => v.StagesData)
                 .WithRequiredDependent().WillCascadeOnDelete();
         }
