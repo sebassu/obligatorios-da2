@@ -30,7 +30,7 @@ namespace Domain
             }
         }
 
-        protected bool IsValidName(string value)
+        internal static bool IsValidName(string value)
         {
             return Utilities.ContainsLettersSpacesOrDigitsOnly(value);
         }

@@ -178,11 +178,11 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al registrar un nuevo flujo: se espera que éste contenga al menos una subzona requerida..
+        ///   Looks up a localized string similar to Error al registrar un nuevo flujo: se espera que éste contenga al menos una subzona requerida, y que los nombres de las mismas sean alfabéticos únicamente..
         /// </summary>
-        internal static string FlowMustContainSubzones {
+        internal static string FlowSubzonesAreInvalid {
             get {
-                return ResourceManager.GetString("FlowMustContainSubzones", resourceCulture);
+                return ResourceManager.GetString("FlowSubzonesAreInvalid", resourceCulture);
             }
         }
         

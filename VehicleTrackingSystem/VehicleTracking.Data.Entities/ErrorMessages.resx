@@ -264,7 +264,7 @@
   <data name="InvalidVehicleForSale" xml:space="preserve">
     <value>Se recibió un vehículo inválido para ser vendido al registrar una venta.</value>
   </data>
-  <data name="FlowMustContainSubzones" xml:space="preserve">
-    <value>Error al registrar un nuevo flujo: se espera que éste contenga al menos una subzona requerida.</value>
+  <data name="FlowSubzonesAreInvalid" xml:space="preserve">
+    <value>Error al registrar un nuevo flujo: se espera que éste contenga al menos una subzona requerida, y que los nombres de las mismas sean alfabéticos únicamente.</value>
   </data>
 </root>

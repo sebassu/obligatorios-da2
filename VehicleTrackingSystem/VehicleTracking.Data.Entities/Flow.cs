@@ -5,9 +5,25 @@ namespace Domain
 {
     public class Flow
     {
-        private const string separator = ",";
+        private const char separator = ',';
 
-        public string EncodedSubzoneNames { get; set; }
+        private string encodedSubzoneNames;
+        public string EncodedSubzoneNames
+        {
+            get { return encodedSubzoneNames; }
+            set
+            {
+                SetRequiredSubzoneNamesEnumeration(value);
+                encodedSubzoneNames = value;
+            }
+        }
+
+        private void SetRequiredSubzoneNamesEnumeration(string value)
+        {
+            var stringToProcess = value ?? "";
+            var subzoneNamesToSet = stringToProcess.Split(separator);
+            RequiredSubzoneNames = subzoneNamesToSet;
+        }
 
         private IEnumerable<string> requiredSubzoneNames;
 
@@ -16,20 +32,21 @@ namespace Domain
             get { return requiredSubzoneNames; }
             internal set
             {
-                if (IsNonEmptySubzoneNameCollection(value))
+                if (IsValidSubzoneNameCollection(value))
                 {
                     requiredSubzoneNames = value;
                 }
                 else
                 {
-                    throw new FlowException(ErrorMessages.FlowMustContainSubzones);
+                    throw new FlowException(ErrorMessages.FlowSubzonesAreInvalid);
                 }
             }
         }
 
-        private bool IsNonEmptySubzoneNameCollection(IEnumerable<string> value)
+        private bool IsValidSubzoneNameCollection(IEnumerable<string> subzoneNames)
         {
-            return Utilities.IsNotNull(value) && value.Any();
+            bool isNonEmpty = Utilities.IsNotNull(subzoneNames) && subzoneNames.Any();
+            return isNonEmpty && subzoneNames.All(n => Subzone.IsValidName(n));
         }
 
         internal static Flow InstanceForTestingPurposes()
@@ -37,17 +54,18 @@ namespace Domain
             return new Flow();
         }
 
-        private Flow() { }
+        protected Flow() { }
 
         public static Flow FromSubzoneNames(IEnumerable<string> subzoneNames)
         {
             return new Flow(subzoneNames);
         }
 
-        public Flow(IEnumerable<string> subzoneNamesToSet)
+        private Flow(IEnumerable<string> subzoneNamesToSet)
         {
             RequiredSubzoneNames = subzoneNamesToSet;
-            EncodedSubzoneNames = string.Join(separator, subzoneNamesToSet);
+            EncodedSubzoneNames = string.Join(separator.ToString(),
+                subzoneNamesToSet);
         }
     }
 }
