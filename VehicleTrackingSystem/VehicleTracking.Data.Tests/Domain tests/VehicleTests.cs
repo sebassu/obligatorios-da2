@@ -32,6 +32,13 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
+        public void VehicleSetIdValidTest()
+        {
+            testingVehicle.Id = 42;
+            Assert.AreEqual(42, testingVehicle.Id);
+        }
+
+        [TestMethod]
         public void VehicleSetValidBrandTest()
         {
             testingVehicle.Brand = "Fiat";
@@ -232,13 +239,6 @@ namespace Data.Domain_tests
         public void VehicleSetInvalidVINNullTest()
         {
             testingVehicle.VIN = null;
-        }
-
-        [TestMethod]
-        public void VehicleSetIdValidTest()
-        {
-            testingVehicle.Id = 42;
-            Assert.AreEqual(42, testingVehicle.Id);
         }
 
         [TestMethod]
