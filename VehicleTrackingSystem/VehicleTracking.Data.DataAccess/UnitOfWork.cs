@@ -124,6 +124,19 @@ namespace Persistence
             }
         }
 
+        public ISaleRepository sales;
+        public ISaleRepository Sales
+        {
+            get
+            {
+                if (Utilities.IsNull(sales))
+                {
+                    sales = new SaleRepository(context);
+                }
+                return sales;
+            }
+        }
+
         private ILoggingStrategy loggingStrategy;
         public ILoggingStrategy LoggingStrategy
         {

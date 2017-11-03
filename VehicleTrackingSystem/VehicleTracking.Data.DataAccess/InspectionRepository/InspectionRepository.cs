@@ -12,8 +12,8 @@ namespace Persistence
         public InspectionRepository(VTSystemContext someContext)
             : base(someContext) { }
 
-        public IEnumerable<Inspection> Elements => GetElementsWith(null,
-            "Responsible,Location");
+        public IEnumerable<Inspection> Elements => GetElementsWith("Responsible," +
+            "Location");
 
         public void AddNewInspection(Inspection inspectionToAdd)
         {

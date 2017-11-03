@@ -21,8 +21,8 @@ namespace Persistence
         }
 
         public virtual IEnumerable<TEntity> GetElementsWith(
-            Expression<Func<TEntity, bool>> filter = null,
-            string includeProperties = "")
+            string includeProperties = "",
+            Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = elements;
             AddWhereStatement(filter, ref query);

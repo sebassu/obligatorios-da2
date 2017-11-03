@@ -16,8 +16,8 @@ namespace Persistence
             Add(transportToAdd);
         }
 
-        public IEnumerable<Transport> Elements => GetElementsWith(null,
-            "Transporter,LotsTransported");
+        public IEnumerable<Transport> Elements => GetElementsWith("Transporter," +
+            "LotsTransported");
 
         public Transport GetTransportWithId(int idToLookup)
         {
