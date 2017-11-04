@@ -73,6 +73,7 @@
     <Compile Include="Domain tests\ZoneTests.cs" />
     <Compile Include="Persistence tests\LotRepositoryTests.cs" />
     <Compile Include="Persistence tests\MovementRepositoryTests.cs" />
+    <Compile Include="Persistence tests\SessionServicesTests.cs" />
     <Compile Include="Persistence tests\SubzoneRepositoryTests.cs" />
     <Compile Include="Persistence tests\LocationRepositoryTests.cs" />
     <Compile Include="Persistence tests\InspectionRepositoryTests.cs" />
@@ -97,6 +98,10 @@
     <ProjectReference Include="..\VehicleTracking.Data.Entities\VehicleTracking.Data.Entities.csproj">
       <Project>{39b5263b-309e-423a-a4d0-b198180ef4aa}</Project>
       <Name>VehicleTracking.Data.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleTracking.Web.API.Models\VehicleTracking.Web.API.Services.csproj">
+      <Project>{869D99F0-4C71-476C-ADAA-82DEBD18B7BA}</Project>
+      <Name>VehicleTracking.Web.API.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
