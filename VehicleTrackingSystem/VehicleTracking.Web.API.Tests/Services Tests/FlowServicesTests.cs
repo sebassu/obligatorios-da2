@@ -24,7 +24,7 @@ namespace Web.API.Tests.Services_Tests
             Assert.IsNotNull(testingFlowServices.Flows);
         }
 
-        #region AddNewFlow
+        #region AddNewFlow tests
         [TestMethod]
         public void FServicesAddNewFlowFromDataValidTest()
         {
@@ -44,7 +44,7 @@ namespace Web.API.Tests.Services_Tests
         }
         #endregion
 
-        #region GetFlow
+        #region GetFlow tests
         [TestMethod]
         public void FServicesGetRegisteredFlowWithDataTest()
         {

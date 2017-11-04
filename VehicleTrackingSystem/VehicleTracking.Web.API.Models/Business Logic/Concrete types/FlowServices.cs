@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace API.Services
 {
-    class FlowServices : IFlowServices
+    public class FlowServices : IFlowServices
     {
         internal IUnitOfWork Model { get; }
         internal IFlowRepository Flows { get; }

@@ -10,7 +10,8 @@ namespace VehicleTracking.UI.WinApp
 {
     public partial class SaleFlowUserControl : UserControl
     {
-        ISubzoneServices Instance;
+        IFlowServices Instance;
+        ISubzoneServices Subzones;
         string SelectedSubzoneNameToAdd;
         string SelectedSubzoneNameToRemove;
         Panel CardPanel;
@@ -22,12 +23,13 @@ namespace VehicleTracking.UI.WinApp
         {
             InitializeComponent();
             CardPanel = cardPanel;
-            Instance = new SubzoneServices();
+            Instance = new FlowServices();
+            Subzones = new SubzoneServices();
             SavedSubzones = GetDistinctSubzones();
             AvailableSubzones = SavedSubzones.ToList();
             SubzonesForFlow = new List<string>();
             NewSubzoneTxt.Enabled = false;
-            LoadListBoxDynamicAvailableSubzone(AvailableSubzones);
+            LoadListBoxDynamic(AvailableSubzones, availableSubzonesListBox);
         }
 
         public IEnumerable<string> GetDistinctSubzones()
@@ -35,21 +37,12 @@ namespace VehicleTracking.UI.WinApp
             IEnumerable<string> allDistinctSubzones = new List<string>();
             if (SavedSubzones == null)
             {
-                allDistinctSubzones = Instance.GetRegisteredSubzones().Select(s => s.Name).Distinct();
+                allDistinctSubzones = Subzones.GetRegisteredSubzones().Select(s => s.Name).Distinct();
             }
             return allDistinctSubzones;
         }
 
-        private void LoadListBoxDynamicAvailableSubzone(List<string> list)
-        {
-            availableSubzonesListBox.Items.Clear();
-            foreach (string aux in list)
-            {
-                availableSubzonesListBox.Items.Add(aux);
-            }
-        }
-
-        private void NotExistingSubzoneCheckBox_CheckStateChanged(object sender, EventArgs e)
+       private void NotExistingSubzoneCheckBox_CheckStateChanged(object sender, EventArgs e)
         {
             if (NotExistingSubzoneCheckBox.Checked)
             {
@@ -77,7 +70,7 @@ namespace VehicleTracking.UI.WinApp
         {
             if (SavedSubzones.Contains(SelectedSubzoneNameToRemove))
             {
-                AddRemoveSubzone(SelectedSubzoneNameToRemove, SubzonesForFlow, AvailableSubzones);
+                AddRemoveSubzone(SelectedSubzoneNameToRemove, SubzonesForFlow, AvailableSubzones, "remove");
             }else
             {
                 RemoveSubzone(SelectedSubzoneNameToRemove);
@@ -91,11 +84,11 @@ namespace VehicleTracking.UI.WinApp
                 if (!SavedSubzones.Contains(name))
                 {
                     SubzonesForFlow.Add(name);
-                    LoadListBoxDynamicNewSubzone(SubzonesForFlow);
+                    LoadListBoxDynamic(SubzonesForFlow, subzonesToSetListBox);
                 }else
                 {
                     MessageBox.Show("La subzona '" + NewSubzoneTxt.Text
-                    + "' ya se encuentra en el flujo", "Error");                   
+                    + "' ya se encuentra registrada.", "Error");                   
                 }
                 NotExistingSubzoneCheckBox.Checked = false;
                 NewSubzoneTxt.Text = "";
@@ -105,7 +98,7 @@ namespace VehicleTracking.UI.WinApp
         private void RemoveSubzone(string name)
         {
             SubzonesForFlow.Remove(name);
-            LoadListBoxDynamicNewSubzone(SubzonesForFlow);
+            LoadListBoxDynamic(SubzonesForFlow, subzonesToSetListBox);
         }
 
         private bool ValidateName(string name)
@@ -120,20 +113,11 @@ namespace VehicleTracking.UI.WinApp
             }
         }
 
-        private void LoadListBoxDynamicNewSubzone(List<string> list)
-        {
-            subzonesToSetListBox.Items.Clear();
-            foreach (string aux in list)
-            {
-                subzonesToSetListBox.Items.Add(aux);
-            }
-        }
-
         private void AttemptToAddSubzone()
         {
             if (AvailableSubzones.Count() > 0)
             {
-                AddRemoveSubzone(SelectedSubzoneNameToAdd, AvailableSubzones, SubzonesForFlow);
+                AddRemoveSubzone(SelectedSubzoneNameToAdd, AvailableSubzones, SubzonesForFlow, "add");
             }
             else
             {
@@ -142,12 +126,28 @@ namespace VehicleTracking.UI.WinApp
         }
 
         private void AddRemoveSubzone(string name,
-            List<string> listFrom, List<string> listTo)
+            List<string> listFrom, List<string> listTo, string direction)
         {
             listFrom.Remove(name);
             listTo.Add(name);
-            LoadListBoxDynamicNewSubzone(listFrom);
-            LoadListBoxDynamicAvailableSubzone(listTo);
+            if (direction.Equals("add"))
+            {
+                LoadListBoxDynamic(listFrom, availableSubzonesListBox);
+                LoadListBoxDynamic(listTo, subzonesToSetListBox);
+            }else
+            {
+                LoadListBoxDynamic(listFrom, subzonesToSetListBox);
+                LoadListBoxDynamic(listTo, availableSubzonesListBox);
+            }
+        }
+
+        private void LoadListBoxDynamic (List<string> list, ListBox listBoxToModify)
+        {
+            listBoxToModify.Items.Clear();
+            foreach (string aux in list)
+            {
+                listBoxToModify.Items.Add(aux);
+            }
         }
 
         private void availableSubzonesListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -173,7 +173,7 @@ namespace VehicleTracking.UI.WinApp
 
         private void SetSaleFlow()
         {
-
+            Instance.AddNewFlowFromData(SubzonesForFlow);
         }
     }
 }
