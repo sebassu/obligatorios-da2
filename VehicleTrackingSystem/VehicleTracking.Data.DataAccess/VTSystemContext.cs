@@ -24,6 +24,7 @@ namespace Persistence
         public DbSet<LoggingRecord> LoggingRecords { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Flow> Flow { get; set; }
 
         public VTSystemContext() : base()
         {

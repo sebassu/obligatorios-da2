@@ -7,6 +7,8 @@ namespace Domain
     {
         private const char separator = ',';
 
+        public int Id { get; set; }
+
         private string encodedSubzoneNames;
         public string EncodedSubzoneNames
         {
@@ -51,7 +53,10 @@ namespace Domain
 
         internal static Flow InstanceForTestingPurposes()
         {
-            return new Flow();
+            return new Flow()
+            {
+                EncodedSubzoneNames = "Mecánica ligera,Lavado,Pintura"
+            };
         }
 
         protected Flow() { }
@@ -66,6 +71,25 @@ namespace Domain
             RequiredSubzoneNames = subzoneNamesToSet;
             EncodedSubzoneNames = string.Join(separator.ToString(),
                 subzoneNamesToSet);
+        }
+
+        public override bool Equals(object obj)
+        {
+            Flow flowToCompareAgainst = obj as Flow;
+            if (Utilities.IsNotNull(flowToCompareAgainst))
+            {
+                return requiredSubzoneNames
+                    .SequenceEqual(flowToCompareAgainst.requiredSubzoneNames);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
