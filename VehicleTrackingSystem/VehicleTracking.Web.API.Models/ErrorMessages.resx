@@ -141,6 +141,9 @@
   <data name="NotMatchingPasswords" xml:space="preserve">
     <value>Contraseña incorrecta.</value>
   </data>
+  <data name="NotNullValues" xml:space="preserve">
+    <value>El valor ingresado no puede ser nulo.</value>
+  </data>
   <data name="NullDTOReference" xml:space="preserve">
     <value>No se recibieron datos en el formato correcto esperado para acceder a esta funcionalidad.</value>
   </data>
