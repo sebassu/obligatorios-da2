@@ -207,7 +207,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="car_4Ah_icon.ico" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

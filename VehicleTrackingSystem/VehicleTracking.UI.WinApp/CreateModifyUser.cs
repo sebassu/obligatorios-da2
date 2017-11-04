@@ -34,7 +34,7 @@ namespace VehicleTracking.UI.WinApp
                 LastNameTxt.Text = SelectedUser.LastName;
                 PhoneTxt.Text = SelectedUser.PhoneNumber;
                 UsernameTxt.Text = SelectedUser.Username;
-                RoleComboBox.SelectedValue = SelectedUser.Role;
+                RoleComboBox.SelectedText = SelectedUser.Role.ToString();
                 RoleComboBox.Enabled = false;
                 TitleLbl.Text = "Modificar usuario";
                 OkBtn.Text = "Modificar";

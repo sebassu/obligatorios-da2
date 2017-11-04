@@ -20,12 +20,12 @@ namespace VehicleTracking.UI.WinApp
             CardPanel = cardPanel;
             Origin = origin;
             SelectedVehicle = selectedVehicle;
-
             LoadInfo();
         }
 
         private void LoadInfo()
         {
+            LoadComboBox();
             if (Origin.Equals("modify"))
             {
                 TitleLbl.Text = "Modificar vehículo";
@@ -35,11 +35,23 @@ namespace VehicleTracking.UI.WinApp
                 ColorTxt.Text = SelectedVehicle.Color;
                 YearTxt.Text = SelectedVehicle.Year.ToString();
                 OkBtn.Text = "Modificar";
+                TypeComboBox.Enabled = false;
+                TypeComboBox.SelectedText = SelectedVehicle.Type.ToString();
             }
             else
             {
                 TitleLbl.Text = "Agregar vehículo";
                 OkBtn.Text = "Agregar";
+                TypeComboBox.Enabled = true;
+            }
+        }
+
+        private void LoadComboBox()
+        {
+            var types = Enum.GetNames(typeof(VehicleType));
+            foreach (string type in types)
+            {
+                TypeComboBox.Items.Add(type);
             }
         }
 
@@ -108,10 +120,12 @@ namespace VehicleTracking.UI.WinApp
                 vehicle.Year = short.Parse(YearTxt.Text);
                 if (Origin.Equals("modify"))
                 {
+                    vehicle.Type = SelectedVehicle.Type;
                     Instance.ModifyVehicleWithVIN(SelectedVehicle.VIN, vehicle);
                 }
                 else
                 {
+                    vehicle.Type = (VehicleType)TypeComboBox.SelectedIndex;
                     Instance.AddNewVehicleFromData(vehicle);
                 }
                 CardPanel.Controls.Clear();
