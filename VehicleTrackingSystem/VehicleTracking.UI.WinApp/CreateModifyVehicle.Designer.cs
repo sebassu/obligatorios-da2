@@ -41,6 +41,7 @@
             this.BrandLbl = new System.Windows.Forms.Label();
             this.VINTxt = new System.Windows.Forms.TextBox();
             this.VINLbl = new System.Windows.Forms.Label();
+            this.ImportBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // OkBtn
@@ -78,7 +79,7 @@
             this.TitleLbl.AutoSize = true;
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(380, 27);
+            this.TitleLbl.Location = new System.Drawing.Point(379, 0);
             this.TitleLbl.Name = "TitleLbl";
             this.TitleLbl.Size = new System.Drawing.Size(109, 39);
             this.TitleLbl.TabIndex = 23;
@@ -190,11 +191,26 @@
             this.VINLbl.TabIndex = 13;
             this.VINLbl.Text = "VIN:";
             // 
+            // ImportBtn
+            // 
+            this.ImportBtn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.ImportBtn.FlatAppearance.BorderSize = 6;
+            this.ImportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ImportBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ImportBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.ImportBtn.Location = new System.Drawing.Point(608, 33);
+            this.ImportBtn.Name = "ImportBtn";
+            this.ImportBtn.Size = new System.Drawing.Size(119, 46);
+            this.ImportBtn.TabIndex = 26;
+            this.ImportBtn.Text = "Importar";
+            this.ImportBtn.UseVisualStyleBackColor = true;
+            // 
             // CreateModifyVehicle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.Controls.Add(this.ImportBtn);
             this.Controls.Add(this.OkBtn);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.TitleLbl);
@@ -230,5 +246,6 @@
         private System.Windows.Forms.Label BrandLbl;
         private System.Windows.Forms.TextBox VINTxt;
         private System.Windows.Forms.Label VINLbl;
+        private System.Windows.Forms.Button ImportBtn;
     }
 }
