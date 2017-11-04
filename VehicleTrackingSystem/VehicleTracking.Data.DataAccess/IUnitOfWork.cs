@@ -14,6 +14,7 @@ namespace Persistence
         ILocationRepository Locations { get; }
         IMovementRepository Movements { get; }
         ITransportRepository Transports { get; }
+        ICustomerRepository Customers { get; }
         ISaleRepository Sales { get; }
         ILoggingStrategy LoggingStrategy { get; }
         void SaveChanges();
