@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.availableSubzonesListBox = new System.Windows.Forms.ListBox();
+            this.subzonesToSetListBox = new System.Windows.Forms.ListBox();
             this.AddBtn = new System.Windows.Forms.Button();
             this.TitleLbl = new System.Windows.Forms.Label();
             this.RemoveBtn = new System.Windows.Forms.Button();
@@ -39,21 +39,27 @@
             this.NotExistingSubzoneCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // listBox1
+            // availableSubzonesListBox
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(178, 83);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(198, 147);
-            this.listBox1.TabIndex = 0;
+            this.availableSubzonesListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.availableSubzonesListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.availableSubzonesListBox.FormattingEnabled = true;
+            this.availableSubzonesListBox.ItemHeight = 20;
+            this.availableSubzonesListBox.Location = new System.Drawing.Point(178, 83);
+            this.availableSubzonesListBox.Name = "availableSubzonesListBox";
+            this.availableSubzonesListBox.Size = new System.Drawing.Size(198, 144);
+            this.availableSubzonesListBox.TabIndex = 0;
             // 
-            // listBox2
+            // subzonesToSetListBox
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(507, 83);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(198, 212);
-            this.listBox2.TabIndex = 1;
+            this.subzonesToSetListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.subzonesToSetListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.subzonesToSetListBox.FormattingEnabled = true;
+            this.subzonesToSetListBox.ItemHeight = 20;
+            this.subzonesToSetListBox.Location = new System.Drawing.Point(507, 83);
+            this.subzonesToSetListBox.Name = "subzonesToSetListBox";
+            this.subzonesToSetListBox.Size = new System.Drawing.Size(198, 204);
+            this.subzonesToSetListBox.TabIndex = 1;
             // 
             // AddBtn
             // 
@@ -123,6 +129,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.textBox1.Location = new System.Drawing.Point(178, 268);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(198, 27);
@@ -152,8 +159,8 @@
             this.Controls.Add(this.RemoveBtn);
             this.Controls.Add(this.TitleLbl);
             this.Controls.Add(this.AddBtn);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.subzonesToSetListBox);
+            this.Controls.Add(this.availableSubzonesListBox);
             this.Name = "SaleFlowUserControl";
             this.Size = new System.Drawing.Size(901, 365);
             this.ResumeLayout(false);
@@ -163,8 +170,8 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox availableSubzonesListBox;
+        private System.Windows.Forms.ListBox subzonesToSetListBox;
         private System.Windows.Forms.Button AddBtn;
         private System.Windows.Forms.Label TitleLbl;
         private System.Windows.Forms.Button RemoveBtn;
