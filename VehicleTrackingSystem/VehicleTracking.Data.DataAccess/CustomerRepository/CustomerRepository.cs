@@ -1,4 +1,5 @@
 ﻿using Domain;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Persistence
@@ -14,6 +15,14 @@ namespace Persistence
         public void AddNewCustomer(Customer customerToAdd)
         {
             Add(customerToAdd);
+        }
+
+        public Customer IfExistsGetCustomerWithData(string nameToFind,
+            string phoneNumberToFind)
+        {
+            return context.Customers.SingleOrDefault(c
+                => c.Name.Equals(nameToFind) &&
+                c.PhoneNumber.Equals(phoneNumberToFind));
         }
     }
 }

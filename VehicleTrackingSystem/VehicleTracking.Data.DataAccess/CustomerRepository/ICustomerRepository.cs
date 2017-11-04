@@ -7,5 +7,7 @@ namespace Persistence
     {
         void AddNewCustomer(Customer customerToAdd);
         IEnumerable<Customer> Elements { get; }
+        Customer IfExistsGetCustomerWithData(string nameToFind,
+            string phoneNumberToFind);
     }
 }
