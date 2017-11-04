@@ -19,7 +19,7 @@ namespace Persistence {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ErrorMessages {
@@ -102,6 +102,15 @@ namespace Persistence {
         internal static string FieldMustBeUnique {
             get {
                 return ResourceManager.GetString("FieldMustBeUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella..
+        /// </summary>
+        internal static string InvalidUserRoleForLogging {
+            get {
+                return ResourceManager.GetString("InvalidUserRoleForLogging", resourceCulture);
             }
         }
         

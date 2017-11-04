@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Domain
 {
@@ -8,7 +9,24 @@ namespace Domain
     {
         public int Id { get; set; }
 
-        public User Responsible { get; set; }
+        private string responsiblesUsername;
+        public string ResponsiblesUsername
+        {
+            get { return responsiblesUsername; }
+            set
+            {
+                if (User.IsValidUsername(value))
+                {
+                    responsiblesUsername = value.Trim();
+                }
+                else
+                {
+                    string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                        ErrorMessages.UsernameIsInvalid, value);
+                    throw new LoggingException(errorMessage);
+                }
+            }
+        }
 
         public LoggedActions ActionPerformed { get; set; }
 
@@ -21,39 +39,17 @@ namespace Domain
 
         protected LoggingRecord() { }
 
-        public static LoggingRecord FromResponsibleActionPerformed(User responsible,
-            LoggedActions actionPerformed)
+        public static LoggingRecord FromUsernameAction(
+            string responsiblesUsername, LoggedActions actionPerformed)
         {
-            return new LoggingRecord(responsible, actionPerformed);
+            return new LoggingRecord(responsiblesUsername,
+                actionPerformed);
         }
 
-        protected LoggingRecord(User responsibleToSet,
+        protected LoggingRecord(string usernameToSet,
             LoggedActions actionPerformedToSet)
         {
-            if (IsValidUserForAction(responsibleToSet,
-                actionPerformedToSet))
-            {
-                SetCreationAttributes(responsibleToSet, actionPerformedToSet);
-            }
-            else
-            {
-                throw new LoggingException(
-                    ErrorMessages.InvalidUserRoleForLogging);
-            }
-        }
-
-        private bool IsValidUserForAction(User someUser,
-            LoggedActions actionPerformed)
-        {
-            bool isNotNull = Utilities.IsNotNull(someUser);
-            return isNotNull && (actionPerformed == LoggedActions.VEHICLE_IMPORT ?
-                someUser.Role == UserRoles.ADMINISTRATOR : true);
-        }
-
-        private void SetCreationAttributes(User responsibleToSet,
-            LoggedActions actionPerformedToSet)
-        {
-            Responsible = responsibleToSet;
+            ResponsiblesUsername = usernameToSet;
             ActionPerformed = actionPerformedToSet;
         }
 
