@@ -204,6 +204,7 @@
             this.ImportBtn.TabIndex = 26;
             this.ImportBtn.Text = "Importar";
             this.ImportBtn.UseVisualStyleBackColor = true;
+            this.ImportBtn.Visible = false;
             // 
             // CreateModifyVehicle
             // 

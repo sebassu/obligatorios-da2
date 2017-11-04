@@ -92,6 +92,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SaleFlowUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SaleFlowUserControl.Designer.cs">
+      <DependentUpon>SaleFlowUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubzoneUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -141,6 +147,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaleFlowUserControl.resx">
+      <DependentUpon>SaleFlowUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubzoneUserControl.resx">
       <DependentUpon>SubzoneUserControl.cs</DependentUpon>

@@ -35,6 +35,8 @@
             this.RemoveBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.SaveBtn = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.NotExistingSubzoneCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // listBox1
@@ -42,7 +44,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(178, 83);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(198, 199);
+            this.listBox1.Size = new System.Drawing.Size(198, 147);
             this.listBox1.TabIndex = 0;
             // 
             // listBox2
@@ -50,7 +52,7 @@
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(507, 83);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(198, 199);
+            this.listBox2.Size = new System.Drawing.Size(198, 212);
             this.listBox2.TabIndex = 1;
             // 
             // AddBtn
@@ -97,7 +99,7 @@
             this.CancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.CancelBtn.Location = new System.Drawing.Point(323, 288);
+            this.CancelBtn.Location = new System.Drawing.Point(308, 306);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(117, 46);
             this.CancelBtn.TabIndex = 38;
@@ -111,18 +113,40 @@
             this.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.SaveBtn.Location = new System.Drawing.Point(458, 288);
+            this.SaveBtn.Location = new System.Drawing.Point(443, 306);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(117, 46);
             this.SaveBtn.TabIndex = 39;
             this.SaveBtn.Text = "Guardar";
             this.SaveBtn.UseVisualStyleBackColor = true;
             // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(178, 268);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(198, 27);
+            this.textBox1.TabIndex = 40;
+            // 
+            // NotExistingSubzoneCheckBox
+            // 
+            this.NotExistingSubzoneCheckBox.AutoSize = true;
+            this.NotExistingSubzoneCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NotExistingSubzoneCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.NotExistingSubzoneCheckBox.Location = new System.Drawing.Point(178, 243);
+            this.NotExistingSubzoneCheckBox.Name = "NotExistingSubzoneCheckBox";
+            this.NotExistingSubzoneCheckBox.Size = new System.Drawing.Size(182, 24);
+            this.NotExistingSubzoneCheckBox.TabIndex = 41;
+            this.NotExistingSubzoneCheckBox.Text = "Subzona no existente";
+            this.NotExistingSubzoneCheckBox.UseVisualStyleBackColor = true;
+            // 
             // SaleFlowUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.Controls.Add(this.NotExistingSubzoneCheckBox);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.RemoveBtn);
@@ -146,5 +170,7 @@
         private System.Windows.Forms.Button RemoveBtn;
         private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.Button SaveBtn;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox NotExistingSubzoneCheckBox;
     }
 }
