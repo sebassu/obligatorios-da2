@@ -2,7 +2,7 @@
 using Domain;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Data.Domain_Tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

@@ -1,11 +1,32 @@
 ﻿using Domain;
 using System.Data.Entity;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Persistence
 {
-    internal class VTSystemDatabaseInitializer
-        : DropCreateDatabaseIfModelChanges<VTSystemContext>
+    /* Since the methods in this class are executed only when the Entity Model changes, 
+     * the methods in it are excluded from Code Coverage, as it was found these are not run
+     * on a second test execution and therefore would be apparently (as result percentage 
+     * would indicate) not covered by unit tests, when they actually are (see the 
+     * "LocationRepositoryTests" class, for example).
+     */
+    internal class VTSystemDatabaseInitializer : DropCreateDatabaseIfModelChanges<VTSystemContext>
     {
+        internal static readonly IReadOnlyCollection<Location> defaultSystemLocations =
+            new List<Location> {
+                Location.CreateNewLocation(LocationType.PORT, "Puerto de Montevideo"),
+                Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este"),
+                Location.CreateNewLocation(LocationType.PORT, "El puertito"),
+                Location.CreateNewLocation(LocationType.PORT, "Pearl Harbor"),
+                Location.CreateNewLocation(LocationType.PORT, "Puerto Ochenta Ochenta"),
+                Location.CreateNewLocation(LocationType.YARD, "Patio para Inspecciones"),
+                Location.CreateNewLocation(LocationType.YARD, "El patiecito"),
+                Location.CreateNewLocation(LocationType.YARD, "Playa de estacionamiento"),
+                Location.CreateNewLocation(LocationType.YARD, "Scotland Yard")
+            }.AsReadOnly();
+
+        [ExcludeFromCodeCoverage]
         protected override void Seed(VTSystemContext context)
         {
             User defaultAdministrator = User.CreateNewUser(UserRoles.ADMINISTRATOR, "The",
@@ -15,24 +36,10 @@ namespace Persistence
             base.Seed(context);
         }
 
+        [ExcludeFromCodeCoverage]
         private void AddDefaultLocationsToDatabase(VTSystemContext context)
         {
-            RegisterNewLocationToDatabase(context, LocationType.PORT, "Puerto de Montevideo");
-            RegisterNewLocationToDatabase(context, LocationType.PORT, "Puerto de Punta del Este");
-            RegisterNewLocationToDatabase(context, LocationType.PORT, "El puertito");
-            RegisterNewLocationToDatabase(context, LocationType.PORT, "Pearl Harbor");
-            RegisterNewLocationToDatabase(context, LocationType.PORT, "Puerto Ochenta Ochenta");
-            RegisterNewLocationToDatabase(context, LocationType.YARD, "Patio para Inspecciones");
-            RegisterNewLocationToDatabase(context, LocationType.YARD, "El patiecito");
-            RegisterNewLocationToDatabase(context, LocationType.YARD, "Playa de estacionamiento");
-            RegisterNewLocationToDatabase(context, LocationType.YARD, "Scotland Yard");
-        }
-
-        private static void RegisterNewLocationToDatabase(VTSystemContext context,
-            LocationType someLocationType, string name)
-        {
-            Location locationToAdd = Location.CreateNewLocation(someLocationType, name);
-            context.Locations.Add(locationToAdd);
+            context.Locations.AddRange(defaultSystemLocations);
         }
     }
 }

@@ -98,6 +98,7 @@
     <Compile Include="SaleFlowUserControl.Designer.cs">
       <DependentUpon>SaleFlowUserControl.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="SubzoneUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -125,6 +126,25 @@
     <Compile Include="ZoneUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+=======
+    <Compile Include="SubzoneUserControl.cs" />
+    <Compile Include="SubzoneUserControl.Designer.cs">
+      <DependentUpon>SubzoneUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserUserControl.cs" />
+    <Compile Include="UserUserControl.Designer.cs">
+      <DependentUpon>UserUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VehicleTrackingUI.cs" />
+    <Compile Include="VehicleTrackingUI.Designer.cs">
+      <DependentUpon>VehicleTrackingUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VehicleUserControl.cs" />
+    <Compile Include="VehicleUserControl.Designer.cs">
+      <DependentUpon>VehicleUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZoneUserControl.cs" />
+>>>>>>> develop
     <Compile Include="ZoneUserControl.Designer.cs">
       <DependentUpon>ZoneUserControl.cs</DependentUpon>
     </Compile>

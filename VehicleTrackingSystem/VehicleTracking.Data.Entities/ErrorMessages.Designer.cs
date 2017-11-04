@@ -19,7 +19,7 @@ namespace Domain {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ErrorMessages {
@@ -70,11 +70,29 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La cadena de caracteres binarios recibida no está asociada a una imagen..
+        /// </summary>
+        internal static string BinaryInformationIsNotAnImage {
+            get {
+                return ResourceManager.GetString("BinaryInformationIsNotAnImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Marca inválida: &quot;{0}&quot;. Solo se permite ingresar caracteres alfabéticos o espacios para este campo requerido..
         /// </summary>
         internal static string BrandIsInvalid {
             get {
                 return ResourceManager.GetString("BrandIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se recibió una referencia a un objeto de tipo &quot;Customer&quot; nula..
+        /// </summary>
+        internal static string BuyerIsNull {
+            get {
+                return ResourceManager.GetString("BuyerIsNull", resourceCulture);
             }
         }
         
@@ -88,7 +106,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La lista no puede ser vacia. Debe contener al menos un objeto, y no contener elementos repetidos..
+        ///   Looks up a localized string similar to La lista no puede ser vacía. Debe contener al menos un objeto, y no contener elementos repetidos..
         /// </summary>
         internal static string CollectionIsInvalid {
             get {
@@ -120,6 +138,15 @@ namespace Domain {
         internal static string DateIsInvalid {
             get {
                 return ResourceManager.GetString("DateIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: la fecha y hora para esta acción no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a &quot;{0}&quot;..
+        /// </summary>
+        internal static string DateTimeForActionIsInvalid {
+            get {
+                return ResourceManager.GetString("DateTimeForActionIsInvalid", resourceCulture);
             }
         }
         
@@ -156,6 +183,15 @@ namespace Domain {
         internal static string EndOfProcess {
             get {
                 return ResourceManager.GetString("EndOfProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al registrar un nuevo flujo: se espera que éste contenga al menos una subzona requerida, y que los nombres de las mismas sean alfabéticos únicamente..
+        /// </summary>
+        internal static string FlowSubzonesAreInvalid {
+            get {
+                return ResourceManager.GetString("FlowSubzonesAreInvalid", resourceCulture);
             }
         }
         
@@ -232,6 +268,15 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella..
+        /// </summary>
+        internal static string InvalidUserRoleForLogging {
+            get {
+                return ResourceManager.GetString("InvalidUserRoleForLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: la colección de vehículos a agregar al lote no puede ser vacía, ni puede contener vehículos ya asociados a otros lotes o repetidos..
         /// </summary>
         internal static string InvalidVehicleCollectionForLot {
@@ -241,11 +286,29 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se recibió un vehículo inválido para ser vendido al registrar una venta..
+        /// </summary>
+        internal static string InvalidVehicleForSale {
+            get {
+                return ResourceManager.GetString("InvalidVehicleForSale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se debe seleccionar un lugar para poder proceder..
         /// </summary>
         internal static string LocationIsInvalid {
             get {
                 return ResourceManager.GetString("LocationIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El identificador de elemento para registro de una acción en el histórico es inválido: permite únicamente caracteres alfanuméricos..
+        /// </summary>
+        internal static string LoggingElementIdentifierIsInvalid {
+            get {
+                return ResourceManager.GetString("LoggingElementIdentifierIsInvalid", resourceCulture);
             }
         }
         
@@ -264,15 +327,6 @@ namespace Domain {
         internal static string ModelIsInvalid {
             get {
                 return ResourceManager.GetString("ModelIsInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error: la fecha y hora para este movimiento no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a &quot;{0}&quot;..
-        /// </summary>
-        internal static string MovementDateIsInvalid {
-            get {
-                return ResourceManager.GetString("MovementDateIsInvalid", resourceCulture);
             }
         }
         
@@ -318,6 +372,24 @@ namespace Domain {
         internal static string ResponsibleUserIsInvalid {
             get {
                 return ResourceManager.GetString("ResponsibleUserIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Precio de venta para un vehículo inválido: debe ser mayor a cero..
+        /// </summary>
+        internal static string SalePriceMustBePositive {
+            get {
+                return ResourceManager.GetString("SalePriceMustBePositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al convertir la cadena de caracteres recibida a binario: no se encontraba en el formato esperado (base 64)..
+        /// </summary>
+        internal static string StringIsNotInBase64Format {
+            get {
+                return ResourceManager.GetString("StringIsNotInBase64Format", resourceCulture);
             }
         }
         

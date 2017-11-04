@@ -7,7 +7,11 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace Domain
 {
-    public enum UserRoles { ADMINISTRATOR, PORT_OPERATOR, TRANSPORTER, YARD_OPERATOR }
+    public enum UserRoles
+    {
+        ADMINISTRATOR, PORT_OPERATOR, TRANSPORTER,
+        YARD_OPERATOR, SALESMAN
+    }
 
     public class User
     {
@@ -138,10 +142,10 @@ namespace Domain
         protected User()
         {
             firstName = "Usuario";
-            lastName = "inválido.";
+            lastName = "inválido";
             username = "usuarioinválido";
             password = "Contraseña inválida.";
-            phoneNumber = "Teléfono inválido.";
+            phoneNumber = "099424242";
         }
 
         public static User CreateNewUser(UserRoles role, string firstName, string lastName,

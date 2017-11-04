@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Domain;
 using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Persistence
 {
@@ -15,7 +15,7 @@ namespace Persistence
             Add(subzoneToAdd);
         }
 
-        public IEnumerable<Subzone> Elements => GetElementsWith(null, "Container");
+        public IEnumerable<Subzone> Elements => GetElementsWith("Container");
 
         public Subzone GetSubzoneWithId(int idToFind)
         {
@@ -42,7 +42,7 @@ namespace Persistence
             AttemptToRemove(subzoneToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Subzone value)
+        internal override bool ElementExistsInCollection(Subzone value)
         {
             return Utilities.IsNotNull(value) && elements.Any(z => z.Id == value.Id);
         }

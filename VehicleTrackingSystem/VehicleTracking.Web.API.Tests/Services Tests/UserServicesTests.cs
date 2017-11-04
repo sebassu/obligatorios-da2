@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Web.API.Services_Tests
+namespace Web.API.Services_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -251,7 +251,8 @@ namespace Web.API.Services_Tests
         private static void RunModifyUserTestWithInvalidDataOnDTO(UserDTO someUserData)
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(testingUser.Username)).Returns(testingUser);
+            mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(testingUser.Username))
+                .Returns(testingUser);
             var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.ModifyUserWithUsername(testingUser.Username, someUserData);
         }

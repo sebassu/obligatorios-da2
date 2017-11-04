@@ -1,9 +1,9 @@
 ﻿using Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {
@@ -197,8 +197,7 @@ namespace Data.Domain_tests
         [TestMethod]
         public void ProcessDataRegisterYardInspectionValidTest()
         {
-            testingData.RegisterPortInspection(Inspection.InstanceForTestingPurposes());
-            testingData.CurrentStage = ProcessStages.YARD;
+            PromoteTestingDataToYardStage();
             Assert.AreEqual(ProcessStages.YARD, testingData.CurrentStage);
             testingData.RegisterYardInspection(yardInspectionToSet);
             Assert.AreEqual(yardInspectionToSet, testingData.YardInspection);
@@ -208,7 +207,7 @@ namespace Data.Domain_tests
         [ExpectedException(typeof(ProcessException))]
         public void ProcessDataSetNullYardInspectionInvalidTest()
         {
-            testingData.CurrentStage = ProcessStages.YARD;
+            PromoteTestingDataToYardStage();
             testingData.RegisterYardInspection(null);
         }
 
@@ -216,8 +215,14 @@ namespace Data.Domain_tests
         [ExpectedException(typeof(ProcessException))]
         public void ProcessDataRegisterYardInspectionInvalidPlaceTest()
         {
-            testingData.CurrentStage = ProcessStages.YARD;
+            PromoteTestingDataToYardStage();
             testingData.RegisterYardInspection(portInspectionToSet);
+        }
+
+        private static void PromoteTestingDataToYardStage()
+        {
+            testingData.RegisterPortInspection(portInspectionToSet);
+            testingData.CurrentStage = ProcessStages.YARD;
         }
 
         [TestMethod]
@@ -248,44 +253,57 @@ namespace Data.Domain_tests
         [TestMethod]
         public void ProcessDataRegisterInitialMovementToSubzoneValidTest()
         {
-            var someDateTime = DateTime.Now;
+            var dateTimeToSet = DateTime.Now;
             Assert.AreEqual(UserRoles.ADMINISTRATOR, movementValidResponsible.Role);
             testingData.RegisterPortInspection(portInspectionToSet);
             testingData.CurrentStage = ProcessStages.YARD;
             testingData.RegisterYardInspection(yardInspectionToSet);
             var result = testingData.RegisterNewMovementToSubzone(movementValidResponsible,
-               someDateTime, firstDestination);
+               dateTimeToSet, firstDestination);
             Assert.AreSame(movementValidResponsible, result.ResponsibleUser);
-            Assert.AreEqual(someDateTime, result.DateTime);
+            Assert.AreEqual(dateTimeToSet, result.DateTime);
             Assert.IsNull(result.Departure);
             Assert.AreSame(firstDestination, result.Arrival);
             Assert.AreSame(firstDestination, testingData.YardCurrentLocation);
+            Assert.AreEqual(dateTimeToSet, testingData.LastDateTimeToValidate);
             CollectionAssert.Contains(testingData.YardMovements.ToList(), result);
         }
 
         [TestMethod]
         public void ProcessDataRegisterSecondMovementToSubzoneValidTest()
         {
+            var dateTimeToSet = DateTime.Now;
             testingData.RegisterPortInspection(portInspectionToSet);
             testingData.CurrentStage = ProcessStages.YARD;
             testingData.RegisterYardInspection(yardInspectionToSet);
             var firstResult = testingData.RegisterNewMovementToSubzone(movementValidResponsible,
                 DateTime.Today, firstDestination);
             var secondResult = testingData.RegisterNewMovementToSubzone(movementValidResponsible,
-                DateTime.Now, secondDestination);
+                dateTimeToSet, secondDestination);
             Assert.AreSame(secondDestination, testingData.YardCurrentLocation);
             Assert.AreSame(firstResult.Arrival, secondResult.Departure);
+            Assert.AreEqual(dateTimeToSet, testingData.LastDateTimeToValidate);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ProcessException))]
         public void ProcessDataRegisterNewMovementToSubzoneDateBeforeOtherMovementsInvalidTest()
         {
-            testingData.CurrentStage = ProcessStages.YARD;
-            testingData.RegisterNewMovementToSubzone(movementValidResponsible, DateTime.Now,
-                firstDestination);
-            testingData.RegisterNewMovementToSubzone(movementValidResponsible, new DateTime(1995, 10, 27),
-                secondDestination);
+            PromoteTestingDataToYardStage();
+            testingData.RegisterYardInspection(yardInspectionToSet);
+            testingData.RegisterNewMovementToSubzone(movementValidResponsible,
+                DateTime.Now, firstDestination);
+            testingData.RegisterNewMovementToSubzone(movementValidResponsible,
+                new DateTime(1995, 10, 27), secondDestination);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterNewMovementToSubzoneWithoutYardInspectionInvalidTest()
+        {
+            PromoteTestingDataToYardStage();
+            testingData.RegisterNewMovementToSubzone(movementValidResponsible,
+                DateTime.Now, Subzone.InstanceForTestingPurposes());
         }
 
         [TestMethod]
@@ -319,6 +337,85 @@ namespace Data.Domain_tests
         {
             testingData.CurrentStage = ProcessStages.YARD;
             Assert.IsFalse(testingData.IsReadyForTransport());
+        }
+
+        [TestMethod]
+        public void ProcessDataSetInspectionsSingleValidTest()
+        {
+            var inspectionCollectionToSet = new List<Inspection>() {
+                Inspection.InstanceForTestingPurposes() };
+            testingData.Inspections = inspectionCollectionToSet;
+            CollectionAssert.AreEqual(inspectionCollectionToSet,
+                testingData.Inspections.ToList());
+        }
+
+        [TestMethod]
+        public void ProcessDataSetMultipleInspectionsValidTest()
+        {
+            var someInspection = Inspection.InstanceForTestingPurposes();
+            var someLaterInspection = Inspection.InstanceForTestingPurposes();
+            someLaterInspection.DateTime = DateTime.Now;
+            var inspectionCollectionToSet = new List<Inspection>() {
+                someInspection, someLaterInspection };
+            testingData.Inspections = inspectionCollectionToSet;
+            var expectedSortedInspectionCollection =
+                inspectionCollectionToSet.OrderBy(i => i.DateTime).ToList();
+            CollectionAssert.AreEqual(expectedSortedInspectionCollection,
+                testingData.Inspections.ToList());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataSetNullInspectionsInvalidTest()
+        {
+            testingData.Inspections = null;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterVehicleSaleWhenAlreadySetInvalidTest()
+        {
+            testingData.SaleRecord = Sale.InstanceForTestingPurposes();
+            testingData.RegisterVehicleSale(Sale.InstanceForTestingPurposes());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterNullVehicleSaleInvalidTest()
+        {
+            testingData.RegisterVehicleSale(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterVehicleSaleOnInvalidStagePortTest()
+        {
+            testingData.CurrentStage = ProcessStages.PORT;
+            testingData.RegisterVehicleSale(Sale.InstanceForTestingPurposes());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterVehicleSaleOnInvalidStageTransportTest()
+        {
+            testingData.CurrentStage = ProcessStages.TRANSPORT;
+            testingData.RegisterVehicleSale(Sale.InstanceForTestingPurposes());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterVehicleSaleOnInvalidStageYardTest()
+        {
+            testingData.CurrentStage = ProcessStages.YARD;
+            testingData.RegisterVehicleSale(Sale.InstanceForTestingPurposes());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ProcessException))]
+        public void ProcessDataRegisterVehicleSaleOnInvalidStageStuckInProcessTest()
+        {
+            testingData.CurrentStage = ProcessStages.STUCK_IN_PROCESS;
+            testingData.RegisterVehicleSale(Sale.InstanceForTestingPurposes());
         }
     }
 }

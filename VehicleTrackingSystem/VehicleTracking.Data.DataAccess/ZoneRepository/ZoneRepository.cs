@@ -1,8 +1,8 @@
 ﻿using Domain;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
+using System.Globalization;
+using System.Collections.Generic;
 
 namespace Persistence
 {
@@ -42,7 +42,7 @@ namespace Persistence
             AttemptToRemove(zoneToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Zone value)
+        internal override bool ElementExistsInCollection(Zone value)
         {
             return Utilities.IsNotNull(value) && elements.Any(z => z.Id == value.Id);
         }

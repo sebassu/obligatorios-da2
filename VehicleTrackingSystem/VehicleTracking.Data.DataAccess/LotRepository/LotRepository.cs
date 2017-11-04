@@ -17,7 +17,7 @@ namespace Persistence
             Add(lotToAdd);
         }
 
-        public IEnumerable<Lot> Elements => GetElementsWith(null, "Creator," +
+        public IEnumerable<Lot> Elements => GetElementsWith("Creator," +
             "AssociatedTransport,Vehicles.StagesData.Inspections");
 
         public Lot GetLotWithName(string nameToFind)
@@ -46,7 +46,7 @@ namespace Persistence
             AttemptToRemove(lotToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Lot value)
+        internal override bool ElementExistsInCollection(Lot value)
         {
             return Utilities.IsNotNull(value) && elements.Any(l => l.Id == value.Id);
         }

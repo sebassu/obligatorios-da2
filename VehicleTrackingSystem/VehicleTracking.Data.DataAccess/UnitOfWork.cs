@@ -1,12 +1,11 @@
 ﻿using Domain;
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private VTSystemContext context = new VTSystemContext();
+        internal VTSystemContext context = new VTSystemContext();
 
         private IUserRepository users;
         public IUserRepository Users
@@ -125,6 +124,45 @@ namespace Persistence
             }
         }
 
+        public ICustomerRepository customers;
+        public ICustomerRepository Customers
+        {
+            get
+            {
+                if (Utilities.IsNull(customers))
+                {
+                    customers = new CustomerRepository(context);
+                }
+                return customers;
+            }
+        }
+
+        public ISaleRepository sales;
+        public ISaleRepository Sales
+        {
+            get
+            {
+                if (Utilities.IsNull(sales))
+                {
+                    sales = new SaleRepository(context);
+                }
+                return sales;
+            }
+        }
+
+        private ILoggingStrategy loggingStrategy;
+        public ILoggingStrategy LoggingStrategy
+        {
+            get
+            {
+                if (Utilities.IsNull(loggingStrategy))
+                {
+                    loggingStrategy = new LoggingDatabaseConcreteStrategy(context);
+                }
+                return loggingStrategy;
+            }
+        }
+
         public void DeleteAllDataFromDatabase()
         {
             context.DeleteAllDataFromDatabase();
@@ -137,7 +175,6 @@ namespace Persistence
 
         private bool disposed = false;
 
-        [ExcludeFromCodeCoverage]
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
@@ -150,7 +187,6 @@ namespace Persistence
             disposed = true;
         }
 
-        [ExcludeFromCodeCoverage]
         public void Dispose()
         {
             Dispose(true);

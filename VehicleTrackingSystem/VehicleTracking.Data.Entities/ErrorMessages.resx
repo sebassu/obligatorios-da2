@@ -133,7 +133,7 @@
     <value>La imagen recibida no es válida.</value>
   </data>
   <data name="CollectionIsInvalid" xml:space="preserve">
-    <value>La lista no puede ser vacia. Debe contener al menos un objeto, y no contener elementos repetidos.</value>
+    <value>La lista no puede ser vacía. Debe contener al menos un objeto, y no contener elementos repetidos.</value>
   </data>
   <data name="LocationIsInvalid" xml:space="preserve">
     <value>Se debe seleccionar un lugar para poder proceder.</value>
@@ -198,8 +198,8 @@
   <data name="InvalidLotsInTransport" xml:space="preserve">
     <value>Error en la colección de lotes recibidos para un transporte: esta debe ser no vacía, y contener lotes no repetidos que aún no hayan sido transportados.</value>
   </data>
-  <data name="MovementDateIsInvalid" xml:space="preserve">
-    <value>Error: la fecha y hora para este movimiento no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a "{0}".</value>
+  <data name="DateTimeForActionIsInvalid" xml:space="preserve">
+    <value>Error: la fecha y hora para esta acción no resulta coherente respecto de los datos anteriores registrados para el vehículo, debe ser una posterior a "{0}".</value>
   </data>
   <data name="TransportEndDateIsInvalid" xml:space="preserve">
     <value>La fecha de fin del transporte debe ser posterior a la de inicio, y estar dentro del rango permitido (1/1/1900 - actualidad).</value>
@@ -242,5 +242,29 @@
   </data>
   <data name="YardInspectionRequiredBeforeMovement" xml:space="preserve">
     <value>Error: es necesario registrar una inspección de patio válida antes de mover el vehículo a una subzona.</value>
+  </data>
+  <data name="BinaryInformationIsNotAnImage" xml:space="preserve">
+    <value>La cadena de caracteres binarios recibida no está asociada a una imagen.</value>
+  </data>
+  <data name="StringIsNotInBase64Format" xml:space="preserve">
+    <value>Error al convertir la cadena de caracteres recibida a binario: no se encontraba en el formato esperado (base 64).</value>
+  </data>
+  <data name="LoggingElementIdentifierIsInvalid" xml:space="preserve">
+    <value>El identificador de elemento para registro de una acción en el histórico es inválido: permite únicamente caracteres alfanuméricos.</value>
+  </data>
+  <data name="InvalidUserRoleForLogging" xml:space="preserve">
+    <value>Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella.</value>
+  </data>
+  <data name="BuyerIsNull" xml:space="preserve">
+    <value>Se recibió una referencia a un objeto de tipo "Customer" nula.</value>
+  </data>
+  <data name="SalePriceMustBePositive" xml:space="preserve">
+    <value>Precio de venta para un vehículo inválido: debe ser mayor a cero.</value>
+  </data>
+  <data name="InvalidVehicleForSale" xml:space="preserve">
+    <value>Se recibió un vehículo inválido para ser vendido al registrar una venta.</value>
+  </data>
+  <data name="FlowSubzonesAreInvalid" xml:space="preserve">
+    <value>Error al registrar un nuevo flujo: se espera que éste contenga al menos una subzona requerida, y que los nombres de las mismas sean alfabéticos únicamente.</value>
   </data>
 </root>

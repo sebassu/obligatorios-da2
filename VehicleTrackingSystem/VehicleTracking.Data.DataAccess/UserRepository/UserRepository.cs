@@ -13,7 +13,7 @@ namespace Persistence
     {
         public UserRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<User> Elements => GetElementsWith(u => !u.WasRemoved);
+        public IEnumerable<User> Elements => GetElementsWith("", u => !u.WasRemoved);
 
         public void AddNewUser(User userToAdd)
         {
@@ -59,9 +59,10 @@ namespace Persistence
                 administrators.Single().Username == usernameToRemove;
         }
 
-        protected override bool ElementExistsInCollection(User value)
+        internal override bool ElementExistsInCollection(User value)
         {
-            return Utilities.IsNotNull(value) && elements.Any(u => u.Id == value.Id);
+            return Utilities.IsNotNull(value) && elements.Any(u
+                => u.Id == value.Id);
         }
     }
 }

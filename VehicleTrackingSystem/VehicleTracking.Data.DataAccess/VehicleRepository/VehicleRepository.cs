@@ -13,7 +13,7 @@ namespace Persistence
     {
         public VehicleRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<Vehicle> Elements => GetElementsWith(null, "StagesData");
+        public IEnumerable<Vehicle> Elements => GetElementsWith("StagesData");
 
         public void AddNewVehicle(Vehicle vehicleToAdd)
         {
@@ -82,7 +82,7 @@ namespace Persistence
             AttemptToRemove(vehicleToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Vehicle value)
+        internal override bool ElementExistsInCollection(Vehicle value)
         {
             return Utilities.IsNotNull(value) && elements.Any(v => v.Id == value.Id);
         }

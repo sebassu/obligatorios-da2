@@ -135,10 +135,19 @@
   <data name="LotWasTransported" xml:space="preserve">
     <value>El lote se encuentra en una etapa en la cual no está permitido editarlo.</value>
   </data>
+  <data name="NotEmptyValues" xml:space="preserve">
+    <value>El usuario y/o contraseña no pueden ser vacíos.</value>
+  </data>
+  <data name="NotMatchingPasswords" xml:space="preserve">
+    <value>Contraseña incorrecta.</value>
+  </data>
   <data name="NullDTOReference" xml:space="preserve">
     <value>No se recibieron datos en el formato correcto esperado para acceder a esta funcionalidad.</value>
   </data>
   <data name="TransportFinalizerMustBeCreator" xml:space="preserve">
     <value>Error: un transporte sólo puede ser marcado como finalizado por su usuario transportador creador.</value>
+  </data>
+  <data name="WrongUserRole" xml:space="preserve">
+    <value>Error: Solo pueden ingresar usuarios que tengan rol de administrador.</value>
   </data>
 </root>

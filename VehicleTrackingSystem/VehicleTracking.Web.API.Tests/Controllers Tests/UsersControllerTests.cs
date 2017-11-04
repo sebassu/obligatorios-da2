@@ -11,7 +11,7 @@ using System.Diagnostics.CodeAnalysis;
 using System;
 using Web.API.Tests;
 
-namespace Web.API.Controllers_Tests
+namespace Web.API.Controllers_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

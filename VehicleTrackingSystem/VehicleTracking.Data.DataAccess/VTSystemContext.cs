@@ -1,8 +1,8 @@
 ﻿using Domain;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations.Schema;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 namespace Persistence
@@ -20,6 +20,10 @@ namespace Persistence
         public DbSet<Lot> Lots { get; set; }
         public DbSet<Damage> Damages { get; set; }
         public DbSet<Transport> Transports { get; set; }
+        public DbSet<ImageElement> ImageElements { get; set; }
+        public DbSet<LoggingRecord> LoggingRecords { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         public VTSystemContext() : base()
         {
@@ -31,17 +35,30 @@ namespace Persistence
         {
             base.OnModelCreating(modelBuilder);
             Configuration.LazyLoadingEnabled = false;
+            InspectionEntityDatabaseSettings(modelBuilder);
             VehicleEntityDatabaseSettings(modelBuilder);
+            ProcessDataDatabaseSettings(modelBuilder);
+            LotEntityDatabaseSettings(modelBuilder);
             modelBuilder.Entity<Zone>().HasMany(z => z.Subzones)
                 .WithRequired(s => s.Container);
             modelBuilder.Entity<Subzone>().HasMany(z => z.Vehicles)
                 .WithOptional();
-            LotEntityDatabaseSettings(modelBuilder);
-            modelBuilder.Entity<Inspection>().HasMany(i => i.Damages).WithRequired()
-                .WillCascadeOnDelete();
             modelBuilder.Entity<Transport>().HasMany(t => t.LotsTransported)
                 .WithOptional(l => l.AssociatedTransport);
-            ProcessDataDatabaseSettings(modelBuilder);
+            modelBuilder.Entity<LoggingRecord>().HasRequired(r => r.Responsible)
+                .WithOptional().WillCascadeOnDelete(); ;
+            modelBuilder.Entity<Damage>().Ignore(d => d.Images);
+            modelBuilder.Entity<ImageElement>().Ignore(d => d.StringifiedImage);
+            modelBuilder.Entity<Sale>().HasRequired(s => s.Buyer)
+                .WithRequiredDependent().WillCascadeOnDelete();
+        }
+
+        private static void InspectionEntityDatabaseSettings(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Inspection>().HasMany(i => i.Damages)
+                .WithRequired().WillCascadeOnDelete();
+            modelBuilder.Entity<Inspection>().HasRequired(i => i.Responsible)
+                .WithOptional().WillCascadeOnDelete();
         }
 
         private static void VehicleEntityDatabaseSettings(DbModelBuilder modelBuilder)
@@ -52,6 +69,7 @@ namespace Persistence
             modelBuilder.Entity<Vehicle>().Ignore(v => v.CurrentStage);
             modelBuilder.Entity<Vehicle>().Ignore(v => v.TransportData);
             modelBuilder.Entity<Vehicle>().Ignore(v => v.Movements);
+            modelBuilder.Entity<Vehicle>().Ignore(v => v.SaleRecord);
             modelBuilder.Entity<Vehicle>().HasRequired(v => v.StagesData)
                 .WithRequiredDependent().WillCascadeOnDelete();
         }
@@ -77,14 +95,7 @@ namespace Persistence
 
         internal void DeleteAllDataFromDatabase()
         {
-            Database.ExecuteSqlCommand("delete from processDatas");
-            Database.ExecuteSqlCommand("delete from users");
-            Database.ExecuteSqlCommand("delete from locations");
-            Database.ExecuteSqlCommand("delete from movements");
-            Database.ExecuteSqlCommand("delete from subzones");
-            Database.ExecuteSqlCommand("delete from zones");
-            Database.ExecuteSqlCommand("delete from vehicles");
-            Database.ExecuteSqlCommand("delete from lots");
+            Database.Delete();
         }
     }
 }

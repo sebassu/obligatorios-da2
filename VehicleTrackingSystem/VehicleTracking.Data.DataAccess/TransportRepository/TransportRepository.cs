@@ -16,8 +16,8 @@ namespace Persistence
             Add(transportToAdd);
         }
 
-        public IEnumerable<Transport> Elements => GetElementsWith(null,
-            "Transporter,LotsTransported");
+        public IEnumerable<Transport> Elements => GetElementsWith("Transporter," +
+            "LotsTransported");
 
         public Transport GetTransportWithId(int idToLookup)
         {
@@ -39,7 +39,7 @@ namespace Persistence
             Update(transportToModify);
         }
 
-        protected override bool ElementExistsInCollection(Transport entityToUpdate)
+        internal override bool ElementExistsInCollection(Transport entityToUpdate)
         {
             return Utilities.IsNotNull(entityToUpdate)
                 && elements.Any(t => t.Id == entityToUpdate.Id);

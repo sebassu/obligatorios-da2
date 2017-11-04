@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Data.Domain_Tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -21,10 +21,17 @@ namespace Data.Domain_Tests
         {
             Assert.AreEqual(UserRoles.ADMINISTRATOR, testingUser.Role);
             Assert.AreEqual("Usuario", testingUser.FirstName);
-            Assert.AreEqual("inválido.", testingUser.LastName);
+            Assert.AreEqual("inválido", testingUser.LastName);
             Assert.AreEqual("usuarioinválido", testingUser.Username);
             Assert.AreEqual("Contraseña inválida.", testingUser.Password);
-            Assert.AreEqual("Teléfono inválido.", testingUser.PhoneNumber);
+            Assert.AreEqual("099424242", testingUser.PhoneNumber);
+        }
+
+        [TestMethod]
+        public void UserSetIdValidTest()
+        {
+            testingUser.Id = 42;
+            Assert.AreEqual(42, testingUser.Id);
         }
 
         [TestMethod]
@@ -289,7 +296,7 @@ namespace Data.Domain_Tests
         [ExpectedException(typeof(UserException))]
         public void UserParameterFactoryMethodInvalidFirstNameTest()
         {
-            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "1&6 1a2-*!3", "Ravenna",
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "1&6 1a2-*!3", "Ravenna",
                 "emravenna", "contraseñaVálida123", "099212121");
         }
 
@@ -297,7 +304,7 @@ namespace Data.Domain_Tests
         [ExpectedException(typeof(UserException))]
         public void UserParameterFactoryMethodInvalidLastNameTest()
         {
-            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", ";#d1 -($!#",
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", ";#d1 -($!#",
                 "emravenna", "contraseñaVálida123", "099212121");
         }
 
@@ -305,7 +312,7 @@ namespace Data.Domain_Tests
         [ExpectedException(typeof(UserException))]
         public void UserParameterFactoryMethodInvalidUsernameTest()
         {
-            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
                 "12! $^#&", "contraseñaVálida123", "099212121");
         }
 
@@ -313,7 +320,7 @@ namespace Data.Domain_Tests
         [ExpectedException(typeof(UserException))]
         public void UserParameterFactoryMethodInvalidPasswordTest()
         {
-            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
                 "emravenna", "", "099212121");
         }
 
@@ -321,7 +328,7 @@ namespace Data.Domain_Tests
         [ExpectedException(typeof(UserException))]
         public void UserParameterFactoryMethodInvalidPhoneNumberTest()
         {
-            testingUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "Emilio", "Ravenna",
                 "emravenna", "contraseñaVálida123", "0A# .0!&1-2");
         }
 
@@ -386,7 +393,7 @@ namespace Data.Domain_Tests
         [TestMethod]
         public void UserToStringTest1()
         {
-            Assert.AreEqual("Usuario inválido. <usuarioinválido>",
+            Assert.AreEqual("Usuario inválido <usuarioinválido>",
                 testingUser.ToString());
         }
 
