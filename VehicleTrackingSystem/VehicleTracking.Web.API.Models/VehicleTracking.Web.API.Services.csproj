@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Business Logic\Concrete types\InspectionServices.cs" />
     <Compile Include="Business Logic\Concrete types\LotServices.cs" />
+    <Compile Include="Business Logic\Concrete types\SessionServices.cs" />
     <Compile Include="Business Logic\Concrete types\SubzoneServices.cs" />
     <Compile Include="Business Logic\Concrete types\TransportServices.cs" />
     <Compile Include="Business Logic\Concrete types\UserServices.cs" />
