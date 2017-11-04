@@ -45,5 +45,10 @@ namespace API.Services
                 Model.SaveChanges();
                 return flowToAdd.Id;
         }
+
+        public Flow GetRegisteredFlow()
+        {
+            return Flows.GetCurrentFlow();
+        }
     }
 }

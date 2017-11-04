@@ -54,7 +54,7 @@ namespace Web.API.Tests.Services_Tests
             var flowServices = new FlowServices(mockUnitOfWork.Object);
             var result = flowServices.GetRegisteredFlow();
             mockUnitOfWork.Verify();
-            CollectionAssert.AreEqual(GetFlow(), result);
+            Assert.AreEqual(GetFlow(), result);
         }
         
         private Flow GetFlow()
