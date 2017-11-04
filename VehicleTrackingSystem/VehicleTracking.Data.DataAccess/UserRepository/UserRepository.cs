@@ -13,7 +13,7 @@ namespace Persistence
     {
         public UserRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<User> Elements => GetElementsWith(u => !u.WasRemoved);
+        public IEnumerable<User> Elements => GetElementsWith("", u => !u.WasRemoved);
 
         public void AddNewUser(User userToAdd)
         {

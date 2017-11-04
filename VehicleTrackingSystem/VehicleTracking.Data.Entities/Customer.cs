@@ -75,5 +75,24 @@ namespace Domain
             Name = nameToSet;
             PhoneNumber = phoneNumberToSet;
         }
+
+        public override bool Equals(object obj)
+        {
+            Customer customerToCompareAgainst = obj as Customer;
+            if (Utilities.IsNotNull(customerToCompareAgainst))
+            {
+                return name.Equals(customerToCompareAgainst.name) &&
+                    phoneNumber.Equals(customerToCompareAgainst.phoneNumber);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

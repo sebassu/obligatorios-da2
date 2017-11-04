@@ -101,6 +101,8 @@ namespace Domain
         {
             return new Sale()
             {
+                buyer = Customer.InstanceForTestingPurposes(),
+                vehicleVIN = "VININVLDOVNINVLDO",
                 dateTime = new DateTime(1900, 1, 1)
             };
         }

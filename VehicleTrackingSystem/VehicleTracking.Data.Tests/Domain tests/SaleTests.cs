@@ -30,8 +30,9 @@ namespace Data.Domain_tests
         [TestMethod]
         public void SaleInstanceForTestingPurposesTest()
         {
-            Assert.IsNull(testingSale.Buyer);
-            Assert.IsNull(testingSale.VehicleVIN);
+            Assert.IsNotNull(testingSale.Buyer);
+            Assert.AreEqual("VININVLDOVNINVLDO",
+                testingSale.VehicleVIN);
             Assert.AreEqual(0, testingSale.SellingPrice);
             Assert.AreEqual(new DateTime(1900, 1, 1),
                 testingSale.DateTime);

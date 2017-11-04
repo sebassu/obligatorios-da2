@@ -95,17 +95,7 @@ namespace Persistence
 
         internal void DeleteAllDataFromDatabase()
         {
-            Database.ExecuteSqlCommand("delete from imageElements");
-            Database.ExecuteSqlCommand("delete from damages");
-            Database.ExecuteSqlCommand("delete from inspections");
-            Database.ExecuteSqlCommand("delete from transports");
-            Database.ExecuteSqlCommand("delete from processDatas");
-            Database.ExecuteSqlCommand("delete from users");
-            Database.ExecuteSqlCommand("delete from movements");
-            Database.ExecuteSqlCommand("delete from subzones");
-            Database.ExecuteSqlCommand("delete from zones");
-            Database.ExecuteSqlCommand("delete from vehicles");
-            Database.ExecuteSqlCommand("delete from lots");
+            Database.Delete();
         }
     }
 }

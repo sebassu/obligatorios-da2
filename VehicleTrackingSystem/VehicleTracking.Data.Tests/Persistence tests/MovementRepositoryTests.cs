@@ -30,9 +30,8 @@ namespace Data.Persistence_tests
         {
             var movementToAdd = GetNewValidTestingMovement();
             AddNewMovementAndSaveChanges(movementToAdd);
-            CollectionAssert.Contains(
-                ((MovementRepository)testingMovementRepository).Elements.ToList(),
-                movementToAdd);
+            CollectionAssert.Contains(testingMovementRepository
+                .Elements.ToList(), movementToAdd);
         }
 
         [TestMethod]

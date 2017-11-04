@@ -10,12 +10,12 @@ namespace Persistence
         public MovementRepository(VTSystemContext someContext)
             : base(someContext) { }
 
-        internal IEnumerable<Movement> Elements => GetElementsWith();
-
         public void AddNewMovement(Movement movementToAdd)
         {
             Add(movementToAdd);
         }
+
+        public IEnumerable<Movement> Elements => GetElementsWith();
 
         public bool SubzoneParticipatesInSomeMovement(Subzone subzoneToVerify)
         {

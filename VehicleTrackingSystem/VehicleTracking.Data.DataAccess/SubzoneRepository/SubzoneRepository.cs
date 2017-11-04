@@ -15,7 +15,7 @@ namespace Persistence
             Add(subzoneToAdd);
         }
 
-        public IEnumerable<Subzone> Elements => GetElementsWith(null, "Container");
+        public IEnumerable<Subzone> Elements => GetElementsWith("Container");
 
         public Subzone GetSubzoneWithId(int idToFind)
         {

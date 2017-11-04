@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerRepository\CustomerRepository.cs" />
+    <Compile Include="CustomerRepository\ICustomerRepository.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -64,6 +66,8 @@
     <Compile Include="GenericRepository.cs" />
     <Compile Include="LotRepository\ILotRepository.cs" />
     <Compile Include="MovementRepository\MovementRepository.cs" />
+    <Compile Include="SaleRepository\ISaleRepository.cs" />
+    <Compile Include="SaleRepository\SaleRepository.cs" />
     <Compile Include="SubzoneRepository\ISubzoneRepository.cs" />
     <Compile Include="TransportRepository\ITransportRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />

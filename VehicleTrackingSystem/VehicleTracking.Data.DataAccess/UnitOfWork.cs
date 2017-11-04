@@ -124,6 +124,32 @@ namespace Persistence
             }
         }
 
+        public ICustomerRepository customers;
+        public ICustomerRepository Customers
+        {
+            get
+            {
+                if (Utilities.IsNull(customers))
+                {
+                    customers = new CustomerRepository(context);
+                }
+                return customers;
+            }
+        }
+
+        public ISaleRepository sales;
+        public ISaleRepository Sales
+        {
+            get
+            {
+                if (Utilities.IsNull(sales))
+                {
+                    sales = new SaleRepository(context);
+                }
+                return sales;
+            }
+        }
+
         private ILoggingStrategy loggingStrategy;
         public ILoggingStrategy LoggingStrategy
         {
