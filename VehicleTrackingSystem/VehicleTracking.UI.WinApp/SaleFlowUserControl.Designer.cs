@@ -35,7 +35,7 @@
             this.RemoveBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.SaveBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.NewSubzoneTxt = new System.Windows.Forms.TextBox();
             this.NotExistingSubzoneCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -49,6 +49,7 @@
             this.availableSubzonesListBox.Name = "availableSubzonesListBox";
             this.availableSubzonesListBox.Size = new System.Drawing.Size(198, 144);
             this.availableSubzonesListBox.TabIndex = 0;
+            this.availableSubzonesListBox.SelectedIndexChanged += new System.EventHandler(this.availableSubzonesListBox_SelectedIndexChanged);
             // 
             // subzonesToSetListBox
             // 
@@ -73,6 +74,7 @@
             this.AddBtn.TabIndex = 2;
             this.AddBtn.Text = "]";
             this.AddBtn.UseVisualStyleBackColor = true;
+            this.AddBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AddBtn_MouseClick);
             // 
             // TitleLbl
             // 
@@ -126,14 +128,14 @@
             this.SaveBtn.Text = "Guardar";
             this.SaveBtn.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // NewSubzoneTxt
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.textBox1.Location = new System.Drawing.Point(178, 268);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(198, 27);
-            this.textBox1.TabIndex = 40;
+            this.NewSubzoneTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewSubzoneTxt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.NewSubzoneTxt.Location = new System.Drawing.Point(178, 268);
+            this.NewSubzoneTxt.Name = "NewSubzoneTxt";
+            this.NewSubzoneTxt.Size = new System.Drawing.Size(198, 27);
+            this.NewSubzoneTxt.TabIndex = 40;
             // 
             // NotExistingSubzoneCheckBox
             // 
@@ -146,6 +148,7 @@
             this.NotExistingSubzoneCheckBox.TabIndex = 41;
             this.NotExistingSubzoneCheckBox.Text = "Subzona no existente";
             this.NotExistingSubzoneCheckBox.UseVisualStyleBackColor = true;
+            this.NotExistingSubzoneCheckBox.CheckStateChanged += new System.EventHandler(this.NotExistingSubzoneCheckBox_CheckStateChanged);
             // 
             // SaleFlowUserControl
             // 
@@ -153,7 +156,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.Controls.Add(this.NotExistingSubzoneCheckBox);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.NewSubzoneTxt);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.RemoveBtn);
@@ -177,7 +180,7 @@
         private System.Windows.Forms.Button RemoveBtn;
         private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.Button SaveBtn;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox NewSubzoneTxt;
         private System.Windows.Forms.CheckBox NotExistingSubzoneCheckBox;
     }
 }

@@ -145,6 +145,7 @@
             this.FlowBtn.TabIndex = 11;
             this.FlowBtn.Text = "Flujo para venta";
             this.FlowBtn.UseVisualStyleBackColor = false;
+            this.FlowBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FlowBtn_MouseClick);
             this.FlowBtn.MouseLeave += new System.EventHandler(this.FlowBtn_MouseLeave);
             this.FlowBtn.MouseHover += new System.EventHandler(this.FlowBtn_MouseHover);
             // 

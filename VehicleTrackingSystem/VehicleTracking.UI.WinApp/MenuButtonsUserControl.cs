@@ -150,6 +150,10 @@ namespace VehicleTracking.UI.WinApp
             CardPanel.Controls.Add(new SubzoneUserControl(CardPanel));
         }
 
-        
+        private void FlowBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            CardPanel.Controls.Clear();
+            CardPanel.Controls.Add(new SaleFlowUserControl(CardPanel));
+        }
     }
 }
