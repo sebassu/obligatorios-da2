@@ -59,6 +59,7 @@
             this.PasswordTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PasswordTxt.Location = new System.Drawing.Point(383, 159);
             this.PasswordTxt.Name = "PasswordTxt";
+            this.PasswordTxt.PasswordChar = '*';
             this.PasswordTxt.Size = new System.Drawing.Size(195, 31);
             this.PasswordTxt.TabIndex = 3;
             // 
@@ -84,6 +85,7 @@
             this.LoginBtn.TabIndex = 4;
             this.LoginBtn.Text = "Sign in";
             this.LoginBtn.UseVisualStyleBackColor = false;
+            this.LoginBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LoginBtn_MouseClick);
             // 
             // Login
             // 

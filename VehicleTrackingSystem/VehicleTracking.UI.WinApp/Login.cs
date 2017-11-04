@@ -8,15 +8,45 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Persistence;
+using API.Services;
 
 namespace VehicleTracking.UI.WinApp
 {
     public partial class Login : UserControl
-    {
-        public Login()
+    { 
+        Panel CardPanel;
+        Panel ButtonsPanel;
+
+        public Login(Panel cardPanel, Panel buttonsPanel)
         {
+            CardPanel = cardPanel;
+            ButtonsPanel = buttonsPanel;
             InitializeComponent();
         }
 
+        private void LoginBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                bool couldLogIn = SessionServices.LogIn(UsernameTxt.Text, PasswordTxt.Text);
+                if (couldLogIn)
+                {
+                    ShowButtons();   
+                }
+            }catch(ServiceException ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            } catch (RepositoryException ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        private void ShowButtons()
+        {
+            ButtonsPanel.Controls.Clear();
+            ButtonsPanel.Controls.Add(new MenuButtonsUserControl(CardPanel));
+            CardPanel.Controls.Clear();
+        }
     }
 }
