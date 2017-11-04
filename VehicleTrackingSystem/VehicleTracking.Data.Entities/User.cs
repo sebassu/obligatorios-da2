@@ -83,7 +83,7 @@ namespace Domain
             }
         }
 
-        protected bool IsValidUsername(string value)
+        internal static bool IsValidUsername(string value)
         {
             return Utilities.ContainsLettersOrDigitsOnly(value);
         }

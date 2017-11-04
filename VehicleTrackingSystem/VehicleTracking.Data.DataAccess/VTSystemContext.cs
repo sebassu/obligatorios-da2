@@ -46,8 +46,6 @@ namespace Persistence
                 .WithOptional();
             modelBuilder.Entity<Transport>().HasMany(t => t.LotsTransported)
                 .WithOptional(l => l.AssociatedTransport);
-            modelBuilder.Entity<LoggingRecord>().HasRequired(r => r.Responsible)
-                .WithOptional().WillCascadeOnDelete(); ;
             modelBuilder.Entity<Damage>().Ignore(d => d.Images);
             modelBuilder.Entity<ImageElement>().Ignore(d => d.StringifiedImage);
             modelBuilder.Entity<Sale>().HasRequired(s => s.Buyer)

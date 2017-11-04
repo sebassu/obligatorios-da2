@@ -154,7 +154,7 @@
     <value>Usuario inválido. Es necesario contar con mayores privilegios para poder completar la acción seleccionada.</value>
   </data>
   <data name="UsernameIsInvalid" xml:space="preserve">
-    <value>El usuario "{0}" es inválido: se permiten únicamente aquellos no vacíos con letras o números, sin espacios.</value>
+    <value>El nombre de usuario "{0}" es inválido: se permiten únicamente aquellos no vacíos con letras o números, sin espacios.</value>
   </data>
   <data name="UserRoleLocationTypeInvalid" xml:space="preserve">
     <value>La combinación Rol de Usuario-Ubicación recibida no es válida.</value>
@@ -251,9 +251,6 @@
   </data>
   <data name="LoggingElementIdentifierIsInvalid" xml:space="preserve">
     <value>El identificador de elemento para registro de una acción en el histórico es inválido: permite únicamente caracteres alfanuméricos.</value>
-  </data>
-  <data name="InvalidUserRoleForLogging" xml:space="preserve">
-    <value>Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella.</value>
   </data>
   <data name="BuyerIsNull" xml:space="preserve">
     <value>Se recibió una referencia a un objeto de tipo "Customer" nula.</value>

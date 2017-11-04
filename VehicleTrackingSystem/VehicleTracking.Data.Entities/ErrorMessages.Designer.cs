@@ -268,15 +268,6 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella..
-        /// </summary>
-        internal static string InvalidUserRoleForLogging {
-            get {
-                return ResourceManager.GetString("InvalidUserRoleForLogging", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error: la colección de vehículos a agregar al lote no puede ser vacía, ni puede contener vehículos ya asociados a otros lotes o repetidos..
         /// </summary>
         internal static string InvalidVehicleCollectionForLot {
@@ -448,7 +439,7 @@ namespace Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El usuario &quot;{0}&quot; es inválido: se permiten únicamente aquellos no vacíos con letras o números, sin espacios..
+        ///   Looks up a localized string similar to El nombre de usuario &quot;{0}&quot; es inválido: se permiten únicamente aquellos no vacíos con letras o números, sin espacios..
         /// </summary>
         internal static string UsernameIsInvalid {
             get {
