@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using API.Services;
+using Domain;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -162,6 +163,17 @@ namespace VehicleTracking.UI.WinApp
         private void CancelBtn_MouseClick(object sender, MouseEventArgs e)
         {
             CardPanel.Controls.Clear();
+        }
+
+        private void SaveBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            SetSaleFlow();
+            CardPanel.Controls.Clear();
+        }
+
+        private void SetSaleFlow()
+        {
+
         }
     }
 }

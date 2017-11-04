@@ -130,6 +130,7 @@
             this.SaveBtn.TabIndex = 39;
             this.SaveBtn.Text = "Guardar";
             this.SaveBtn.UseVisualStyleBackColor = true;
+            this.SaveBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SaveBtn_MouseClick);
             // 
             // NewSubzoneTxt
             // 
