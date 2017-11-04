@@ -11,7 +11,8 @@ namespace Data.Persistence_tests
     public class UserRepositoryTests
     {
         private string unaddedUsername = "Wololo";
-        private static readonly UnitOfWork testingUnitOfWork = new UnitOfWork();
+        private static readonly UnitOfWork testingUnitOfWork
+            = new UnitOfWork();
         private static IUserRepository testingUserRepository;
 
         [AssemblyInitialize]
@@ -31,6 +32,8 @@ namespace Data.Persistence_tests
         {
             testingUserRepository = testingUnitOfWork.Users;
             Assert.IsNotNull(testingUserRepository);
+            CollectionAssert.Contains(testingUserRepository.Elements.ToList(),
+                VTSystemDatabaseInitializer.defaultAdministrator);
         }
 
         [TestMethod]
