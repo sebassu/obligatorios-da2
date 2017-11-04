@@ -133,6 +133,15 @@ namespace API.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El valor ingresado no puede ser nulo..
+        /// </summary>
+        internal static string NotNullValues {
+            get {
+                return ResourceManager.GetString("NotNullValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No se recibieron datos en el formato correcto esperado para acceder a esta funcionalidad..
         /// </summary>
         internal static string NullDTOReference {
