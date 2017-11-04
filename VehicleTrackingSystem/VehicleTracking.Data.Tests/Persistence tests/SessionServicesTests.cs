@@ -6,11 +6,10 @@ using Domain;
 
 namespace Web.API.Tests.Services_Tests
 {
-    [ExcludeFromCodeCoverage]
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class SessionServicesTests
     {
-
         private static IUnitOfWork testingUnitOfWork = new UnitOfWork();
 
         [TestMethod]
@@ -24,21 +23,21 @@ namespace Web.API.Tests.Services_Tests
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void CanNotLogInWrongUserNameTest()
+        public void CannotLogInWrongUsernameTest()
         {
             SessionServices.LogIn("SomeUsername", "Victory");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(RepositoryException))]
-        public void CanNotLogInWrongPasswordTest()
+        [ExpectedException(typeof(ServiceException))]
+        public void CannotLogInWrongPasswordTest()
         {
             SessionServices.LogIn("theAdministrator", "WrongPassword");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ServiceException))]
-        public void CanNotLogInWrongUserRoleTest()
+        public void CannotLogInWrongUserRoleTest()
         {
             User transporter = User.CreateNewUser(UserRoles.TRANSPORTER, "Maria", "Gonzalez",
                 "mGonzalez", "mGonzalez123", "099424242");
@@ -50,14 +49,14 @@ namespace Web.API.Tests.Services_Tests
         [ExpectedException(typeof(ServiceException))]
         public void TestNoMailEntered()
         {
-           SessionServices.LogIn("", "");
+            SessionServices.LogIn("", "");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ServiceException))]
         public void TestNoPasswordEntered()
         {
-           SessionServices.LogIn("theAdministrator", "");
+            SessionServices.LogIn("theAdministrator", "");
         }
 
         private static void AddNewUserAndSaveChanges(User userToAdd)

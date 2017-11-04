@@ -132,6 +132,9 @@
   <data name="FieldMustBeUnique" xml:space="preserve">
     <value>No es posible completar la acción. El {0} ingresado ya se encuentra registrado en el sistema.</value>
   </data>
+  <data name="InvalidUserRoleForLogging" xml:space="preserve">
+    <value>Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella.</value>
+  </data>
   <data name="NullIDRecieved" xml:space="preserve">
     <value>Se recibió una ID nula de elemento a eliminar.</value>
   </data>

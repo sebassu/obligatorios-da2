@@ -24,6 +24,7 @@ namespace Persistence
         public DbSet<LoggingRecord> LoggingRecords { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Flow> Flow { get; set; }
 
         public VTSystemContext() : base()
         {
@@ -45,8 +46,6 @@ namespace Persistence
                 .WithOptional();
             modelBuilder.Entity<Transport>().HasMany(t => t.LotsTransported)
                 .WithOptional(l => l.AssociatedTransport);
-            modelBuilder.Entity<LoggingRecord>().HasRequired(r => r.Responsible)
-                .WithOptional().WillCascadeOnDelete(); ;
             modelBuilder.Entity<Damage>().Ignore(d => d.Images);
             modelBuilder.Entity<ImageElement>().Ignore(d => d.StringifiedImage);
             modelBuilder.Entity<Sale>().HasRequired(s => s.Buyer)

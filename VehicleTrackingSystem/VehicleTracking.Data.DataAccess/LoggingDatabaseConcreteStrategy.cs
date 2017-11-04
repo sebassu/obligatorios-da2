@@ -13,17 +13,34 @@ namespace Persistence
 
         public LoggingRecord RegisterUserLogin(User loggedUser)
         {
-            LoggingRecord logRecordToAdd =
-                LoggingRecord.FromResponsibleActionPerformed(loggedUser, LoggedActions.LOGIN);
-            Add(logRecordToAdd);
-            return logRecordToAdd;
+            if (Utilities.IsNotNull(loggedUser))
+            {
+                return CreateNewLogRecordWithData(loggedUser, LoggedActions.LOGIN);
+            }
+            else
+            {
+                throw new LoggingException(ErrorMessages.NullObjectRecieved);
+            }
         }
 
         public LoggingRecord RegisterVehicleImport(User responsible)
         {
-            LoggingRecord logRecordToAdd =
-                LoggingRecord.FromResponsibleActionPerformed(responsible,
-                LoggedActions.VEHICLE_IMPORT);
+            bool isValidUser = Utilities.IsNotNull(responsible)
+                && responsible.Role == UserRoles.ADMINISTRATOR;
+            if (isValidUser)
+            {
+                return CreateNewLogRecordWithData(responsible, LoggedActions.VEHICLE_IMPORT);
+            }
+            else
+            {
+                throw new LoggingException(ErrorMessages.InvalidUserRoleForLogging);
+            }
+        }
+
+        private LoggingRecord CreateNewLogRecordWithData(User responsible, LoggedActions actionToLog)
+        {
+            LoggingRecord logRecordToAdd = LoggingRecord.FromUsernameAction(
+                responsible.Username, actionToLog);
             Add(logRecordToAdd);
             return logRecordToAdd;
         }

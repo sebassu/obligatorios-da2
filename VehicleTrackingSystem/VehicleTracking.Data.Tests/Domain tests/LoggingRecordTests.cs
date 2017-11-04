@@ -1,10 +1,12 @@
 ﻿using Domain;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class LoggingRecordTests
     {
         private static LoggingRecord testingLoggingRecord;
@@ -18,7 +20,7 @@ namespace Data.Domain_tests
         [TestMethod]
         public void LoggingRecordInstanceForTestingPurposesTest()
         {
-            Assert.IsNull(testingLoggingRecord.Responsible);
+            Assert.IsNull(testingLoggingRecord.ResponsiblesUsername);
             Assert.AreEqual(DateTime.Today,
                 testingLoggingRecord.DateTime.Date);
         }
@@ -31,54 +33,38 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        public void LoggingRecordSetValidResponsibleTest()
+        public void LoggingRecordSetValidResponsiblesUsernameTest()
         {
-            User responsibleToSet = User.InstanceForTestingPurposes();
-            testingLoggingRecord.Responsible = responsibleToSet;
-            Assert.AreEqual(responsibleToSet, testingLoggingRecord.Responsible);
+            testingLoggingRecord.ResponsiblesUsername = "mSantos";
+            Assert.AreEqual("mSantos", testingLoggingRecord.ResponsiblesUsername);
         }
 
         [TestMethod]
-        public void LoggingRecordSetPortOperatorResponsibleValidTest()
+        [ExpectedException(typeof(LoggingException))]
+        public void LoggingRecordSetResponsiblesUsernameWithSpacesInvalidTest()
         {
-            User responsibleToSet = User.InstanceForTestingPurposes();
-            responsibleToSet.Role = UserRoles.PORT_OPERATOR;
-            testingLoggingRecord.Responsible = responsibleToSet;
-            Assert.AreEqual(responsibleToSet, testingLoggingRecord.Responsible);
+            testingLoggingRecord.ResponsiblesUsername = "En el habitual espacio";
         }
 
         [TestMethod]
-        public void LoggingRecordSetTransporterResponsibleValidTest()
+        [ExpectedException(typeof(LoggingException))]
+        public void LoggingRecordSetPunctuationResponsiblesUsernameInvalidTest()
         {
-            User responsibleToSet = User.InstanceForTestingPurposes();
-            responsibleToSet.Role = UserRoles.TRANSPORTER;
-            testingLoggingRecord.Responsible = responsibleToSet;
-            Assert.AreEqual(responsibleToSet, testingLoggingRecord.Responsible);
+            testingLoggingRecord.ResponsiblesUsername = "1@#* *// -^$*";
         }
 
         [TestMethod]
-        public void LoggingRecordSetYardOperatorResponsibleValidTest()
+        [ExpectedException(typeof(LoggingException))]
+        public void LoggingRecordSetEmptyResponsiblesUsernameInvalidTest()
         {
-            User responsibleToSet = User.InstanceForTestingPurposes();
-            responsibleToSet.Role = UserRoles.YARD_OPERATOR;
-            testingLoggingRecord.Responsible = responsibleToSet;
-            Assert.AreEqual(responsibleToSet, testingLoggingRecord.Responsible);
+            testingLoggingRecord.ResponsiblesUsername = "";
         }
 
         [TestMethod]
-        public void LoggingRecordSetSalesmanResponsibleValidTest()
+        [ExpectedException(typeof(LoggingException))]
+        public void LoggingRecordSetNullResponsiblesUsernameInvalidTest()
         {
-            User responsibleToSet = User.InstanceForTestingPurposes();
-            responsibleToSet.Role = UserRoles.SALESMAN;
-            testingLoggingRecord.Responsible = responsibleToSet;
-            Assert.AreEqual(responsibleToSet, testingLoggingRecord.Responsible);
-        }
-
-        [TestMethod]
-        public void LoggingRecordSetNullResponsibleValidTest()
-        {
-            testingLoggingRecord.Responsible = null;
-            Assert.IsNull(testingLoggingRecord.Responsible);
+            testingLoggingRecord.ResponsiblesUsername = null;
         }
 
         [TestMethod]
@@ -90,7 +76,7 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        public void LoggingRecordSetActionTypeUserCreationValidTest()
+        public void LoggingRecordSetActionTypeUserLoginValidTest()
         {
             testingLoggingRecord.ActionPerformed = LoggedActions.LOGIN;
             Assert.AreEqual(LoggedActions.LOGIN,
@@ -106,43 +92,44 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        public void LoggingRecordParameterFactoryMethodAdministratorValidTest()
+        public void LoggingRecordParameterFactoryMethodValidTest()
         {
-            User administrator = User.InstanceForTestingPurposes();
-            testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
-                administrator, LoggedActions.LOGIN);
-            Assert.AreSame(administrator, testingLoggingRecord.Responsible);
-            Assert.AreEqual(LoggedActions.LOGIN, testingLoggingRecord.ActionPerformed);
-            Assert.AreEqual(DateTime.Today, testingLoggingRecord.DateTime.Date);
-        }
-
-        [TestMethod]
-        public void LoggingRecordParameterFactoryMethodOtherRoleValidTest()
-        {
-            User responsibleToSet = User.InstanceForTestingPurposes();
-            responsibleToSet.Role = UserRoles.SALESMAN;
-            testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
-                responsibleToSet, LoggedActions.LOGIN);
-            Assert.AreSame(responsibleToSet, testingLoggingRecord.Responsible);
+            testingLoggingRecord = LoggingRecord.FromUsernameAction("mSantos",
+                LoggedActions.LOGIN);
+            Assert.AreEqual("mSantos", testingLoggingRecord.ResponsiblesUsername);
             Assert.AreEqual(LoggedActions.LOGIN, testingLoggingRecord.ActionPerformed);
             Assert.AreEqual(DateTime.Today, testingLoggingRecord.DateTime.Date);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LoggingException))]
-        public void LoggingRecordParameterFactoryInvalidRoleForActionTest()
+        public void LoggingRecordParameterFactoryMethodUsernameWithSpacesInvalidTest()
         {
-            User responsibleToSet = User.InstanceForTestingPurposes();
-            responsibleToSet.Role = UserRoles.TRANSPORTER;
-            testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
-                responsibleToSet, LoggedActions.VEHICLE_IMPORT);
+            testingLoggingRecord = LoggingRecord.FromUsernameAction(
+                "En el habitual espacio", LoggedActions.LOGIN);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LoggingException))]
-        public void LoggingRecordParameterFactoryMethodNullUserInvalidTest()
+        public void LoggingRecordParameterFactoryMethodPunctuationUsernameInvalidTest()
         {
-            testingLoggingRecord = LoggingRecord.FromResponsibleActionPerformed(
+            testingLoggingRecord = LoggingRecord.FromUsernameAction(
+                ")#(*$33-***/$)*%&", LoggedActions.LOGIN);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LoggingException))]
+        public void LoggingRecordParameterFactoryMethodEmptyUsernameInvalidTest()
+        {
+            testingLoggingRecord = LoggingRecord.FromUsernameAction(
+                "", LoggedActions.LOGIN);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LoggingException))]
+        public void LoggingRecordParameterFactoryMethodNullUsernameInvalidTest()
+        {
+            testingLoggingRecord = LoggingRecord.FromUsernameAction(
                 null, LoggedActions.LOGIN);
         }
 

@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Domain;
+using System;
 using System.Diagnostics.CodeAnalysis;
-using Domain;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {

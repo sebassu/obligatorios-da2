@@ -1,13 +1,15 @@
 ﻿using System;
 using Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persistence;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Persistence_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class MovementRepositoryTests
     {
         private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();

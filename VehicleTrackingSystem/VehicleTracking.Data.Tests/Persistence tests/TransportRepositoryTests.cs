@@ -2,11 +2,13 @@
 using Domain;
 using Persistence;
 using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Persistence_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class TransportRepositoryTests
     {
         private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();

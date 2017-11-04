@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Domain;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Domain;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {
