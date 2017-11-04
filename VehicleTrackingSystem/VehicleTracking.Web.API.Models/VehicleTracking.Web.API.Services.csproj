@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business Logic\Concrete types\FlowServices.cs" />
     <Compile Include="Business Logic\Concrete types\InspectionServices.cs" />
     <Compile Include="Business Logic\Concrete types\LotServices.cs" />
     <Compile Include="Business Logic\Concrete types\SessionServices.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Business Logic\Concrete types\UserServices.cs" />
     <Compile Include="Business Logic\Concrete types\VehicleServices.cs" />
     <Compile Include="Business Logic\Concrete types\ZoneServices.cs" />
+    <Compile Include="Business Logic\Interfaces\IFlowServices.cs" />
     <Compile Include="Business Logic\Interfaces\IInspectionServices.cs" />
     <Compile Include="Business Logic\Interfaces\ILotServices.cs" />
     <Compile Include="Business Logic\Interfaces\ITransportServices.cs" />
