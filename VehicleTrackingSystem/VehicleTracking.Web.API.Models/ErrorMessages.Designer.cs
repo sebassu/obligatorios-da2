@@ -115,6 +115,24 @@ namespace API.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El usuario y/o contraseña no pueden ser vacíos..
+        /// </summary>
+        internal static string NotEmptyValues {
+            get {
+                return ResourceManager.GetString("NotEmptyValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contraseña incorrecta..
+        /// </summary>
+        internal static string NotMatchingPasswords {
+            get {
+                return ResourceManager.GetString("NotMatchingPasswords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No se recibieron datos en el formato correcto esperado para acceder a esta funcionalidad..
         /// </summary>
         internal static string NullDTOReference {
@@ -129,6 +147,15 @@ namespace API.Services {
         internal static string TransportFinalizerMustBeCreator {
             get {
                 return ResourceManager.GetString("TransportFinalizerMustBeCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Solo pueden ingresar usuarios que tengan rol de administrador..
+        /// </summary>
+        internal static string WrongUserRole {
+            get {
+                return ResourceManager.GetString("WrongUserRole", resourceCulture);
             }
         }
     }
