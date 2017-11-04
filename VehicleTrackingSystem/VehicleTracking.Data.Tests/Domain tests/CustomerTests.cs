@@ -1,9 +1,11 @@
 ﻿using Domain;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class CustomerTests
     {
         private static Customer testingCustomer;

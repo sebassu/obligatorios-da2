@@ -1,16 +1,9 @@
 ﻿using Domain;
 using System.Data.Entity;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Persistence
 {
-    /* Since the methods in this class are executed only when the Entity Model changes, 
-     * the methods in it are excluded from Code Coverage, as it was found these are not run
-     * on a second test execution and therefore would be apparently (as result percentage 
-     * would indicate) not covered by unit tests, when they actually are (see the 
-     * "LocationRepositoryTests" class, for example).
-     */
     internal class VTSystemDatabaseInitializer : DropCreateDatabaseIfModelChanges<VTSystemContext>
     {
         internal static readonly IReadOnlyCollection<Location> defaultSystemLocations =
@@ -26,17 +19,21 @@ namespace Persistence
                 Location.CreateNewLocation(LocationType.YARD, "Scotland Yard")
             }.AsReadOnly();
 
-        [ExcludeFromCodeCoverage]
+        internal static readonly User defaultAdministrator =
+            User.CreateNewUser(UserRoles.ADMINISTRATOR, "The", "Administrator",
+                "theAdministrator", "Victory", "099424242");
+
+        internal static readonly Flow defaultFlow = Flow.FromSubzoneNames(
+            new List<string>() { "Mecánica ligera", "Pintura", "Lavado" });
+
         protected override void Seed(VTSystemContext context)
         {
-            User defaultAdministrator = User.CreateNewUser(UserRoles.ADMINISTRATOR, "The",
-                "Administrator", "theAdministrator", "Victory", "099424242");
             context.Users.Add(defaultAdministrator);
+            context.Flow.Add(defaultFlow);
             AddDefaultLocationsToDatabase(context);
             base.Seed(context);
         }
 
-        [ExcludeFromCodeCoverage]
         private void AddDefaultLocationsToDatabase(VTSystemContext context)
         {
             context.Locations.AddRange(defaultSystemLocations);

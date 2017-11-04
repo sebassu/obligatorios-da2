@@ -150,6 +150,19 @@ namespace Persistence
             }
         }
 
+        public IFlowRepository flow;
+        public IFlowRepository Flow
+        {
+            get
+            {
+                if (Utilities.IsNull(flow))
+                {
+                    flow = new FlowRepository(context);
+                }
+                return flow;
+            }
+        }
+
         private ILoggingStrategy loggingStrategy;
         public ILoggingStrategy LoggingStrategy
         {

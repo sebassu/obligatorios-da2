@@ -1,11 +1,13 @@
 ﻿using Domain;
 using System.Linq;
 using Persistence;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Persistence_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class LoggingDatabaseConcreteStrategyTests
     {
         private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();

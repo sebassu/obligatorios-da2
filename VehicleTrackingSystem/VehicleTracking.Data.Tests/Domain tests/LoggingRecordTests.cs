@@ -1,10 +1,12 @@
 ﻿using Domain;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class LoggingRecordTests
     {
         private static LoggingRecord testingLoggingRecord;
