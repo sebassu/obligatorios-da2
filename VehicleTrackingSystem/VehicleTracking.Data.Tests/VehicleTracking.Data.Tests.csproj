@@ -82,6 +82,7 @@
     <Compile Include="Persistence tests\TransportRepositoryTests.cs" />
     <Compile Include="Persistence tests\LoggingDatabaseConcreteStrategyTests.cs" />
     <Compile Include="Persistence tests\SaleRepositoryTests.cs" />
+    <Compile Include="Persistence tests\CustomerRepositoryTests.cs" />
     <Compile Include="Persistence tests\UserRepositoryTests.cs" />
     <Compile Include="Persistence tests\VehicleRepositoryTests.cs" />
     <Compile Include="Persistence tests\ZoneRepositoryTests.cs" />
