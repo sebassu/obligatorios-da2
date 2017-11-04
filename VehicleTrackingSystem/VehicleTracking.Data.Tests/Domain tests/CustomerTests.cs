@@ -133,5 +133,69 @@ namespace Data.Domain_tests
         {
             Customer.FromNamePhoneNumber("Mario Santos", null);
         }
+
+        [TestMethod]
+        public void CustomerEqualsReflexiveTest()
+        {
+            Assert.AreEqual(testingCustomer, testingCustomer);
+        }
+
+        [TestMethod]
+        public void CustomerEqualsSymmetricTest()
+        {
+            Customer secondTestingCustomer = Customer.InstanceForTestingPurposes();
+            Assert.AreEqual(testingCustomer, secondTestingCustomer);
+            Assert.AreEqual(secondTestingCustomer, testingCustomer);
+        }
+
+        [TestMethod]
+        public void CustomerEqualsTransitiveTest()
+        {
+            testingCustomer = Customer.FromNamePhoneNumber("Same name", "099212121");
+            Customer secondTestingCustomer = Customer.FromNamePhoneNumber("Same name", "099212121");
+            Customer thirdTestingCustomer = Customer.FromNamePhoneNumber("Same name", "099212121");
+            Assert.AreEqual(testingCustomer, secondTestingCustomer);
+            Assert.AreEqual(secondTestingCustomer, thirdTestingCustomer);
+            Assert.AreEqual(testingCustomer, thirdTestingCustomer);
+        }
+
+        [TestMethod]
+        public void CustomerEqualsDifferentCustomerNamesTest()
+        {
+            testingCustomer = Customer.FromNamePhoneNumber("Some name", "099212121");
+            Customer secondTestingCustomer = Customer.FromNamePhoneNumber("Some other name",
+                "099212121");
+            Assert.AreNotEqual(testingCustomer, secondTestingCustomer);
+        }
+
+        [TestMethod]
+        public void CustomerEqualsDifferentCustomerPhoneNumbersTest()
+        {
+            testingCustomer = Customer.FromNamePhoneNumber("Same name", "099212121");
+            Customer secondTestingCustomer = Customer.FromNamePhoneNumber("Same name",
+                "099424242");
+            Assert.AreNotEqual(testingCustomer, secondTestingCustomer);
+        }
+
+        [TestMethod]
+        public void CustomerEqualsNullTest()
+        {
+            Assert.AreNotEqual(testingCustomer, null);
+        }
+
+        [TestMethod]
+        public void CustomerEqualsDifferentTypesTest()
+        {
+            object someRandomObject = new object();
+            Assert.AreNotEqual(testingCustomer, someRandomObject);
+        }
+
+        [TestMethod]
+        public void CustomerGetHashCodeTest()
+        {
+            object testingCustomerAsObject = testingCustomer;
+            Assert.AreEqual(testingCustomerAsObject.GetHashCode(),
+                testingCustomer.GetHashCode());
+        }
     }
 }

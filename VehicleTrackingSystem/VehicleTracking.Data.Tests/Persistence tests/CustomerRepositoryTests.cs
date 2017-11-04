@@ -10,12 +10,16 @@ namespace Data.Persistence_tests
     {
         private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();
         private static ICustomerRepository testingCustomerRepository;
+        private static Customer testingCustomer;
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
         {
             testingCustomerRepository = testingUnitOfWork.Customers;
             Assert.IsNotNull(testingCustomerRepository);
+            testingCustomer = Customer.FromNamePhoneNumber("Marcos Mundstock",
+                "099424242");
+            AddNewCustomerAndSaveChanges(testingCustomer);
         }
 
         #region AddNewCustomer tests
@@ -55,7 +59,33 @@ namespace Data.Persistence_tests
         }
         #endregion
 
-        private void AddNewCustomerAndSaveChanges(Customer customerToAdd)
+        #region IfExistsGetCustomerWithData tests
+        [TestMethod]
+        public void CRepositoryIfExistsGetCustomerWithDataReturnsElementTest()
+        {
+            var result = testingCustomerRepository.IfExistsGetCustomerWithData(testingCustomer.Name,
+                testingCustomer.PhoneNumber);
+            Assert.AreEqual(testingCustomer, result);
+        }
+
+        [TestMethod]
+        public void CRepositoryIfExistsGetCustomerWithDataDifferentNamesReturnsNullTest()
+        {
+            var result = testingCustomerRepository.IfExistsGetCustomerWithData("Wololo",
+                testingCustomer.PhoneNumber);
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void CRepositoryIfExistsGetCustomerWithDataDifferentPhoneNumbersReturnsNullTest()
+        {
+            var result = testingCustomerRepository.IfExistsGetCustomerWithData(testingCustomer.Name,
+                null);
+            Assert.IsNull(result);
+        }
+        #endregion
+
+        private static void AddNewCustomerAndSaveChanges(Customer customerToAdd)
         {
             testingCustomerRepository.AddNewCustomer(customerToAdd);
             testingUnitOfWork.SaveChanges();
