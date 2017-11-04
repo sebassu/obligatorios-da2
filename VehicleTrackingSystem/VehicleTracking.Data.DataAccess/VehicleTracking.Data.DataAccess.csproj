@@ -57,7 +57,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Exceptions\RepositoryException.cs" />
+    <Compile Include="RepositoryException.cs" />
     <Compile Include="FlowRepository\FlowRepository.cs" />
     <Compile Include="FlowRepository\IFlowRepository.cs" />
     <Compile Include="LoggingDatabaseConcreteStrategy.cs" />

@@ -1,12 +1,14 @@
 ﻿using Domain;
+using System;
 using System.IO;
 using System.Drawing;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace Data.Domain_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ImageElementTests
     {
         private static ImageElement testingImageElement;

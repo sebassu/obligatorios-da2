@@ -1,11 +1,13 @@
 ﻿using Domain;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class FlowTests
     {
         private static Flow testingFlow;

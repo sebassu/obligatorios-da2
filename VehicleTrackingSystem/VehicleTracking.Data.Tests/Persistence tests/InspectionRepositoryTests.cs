@@ -3,11 +3,13 @@ using Domain;
 using Persistence;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Persistence_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class InspectionRepositoryTests
     {
         private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();

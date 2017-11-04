@@ -1,14 +1,15 @@
 ﻿using Domain;
 using Persistence;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Persistence_tests
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class FlowRepositoryTests
     {
-        private static readonly UnitOfWork testingUnitOfWork
-            = new UnitOfWork();
+        private static readonly UnitOfWork testingUnitOfWork = new UnitOfWork();
         private static IFlowRepository testingFlowRepository;
 
         [ClassInitialize]
