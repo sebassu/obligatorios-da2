@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using API.Services;
 
@@ -14,27 +10,33 @@ namespace VehicleTracking.UI.WinApp
     public partial class SaleFlowUserControl : UserControl
     {
         ISubzoneServices Instance;
-        string SelectedSubzoneName;
+        string SelectedSubzoneNameToAdd;
+        string SelectedSubzoneNameToRemove;
         Panel CardPanel;
         private List<string> AvailableSubzones;
         private List<string> SubzonesForFlow;
+        private IEnumerable<string> SavedSubzones;
 
         public SaleFlowUserControl(Panel cardPanel)
         {
             InitializeComponent();
             CardPanel = cardPanel;
             Instance = new SubzoneServices();
-            AvailableSubzones = GetDistinctSubzones();
+            SavedSubzones = GetDistinctSubzones();
+            AvailableSubzones = SavedSubzones.ToList();
             SubzonesForFlow = new List<string>();
             NewSubzoneTxt.Enabled = false;
             LoadListBoxDynamicAvailableSubzone(AvailableSubzones);
         }
 
-        public List<string> GetDistinctSubzones()
+        public IEnumerable<string> GetDistinctSubzones()
         {
-            IEnumerable<string> allDistinctSubzones = 
-                Instance.GetRegisteredSubzones().Select(s => s.Name).Distinct();
-            return allDistinctSubzones.ToList();
+            IEnumerable<string> allDistinctSubzones = new List<string>();
+            if (SavedSubzones == null)
+            {
+                allDistinctSubzones = Instance.GetRegisteredSubzones().Select(s => s.Name).Distinct();
+            }
+            return allDistinctSubzones;
         }
 
         private void LoadListBoxDynamicAvailableSubzone(List<string> list)
@@ -66,7 +68,18 @@ namespace VehicleTracking.UI.WinApp
             }
             else
             {
-                AddRemoveSubzone(SelectedSubzoneName, SubzonesForFlow,AvailableSubzones);
+                AttemptToAddSubzone();
+            }
+        }
+
+        private void RemoveBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (SavedSubzones.Contains(SelectedSubzoneNameToRemove))
+            {
+                AddRemoveSubzone(SelectedSubzoneNameToRemove, SubzonesForFlow, AvailableSubzones);
+            }else
+            {
+                RemoveSubzone(SelectedSubzoneNameToRemove);
             }
         }
 
@@ -74,7 +87,7 @@ namespace VehicleTracking.UI.WinApp
         {
             if (ValidateName(name))
             {
-                if (!SubzonesForFlow.Contains(name))
+                if (!SavedSubzones.Contains(name))
                 {
                     SubzonesForFlow.Add(name);
                     LoadListBoxDynamicNewSubzone(SubzonesForFlow);
@@ -86,6 +99,12 @@ namespace VehicleTracking.UI.WinApp
                 NotExistingSubzoneCheckBox.Checked = false;
                 NewSubzoneTxt.Text = "";
             }
+        }
+
+        private void RemoveSubzone(string name)
+        {
+            SubzonesForFlow.Remove(name);
+            LoadListBoxDynamicNewSubzone(SubzonesForFlow);
         }
 
         private bool ValidateName(string name)
@@ -109,18 +128,40 @@ namespace VehicleTracking.UI.WinApp
             }
         }
 
-        private void AddRemoveSubzone(string name,
-            List<string> listToAdd, List<string> listToRemove)
+        private void AttemptToAddSubzone()
         {
-            listToRemove.Remove(name);
-            listToAdd.Add(name);
-            LoadListBoxDynamicNewSubzone(listToAdd);
-            LoadListBoxDynamicAvailableSubzone(listToRemove);
+            if (AvailableSubzones.Count() > 0)
+            {
+                AddRemoveSubzone(SelectedSubzoneNameToAdd, AvailableSubzones, SubzonesForFlow);
+            }
+            else
+            {
+                MessageBox.Show("No hay mas subzonas para agregar", "Error");
+            }
+        }
+
+        private void AddRemoveSubzone(string name,
+            List<string> listFrom, List<string> listTo)
+        {
+            listFrom.Remove(name);
+            listTo.Add(name);
+            LoadListBoxDynamicNewSubzone(listFrom);
+            LoadListBoxDynamicAvailableSubzone(listTo);
         }
 
         private void availableSubzonesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedSubzoneName = (string)availableSubzonesListBox.SelectedItem;
+            SelectedSubzoneNameToAdd = (string)availableSubzonesListBox.SelectedItem;
+        }
+
+        private void subzonesToSetListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectedSubzoneNameToRemove = (string)subzonesToSetListBox.SelectedItem;
+        }
+
+        private void CancelBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            CardPanel.Controls.Clear();
         }
     }
 }

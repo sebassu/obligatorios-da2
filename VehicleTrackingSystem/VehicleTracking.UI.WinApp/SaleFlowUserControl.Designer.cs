@@ -61,6 +61,7 @@
             this.subzonesToSetListBox.Name = "subzonesToSetListBox";
             this.subzonesToSetListBox.Size = new System.Drawing.Size(198, 204);
             this.subzonesToSetListBox.TabIndex = 1;
+            this.subzonesToSetListBox.SelectedIndexChanged += new System.EventHandler(this.subzonesToSetListBox_SelectedIndexChanged);
             // 
             // AddBtn
             // 
@@ -99,6 +100,7 @@
             this.RemoveBtn.TabIndex = 5;
             this.RemoveBtn.Text = "\\";
             this.RemoveBtn.UseVisualStyleBackColor = true;
+            this.RemoveBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RemoveBtn_MouseClick);
             // 
             // CancelBtn
             // 
@@ -113,6 +115,7 @@
             this.CancelBtn.TabIndex = 38;
             this.CancelBtn.Text = "Cancelar";
             this.CancelBtn.UseVisualStyleBackColor = true;
+            this.CancelBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CancelBtn_MouseClick);
             // 
             // SaveBtn
             // 
