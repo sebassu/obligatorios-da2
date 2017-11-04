@@ -21,10 +21,12 @@ namespace Web.API.Tests.Services_Tests
         public void FServicesDefaultParameterlessConstructorTest()
         {
             Assert.IsNotNull(testingFlowServices.Model);
+            Assert.IsNotNull(testingFlowServices.Flows);
         }
-        
+
+        #region AddNewFlow
         [TestMethod]
-        public void UServicesAddNewFlowFromDataValidTest()
+        public void FServicesAddNewFlowFromDataValidTest()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(f => f.Flow.RegisterNewFlow(It.IsAny<Flow>()))
@@ -40,5 +42,25 @@ namespace Web.API.Tests.Services_Tests
         {
             testingFlowServices.AddNewFlowFromData(null);
         }
+        #endregion
+
+        #region GetFlow
+        [TestMethod]
+        public void FServicesGetRegisteredFlowWithDataTest()
+        {
+            var flow = GetFlow();
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(f => f.Flow.GetCurrentFlow()).Returns(flow).Verifiable();
+            var flowServices = new FlowServices(mockUnitOfWork.Object);
+            var result = flowServices.GetRegisteredFlow();
+            mockUnitOfWork.Verify();
+            CollectionAssert.AreEqual(GetFlow(), result);
+        }
+        
+        private Flow GetFlow()
+        {
+            return Flow.FromSubzoneNames(testingFlowData);
+        }
+        #endregion
     }
 }
