@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Vehiculos>
+  <Vehiculo>
+    <Marca>Ferrari</Marca>
+    <Modelo>Barchetta</Modelo>
+	<TagInvalido>Wololo</TagInvalido>
+    <Color>Red</Color>
+    <Tipo>CAR</Tipo>
+    <VIN>RUSH2112MVNGPICRS</VIN>
+  </Vehiculo>
+</Vehiculos>
