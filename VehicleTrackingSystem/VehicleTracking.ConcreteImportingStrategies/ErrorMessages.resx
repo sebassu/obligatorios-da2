@@ -120,9 +120,6 @@
   <data name="ErrorWhenReadingFile" xml:space="preserve">
     <value>Error al leer un archivo para la importación de vehículos. Verifique que el formato del mismo es correcto, según lo definido.</value>
   </data>
-  <data name="FileNotFound" xml:space="preserve">
-    <value>Error al intentar leer un archivo: verifique que no ha movido o renombrado al mismo, y que la ruta ingresada es correcta.</value>
-  </data>
   <data name="IncompleteParameters" xml:space="preserve">
     <value>La estrategia seleccionada esperaba como entrada un parámetro de nombre "{0}" que no se encontraba definido/establecido.</value>
   </data>

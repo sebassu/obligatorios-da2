@@ -70,15 +70,6 @@ namespace VehicleTracking_ConcreteImportingStrategies {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al intentar leer un archivo: verifique que no ha movido o renombrado al mismo, y que la ruta ingresada es correcta..
-        /// </summary>
-        internal static string FileNotFound {
-            get {
-                return ResourceManager.GetString("FileNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to La estrategia seleccionada esperaba como entrada un parámetro de nombre &quot;{0}&quot; que no se encontraba definido/establecido..
         /// </summary>
         internal static string IncompleteParameters {
