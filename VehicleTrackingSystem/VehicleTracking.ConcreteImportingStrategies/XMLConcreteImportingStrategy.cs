@@ -5,42 +5,24 @@ using System.Xml;
 using System.Linq;
 using System.Xml.Schema;
 using System.Reflection;
-using System.Globalization;
 using System.Collections.Generic;
 
 namespace ImportingStrategies
 {
     public class XMLConcreteImportingStrategy
-        : IImportingStrategy
+        : FileReadingImportingStrategy
     {
-        private const string pathParameterName = "Ubicación del archivo";
         private const string xmlSchemaResourceName = "ImportingStrategies." +
             "VehicleImportingXMLSchema.xsd";
 
         public XMLConcreteImportingStrategy() { }
 
-        public IEnumerable<Vehicle> GetVehicles(IDictionary<string,
-            object> parameters)
-        {
-            try
-            {
-                var pathOfXMLFile = parameters[pathParameterName] as string;
-                return GetVehicleEnumerationFromFile(pathOfXMLFile);
-            }
-            catch (SystemException)
-            {
-                string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.IncompleteParameters, pathParameterName);
-                throw new ImportingException(errorMessage);
-            }
-        }
-
-        private IEnumerable<Vehicle> GetVehicleEnumerationFromFile(string pathOfXMLFile)
+        protected override IEnumerable<Vehicle> GetVehicleEnumerationFromFile(string filePath)
         {
             var vehicles = new List<Vehicle>();
             try
             {
-                var document = GetXMLDocumentToUse(pathOfXMLFile);
+                var document = GetXMLDocumentToUse(filePath);
                 var vehiclesData = document.GetElementsByTagName("Vehiculos")
                     .Cast<XmlNode>().Single();
                 foreach (XmlNode vehicleData in vehiclesData.ChildNodes)
@@ -119,10 +101,5 @@ namespace ImportingStrategies
         {
             throw new ImportingException(ErrorMessages.ErrorWhenReadingFile);
         }
-
-        public Dictionary<string, Type> RequiredParameters =>
-            new Dictionary<string, Type>() {
-                { pathParameterName, typeof(Path) }
-            };
     }
 }

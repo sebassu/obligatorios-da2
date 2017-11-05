@@ -45,6 +45,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="FileReadingImportingStrategy.cs" />
     <Compile Include="ImportingException.cs" />
     <Compile Include="XMLConcreteImportingStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
