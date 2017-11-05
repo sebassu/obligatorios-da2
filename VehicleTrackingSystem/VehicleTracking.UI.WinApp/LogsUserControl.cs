@@ -24,10 +24,18 @@ namespace VehicleTracking.UI.WinApp
             InitializeComponent();
             CardPanel = cardPanel;
             Instance = new UnitOfWork();
+            InitializeDataGridView();
             LogsToShow = GetFilteredLogs(null, null);
             LoadGridView(LogsToShow);
         }
 
+        private void InitializeDataGridView()
+        {
+            LogsGridView.ColumnCount = 3;
+            LogsGridView.Columns[0].Name = "Usuario responsable";
+            LogsGridView.Columns[1].Name = "Accion realizada";
+            LogsGridView.Columns[2].Name = "Fecha";
+        }
 
         private IEnumerable<LoggingRecord> GetFilteredLogs(DateTime? dateFrom, DateTime? dateUntil)
         {
@@ -61,7 +69,7 @@ namespace VehicleTracking.UI.WinApp
         private void LoadGridView(IEnumerable<LoggingRecord> logsToShow)
         {
             LogsGridView.Rows.Clear();
-            if (Utilities.IsNotNull(logsToShow))
+            if (Utilities.IsNull(logsToShow))
             {
                 MessageBox.Show("No hay logs para mostrar", "Error");
             }
@@ -70,8 +78,8 @@ namespace VehicleTracking.UI.WinApp
                 foreach (var log in logsToShow)
                 {
                     var creatorToShow = log.ResponsiblesUsername;
-                    var actionToShow = log.ActionPerformed;
-                    var dateToShow = log.DateTime;
+                    var actionToShow = log.ActionPerformed.ToString();
+                    var dateToShow = log.DateTime.ToString();
                     LogsGridView.Rows.Add(creatorToShow, actionToShow, dateToShow);
                 }
             }

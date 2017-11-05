@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Persistence;
 using API.Services;
+using Domain;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -17,6 +18,7 @@ namespace VehicleTracking.UI.WinApp
         Panel CardPanel;
         Panel ButtonsPanel;
         Panel LogoutPanel;
+        IUnitOfWork Instance;
 
         public Login(Panel cardPanel, Panel buttonsPanel, Panel logoutPanel)
         {
@@ -24,6 +26,7 @@ namespace VehicleTracking.UI.WinApp
             CardPanel = cardPanel;
             ButtonsPanel = buttonsPanel;
             LogoutPanel = logoutPanel;
+            Instance = new UnitOfWork();
         }
 
         private void LoginBtn_MouseClick(object sender, MouseEventArgs e)
@@ -36,6 +39,8 @@ namespace VehicleTracking.UI.WinApp
                     ShowButtons();
                     ShowLogOut();
                     CardPanel.Controls.Clear();
+                    Instance.LoggingStrategy.RegisterUserLogin(SessionServices.LoggedUser);
+                    Instance.SaveChanges();
                 }
             }catch(ServiceException ex)
             {
