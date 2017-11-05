@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using VehicleTracking_Data_Entities;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 using System.Diagnostics.CodeAnalysis;
 using VehicleTracking_ConcreteImportingStrategies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -88,6 +88,7 @@
     <Compile Include="Persistence tests\VehicleRepositoryTests.cs" />
     <Compile Include="Persistence tests\ZoneRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection tests\ImportingStrategiesLoaderTests.cs" />
     <Compile Include="Strategies tests\JSONConcreteImportingStrategyTests.cs" />
     <Compile Include="Strategies tests\XMLConcreteImportingStrategyTests.cs" />
   </ItemGroup>
@@ -110,6 +111,10 @@
     <ProjectReference Include="..\VehicleTracking.Data.Entities\VehicleTracking.Data.Entities.csproj">
       <Project>{39b5263b-309e-423a-a4d0-b198180ef4aa}</Project>
       <Name>VehicleTracking.Data.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleTracking.Reflection\VehicleTracking.WinApp.Reflection.csproj">
+      <Project>{A2BCF5A2-15AB-40DA-AFC9-8CA992334AE2}</Project>
+      <Name>VehicleTracking.WinApp.Reflection</Name>
     </ProjectReference>
     <ProjectReference Include="..\VehicleTracking.Web.API.Models\VehicleTracking.Web.API.Services.csproj">
       <Project>{869D99F0-4C71-476C-ADAA-82DEBD18B7BA}</Project>

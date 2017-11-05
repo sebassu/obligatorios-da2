@@ -15,9 +15,9 @@ namespace VehicleTracking_ConcreteImportingStrategies
                 string jsonFile = File.ReadAllText(filePath);
                 return JsonConvert.DeserializeObject<List<Vehicle>>(jsonFile);
             }
-            catch (IOException)
+            catch (IOException exception)
             {
-                throw new ImportingException(ErrorMessages.FileNotFound);
+                throw new ImportingException(exception.Message);
             }
             catch (JsonException exception)
             {

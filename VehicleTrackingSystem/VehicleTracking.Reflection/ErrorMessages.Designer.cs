@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VehicleTracking_ConcreteImportingStrategies {
+namespace VehicleTracking.Reflection {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace VehicleTracking_ConcreteImportingStrategies {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VehicleTracking_ConcreteImportingStrategies.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VehicleTracking.Reflection.ErrorMessages", typeof(ErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,20 @@ namespace VehicleTracking_ConcreteImportingStrategies {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al leer un archivo para la importación de vehículos. Verifique que el formato del mismo es correcto, según lo definido..
+        ///   Looks up a localized string similar to Se produjo un error al intentar instanciar una estrategia de importación de vehículos. Verifique que la misma posee un constructor sin parámetros accesible para la aplicación actual..
         /// </summary>
-        internal static string ErrorWhenReadingFile {
+        internal static string ErrorWhenInstantiatingStrategy {
             get {
-                return ResourceManager.GetString("ErrorWhenReadingFile", resourceCulture);
+                return ResourceManager.GetString("ErrorWhenInstantiatingStrategy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La estrategia seleccionada esperaba como entrada un parámetro de nombre &quot;{0}&quot; que no se encontraba definido/establecido..
+        ///   Looks up a localized string similar to Error al intentar leer un archivo: verifique que no ha movido o renombrado al mismo o sus dependencias, y que la ruta ingresada es correcta..
         /// </summary>
-        internal static string IncompleteParameters {
+        internal static string FileNotFound {
             get {
-                return ResourceManager.GetString("IncompleteParameters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Se recibió un tipo de vehículo inválido al efectuar una importación de los mismos..
-        /// </summary>
-        internal static string InvalidVehicleType {
-            get {
-                return ResourceManager.GetString("InvalidVehicleType", resourceCulture);
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
             }
         }
     }

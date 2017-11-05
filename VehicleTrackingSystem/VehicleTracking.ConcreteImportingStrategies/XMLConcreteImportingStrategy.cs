@@ -32,9 +32,9 @@ namespace VehicleTracking_ConcreteImportingStrategies
                 }
                 return vehicles;
             }
-            catch (IOException)
+            catch (IOException exception)
             {
-                throw new ImportingException(ErrorMessages.FileNotFound);
+                throw new ImportingException(exception.Message);
             }
             catch (XmlException)
             {

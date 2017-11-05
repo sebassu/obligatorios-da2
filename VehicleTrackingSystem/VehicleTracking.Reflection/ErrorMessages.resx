@@ -117,13 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ErrorWhenReadingFile" xml:space="preserve">
-    <value>Error al leer un archivo para la importación de vehículos. Verifique que el formato del mismo es correcto, según lo definido.</value>
+  <data name="ErrorWhenInstantiatingStrategy" xml:space="preserve">
+    <value>Se produjo un error al intentar instanciar una estrategia de importación de vehículos. Verifique que la misma posee un constructor sin parámetros accesible para la aplicación actual.</value>
   </data>
-  <data name="IncompleteParameters" xml:space="preserve">
-    <value>La estrategia seleccionada esperaba como entrada un parámetro de nombre "{0}" que no se encontraba definido/establecido.</value>
-  </data>
-  <data name="InvalidVehicleType" xml:space="preserve">
-    <value>Se recibió un tipo de vehículo inválido al efectuar una importación de los mismos.</value>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Error al intentar leer un archivo: verifique que no ha movido o renombrado al mismo o sus dependencias, y que la ruta ingresada es correcta.</value>
   </data>
 </root>
