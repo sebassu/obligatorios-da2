@@ -1,0 +1,18 @@
+﻿[
+  {
+    "Marca": "Ferrari",
+    "Modelo": "Barchetta",
+    "Año": 1981,
+    "Color": "Red",
+    "Tipo": "CAR",
+    "VIN": "RUSH2112MVNGPICRS"
+  },
+  {
+    "Marca": "Renault",
+    "Modelo": "Kangoo",
+    "Año": 2001,
+    "Color": "Gris claro",
+    "Tipo": "VAN",
+    "VIN": "ASNDJFU1258741SMD"
+  }
+]
