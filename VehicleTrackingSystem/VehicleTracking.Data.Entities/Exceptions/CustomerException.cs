@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     [Serializable]
     public class CustomerException : VehicleTrackingException

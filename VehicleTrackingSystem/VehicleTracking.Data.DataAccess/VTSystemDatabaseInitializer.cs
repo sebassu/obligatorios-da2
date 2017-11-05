@@ -1,8 +1,8 @@
-﻿using Domain;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal class VTSystemDatabaseInitializer : DropCreateDatabaseIfModelChanges<VTSystemContext>
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public class Subzone
     {

@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 [assembly: NeutralResourcesLanguage("es")]
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public enum UserRoles
     {

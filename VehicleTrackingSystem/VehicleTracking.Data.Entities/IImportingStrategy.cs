@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public interface IImportingStrategy
     {

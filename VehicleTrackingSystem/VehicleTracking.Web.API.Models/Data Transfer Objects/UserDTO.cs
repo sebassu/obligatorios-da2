@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using VehicleTracking_Data_Entities;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 

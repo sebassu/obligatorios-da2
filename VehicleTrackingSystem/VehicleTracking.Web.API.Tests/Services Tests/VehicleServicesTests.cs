@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using API.Services;
-using Domain;
+using VehicleTracking_Data_Entities;
 using System.Collections.Generic;
-using Persistence;
+using VehicleTracking_Data_DataAccess;
 using System.Linq;
 using Moq;
 using System.Diagnostics.CodeAnalysis;

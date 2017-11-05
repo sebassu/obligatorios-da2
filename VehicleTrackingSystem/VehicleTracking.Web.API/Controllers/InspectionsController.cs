@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 using API.Services;
-using Domain;
+using VehicleTracking_Data_Entities;
 using System.Collections.Generic;
 
 namespace Web.API.Controllers

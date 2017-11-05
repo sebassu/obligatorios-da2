@@ -1,10 +1,10 @@
 ﻿using System;
-using Domain;
 using System.IO;
 using System.Globalization;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
-namespace ImportingStrategies
+namespace VehicleTracking_ConcreteImportingStrategies
 {
     public abstract class FileReadingImportingStrategy : IImportingStrategy
     {

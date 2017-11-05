@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public class Sale
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using API.Services;
-using Domain;
+using VehicleTracking_Data_Entities;
 
 namespace VehicleTracking.UI.WinApp
 {

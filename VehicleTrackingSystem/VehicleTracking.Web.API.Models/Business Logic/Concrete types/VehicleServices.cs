@@ -1,7 +1,7 @@
-﻿using Domain;
-using Persistence;
+﻿using System.Globalization;
 using System.Collections.Generic;
-using System.Globalization;
+using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 
 namespace API.Services
 {

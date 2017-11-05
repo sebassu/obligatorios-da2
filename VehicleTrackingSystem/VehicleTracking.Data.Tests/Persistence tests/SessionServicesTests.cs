@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using API.Services;
+using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 using System.Diagnostics.CodeAnalysis;
-using API.Services;
-using Persistence;
-using Domain;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Web.API.Tests.Services_Tests
 {

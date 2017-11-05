@@ -3,7 +3,7 @@ using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public enum ProcessStages
     {

@@ -7,7 +7,7 @@
     <ProjectGuid>{F3DCC088-C021-4233-9C82-9B1A3461A7B2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Persistence</RootNamespace>
+    <RootNamespace>VehicleTracking_Data_DataAccess</RootNamespace>
     <AssemblyName>VehicleTracking.Data.DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,19 +1,19 @@
-﻿using Domain;
-using System;
+﻿using System;
 using System.IO;
 using System.Xml;
 using System.Linq;
 using System.Xml.Schema;
 using System.Reflection;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
-namespace ImportingStrategies
+namespace VehicleTracking_ConcreteImportingStrategies
 {
     public class XMLConcreteImportingStrategy
         : FileReadingImportingStrategy
     {
-        private const string xmlSchemaResourceName = "ImportingStrategies." +
-            "VehicleImportingXMLSchema.xsd";
+        private const string xmlSchemaResourceName = "VehicleTracking_" +
+            "ConcreteImportingStrategies.VehicleImportingXMLSchema.xsd";
 
         public XMLConcreteImportingStrategy() { }
 

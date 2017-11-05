@@ -1,10 +1,6 @@
-﻿using Domain;
-using Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 
 namespace API.Services
 {
@@ -12,12 +8,12 @@ namespace API.Services
     {
         internal IUnitOfWork Model { get; }
         internal IFlowRepository Flows { get; }
-        
+
         public FlowServices()
         {
             Model = new UnitOfWork();
             Flows = Model.Flow;
-            
+
         }
 
         public FlowServices(IUnitOfWork someUnitOfWork)
@@ -40,10 +36,10 @@ namespace API.Services
 
         private int AttemptToAddFlow(List<string> flowDataToAdd)
         {
-                Flow flowToAdd = Flow.FromSubzoneNames(flowDataToAdd);
-                Flows.RegisterNewFlow(flowToAdd);
-                Model.SaveChanges();
-                return flowToAdd.Id;
+            Flow flowToAdd = Flow.FromSubzoneNames(flowDataToAdd);
+            Flows.RegisterNewFlow(flowToAdd);
+            Model.SaveChanges();
+            return flowToAdd.Id;
         }
 
         public Flow GetRegisteredFlow()

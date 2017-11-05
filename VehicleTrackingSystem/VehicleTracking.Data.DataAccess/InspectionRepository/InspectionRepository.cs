@@ -1,10 +1,10 @@
-﻿using Domain;
-using System;
+﻿using System;
 using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal class InspectionRepository : GenericRepository<Inspection>,
         IInspectionRepository

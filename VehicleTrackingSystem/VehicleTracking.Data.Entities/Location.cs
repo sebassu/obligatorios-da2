@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public enum LocationType { PORT, YARD }
 

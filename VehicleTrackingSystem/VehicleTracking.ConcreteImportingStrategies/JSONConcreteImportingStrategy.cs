@@ -1,9 +1,9 @@
-﻿using Domain;
-using System.IO;
+﻿using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
-namespace ImportingStrategies
+namespace VehicleTracking_ConcreteImportingStrategies
 {
     public class JSONConcreteImportingStrategy
         : FileReadingImportingStrategy

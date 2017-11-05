@@ -1,8 +1,8 @@
-﻿using Persistence;
-using System.Collections.Generic;
+﻿using System.Linq;
 using System.Globalization;
-using Domain;
-using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_DataAccess;
+using VehicleTracking_Data_Entities;
 
 namespace API.Services
 {
