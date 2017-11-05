@@ -72,6 +72,7 @@
             this.DateUntilPicker.Name = "DateUntilPicker";
             this.DateUntilPicker.Size = new System.Drawing.Size(297, 26);
             this.DateUntilPicker.TabIndex = 3;
+            this.DateUntilPicker.ValueChanged += new System.EventHandler(this.DateUntilPicker_ValueChanged);
             // 
             // DateFromLbl
             // 
@@ -108,6 +109,7 @@
             this.ApplyBtn.TabIndex = 17;
             this.ApplyBtn.Text = "Aplicar";
             this.ApplyBtn.UseVisualStyleBackColor = true;
+            this.ApplyBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ApplyBtn_MouseClick);
             // 
             // LogsUserControl
             // 

@@ -159,7 +159,7 @@ namespace VehicleTracking.UI.WinApp
         private void LogsBtn_MouseClick(object sender, MouseEventArgs e)
         {
             CardPanel.Controls.Clear();
-            CardPanel.Controls.Add(new LogsUserControl());
+            CardPanel.Controls.Add(new LogsUserControl(CardPanel));
         }
     }
 }

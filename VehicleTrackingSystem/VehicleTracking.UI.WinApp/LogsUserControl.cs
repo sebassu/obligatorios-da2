@@ -15,12 +15,14 @@ namespace VehicleTracking.UI.WinApp
 {
     public partial class LogsUserControl : UserControl
     {
+        Panel CardPanel;
         IUnitOfWork Instance;
         IEnumerable<LoggingRecord> LogsToShow;
 
-        public LogsUserControl()
+        public LogsUserControl(Panel cardPanel)
         {
             InitializeComponent();
+            CardPanel = cardPanel;
             Instance = new UnitOfWork();
             LogsToShow = GetFilteredLogs(null, null);
             LoadGridView(LogsToShow);
@@ -61,7 +63,7 @@ namespace VehicleTracking.UI.WinApp
             LogsGridView.Rows.Clear();
             if (Utilities.IsNotNull(logsToShow))
             {
-                LogsGridView.Rows.Add("Sin", "datos", "a", " mostrar.");
+                MessageBox.Show("No hay logs para mostrar", "Error");
             }
             else
             {
@@ -72,6 +74,27 @@ namespace VehicleTracking.UI.WinApp
                     var dateToShow = log.DateTime;
                     LogsGridView.Rows.Add(creatorToShow, actionToShow, dateToShow);
                 }
+            }
+        }
+
+        private void ApplyBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            DateTime? DateFrom = DateFromPicker.Value.Date;
+            DateTime? DateUntil = DateUntilPicker.Value.Date;
+            if (DateUntil <= DateTime.Now.Date)
+            {
+                LoadGridView(GetFilteredLogs(DateFrom, DateUntil));
+            }else
+            {
+                MessageBox.Show("La fecha hasta no puede ser mayor a la de hoy", "Error");
+            }
+        }
+
+        private void DateUntilPicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime? DateUntil = DateUntilPicker.Value.Date;
+            if (DateUntil > DateTime.Now.Date) { 
+                MessageBox.Show("La fecha hasta no puede ser mayor a la de hoy", "Error");
             }
         }
     }
