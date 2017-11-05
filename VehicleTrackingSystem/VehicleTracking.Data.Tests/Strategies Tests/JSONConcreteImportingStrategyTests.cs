@@ -11,7 +11,7 @@ namespace Data.Strategies_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class XMLConcreteImportingStrategyTests
+    public class JSONConcreteImportingStrategyTests
     {
         private static IImportingStrategy testingStrategy;
         private static string testFileLocation = Directory.GetParent(
@@ -20,19 +20,19 @@ namespace Data.Strategies_tests
             new List<Vehicle>()
             {
                 Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
-                "Barchetta", 1981, "Red", "RUSH2112MVNGPICRS"),
-                Vehicle.CreateNewVehicle(VehicleType.CAR, "Renault",
-                "Kangoo", 2001, "Gris claro", "ASNDJFU1258741SMD")
+                    "Barchetta", 1981, "Red", "RUSH2112MVNGPICRS"),
+                Vehicle.CreateNewVehicle(VehicleType.VAN, "Renault",
+                    "Kangoo", 2001, "Gris claro", "ASNDJFU1258741SMD")
             }.AsReadOnly();
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
         {
-            testingStrategy = new XMLConcreteImportingStrategy();
+            testingStrategy = new JSONConcreteImportingStrategy();
         }
 
         [TestMethod]
-        public void XMLCISGetRequiredParametersTest()
+        public void JSONCISGetRequiredParametersTest()
         {
             var expectedResult = new Dictionary<string, Type>() {
                 { "Ubicación del archivo", typeof(Path) }
@@ -43,69 +43,68 @@ namespace Data.Strategies_tests
         }
 
         [TestMethod]
-        public void XMLCISGetVehiclesFromXMLTestFileValidTest()
+        public void JSONCISGetVehiclesFromJSONTestFileValidTest()
         {
             var obtainedResult =
-                RunTestForFileWithName("VehicleXMLImportingTestFile.xml");
+                RunTestForFileWithName("VehicleJSONImportingTestFile.json");
             CollectionAssert.AreEqual(expectedVehicles.ToList(),
                 obtainedResult.ToList());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ImportingException))]
-        public void XMLCISGetVehiclesFromNonXMLTestFileInvalidTest()
+        public void JSONCISGetVehiclesFromJSONWithInvalidFormatTest()
         {
-            RunTestForFileWithName("VehicleJSONImportingTestFile.json");
+            RunTestForFileWithName(@"Resources\JSONWithInvalidFormat.json");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ImportingException))]
-        public void XMLCISGetVehiclesUndefinedRequiredParameterInvalidTest()
+        public void JSONCISGetVehiclesFromJSONWithInvalidFieldTest()
         {
-            var parameters = new Dictionary<string, object>();
-            testingStrategy.GetVehicles(parameters);
+            RunTestForFileWithName(@"Resources\InvalidFieldOnJSON.json");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ImportingException))]
-        public void XMLCISGetVehiclesNullDictionaryInputInvalidTest()
+        public void JSONCISGetVehiclesFromJSONWithInvalidFieldValueParsingErrorTest()
+        {
+            RunTestForFileWithName(@"Resources\InvalidFieldValueOnJSON.json");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ImportingException))]
+        public void JSONCISGetVehiclesFromJSONWithInvalidFieldValueForVehicleTest()
+        {
+            RunTestForFileWithName(@"Resources\JSONWithInvalidValueForVehicle.json");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ImportingException))]
+        public void JSONCISGetVehiclesFromNonTextFileInvalidTest()
+        {
+            RunTestForFileWithName(@"Resources\TestImage2.json");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ImportingException))]
+        public void JSONCISGetVehiclesFromNonExistingFileInvalidTest()
+        {
+            RunTestForFileWithName("Wololo.json");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ImportingException))]
+        public void JSONCISGetVehiclesNullDictionaryInputInvalidTest()
         {
             testingStrategy.GetVehicles(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ImportingException))]
-        public void XMLCISGetVehiclesNullPathInvalidTest()
+        public void JSONCISGetVehiclesNullPathInvalidTest()
         {
             RunTestForFileWithName(null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ImportingException))]
-        public void XMLCISGetVehiclesWithInvalidVehicleTypeTest()
-        {
-            RunTestForFileWithName(@"Resources\InvalidVehicleType.xml");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ImportingException))]
-        public void XMLCISGetVehiclesWithInvalidXMLSchemaTypeTest()
-        {
-            RunTestForFileWithName(@"Resources\InvalidXMLSchema.xml");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ImportingException))]
-        public void XMLCISGetVehiclesFromNonTextFileInvalidTest()
-        {
-            RunTestForFileWithName(@"Resources\TestImage1.jpg");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ImportingException))]
-        public void XMLCISGetVehiclesFromNonExistingFileInvalidTest()
-        {
-            RunTestForFileWithName("Wololo.xml");
         }
 
         private static IEnumerable<Vehicle> RunTestForFileWithName(string fileName)
