@@ -32,7 +32,7 @@ namespace ImportingStrategies
                 }
                 return vehicles;
             }
-            catch (FileNotFoundException)
+            catch (IOException)
             {
                 throw new ImportingException(ErrorMessages.FileNotFound);
             }

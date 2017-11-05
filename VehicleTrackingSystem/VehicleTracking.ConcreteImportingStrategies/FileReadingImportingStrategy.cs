@@ -22,12 +22,21 @@ namespace ImportingStrategies
                 var pathOfXMLFile = parameters[pathParameterName] as string;
                 return GetVehicleEnumerationFromFile(pathOfXMLFile);
             }
-            catch (SystemException)
+            catch (NullReferenceException)
             {
-                string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                    ErrorMessages.IncompleteParameters, pathParameterName);
-                throw new ImportingException(errorMessage);
+                throw ErrorOnParameterInput();
             }
+            catch (KeyNotFoundException)
+            {
+                throw ErrorOnParameterInput();
+            }
+        }
+
+        private static ImportingException ErrorOnParameterInput()
+        {
+            string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                ErrorMessages.IncompleteParameters, pathParameterName);
+            return new ImportingException(errorMessage);
         }
 
         protected abstract IEnumerable<Vehicle> GetVehicleEnumerationFromFile(string filePath);
