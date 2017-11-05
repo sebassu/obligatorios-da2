@@ -16,7 +16,7 @@ namespace VehicleTracking.UI.WinApp
         private void ShowLogin()
         {
             cardPanel.Controls.Clear();
-            cardPanel.Controls.Add(new Login(cardPanel, buttonsPanel));
+            cardPanel.Controls.Add(new Login(cardPanel, buttonsPanel, logoutPanel));
         }
 
         private void ShowButtons()

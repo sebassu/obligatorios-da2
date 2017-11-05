@@ -43,7 +43,7 @@
             this.TitleLbl.AutoSize = true;
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(16, 15);
+            this.TitleLbl.Location = new System.Drawing.Point(16, 12);
             this.TitleLbl.Name = "TitleLbl";
             this.TitleLbl.Size = new System.Drawing.Size(277, 39);
             this.TitleLbl.TabIndex = 0;
@@ -52,9 +52,9 @@
             // LogsGridView
             // 
             this.LogsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.LogsGridView.Location = new System.Drawing.Point(3, 112);
+            this.LogsGridView.Location = new System.Drawing.Point(13, 115);
             this.LogsGridView.Name = "LogsGridView";
-            this.LogsGridView.Size = new System.Drawing.Size(895, 250);
+            this.LogsGridView.Size = new System.Drawing.Size(875, 236);
             this.LogsGridView.TabIndex = 1;
             // 
             // DateFromPicker
@@ -62,15 +62,15 @@
             this.DateFromPicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateFromPicker.Location = new System.Drawing.Point(87, 65);
             this.DateFromPicker.Name = "DateFromPicker";
-            this.DateFromPicker.Size = new System.Drawing.Size(200, 26);
+            this.DateFromPicker.Size = new System.Drawing.Size(301, 26);
             this.DateFromPicker.TabIndex = 2;
             // 
             // DateUntilPicker
             // 
             this.DateUntilPicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DateUntilPicker.Location = new System.Drawing.Point(387, 66);
+            this.DateUntilPicker.Location = new System.Drawing.Point(461, 65);
             this.DateUntilPicker.Name = "DateUntilPicker";
-            this.DateUntilPicker.Size = new System.Drawing.Size(200, 26);
+            this.DateUntilPicker.Size = new System.Drawing.Size(297, 26);
             this.DateUntilPicker.TabIndex = 3;
             // 
             // DateFromLbl
@@ -78,7 +78,7 @@
             this.DateFromLbl.AutoSize = true;
             this.DateFromLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateFromLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.DateFromLbl.Location = new System.Drawing.Point(21, 68);
+            this.DateFromLbl.Location = new System.Drawing.Point(21, 69);
             this.DateFromLbl.Name = "DateFromLbl";
             this.DateFromLbl.Size = new System.Drawing.Size(60, 20);
             this.DateFromLbl.TabIndex = 4;
@@ -89,7 +89,7 @@
             this.DateUntilLbl.AutoSize = true;
             this.DateUntilLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateUntilLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.DateUntilLbl.Location = new System.Drawing.Point(325, 71);
+            this.DateUntilLbl.Location = new System.Drawing.Point(399, 68);
             this.DateUntilLbl.Name = "DateUntilLbl";
             this.DateUntilLbl.Size = new System.Drawing.Size(56, 20);
             this.DateUntilLbl.TabIndex = 5;
@@ -102,7 +102,7 @@
             this.ApplyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ApplyBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ApplyBtn.Location = new System.Drawing.Point(606, 66);
+            this.ApplyBtn.Location = new System.Drawing.Point(783, 63);
             this.ApplyBtn.Name = "ApplyBtn";
             this.ApplyBtn.Size = new System.Drawing.Size(89, 43);
             this.ApplyBtn.TabIndex = 17;

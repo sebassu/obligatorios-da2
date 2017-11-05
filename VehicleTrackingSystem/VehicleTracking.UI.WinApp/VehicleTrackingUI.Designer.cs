@@ -34,12 +34,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cardPanel = new System.Windows.Forms.Panel();
             this.buttonsPanel = new System.Windows.Forms.Panel();
+            this.logoutPanel = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.panel1.Controls.Add(this.logoutPanel);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(1, 0);
@@ -81,6 +83,13 @@
             this.buttonsPanel.Size = new System.Drawing.Size(900, 44);
             this.buttonsPanel.TabIndex = 6;
             // 
+            // logoutPanel
+            // 
+            this.logoutPanel.Location = new System.Drawing.Point(711, 60);
+            this.logoutPanel.Name = "logoutPanel";
+            this.logoutPanel.Size = new System.Drawing.Size(189, 57);
+            this.logoutPanel.TabIndex = 2;
+            // 
             // VehicleTrackingUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -106,5 +115,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel cardPanel;
         private System.Windows.Forms.Panel buttonsPanel;
+        private System.Windows.Forms.Panel logoutPanel;
     }
 }

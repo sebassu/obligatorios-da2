@@ -16,12 +16,14 @@ namespace VehicleTracking.UI.WinApp
     { 
         Panel CardPanel;
         Panel ButtonsPanel;
+        Panel LogoutPanel;
 
-        public Login(Panel cardPanel, Panel buttonsPanel)
+        public Login(Panel cardPanel, Panel buttonsPanel, Panel logoutPanel)
         {
+            InitializeComponent();
             CardPanel = cardPanel;
             ButtonsPanel = buttonsPanel;
-            InitializeComponent();
+            LogoutPanel = logoutPanel;
         }
 
         private void LoginBtn_MouseClick(object sender, MouseEventArgs e)
@@ -31,14 +33,19 @@ namespace VehicleTracking.UI.WinApp
                 bool couldLogIn = SessionServices.LogIn(UsernameTxt.Text, PasswordTxt.Text);
                 if (couldLogIn)
                 {
-                    ShowButtons();   
+                    ShowButtons();
+                    ShowLogOut();
+                    CardPanel.Controls.Clear();
                 }
             }catch(ServiceException ex)
             {
                 MessageBox.Show(ex.Message, "Error");
+                PasswordTxt.Text = "";
+
             } catch (RepositoryException ex)
             {
                 MessageBox.Show(ex.Message, "Error");
+                PasswordTxt.Text = "";
             }
         }
 
@@ -46,7 +53,12 @@ namespace VehicleTracking.UI.WinApp
         {
             ButtonsPanel.Controls.Clear();
             ButtonsPanel.Controls.Add(new MenuButtonsUserControl(CardPanel));
-            CardPanel.Controls.Clear();
+        }
+
+        private void ShowLogOut()
+        {
+            LogoutPanel.Controls.Clear();
+            LogoutPanel.Controls.Add(new LogOutUserControl(CardPanel, ButtonsPanel, LogoutPanel));
         }
     }
 }
