@@ -51,10 +51,12 @@
             // 
             // LogsGridView
             // 
+            this.LogsGridView.BackgroundColor = System.Drawing.Color.LightGray;
             this.LogsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.LogsGridView.Location = new System.Drawing.Point(13, 115);
+            this.LogsGridView.Location = new System.Drawing.Point(232, 109);
             this.LogsGridView.Name = "LogsGridView";
-            this.LogsGridView.Size = new System.Drawing.Size(875, 236);
+            this.LogsGridView.RowHeadersWidth = 30;
+            this.LogsGridView.Size = new System.Drawing.Size(440, 236);
             this.LogsGridView.TabIndex = 1;
             // 
             // DateFromPicker

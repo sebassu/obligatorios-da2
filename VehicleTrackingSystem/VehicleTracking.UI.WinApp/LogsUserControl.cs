@@ -33,8 +33,11 @@ namespace VehicleTracking.UI.WinApp
         {
             LogsGridView.ColumnCount = 3;
             LogsGridView.Columns[0].Name = "Usuario responsable";
+            LogsGridView.Columns[0].Width = 130;
             LogsGridView.Columns[1].Name = "Accion realizada";
+            LogsGridView.Columns[1].Width = 130;
             LogsGridView.Columns[2].Name = "Fecha";
+            LogsGridView.Columns[2].Width = 130;
         }
 
         private IEnumerable<LoggingRecord> GetFilteredLogs(DateTime? dateFrom, DateTime? dateUntil)
