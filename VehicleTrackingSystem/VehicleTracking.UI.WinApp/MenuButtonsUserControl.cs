@@ -155,5 +155,11 @@ namespace VehicleTracking.UI.WinApp
             CardPanel.Controls.Clear();
             CardPanel.Controls.Add(new SaleFlowUserControl(CardPanel));
         }
+
+        private void LogsBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            CardPanel.Controls.Clear();
+            CardPanel.Controls.Add(new LogsUserControl());
+        }
     }
 }
