@@ -1,56 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using API.Services;
 using System.Drawing;
 using System.Windows.Forms;
-using API.Services;
-using VehicleTracking_Data_DataAccess;
+using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 
 namespace VehicleTracking.UI.WinApp
 {
     public partial class CreateModifySubzone : UserControl
     {
-        ISubzoneServices SubzoneInstance;
-        IZoneServices ZoneIntance;
-        SubzoneDTO SelectedSubzone;
-        Panel CardPnl;
-        string Origin;
+        private ISubzoneServices subzones;
+        private IZoneServices zones;
+        private SubzoneDTO subzoneToModify;
+        private Panel systemPanel;
+        private bool openedForModification;
 
-        public CreateModifySubzone(Panel cardPanel, string origin, SubzoneDTO selectedSubzone)
+        public CreateModifySubzone(Panel somePanel,
+            SubzoneDTO selectedSubzone = null)
         {
             InitializeComponent();
-            IUnitOfWork unitOfWork = new UnitOfWork();
-            SubzoneInstance = new SubzoneServices(unitOfWork);
-            ZoneIntance = new ZoneServices(unitOfWork);
-            CardPnl = cardPanel;
-            Origin = origin;
-            SelectedSubzone = selectedSubzone;
-            LoadInfo();
+            SetServicesObjects();
+            systemPanel = somePanel;
+            openedForModification = Utilities.IsNotNull(selectedSubzone);
+            subzoneToModify = selectedSubzone;
+            LoadComponentInformation();
         }
 
-        private void LoadInfo()
+        private void SetServicesObjects()
+        {
+            IUnitOfWork unitOfWork = new UnitOfWork();
+            subzones = new SubzoneServices(unitOfWork);
+            zones = new ZoneServices(unitOfWork);
+        }
+
+        private void LoadComponentInformation()
         {
             LoadComboBox();
-            if (Origin.Equals("modify"))
+            if (openedForModification)
             {
-                NameTxt.Text = SelectedSubzone.Name;
-                CapacityTxt.Text = SelectedSubzone.Capacity.ToString();
-                ZoneComboBox.SelectedItem = SelectedSubzone.ContainerName;
-                TitleLbl.Text = "Modificar subzona";
-                OkBtn.Text = "Modificar";
+                SetModificationInformation();
             }
             else
             {
-                TitleLbl.Text = "Agregar subzona";
-                OkBtn.Text = "Agregar";
+                SetAdditionLabels();
             }
-            
+        }
+
+        private void SetModificationInformation()
+        {
+            NameTxt.Text = subzoneToModify.Name;
+            CapacityNud.Value = subzoneToModify.Capacity;
+            ZoneComboBox.SelectedItem = subzoneToModify.ContainerName;
+            TitleLbl.Text = "Modificar subzona";
+            OkBtn.Text = "Modificar";
+        }
+
+        private void SetAdditionLabels()
+        {
+            TitleLbl.Text = "Agregar subzona";
+            OkBtn.Text = "Agregar";
         }
 
         private void LoadComboBox()
         {
-            IEnumerable<ZoneDTO> aux = ZoneIntance.GetRegisteredZones();
-            foreach (ZoneDTO zone in aux)
+            IEnumerable<ZoneDTO> registeredZones =
+                zones.GetRegisteredZones();
+            foreach (ZoneDTO zone in registeredZones)
             {
                 ZoneComboBox.Items.Add(zone.Name);
             }
@@ -58,8 +73,8 @@ namespace VehicleTracking.UI.WinApp
 
         private void CancelBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            CardPnl.Controls.Clear();
-            CardPnl.Controls.Add(new SubzoneUserControl(CardPnl));
+            systemPanel.Controls.Clear();
+            systemPanel.Controls.Add(new SubzoneUserControl(systemPanel));
         }
 
         private void NameTxt_MouseClick(object sender, MouseEventArgs e)
@@ -68,61 +83,35 @@ namespace VehicleTracking.UI.WinApp
             NameTxt.ForeColor = Color.Black;
         }
 
-        private void CapacityTxt_MouseClick(object sender, MouseEventArgs e)
-        {
-            CapacityTxt.Text = "";
-            CapacityTxt.ForeColor = Color.Black;
-        }
-
-        private void CapacityTxt_Leave(object sender, EventArgs e)
-        {
-            int cap;
-            if (!int.TryParse(CapacityTxt.Text, out cap))
-            {
-                MessageBox.Show("La capacidad solo puede contener números", "Error");
-                if (Origin.Equals("modify"))
-                {
-                    CapacityTxt.Text = SelectedSubzone.Capacity.ToString();
-                }
-                else
-                {
-                    CapacityTxt.Text = "";
-                }
-            }
-        }
-
         private void OkBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            SubzoneDTO subzone = new SubzoneDTO();
-            try
-            {
-                subzone.Name = NameTxt.Text;
-                subzone.Capacity = int.Parse(CapacityTxt.Text);
-                    subzone.ContainerName = ZoneComboBox.SelectedItem.ToString();
-                if (Origin.Equals("modify"))
-                {
-                    SubzoneInstance.ModifySubzoneWithId(SelectedSubzone.Id, subzone);
-                }
-                else
-                {
-                    SubzoneInstance.AddNewSubzoneFromData(subzone.ContainerName, subzone);
+            InterfaceUtilities.ExcecuteActionOrThrowErrorMessageBox(
+                PerformAdditionModificationAction);
+            InterfaceUtilities.ChangeUserControl(new SubzoneUserControl(systemPanel),
+                systemPanel);
+        }
 
-                }
-                CardPnl.Controls.Clear();
-                CardPnl.Controls.Add(new SubzoneUserControl(CardPnl));
-            }
-            catch (VehicleTrackingException ex)
+        private void PerformAdditionModificationAction()
+        {
+            SubzoneDTO subzoneData = GetSubzoneDataToSet();
+            if (openedForModification)
             {
-                MessageBox.Show(ex.Message, "Error");
+                subzones.ModifySubzoneWithId(subzoneToModify.Id, subzoneData);
             }
-            catch (NullReferenceException)
+            else
             {
-                MessageBox.Show("Debe seleccionar una zona", "Error");
+                subzones.AddNewSubzoneFromData(subzoneData.ContainerName, subzoneData);
             }
-            catch (FormatException)
+        }
+
+        private SubzoneDTO GetSubzoneDataToSet()
+        {
+            return new SubzoneDTO
             {
-                MessageBox.Show("Debe ingresar la capacidad con números", "Error");
-            }
+                Name = NameTxt.Text,
+                Capacity = (int)CapacityNud.Value,
+                ContainerName = ZoneComboBox.SelectedItem.ToString()
+            };
         }
     }
 }

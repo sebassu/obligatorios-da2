@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace VehicleTracking.UI.WinApp
 {
-    public partial class VehicleTrackingUI : Form
+    public partial class VehicleTrackingForm : Form
     {
-        public VehicleTrackingUI()
+        public VehicleTrackingForm()
         {
             InitializeComponent();
             ShowLogin();

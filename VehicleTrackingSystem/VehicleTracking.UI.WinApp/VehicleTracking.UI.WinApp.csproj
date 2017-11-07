@@ -82,6 +82,7 @@
     <Compile Include="CreateModifyZone.Designer.cs">
       <DependentUpon>CreateModifyZone.cs</DependentUpon>
     </Compile>
+    <Compile Include="InterfaceUtilities.cs" />
     <Compile Include="Login.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -131,11 +132,11 @@
     <Compile Include="UserUserControl.Designer.cs">
       <DependentUpon>UserUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="VehicleTrackingUI.cs">
+    <Compile Include="VehicleTrackingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VehicleTrackingUI.Designer.cs">
-      <DependentUpon>VehicleTrackingUI.cs</DependentUpon>
+    <Compile Include="VehicleTrackingForm.Designer.cs">
+      <DependentUpon>VehicleTrackingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="VehicleUserControl.cs">
       <SubType>UserControl</SubType>
@@ -187,8 +188,8 @@
     <EmbeddedResource Include="UserUserControl.resx">
       <DependentUpon>UserUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VehicleTrackingUI.resx">
-      <DependentUpon>VehicleTrackingUI.cs</DependentUpon>
+    <EmbeddedResource Include="VehicleTrackingForm.resx">
+      <DependentUpon>VehicleTrackingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VehicleUserControl.resx">
       <DependentUpon>VehicleUserControl.cs</DependentUpon>

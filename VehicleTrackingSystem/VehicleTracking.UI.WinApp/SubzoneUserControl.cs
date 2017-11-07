@@ -34,7 +34,7 @@ namespace VehicleTracking.UI.WinApp
 
         private void SubzoneListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] SelectedId = 
+            string[] SelectedId =
                 SubzoneListBox.GetItemText(SubzoneListBox.SelectedItem).Split('-');
             try
             {
@@ -43,7 +43,8 @@ namespace VehicleTracking.UI.WinApp
                 NameLbl.Text = "Nombre: " + SelectedSubzone.Name;
                 CapacityLbl.Text = "Capacidad: " + SelectedSubzone.Capacity;
                 ZoneLbl.Text = "Zona: " + SelectedSubzone.ContainerName;
-            }catch(Exception)
+            }
+            catch (Exception)
             {
                 MessageBox.Show("Debe seleccionar una subzona", "Error");
             }
@@ -52,8 +53,7 @@ namespace VehicleTracking.UI.WinApp
         private void AddSubzoneBtn_MouseClick(object sender, MouseEventArgs e)
         {
             CardPnl.Controls.Clear();
-            CardPnl.Controls.Add(new CreateModifySubzone(CardPnl,
-                "add", null));
+            CardPnl.Controls.Add(new CreateModifySubzone(CardPnl));
         }
 
         private void ModifyZoneBtn_MouseClick(object sender, MouseEventArgs e)
@@ -61,8 +61,7 @@ namespace VehicleTracking.UI.WinApp
             if (SubzoneListBox.SelectedItem != null)
             {
                 CardPnl.Controls.Clear();
-                CardPnl.Controls.Add(new CreateModifySubzone(CardPnl,
-                    "modify", SelectedSubzone));
+                CardPnl.Controls.Add(new CreateModifySubzone(CardPnl, SelectedSubzone));
             }
             else
             {
@@ -91,7 +90,8 @@ namespace VehicleTracking.UI.WinApp
             }
         }
 
-        private void CleanLabels() {
+        private void CleanLabels()
+        {
             NameLbl.Text = "Nombre";
             CapacityLbl.Text = "Capacidad";
             ZoneLbl.Text = "Zona";

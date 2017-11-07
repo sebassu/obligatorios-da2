@@ -8,7 +8,7 @@ using VehicleTracking_Data_Entities;
 namespace VehicleTracking.UI.WinApp
 {
     public partial class UserUserControl : UserControl
-    { 
+    {
         Panel CardPanel;
         UserDTO SelectedUser;
         IUserServices Instance;
