@@ -134,7 +134,8 @@ namespace Data.Domain_tests
         public void LocationGetHashCodeTest()
         {
             object testingLocationAsObject = testingLocation;
-            Assert.AreEqual(testingLocationAsObject.GetHashCode(), testingLocation.GetHashCode());
+            Assert.AreEqual(testingLocationAsObject.GetHashCode(),
+                testingLocation.GetHashCode());
         }
         #endregion
 

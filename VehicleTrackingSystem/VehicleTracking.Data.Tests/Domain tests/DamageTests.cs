@@ -160,20 +160,20 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        public void InspectionEqualsReflexiveTest()
+        public void DamageEqualsReflexiveTest()
         {
             Assert.AreEqual(testingDamage, testingDamage);
         }
 
         [TestMethod]
-        public void InspectionEqualsSymmetricTest()
+        public void DamageEqualsSymmetricTest()
         {
             Damage secondTestingDamage = Damage.InstanceForTestingPurposes();
             Assert.AreEqual(testingDamage, secondTestingDamage);
             Assert.AreEqual(secondTestingDamage, testingDamage);
         }
         [TestMethod]
-        public void UserGetHashCodeTest()
+        public void DamageGetHashCodeTest()
         {
             object testingDamageAsObject = testingDamage;
             Assert.AreEqual(testingDamageAsObject.GetHashCode(),

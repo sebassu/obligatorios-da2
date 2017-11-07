@@ -340,7 +340,8 @@ namespace Data.Domain_tests
         public void LotGetHashCodeTest()
         {
             object testingLotAsObject = testingLot;
-            Assert.AreEqual(testingLotAsObject.GetHashCode(), testingLot.GetHashCode());
+            Assert.AreEqual(testingLotAsObject.GetHashCode(),
+                testingLot.GetHashCode());
         }
 
         public void LotToStringTest1()

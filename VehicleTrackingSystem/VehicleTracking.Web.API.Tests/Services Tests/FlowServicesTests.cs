@@ -1,21 +1,20 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Diagnostics.CodeAnalysis;
-using VehicleTracking_Data_DataAccess;
-using Moq;
-using VehicleTracking_Data_Entities;
+﻿using Moq;
 using API.Services;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Web.API.Tests.Services_Tests
 {
-    [ExcludeFromCodeCoverage]
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class FlowServicesTests
     {
         private static readonly FlowServices testingFlowServices = new FlowServices();
-        private static readonly List<string> testingFlowData = new List<string>(new string[] {"Subzone 1", "Subzone 2", "Subzone 3" });
+        private static readonly List<string> testingFlowData =
+            new List<string>(new string[] { "Subzone 1", "Subzone 2", "Subzone 3" });
 
         [TestMethod]
         public void FServicesDefaultParameterlessConstructorTest()
@@ -48,18 +47,14 @@ namespace Web.API.Tests.Services_Tests
         [TestMethod]
         public void FServicesGetRegisteredFlowWithDataTest()
         {
-            var flow = GetFlow();
+            var registeredFlow = Flow.FromSubzoneNames(testingFlowData);
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(f => f.Flow.GetCurrentFlow()).Returns(flow).Verifiable();
+            mockUnitOfWork.Setup(f => f.Flow.GetCurrentFlow())
+                .Returns(registeredFlow).Verifiable();
             var flowServices = new FlowServices(mockUnitOfWork.Object);
             var result = flowServices.GetRegisteredFlow();
             mockUnitOfWork.Verify();
-            Assert.AreEqual(GetFlow(), result);
-        }
-        
-        private Flow GetFlow()
-        {
-            return Flow.FromSubzoneNames(testingFlowData);
+            Assert.AreEqual(registeredFlow, result);
         }
         #endregion
     }
