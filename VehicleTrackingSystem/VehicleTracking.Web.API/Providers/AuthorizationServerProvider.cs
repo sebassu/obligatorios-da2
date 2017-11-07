@@ -1,5 +1,5 @@
-﻿using Domain;
-using Persistence;
+﻿using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;

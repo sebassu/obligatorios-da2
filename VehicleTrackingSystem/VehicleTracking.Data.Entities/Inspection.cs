@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public class Inspection
     {

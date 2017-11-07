@@ -1,13 +1,13 @@
-﻿using Domain;
-using System;
+﻿using System;
 using System.Linq;
 using System.Resources;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 [assembly: NeutralResourcesLanguage("es")]
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal abstract class GenericRepository<TEntity> where TEntity : class
     {

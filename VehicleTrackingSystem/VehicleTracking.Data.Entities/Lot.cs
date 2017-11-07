@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Collections.Generic;
 using System;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public class Lot
     {

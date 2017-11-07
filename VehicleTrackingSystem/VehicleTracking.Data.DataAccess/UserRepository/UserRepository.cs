@@ -1,13 +1,13 @@
-﻿using Domain;
+﻿using System;
 using System.Data;
 using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System;
+using VehicleTracking_Data_Entities;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal class UserRepository : GenericRepository<User>, IUserRepository
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public enum LoggedActions { LOGIN, VEHICLE_IMPORT }
 

@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using API.Services;
-using Domain;
+using VehicleTracking_Data_Entities;
 
 namespace VehicleTracking.UI.WinApp
 {

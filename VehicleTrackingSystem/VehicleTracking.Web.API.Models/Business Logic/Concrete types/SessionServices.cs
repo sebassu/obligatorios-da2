@@ -1,5 +1,5 @@
-﻿using Domain;
-using Persistence;
+﻿using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 
 namespace API.Services
 {

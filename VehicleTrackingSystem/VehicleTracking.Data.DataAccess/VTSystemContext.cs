@@ -1,11 +1,11 @@
-﻿using Domain;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using VehicleTracking_Data_Entities;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.ComponentModel.DataAnnotations.Schema;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     [ExcludeFromCodeCoverage]
     public class VTSystemContext : DbContext

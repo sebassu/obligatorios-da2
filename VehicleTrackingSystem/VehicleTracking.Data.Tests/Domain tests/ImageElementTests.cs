@@ -1,7 +1,7 @@
-﻿using Domain;
-using System;
+﻿using System;
 using System.IO;
 using System.Drawing;
+using VehicleTracking_Data_Entities;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -14,7 +14,8 @@ namespace Data.Domain_tests
         private static ImageElement testingImageElement;
         private static byte[] testImageBinaryData;
         private static string testImageLocation = Directory.GetParent(
-            Directory.GetCurrentDirectory()).Parent.FullName + "\\Resources\\TestImage1.jpg";
+            Directory.GetCurrentDirectory()).Parent.FullName +
+            @"\Resources\TestImage1.jpg";
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)

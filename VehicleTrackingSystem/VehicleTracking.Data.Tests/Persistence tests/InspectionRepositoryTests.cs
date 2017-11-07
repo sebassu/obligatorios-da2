@@ -1,8 +1,8 @@
 ﻿using System;
-using Domain;
-using Persistence;
 using System.Linq;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

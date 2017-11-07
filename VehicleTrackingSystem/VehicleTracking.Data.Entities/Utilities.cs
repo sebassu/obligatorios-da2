@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public static class Utilities
     {

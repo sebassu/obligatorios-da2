@@ -2,7 +2,7 @@
 using System.IO;
 using System.Drawing;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public class ImageElement
     {

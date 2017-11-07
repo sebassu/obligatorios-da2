@@ -1,6 +1,6 @@
-﻿using Domain;
+﻿using VehicleTracking_Data_Entities;
 
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     public interface IFlowRepository
     {
