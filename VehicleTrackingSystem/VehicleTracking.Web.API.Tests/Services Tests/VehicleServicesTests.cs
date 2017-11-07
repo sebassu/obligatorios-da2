@@ -339,6 +339,7 @@ namespace Web.API.Services_tests
             Assert.IsNull(defaultVehicleDTO.Brand);
             Assert.AreEqual(0, defaultVehicleDTO.Year);
             Assert.AreEqual(VehicleType.CAR, defaultVehicleDTO.Type);
+            Assert.IsNull(defaultVehicleDTO.CurrentStage);
         }
 
         [TestMethod]

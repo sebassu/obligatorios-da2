@@ -15,9 +15,9 @@ namespace Web.API.Services_tests
     {
         private static readonly ZoneServices testingZoneSubzoneServices = new ZoneServices();
         private static readonly Zone testingZone = Zone.CreateNewZone("Some zone", 21);
-        private static readonly Subzone testingSubzone = Subzone.CreateNewSubzone("Subzone", 10, testingZone);
+        private static readonly Subzone testingSubzone =
+            Subzone.CreateNewSubzone("Subzone", 10, testingZone);
         private static readonly ZoneDTO testingZoneData = ZoneDTO.FromZone(testingZone);
-        private static readonly SubzoneDTO testingSubzoneData = SubzoneDTO.FromSubzone(testingSubzone);
 
         [TestMethod]
         public void ZServicesDefaultParameterlessConstructorTest()
@@ -48,7 +48,7 @@ namespace Web.API.Services_tests
 
         [TestMethod]
         [ExpectedException(typeof(ZoneException))]
-        public void ZServicesAddNewZoneFromDataInvalidFirstNameTest()
+        public void ZServicesAddNewZoneFromDataInvalidNameTest()
         {
             ZoneDTO testZoneData = ZoneDTO.FromData("*&@*12*-*//31", 365);
             RunAddNewZoneTestWithInvalidDataOnDTO(testZoneData);
@@ -56,7 +56,7 @@ namespace Web.API.Services_tests
 
         [TestMethod]
         [ExpectedException(typeof(ZoneException))]
-        public void ZServicesAddNewZoneFromDataInvalidLastNameTest()
+        public void ZServicesAddNewZoneFromDataInvalidCapacityTest()
         {
             ZoneDTO testZoneData = ZoneDTO.FromData("Valid name", -99);
             RunAddNewZoneTestWithInvalidDataOnDTO(testZoneData);
