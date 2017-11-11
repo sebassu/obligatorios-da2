@@ -1,8 +1,10 @@
-﻿using VehicleTracking_Data_Entities;
-using VehicleTracking_Data_DataAccess;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
+using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
+using Microsoft.Owin.Security;
+using System.Collections.Generic;
 
 #pragma warning disable CS1998
 namespace Web.API
@@ -36,10 +38,16 @@ namespace Web.API
             User userToBeLoggedIn = AttemptToGetUserWithUsernameFromDatabase(context.UserName);
             if (context.Password.Equals(userToBeLoggedIn.Password))
             {
+                string usersRole = userToBeLoggedIn.Role.ToString("d");
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-                identity.AddClaim(new Claim(ClaimTypes.Role, userToBeLoggedIn.Role.ToString("d")));
-                context.Validated(identity);
+                identity.AddClaim(new Claim(ClaimTypes.Role, usersRole));
+                var additionalProperties = new AuthenticationProperties(new Dictionary<string, string>
+                {
+                    { "role", userToBeLoggedIn.Role.ToString()  }
+                });
+                var response = new AuthenticationTicket(identity, additionalProperties);
+                context.Validated(response);
             }
             else
             {
@@ -54,6 +62,16 @@ namespace Web.API
                 IUserRepository users = unitOfWork.Users;
                 return users.GetUserWithUsername(usernameToLookup);
             }
+        }
+
+        public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+        {
+            foreach (var property in context.Properties.Dictionary)
+            {
+                if (!property.Key.StartsWith("."))
+                    context.AdditionalResponseParameters.Add(property.Key, property.Value);
+            }
+            return Task.FromResult<object>(null);
         }
     }
 }
