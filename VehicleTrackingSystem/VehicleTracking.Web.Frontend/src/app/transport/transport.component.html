@@ -1,8 +1,7 @@
 <div id="myDIV" class="header">
-    <h2>Transporte</h2>
-    <span (click)='beginTransport()' class="beginTransportBtn">Iniciar transporte</span>
-  </div>
-
-  <ul id="myUL" *ngFor='let aLot of transportedLotsNames'  >    
-    <li (click) = 'checkLot()'>{{aLot}}</li>
-  </ul>
+  <h2>Transporte</h2>
+  <span (click)='beginTransport()' class="beginTransportBtn">Iniciar transporte</span>
+</div>
+<ul id="myUL" *ngFor='let aLot of availableLots'  >   
+  <li (click) = 'checkLot()'>{{aLot}}</li>
+</ul>

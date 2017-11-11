@@ -3,20 +3,23 @@ import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
 
 import { TransportComponent } from './transport.component';
+import { environment } from '../../environments/environment';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
 
 @Injectable()
-export class TransportServices {
+export class TransportService {
     
-    private WEB_API_URL : string = 'api/transports/test-api.json';
+    private static URL: string = environment.APIURL + "/api/Transport";
 
     constructor(private _httpService: Http) {  }
 
     getTransports(): Observable<Array<Transport>> {
-        return this._httpService.get(this.WEB_API_URL)
+        return this._httpService.get(TransportService.URL)
         .map((response : Response) => <Array<Transport>> response.json())
+        .do(data => console.log('Los datos que obtuvimos fueron: ' + JSON.stringify(data)))
         .catch(this.handleError);
     }
 
