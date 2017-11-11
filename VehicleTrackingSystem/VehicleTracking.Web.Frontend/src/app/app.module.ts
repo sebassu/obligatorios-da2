@@ -7,14 +7,8 @@ import { TransportComponent } from './transport/transport.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TransportComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [ BrowserModule ],
+  declarations: [ AppComponent, TransportComponent ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
