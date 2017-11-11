@@ -23,5 +23,10 @@ export class TransportComponent {
         element.classList.toggle('checked');
       }
     }, false);
-}
+  }
+
+  beginTransport():void{
+    
+  }
+
 }
