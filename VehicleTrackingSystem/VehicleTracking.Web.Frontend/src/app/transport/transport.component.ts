@@ -11,7 +11,7 @@ export class TransportComponent {
   transporterUsername: string = "UnUsuario";
   startDateTime: Date;
   transportedLotsNames: Array<string>;
-  endDateTime: Date
+  endDateTime: Date;
   
   constructor(){}
 
@@ -26,7 +26,7 @@ export class TransportComponent {
   }
 
   beginTransport():void{
-    
+
   }
 
 }

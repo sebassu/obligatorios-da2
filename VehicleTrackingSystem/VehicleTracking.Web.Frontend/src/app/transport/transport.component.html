@@ -2,12 +2,7 @@
     <h2>Transporte</h2>
     <span (click)='beginTransport()' class="beginTransportBtn">Iniciar transporte</span>
   </div>
-  
-  <ul id="myUL">
-    <li (click) = 'checkLot()'>Hit the gym</li>
-    <li (click) = 'checkLot()'>Pay bills</li>
-    <li (click) = 'checkLot()'>Meet George</li>
-    <li (click) = 'checkLot()'>Buy eggs</li>
-    <li (click) = 'checkLot()'>Read a book</li>
-    <li (click) = 'checkLot()'>Organize office</li>
+
+  <ul id="myUL" *ngFor='let aLot of transportedLotsNames'  >    
+    <li (click) = 'checkLot()'>{{aLot}}</li>
   </ul>
