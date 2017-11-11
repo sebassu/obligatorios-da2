@@ -11,7 +11,7 @@ export class TransportComponent {
   id: number;
   transporterUsername: string = "UnUsuario";
   startDateTime: Date;
-  transportedLotsNames: string[];
+  transportedLotsNames: Array<string>;
   endDateTime: Date
 
   constructor(id:number, transporterUsername: string, startDateTime: Date,

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { TransportComponent } from './transport/transport/transport.component';
+import { TransportComponent } from './transport/transport.component';
 
 
 @NgModule({
