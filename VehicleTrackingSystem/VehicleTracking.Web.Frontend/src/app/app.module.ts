@@ -4,18 +4,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-
+import { OptionsMenuComponent } from './options-menu/options-menu.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    OptionsMenuComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot([
+      { path: 'login', component: LoginComponent },
+      { path: 'home', component: OptionsMenuComponent },
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: '**', redirectTo: 'login', pathMatch: 'full' }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
