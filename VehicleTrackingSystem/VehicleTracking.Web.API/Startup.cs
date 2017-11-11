@@ -3,6 +3,7 @@ using System;
 using Microsoft.Owin;
 using System.Web.Http;
 using Microsoft.Owin.Cors;
+using System.Web.Http.Cors;
 using VehicleTrackingSystem;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
@@ -12,13 +13,18 @@ namespace Web.API
 {
     public class Startup
     {
+        private const string defaultAPIURL = "localhost:63177";
+
         public void Configuration(IAppBuilder application)
         {
             ConfigureOAuthentication(application);
             HttpConfiguration configuration = new HttpConfiguration();
+            var corsConfiguration = new EnableCorsAttribute(defaultAPIURL,
+                "*", "*");
+            configuration.EnableCors(corsConfiguration);
             WebApiConfig.Register(configuration);
-            application.UseCors(CorsOptions.AllowAll);
             application.UseWebApi(configuration);
+            application.UseCors(CorsOptions.AllowAll);
         }
 
         public void ConfigureOAuthentication(IAppBuilder application)

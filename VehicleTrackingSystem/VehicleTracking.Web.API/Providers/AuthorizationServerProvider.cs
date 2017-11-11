@@ -1,10 +1,10 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security;
+using System.Collections.Generic;
 using Microsoft.Owin.Security.OAuth;
 using VehicleTracking_Data_Entities;
 using VehicleTracking_Data_DataAccess;
-using Microsoft.Owin.Security;
-using System.Collections.Generic;
 
 #pragma warning disable CS1998
 namespace Web.API
@@ -20,8 +20,6 @@ namespace Web.API
         public override async Task GrantResourceOwnerCredentials(
             OAuthGrantResourceOwnerCredentialsContext context)
         {
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin",
-                new[] { "*" });
             try
             {
                 MatchUserNameAndPasswordToExistingUser(context);

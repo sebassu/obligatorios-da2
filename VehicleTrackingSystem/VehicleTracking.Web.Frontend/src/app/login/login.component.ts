@@ -1,17 +1,25 @@
+import { Observable } from 'rxjs/Observable';
+import { LoginService } from './login-service';
+import { Http, Response } from '@angular/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [LoginService]
 })
 export class LoginComponent {
-  username : string;
-  password : string;
+  username: string;
+  password: string;
 
-  attemptToLoginUser(){
-    alert("username:" + this.username+" password:" + this.password);
+  constructor(private _loginService: LoginService) { }
+
+  attemptToLoginUser() {
+    this._loginService.attemptLoginWithData(this.username,
+      this.password);
   }
 }
