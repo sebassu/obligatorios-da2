@@ -154,6 +154,13 @@ namespace VehicleTracking.UI.WinApp
                 MessageBox.Show("El año no puede ser vacio", "Error");
             }
         }
+
+        private void ImportBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            CardPanel.Controls.Clear();
+            CardPanel.Controls.Add(new ImportVehiclesUserControl(CardPanel));
+
+        }
     }
 }
 

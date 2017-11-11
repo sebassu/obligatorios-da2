@@ -207,6 +207,7 @@
             this.ImportBtn.Text = "Importar";
             this.ImportBtn.UseVisualStyleBackColor = true;
             this.ImportBtn.Visible = false;
+            this.ImportBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImportBtn_MouseClick);
             // 
             // TypeLbl
             // 
