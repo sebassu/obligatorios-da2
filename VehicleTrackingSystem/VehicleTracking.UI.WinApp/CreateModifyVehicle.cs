@@ -21,6 +21,7 @@ namespace VehicleTracking.UI.WinApp
             Origin = origin;
             SelectedVehicle = selectedVehicle;
             LoadInfo();
+            ShowImport();
         }
 
         private void LoadInfo()
@@ -52,6 +53,19 @@ namespace VehicleTracking.UI.WinApp
             foreach (string type in types)
             {
                 TypeComboBox.Items.Add(type);
+            }
+        }
+
+        private void ShowImport()
+        {
+            if (Origin.Equals("modify"))
+            {
+                ImportBtn.Enabled = false;
+                ImportBtn.Visible = false;
+            }else
+            {
+                ImportBtn.Enabled = true;
+                ImportBtn.Visible = true;
             }
         }
 
