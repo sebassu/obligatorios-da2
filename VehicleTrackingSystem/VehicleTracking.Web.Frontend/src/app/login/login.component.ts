@@ -13,13 +13,30 @@ import 'rxjs/add/operator/map';
   providers: [LoginService]
 })
 export class LoginComponent {
+
+  errorOcurred: boolean;
+  errorMessage: string;
+  success: boolean;
+
   username: string;
   password: string;
 
-  constructor(private _loginService: LoginService) { }
+  constructor(private _loginService: LoginService) {
+    this.success = false;
+    this.errorOcurred = false;
+  }
 
   attemptToLoginUser() {
-    this._loginService.attemptLoginWithData(this.username,
-      this.password);
+    try {
+      this._loginService.attemptLoginWithData(this.username,
+        this.password);
+      this.success = true;
+      setTimeout(() => {
+        this._loginService.naviagateHome();
+      }, 2000);
+    } catch (error) {
+      this.errorMessage = (<Error>error).message;
+      this.errorOcurred = true;
+    }
   }
 }

@@ -4,7 +4,7 @@ import  { TransportService } from './transport/transport.service';
 
 @Component({
   selector: 'app-root',
-  template: `<transport-component></transport-component>`,
+  template: '<router-outlet></router-outlet>',
   providers: [LotService, TransportService]
 })
 export class AppComponent {

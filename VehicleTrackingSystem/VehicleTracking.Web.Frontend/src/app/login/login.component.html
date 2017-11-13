@@ -1,25 +1,35 @@
-<div class="container container-table">
-  <div class="row vertical-center-row">
-    <div class="col-lg-4 col-lg-offset-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Inicie sesión:</h3>
-        </div>
-        <div class="panel-body">
-          <form #loginForm="ngForm" (ngSubmit)="attemptToLoginUser(loginForm)" accept-charset="UTF-8" role="form">
-            <fieldset>
-              <div class="form-group">
-                <input class="form-control" placeholder="Nombre de usuario" required name="username" [(ngModel)]="username" type="text">
-              </div>
-              <div class="form-group">
-                <input class="form-control" placeholder="Contraseña" name="password" [(ngModel)]="password" type="password" required value="">
-              </div>
-              <br>
-              <input class="btn btn-lg btn-success btn-block" [disabled]="loginForm.invalid" type="submit" value="Login">
-            </fieldset>
-          </form>
-        </div>
-      </div>
+<div id="main">
+  <div id="innerContainer">
+    <div class="alert alert-danger" id="errorAlert" [hidden]="!errorOcurred">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <strong>Error: </strong>
+      <span id="errorMessage">{{errorMessage}}</span>
+    </div>
+    <div class="alert alert-success" [hidden]="!success" id="successAlert">
+      <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+      <strong>Éxito: </strong> Ingreso de sesión correcto.
+    </div>
+    <h1 id="mainTitle">Vehicle Tracking System:</h1>
+    <h3 id="subtitle">Sistema de gestión del proceso de venta de vehículos.</h3>
+    <div class="container" id="formContainer">
+      <h3 id="loginFormTitle">Inicio de sesión:</h3>
+      <form #loginForm="ngForm" (ngSubmit)="attemptToLoginUser(loginForm)" id="loginForm" accept-charset="UTF-8" role="form">
+        <label for="inputEmail" class="sr-only">Correo electrónico</label>
+        <input type="text" id="txtUsername" name="username" class="form-control" placeholder="Correo electrónico" [(ngModel)]="username"
+          type="text" required autofocus>
+        <label for="txtPassword" class="sr-only">Password</label>
+        <input type="password" id="txtPassword" name="password" class="form-control" placeholder="Contraseña" [(ngModel)]="password"
+          required>
+        <button class="btn btn-lg btn-primary btn-block" [disabled]="loginForm.invalid" id="btnSubmit" type="submit">
+          Entrar</button>
+        <br>
+      </form>
     </div>
   </div>
+  <span id="information">
+    Obligatorio: Diseño de Aplicaciones II.
+    <br> Lucia Dabezies, Nº de estudiante: 200604.
+    <br> Sebastián Uriarte Güimil, Nº de estudiante: 194973.
+    <br> Universidad ORT Uruguay, 2017.
+  </span>
 </div>
