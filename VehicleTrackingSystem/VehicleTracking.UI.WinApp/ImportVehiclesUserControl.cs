@@ -1,5 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using VehicleTracking.Reflection;
+using VehicleTracking_Data_Entities;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -24,9 +26,16 @@ namespace VehicleTracking.UI.WinApp
 
         private void AddStrategiesBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            string path = GetFilePath();
-            ImportingStrategiesLoader.FromDllFilePath(path);
-               
+            try
+            {
+                string path = GetFilePath();
+                IEnumerable<IImportingStrategy> newStrategies = ImportingStrategiesLoader.FromDllFilePath(path);
+                UpdateStrategies(newStrategies);
+            }catch (ReflectionException ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+
         }
 
         private string GetFilePath()
@@ -38,6 +47,14 @@ namespace VehicleTracking.UI.WinApp
                 path = file.FileName;
             }
             return path;
+        }
+
+        private void UpdateStrategies(IEnumerable<IImportingStrategy> allNewStrategies)
+        {
+            foreach (IImportingStrategy strategy in allNewStrategies)
+            {
+                StrategiesListBox.Items.Add(strategy);
+            }
         }
     }
 }

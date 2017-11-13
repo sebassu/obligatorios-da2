@@ -47,10 +47,12 @@
             // 
             // StrategiesListBox
             // 
+            this.StrategiesListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StrategiesListBox.FormattingEnabled = true;
-            this.StrategiesListBox.Location = new System.Drawing.Point(179, 65);
+            this.StrategiesListBox.ItemHeight = 20;
+            this.StrategiesListBox.Location = new System.Drawing.Point(86, 73);
             this.StrategiesListBox.Name = "StrategiesListBox";
-            this.StrategiesListBox.Size = new System.Drawing.Size(223, 251);
+            this.StrategiesListBox.Size = new System.Drawing.Size(432, 244);
             this.StrategiesListBox.TabIndex = 25;
             // 
             // AddStrategiesBtn
@@ -60,7 +62,7 @@
             this.AddStrategiesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddStrategiesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddStrategiesBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.AddStrategiesBtn.Location = new System.Drawing.Point(491, 116);
+            this.AddStrategiesBtn.Location = new System.Drawing.Point(562, 124);
             this.AddStrategiesBtn.Name = "AddStrategiesBtn";
             this.AddStrategiesBtn.Size = new System.Drawing.Size(217, 46);
             this.AddStrategiesBtn.TabIndex = 26;
@@ -75,7 +77,7 @@
             this.ImportVehiclesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ImportVehiclesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ImportVehiclesBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ImportVehiclesBtn.Location = new System.Drawing.Point(491, 223);
+            this.ImportVehiclesBtn.Location = new System.Drawing.Point(562, 231);
             this.ImportVehiclesBtn.Name = "ImportVehiclesBtn";
             this.ImportVehiclesBtn.Size = new System.Drawing.Size(217, 46);
             this.ImportVehiclesBtn.TabIndex = 27;
