@@ -17,8 +17,6 @@ export class LotService {
     constructor(private _httpService: Http) { }
 
     getLots(): Observable<Array<Lot>> {
-        alert(localStorage.getItem("token"));
-        alert(localStorage.getItem("loggedUserRole"));
         let header = new Headers({
             'Authorization':
                 'Bearer '.concat(localStorage.getItem("token")),

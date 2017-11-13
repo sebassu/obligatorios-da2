@@ -32,8 +32,6 @@ export class TransportComponent implements OnInit {
   ngOnInit(): void {
     this._lotService.getLots()
       .subscribe(lotsObtained => this.availableLots = lotsObtained);
-    /*this.availableLots = [new Lot("Mario Santos", "El lotecito", "Buen Lote", ["AA", "BB"], true),
-    new Lot("Emilio Ravenna", "Otro lote", "Buen Lote", ["AA", "BB"], true)];*/
   }
 
   beginTransport(): void {
