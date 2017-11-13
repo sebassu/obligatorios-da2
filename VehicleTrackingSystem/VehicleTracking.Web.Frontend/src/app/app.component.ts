@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import  { LotService } from './lot/lot.service';
-import  { TransportService } from './transport/transport.service';
+import { LotService } from './lot/lot.service';
+import { TransportService } from './transport/transport.service';
 
 @Component({
   selector: 'app-root',

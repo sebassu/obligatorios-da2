@@ -17,14 +17,8 @@ namespace Web.API
 
         public void Configuration(IAppBuilder application)
         {
-            ConfigureOAuthentication(application);
-            HttpConfiguration configuration = new HttpConfiguration();
-            var corsConfiguration = new EnableCorsAttribute(defaultAPIURL,
-                "*", "*");
-            configuration.EnableCors(corsConfiguration);
-            WebApiConfig.Register(configuration);
-            application.UseWebApi(configuration);
             application.UseCors(CorsOptions.AllowAll);
+            ConfigureOAuthentication(application);
         }
 
         public void ConfigureOAuthentication(IAppBuilder application)

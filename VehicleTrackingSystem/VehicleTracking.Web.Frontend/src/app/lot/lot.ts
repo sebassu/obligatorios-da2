@@ -2,14 +2,15 @@ export class Lot {
     creatorUsername: string;
     name: string;
     description: string;
-    vehicleVINs: Array<number>;
-    isReadyForTransport: boolean;
+    vehicleVINs: Array<string>;
+    isReadyForTransport: string;
 
-    constructor(creatorUsername:string, name:string, description:string, 
-    vehicleVINs:Array<number>){
+    constructor(creatorUsername: string, name: string, description: string,
+        vehicleVINs: Array<string>, isReadyForTransport: boolean) {
         this.creatorUsername = creatorUsername;
         this.name = name;
         this.description = description;
         this.vehicleVINs = vehicleVINs;
+        this.isReadyForTransport = isReadyForTransport ? "Sí" : "No";
     }
 }

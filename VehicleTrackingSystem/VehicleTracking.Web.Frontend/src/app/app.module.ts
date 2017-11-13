@@ -25,7 +25,12 @@ import { TransportComponent } from './transport/transport.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent, canActivate: [IsNotLoggedGuard] },
-      { path: 'home', component: OptionsMenuComponent, canActivate: [IsLoggedGuard] },
+      {
+        path: 'app', component: OptionsMenuComponent, canActivate: [IsLoggedGuard],
+        children: [
+          { path: 'transports', component: TransportComponent, pathMatch: 'prefix' }
+        ]
+      },
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: '**', redirectTo: 'login', pathMatch: 'full' }
     ])

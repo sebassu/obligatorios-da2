@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from './login-service';
-import { Http, Response } from '@angular/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
@@ -26,17 +25,8 @@ export class LoginComponent {
     this.errorOcurred = false;
   }
 
-  attemptToLoginUser() {
-    try {
-      this._loginService.attemptLoginWithData(this.username,
-        this.password);
-      this.success = true;
-      setTimeout(() => {
-        this._loginService.naviagateHome();
-      }, 2000);
-    } catch (error) {
-      this.errorMessage = (<Error>error).message;
-      this.errorOcurred = true;
-    }
+  private attemptToLoginUser() {
+    this._loginService.attemptLoginWithData(this.username,
+      this.password, this);
   }
 }

@@ -3,47 +3,47 @@ import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { RequestOptions, Request, RequestMethod } from '@angular/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
+import { LoginComponent } from './login.component';
 
 @Injectable()
 export class LoginService {
 
-    private errorMessage: string;
     private static LOGIN_URL: string = environment.APIURL + '/login';
 
     constructor(private _httpService: Http,
-        private _currentRoute: ActivatedRoute,
         private _router: Router) { }
 
-    private processLogin(username: string, response: Response) {
+    private successfulLogin(component: LoginComponent) {
+        component.success = true;
+        setTimeout(() => {
+            this._router.navigateByUrl('/app');
+        }, 2000);
+    }
+
+    private processLogin(username: string, response: Response, component: LoginComponent) {
+        let responseData = response.json();
         localStorage.setItem("loggedUsername", username);
-        localStorage.setItem("loggedUserRole", response.json()["role"]);
-        this.errorMessage = null;
-        return true;
+        localStorage.setItem("loggedUserRole", responseData["role"]);
+        localStorage.setItem("token", responseData["access_token"]);
+        this.successfulLogin(component);
     }
 
-    naviagateHome() {
-        this._router.navigate(['/home']);
-    }
-
-    private recordError(error: Response) {
+    private showError(error: Response, component: LoginComponent) {
         console.error(error);
         var message = error.json()["error_description"];
-        if (message) {
-            this.errorMessage = message;
-        } else {
-            this.errorMessage = "Error al establecerse una conexion con el servidor.";
+        if (!message) {
+            message = "Error al establecerse una conexion con el servidor.";
         }
+        component.errorMessage = message;
+        component.errorOcurred = true;
+        setTimeout(() => {
+            component.errorOcurred = false;
+        }, 3000);
     }
 
-    private handlePossibleError() {
-        if (this.errorMessage !== null) {
-            throw new Error(this.errorMessage);
-        }
-    }
-
-    attemptLoginWithData(username: string, password: string): void {
+    attemptLoginWithData(username: string, password: string, component: LoginComponent): void {
         let header = new Headers({
             'Content-Type':
                 'application/x-www-form-urlencoded'
@@ -54,8 +54,7 @@ export class LoginService {
         body.set('password', password);
         this._httpService.post(LoginService.LOGIN_URL, body.toString(),
             { 'headers': header }).map((response: Response) => {
-                this.processLogin(username, response)
-            }).subscribe(null, err => this.recordError(err));
-        this.handlePossibleError();
+                this.processLogin(username, response, component)
+            }).subscribe(null, err => this.showError(err, component));
     }
 }

@@ -10,7 +10,7 @@ export class IsNotLoggedGuard implements CanActivate {
         let redirectToHome = localStorage.getItem("loggedUsername") !== null &&
             localStorage.getItem("loggedUserRole") !== null;
         if (redirectToHome) {
-            this._router.navigate(['/home']);
+            this._router.navigate(['/app']);
             return false;
         };
         return true;

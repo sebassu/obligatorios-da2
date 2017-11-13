@@ -1,7 +1,44 @@
-<div id="myDIV" class="header">
-  <h2>Transporte</h2>
-  <span (click)='beginTransport()' class="beginTransportBtn">Iniciar transporte</span>
+<div class="header">
+    <h2 id="transportTitle">Transporte</h2>
 </div>
-<ul id="myUL" *ngFor='let aLot of availableLots'  >   
-  <li (click) = 'checkLot()'>{{aLot}}</li>
-</ul>
+<div id="formularioAlineado">
+    <form class="form-horizontal" role="form" id="formRegistro">
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="nameTxt">Nombre del lote:</label>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="nameTxt" required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="email">Descripción:</label>
+            <div class="col-lg-6">
+                <input type="email" class="form-control campo" id="txtEmail" required/>
+            </div>
+        </div>
+        <br>
+        <button type="reset" class="btn btn-lg btn-primary">Reestablecer</button>
+        <button type="submit" class="btn btn-lg btn-primary" (click)='beginTransport()' id="beginTransportBtn">Iniciar transporte</button>
+    </form>
+</div>
+<div id="overflowContainer">
+    <table class='table table-striped'>
+        <thead>
+            <tr>
+                <th>Agregar a transporte:</th>
+                <th>Nombre:</th>
+                <th>Descripción:</th>
+                <th>Creador:</th>
+                <th>Vehículos:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let aLot of availableLots'>
+                <td> <input type="checkbox" class="checkbox" name="vehicle" (change)="addOrRemoveLot(aLot.name)" /></td>
+                <td>{{aLot.name}}</td>
+                <td>{{aLot.description}}</td>
+                <td>{{aLot.creatorUsername}}</td>
+                <td>{{aLot.vehicleVINs}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

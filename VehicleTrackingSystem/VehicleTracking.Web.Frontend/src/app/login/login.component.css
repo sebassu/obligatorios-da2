@@ -5,7 +5,7 @@ body {
     background-color: #333;
 }
 
-div#main{
+div#main {
     display: table;
     width: 100%;
     height: 100%;
@@ -15,7 +15,7 @@ div#main{
 body {
     color: #fff;
     text-align: center;
-    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
 }
 
 div#innerContainer {
@@ -34,7 +34,7 @@ h1#mainTitle {
 }
 
 h3#subtitle {
-    font-style: italic;    
+    font-style: italic;
 }
 
 div#formContainer {
@@ -79,10 +79,4 @@ span#information {
     bottom: 0px;
     right: 10px;
     text-align: right;
-}
-
-div.alert {
-    position: fixed;
-    width: 100%;
-    z-index: 3;
 }
