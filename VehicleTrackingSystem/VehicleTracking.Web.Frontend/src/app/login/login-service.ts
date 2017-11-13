@@ -5,32 +5,42 @@ import { environment } from '../../environments/environment';
 import { RequestOptions, Request, RequestMethod } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
 
 @Injectable()
 export class LoginService {
 
-    private hideErrorAlert: boolean = true;
+    private errorMessage: string;
     private static LOGIN_URL: string = environment.APIURL + '/login';
 
     constructor(private _httpService: Http,
         private _currentRoute: ActivatedRoute,
         private _router: Router) { }
 
-    private processLogin(username: string, password: string) {
-        alert("Usuario" + username + "logueado.");
+    private processLogin(username: string, response: Response) {
+        localStorage.setItem("loggedUsername", username);
+        localStorage.setItem("loggedUserRole", response.json()["role"]);
+        this.errorMessage = null;
+        return true;
+    }
+
+    naviagateHome() {
         this._router.navigate(['/home']);
     }
 
-    private handleError(error: Response) {
+    private recordError(error: Response) {
+        console.error(error);
         var message = error.json()["error_description"];
         if (message) {
-            alert(message);
+            this.errorMessage = message;
         } else {
-            alert("Error al establecerse una conexion con el servidor.");
+            this.errorMessage = "Error al establecerse una conexion con el servidor.";
         }
-        console.error(error);
+    }
+
+    private handlePossibleError() {
+        if (this.errorMessage !== null) {
+            throw new Error(this.errorMessage);
+        }
     }
 
     attemptLoginWithData(username: string, password: string): void {
@@ -44,7 +54,8 @@ export class LoginService {
         body.set('password', password);
         this._httpService.post(LoginService.LOGIN_URL, body.toString(),
             { 'headers': header }).map((response: Response) => {
-                this.processLogin(username, password)
-            }).subscribe(null, err => this.handleError(err));
+                this.processLogin(username, response)
+            }).subscribe(null, err => this.recordError(err));
+        this.handlePossibleError();
     }
 }
