@@ -1,26 +1,8 @@
 <div class="header">
+    <br><br>
     <h2 id="transportTitle">Transporte</h2>
 </div>
-<div id="formularioAlineado">
-    <form class="form-horizontal" role="form" id="formRegistro">
-        <div class="form-group">
-            <label class="control-label col-lg-2" for="nameTxt">Nombre del lote:</label>
-            <div class="col-lg-6">
-                <input type="text" class="form-control" id="nameTxt" required/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-2" for="email">Descripción:</label>
-            <div class="col-lg-6">
-                <input type="email" class="form-control campo" id="txtEmail" required/>
-            </div>
-        </div>
-        <br>
-        <button type="reset" class="btn btn-lg btn-primary">Reestablecer</button>
-        <button type="submit" class="btn btn-lg btn-primary" (click)='beginTransport()' id="beginTransportBtn">Iniciar transporte</button>
-    </form>
-</div>
-<div id="overflowContainer">
+<div [hidden]="!availableLots.length" id="contentsContainer">
     <table class='table table-striped'>
         <thead>
             <tr>
@@ -41,4 +23,9 @@
             </tr>
         </tbody>
     </table>
+    <button type="button" class="btn btn-lg btn-success" (click)='beginTransport()' id="beginTransportBtn">Iniciar transporte</button>
+</div>
+<div [hidden]="availableLots.length">
+    <br><br><br><br>
+    <h3>Sin datos a mostrar.</h3>
 </div>

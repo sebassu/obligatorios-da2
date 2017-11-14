@@ -1,28 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
+import { BaseService } from '../baseService';
 
 @Injectable()
-export class TransportService {
+export class TransportService extends BaseService {
 
-    private static URL: string = environment.APIURL + "/api/Transport";
+    private static URL: string = environment.APIURL + "/api/Transports";
 
-    constructor(private _httpService: Http) { }
+    constructor(_httpService: Http) { super(_httpService); }
 
     getTransports(): Observable<Array<Transport>> {
-        return this._httpService.get(TransportService.URL)
+        let header = this.getHeader();
+        return this._httpService.get(TransportService.URL, { 'headers': header })
             .map((response: Response) => <Array<Transport>>response.json())
-            .do(data => console.log('Los datos que obtuvimos fueron: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 
-    private handleError(error: Response) {
-        console.error(error);
-        return Observable.throw(error);
+    registerNewTransport(transportedLotsNames: Array<string>) {
+        let header = this.getHeader();
+        return this._httpService.post(TransportService.URL, transportedLotsNames, { 'headers': header })
+            .map((response: Response) => alert("Transporte registrado correctamente."))
+            .catch(this.handleError);
     }
 }

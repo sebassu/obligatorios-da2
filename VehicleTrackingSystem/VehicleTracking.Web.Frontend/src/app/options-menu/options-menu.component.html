@@ -1,94 +1,91 @@
-<div class="row">
-    <div class="side-menu">
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="navbar-header">
-                <div class="brand-wrapper">
-                    <button type="button" class="navbar-toggle">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-                    <br><br>
-                    <div class="brand-name-wrapper">
-                        <a class="navbar-brand">Opciones:</a>
-                    </div>
+<div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Abrir menú de navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+            <a class="navbar-brand" href="index.html">Vehicle Tracking System</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <br><br>
+                <div class="brand-name-wrapper">
+                    <a class="navbar-brand" id="optionsTitle">Opciones:</a>
                 </div>
-                <br>
-            </div>
-            <div class="side-menu-container">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-menu-right"></span> Ver vehículos registrados
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-menu-right"></span> Registrar inspeccion de puerto
-                        </a>
-                    </li>
-                    <li class="panel panel-default" id="dropdown">
-                        <a data-toggle="collapse" href="#dropdown-lotes" class="collapsed">
-                            <span class="glyphicon glyphicon-menu-right"></span> Lotes
-                            <span class="caret"></span>
-                        </a>
-                        <div id="dropdown-lotes" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <ul class="nav navbar-nav">
-                                    <li>
-                                        <a href="#">Ver lotes</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Registrar nuevo lote</a>
-                                    </li>
-                                </ul>
-                            </div>
+                <br><br><br>
+                <li>
+                    <a routerLink="#">
+                        <span class="glyphicon glyphicon-menu-right"></span> Ver vehículos registrados
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="#">
+                        <span class="glyphicon glyphicon-menu-right"></span> Registrar inspeccion de puerto
+                    </a>
+                </li>
+                <li id="dropdown">
+                    <a data-toggle="collapse" href="#dropdown-lotes" class="collapsed">
+                        <span class="glyphicon glyphicon-menu-right"></span> Lotes
+                        <span class="caret"></span>
+                    </a>
+                    <div id="dropdown-lotes" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a class="secondLevel" routerLink="#">Ver lotes</a>
+                                </li>
+                                <li>
+                                    <a class="secondLevel" routerLink="#">Registrar nuevo lote</a>
+                                </li>
+                            </ul>
                         </div>
-                    </li>
-                    <li class="panel panel-default dropdown" id="dropdown">
-                        <a data-toggle="collapse" href="#dropdown-transportes" class="collapsed">
-                            <span class="glyphicon glyphicon-menu-right"></span> Transportes
-                            <span class="caret"></span>
-                        </a>
-                        <div id="dropdown-transportes" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <ul class="nav navbar-nav">
-                                    <li>
-                                        <a href="/app/transports">Ver transportes</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Registrar nuevo transporte</a>
-                                    </li>
-                                </ul>
-                            </div>
+                    </div>
+                </li>
+                <li id="dropdown">
+                    <a data-toggle="collapse" href="#dropdown-transportes" class="collapsed">
+                        <span class="glyphicon glyphicon-menu-right"></span> Transportes
+                        <span class="caret"></span>
+                    </a>
+                    <div id="dropdown-transportes" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a class="secondLevel" routerLink="#">Ver transportes</a>
+                                </li>
+                                <li>
+                                    <a class="secondLevel" routerLink="/app/registerTransport">Registrar nuevo transporte</a>
+                                </li>
+                            </ul>
                         </div>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-menu-right"></span> Registrar inspección de patio
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-menu-right"></span> Registrar movimiento
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-menu-right"></span> Registrar venta
-                        </a>
-                    </li>
-                    <li>
-                        <br><br>
-                        <button class="btn btn-lg btn-success btn-block" (click)="processLogout()" id="logoutBtn">Cerrar sesión</button>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <div class="container-fluid">
-        <div class="side-body " id="contents">
+                    </div>
+                </li>
+                <li>
+                    <a routerLink="#">
+                        <span class="glyphicon glyphicon-menu-right"></span> Registrar inspección de patio
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="#">
+                        <span class="glyphicon glyphicon-menu-right"></span> Registrar movimiento
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="#">
+                        <span class="glyphicon glyphicon-menu-right"></span> Registrar venta
+                    </a>
+                </li>
+                <li id="logoutBtnContainer">
+                    <br><br>
+                    <button class="btn btn-lg btn-primary btn-block" (click)="processLogout()" id="logoutBtn">Cerrar sesión</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid" id="contents">
+        <div class="side-body">
             <router-outlet></router-outlet>
         </div>
     </div>

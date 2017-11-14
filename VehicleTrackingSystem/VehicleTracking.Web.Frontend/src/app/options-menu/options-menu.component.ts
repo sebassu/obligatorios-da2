@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './options-menu.component.html',
   styleUrls: ['./options-menu.component.css']
 })
-export class OptionsMenuComponent implements OnInit {
+export class OptionsMenuComponent {
 
   constructor(private _router: Router) { }
 
@@ -14,8 +14,4 @@ export class OptionsMenuComponent implements OnInit {
     localStorage.clear();
     this._router.navigate(["/login"]);
   }
-
-  ngOnInit() {
-  }
-
 }

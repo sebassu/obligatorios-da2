@@ -8,28 +8,19 @@ import { environment } from '../../environments/environment';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { BaseService } from '../baseService';
 
 @Injectable()
-export class LotService {
+export class LotService extends BaseService {
 
     private static URL: string = environment.APIURL + "/api/Lots";
 
-    constructor(private _httpService: Http) { }
+    constructor(_httpService: Http) { super(_httpService); }
 
     getLots(): Observable<Array<Lot>> {
-        let header = new Headers({
-            'Authorization':
-                'Bearer '.concat(localStorage.getItem("token")),
-            'Content-Type':
-                'application/json'
-        });
+        let header = this.getHeader();
         return this._httpService.get(LotService.URL, { 'headers': header })
             .map((response: Response) => <Array<Lot>>response.json())
             .catch(this.handleError);
-    }
-
-    private handleError(error: Response) {
-        alert(error);
-        return Observable.throw(error);
     }
 }

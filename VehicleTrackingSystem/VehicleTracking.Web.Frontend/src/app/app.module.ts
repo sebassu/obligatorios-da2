@@ -28,7 +28,7 @@ import { TransportComponent } from './transport/transport.component';
       {
         path: 'app', component: OptionsMenuComponent, canActivate: [IsLoggedGuard],
         children: [
-          { path: 'transports', component: TransportComponent, pathMatch: 'prefix' }
+          { path: 'registerTransport', component: TransportComponent, pathMatch: 'prefix' }
         ]
       },
       { path: '', redirectTo: 'login', pathMatch: 'full' },

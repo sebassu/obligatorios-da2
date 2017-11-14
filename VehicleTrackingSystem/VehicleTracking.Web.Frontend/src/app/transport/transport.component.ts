@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LotService } from '../lot/lot.service';
 import { Lot } from '../lot/lot';
+import { TransportService } from './transport.service';
 
 @Component({
   selector: 'transport-component',
@@ -16,8 +17,10 @@ export class TransportComponent implements OnInit {
   availableLots: Array<Lot>;
   errorMessage: string;
 
-  constructor(private _lotService: LotService) {
+  constructor(private _lotService: LotService,
+    private _transportService: TransportService) {
     this.transportedLotsNames = [];
+    this.availableLots = [];
   }
 
   private addOrRemoveLot(lotName: string) {
@@ -34,8 +37,7 @@ export class TransportComponent implements OnInit {
       .subscribe(lotsObtained => this.availableLots = lotsObtained);
   }
 
-  beginTransport(): void {
+  private beginTransport(): void {
 
   }
-
 }

@@ -100,7 +100,11 @@ input {
     background-color: #bbb;
 }
 
-div#overflowContainer {
-    height: 550px;
+div#contentsContainer {
+    background-color: darkgray;
     overflow: auto;
+}
+
+button#beginTransportBtn {
+    float: right;
 }
