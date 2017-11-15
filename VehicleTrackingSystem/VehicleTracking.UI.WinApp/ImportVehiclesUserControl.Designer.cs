@@ -83,6 +83,7 @@
             this.ImportVehiclesBtn.TabIndex = 27;
             this.ImportVehiclesBtn.Text = "Importar vehiculos";
             this.ImportVehiclesBtn.UseVisualStyleBackColor = true;
+            this.ImportVehiclesBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImportVehiclesBtn_MouseClick);
             // 
             // ImportVehiclesUserControl
             // 

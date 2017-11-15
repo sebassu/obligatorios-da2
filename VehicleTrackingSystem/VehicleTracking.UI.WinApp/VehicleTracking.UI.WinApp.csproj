@@ -82,6 +82,12 @@
     <Compile Include="CreateModifyZone.Designer.cs">
       <DependentUpon>CreateModifyZone.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportVehiclesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportVehiclesForm.Designer.cs">
+      <DependentUpon>ImportVehiclesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImportVehiclesUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

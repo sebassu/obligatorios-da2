@@ -22,9 +22,10 @@ namespace VehicleTracking.UI.WinApp
             StrategiesListBox.Items.Clear();
             try
             {
-                string XMLPath = @"..\..\..\VehicleTracking.ConcreteImportingStrategies\bin\Debug\VehicleTracking_ConcreteImportingStrategies.dll";
-                IEnumerable<IImportingStrategy> XML = ImportingStrategiesLoader.FromDllFilePath(XMLPath);
-                UpdateStrategies(XML);
+                string strategiesPath = 
+                    @"..\..\..\VehicleTracking.ConcreteImportingStrategies\bin\Debug\VehicleTracking_ConcreteImportingStrategies.dll";
+                IEnumerable<IImportingStrategy> strategies = ImportingStrategiesLoader.FromDllFilePath(strategiesPath);
+                UpdateStrategies(strategies);
             }catch(ReflectionException ex) {
                 MessageBox.Show(ex.Message, "Error");
                 
@@ -63,6 +64,12 @@ namespace VehicleTracking.UI.WinApp
             {
                 StrategiesListBox.Items.Add(strategy);
             }
+        }
+
+        private void ImportVehiclesBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            ImportVehiclesForm window = new ImportVehiclesForm();
+            window.Show();
         }
     }
 }
