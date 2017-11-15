@@ -22,7 +22,7 @@ namespace VehicleTracking.UI.WinApp
             StrategiesListBox.Items.Clear();
             try
             {
-                string XMLPath = @"\VehicleTracking.ConcreteImportingStrategies\bin\Debug\VehicleTracking_ConcreteImportingStrategies";
+                string XMLPath = @"..\..\..\VehicleTracking.ConcreteImportingStrategies\bin\Debug\VehicleTracking_ConcreteImportingStrategies.dll";
                 IEnumerable<IImportingStrategy> XML = ImportingStrategiesLoader.FromDllFilePath(XMLPath);
                 UpdateStrategies(XML);
             }catch(ReflectionException ex) {
