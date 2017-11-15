@@ -20,8 +20,16 @@ namespace VehicleTracking.UI.WinApp
         private void LoadStrategies()
         {
             StrategiesListBox.Items.Clear();
-            StrategiesListBox.Items.Add("XML");
-            StrategiesListBox.Items.Add("JSON");
+            try
+            {
+                string XMLPath = @"\VehicleTracking.ConcreteImportingStrategies\bin\Debug\VehicleTracking_ConcreteImportingStrategies";
+                IEnumerable<IImportingStrategy> XML = ImportingStrategiesLoader.FromDllFilePath(XMLPath);
+                UpdateStrategies(XML);
+            }catch(ReflectionException ex) {
+                MessageBox.Show(ex.Message, "Error");
+                
+            }
+
         }
 
         private void AddStrategiesBtn_MouseClick(object sender, MouseEventArgs e)
