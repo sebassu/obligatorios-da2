@@ -68,8 +68,13 @@ namespace VehicleTracking.UI.WinApp
 
         private void ImportVehiclesBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            ImportVehiclesForm window = new ImportVehiclesForm();
-            window.Show();
+            if (StrategiesListBox.SelectedItem != null)
+            {
+                ImportVehiclesForm window = new ImportVehiclesForm((IImportingStrategy)StrategiesListBox.SelectedItem);
+                window.Show();
+            }else {
+                MessageBox.Show("Debe seleccionar una estrategia", "Error");
+            }
         }
     }
 }
