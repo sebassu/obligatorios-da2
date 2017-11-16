@@ -31,11 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportVehiclesForm));
             this.LayoutPanel = new System.Windows.Forms.Panel();
             this.TitleLbl = new System.Windows.Forms.Label();
+            this.ImportVehiclesBtn = new System.Windows.Forms.Button();
             this.LayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // LayoutPanel
             // 
+            this.LayoutPanel.Controls.Add(this.ImportVehiclesBtn);
             this.LayoutPanel.Controls.Add(this.TitleLbl);
             this.LayoutPanel.Location = new System.Drawing.Point(0, 1);
             this.LayoutPanel.Name = "LayoutPanel";
@@ -52,6 +54,20 @@
             this.TitleLbl.Size = new System.Drawing.Size(302, 39);
             this.TitleLbl.TabIndex = 25;
             this.TitleLbl.Text = "Importar vehiculos";
+            // 
+            // ImportVehiclesBtn
+            // 
+            this.ImportVehiclesBtn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.ImportVehiclesBtn.FlatAppearance.BorderSize = 6;
+            this.ImportVehiclesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ImportVehiclesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ImportVehiclesBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.ImportVehiclesBtn.Location = new System.Drawing.Point(648, 431);
+            this.ImportVehiclesBtn.Name = "ImportVehiclesBtn";
+            this.ImportVehiclesBtn.Size = new System.Drawing.Size(217, 46);
+            this.ImportVehiclesBtn.TabIndex = 28;
+            this.ImportVehiclesBtn.Text = "Importar vehiculos";
+            this.ImportVehiclesBtn.UseVisualStyleBackColor = true;
             // 
             // ImportVehiclesForm
             // 
@@ -73,5 +89,6 @@
 
         private System.Windows.Forms.Panel LayoutPanel;
         private System.Windows.Forms.Label TitleLbl;
+        private System.Windows.Forms.Button ImportVehiclesBtn;
     }
 }
