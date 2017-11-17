@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LotService } from './lot.service';
+import { LotService } from '../services/lot.service';
 
 @Component({
   selector: 'lot-component',

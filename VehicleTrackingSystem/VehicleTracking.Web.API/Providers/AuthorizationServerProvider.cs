@@ -66,10 +66,18 @@ namespace Web.API
         {
             foreach (var property in context.Properties.Dictionary)
             {
-                if (!property.Key.StartsWith("."))
-                    context.AdditionalResponseParameters.Add(property.Key, property.Value);
+                CheckIfIsRolePropertyAndAddToResponse(context, property);
             }
             return Task.FromResult<object>(null);
+        }
+
+        private static void CheckIfIsRolePropertyAndAddToResponse(OAuthTokenEndpointContext context,
+            KeyValuePair<string, string> property)
+        {
+            if (!property.Key.StartsWith("."))
+            {
+                context.AdditionalResponseParameters.Add(property.Key, property.Value);
+            }
         }
     }
 }

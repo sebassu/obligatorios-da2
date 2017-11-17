@@ -81,7 +81,7 @@ div#contents {
     background-color: darkgray;
 }
 
-#optionsTitle {
+a#optionsTitle {
     font-variant: bold;
     text-decoration: underline;
     font-size: 28px;

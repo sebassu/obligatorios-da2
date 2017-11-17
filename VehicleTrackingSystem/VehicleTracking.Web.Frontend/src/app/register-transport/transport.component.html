@@ -25,7 +25,7 @@
     </table>
     <button type="button" class="btn btn-lg btn-success" (click)='beginTransport()' id="beginTransportBtn">Iniciar transporte</button>
 </div>
-<div [hidden]="availableLots.length">
-    <br><br><br><br>
+<div [hidden]="availableLots.length" id="noContentsContainer">
+    <br><br><br><br><br>
     <h3>Sin datos a mostrar.</h3>
 </div>

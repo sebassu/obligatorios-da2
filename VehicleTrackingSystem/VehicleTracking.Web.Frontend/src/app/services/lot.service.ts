@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers } from '@angular/http';
 
-import { LotComponent } from './lot.component';
-import { Lot } from './lot';
+import { Lot } from '../entities/lot';
 import { environment } from '../../environments/environment';
 
-import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
-import { BaseService } from '../baseService';
+import { BaseService } from './baseService';
 
 @Injectable()
 export class LotService extends BaseService {
@@ -20,7 +19,7 @@ export class LotService extends BaseService {
     getLots(): Observable<Array<Lot>> {
         let header = this.getHeader();
         return this._httpService.get(LotService.URL, { 'headers': header })
-            .map((response: Response) => <Array<Lot>>response.json())
+            .do((response: Response) => <Array<Lot>>response.json())
             .catch(this.handleError);
     }
 }

@@ -105,6 +105,6 @@ div#contentsContainer {
     overflow: auto;
 }
 
-button#beginTransportBtn {
-    float: right;
+div#noContentsContainer {
+    text-align: center;
 }

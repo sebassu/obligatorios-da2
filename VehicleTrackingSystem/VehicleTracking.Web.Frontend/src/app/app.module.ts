@@ -7,16 +7,18 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { OptionsMenuComponent } from './options-menu/options-menu.component';
 import { RouterModule } from '@angular/router';
-import { IsLoggedGuard } from './is-logged-guard';
-import { IsNotLoggedGuard } from './is-not-logged-guard';
+import { IsLoggedGuard } from './guards/is-logged-guard';
+import { IsNotLoggedGuard } from './guards/is-not-logged-guard';
 import { TransportComponent } from './transport/transport.component';
+import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     TransportComponent,
-    OptionsMenuComponent
+    OptionsMenuComponent,
+    VehicleListComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { TransportComponent } from './transport/transport.component';
       {
         path: 'app', component: OptionsMenuComponent, canActivate: [IsLoggedGuard],
         children: [
-          { path: 'registerTransport', component: TransportComponent, pathMatch: 'prefix' }
+          { path: 'registerTransport', component: TransportComponent, pathMatch: 'prefix' },
+          { path: 'vehicles', component: VehicleListComponent, pathMatch: 'prefix' }
         ]
       },
       { path: '', redirectTo: 'login', pathMatch: 'full' },

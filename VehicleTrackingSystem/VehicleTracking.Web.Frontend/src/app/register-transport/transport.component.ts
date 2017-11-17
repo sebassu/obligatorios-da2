@@ -1,19 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { LotService } from '../lot/lot.service';
-import { Lot } from '../lot/lot';
-import { TransportService } from './transport.service';
+import { LotService } from '../services/lot.service';
+import { Lot } from '../entities/lot';
+import { TransportService } from '../services/transport.service';
 
 @Component({
   selector: 'transport-component',
   templateUrl: './transport.component.html',
-  styleUrls: ['./transport.component.css']
+  styleUrls: ['../styles/list-styles.css', './transport.component.css']
 })
 export class TransportComponent implements OnInit {
-  id: number;
-  transporterUsername: string;
-  startDateTime: Date;
   transportedLotsNames: Array<string>;
-  endDateTime: Date;
   availableLots: Array<Lot>;
   errorMessage: string;
 
@@ -38,6 +34,6 @@ export class TransportComponent implements OnInit {
   }
 
   private beginTransport(): void {
-
+    this._transportService.registerNewTransport(this.transportedLotsNames);
   }
 }

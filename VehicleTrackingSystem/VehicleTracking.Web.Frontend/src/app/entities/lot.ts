@@ -1,4 +1,5 @@
 export class Lot {
+
     creatorUsername: string;
     name: string;
     description: string;
