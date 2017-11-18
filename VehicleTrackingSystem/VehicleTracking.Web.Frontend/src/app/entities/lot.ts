@@ -4,7 +4,7 @@ export class Lot {
     name: string;
     description: string;
     vehicleVINs: Array<string>;
-    isReadyForTransport: string;
+    isReadyForTransport: boolean;
 
     constructor(creatorUsername: string, name: string, description: string,
         vehicleVINs: Array<string>, isReadyForTransport: boolean) {
@@ -12,6 +12,6 @@ export class Lot {
         this.name = name;
         this.description = description;
         this.vehicleVINs = vehicleVINs;
-        this.isReadyForTransport = isReadyForTransport ? "Sí" : "No";
+        this.isReadyForTransport = isReadyForTransport;
     }
 }

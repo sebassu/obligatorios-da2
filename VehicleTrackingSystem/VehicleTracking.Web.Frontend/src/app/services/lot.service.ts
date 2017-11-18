@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { BaseService } from './baseService';
+import { BaseService } from './base.service';
 
 @Injectable()
 export class LotService extends BaseService {

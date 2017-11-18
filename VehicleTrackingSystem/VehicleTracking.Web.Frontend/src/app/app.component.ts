@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LotService } from './services/lot.service';
 import { TransportService } from './services/transport.service';
-import { VehicleService } from './services/vehicleService';
+import { VehicleService } from './services/vehicle.service';
 
 @Component({
   selector: 'app-root',

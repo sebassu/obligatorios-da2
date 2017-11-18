@@ -1,0 +1,34 @@
+<div class="header">
+    <br><br>
+    <h2 class="contentsTitle">Lotes</h2>
+</div>
+<div [hidden]="!lots.length" id="contentsContainer">
+    <br><br>
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th>Nombre:</th>
+                <th>Descripción:</th>
+                <th>Creador:</th>
+                <th>Vehículos:</th>
+                <th>Listo para el transporte:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let aLot of lots'>
+                <td>{{aLot.name}}</td>
+                <td>{{aLot.description}}</td>
+                <td>{{aLot.creatorUsername}}</td>
+                <td>{{aLot.vehicleVINs}}</td>
+                <td>
+                    <span *ngIf="aLot.isReadyForTransport" class="glyphicon glyphicon-ok"></span>
+                    <span *ngIf="!aLot.isReadyForTransport" class="glyphicon glyphicon-remove"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div [hidden]="lots.length" id="noContentsContainer">
+    <br><br><br><br><br>
+    <h3>Sin datos a mostrar.</h3>
+</div>

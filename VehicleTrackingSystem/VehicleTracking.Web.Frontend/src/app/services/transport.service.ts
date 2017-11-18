@@ -6,7 +6,7 @@ import { Transport } from '../entities/transport';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { BaseService } from './baseService';
+import { BaseService } from './base.service';
 
 @Injectable()
 export class TransportService extends BaseService {

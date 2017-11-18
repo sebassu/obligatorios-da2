@@ -1,3 +1,7 @@
 button#beginTransportBtn {
     float: right;
 }
+
+.checkbox {
+    margin-left: 13%;
+}
