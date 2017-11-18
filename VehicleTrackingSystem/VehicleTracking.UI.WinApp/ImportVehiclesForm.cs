@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
+using VehicleTracking_ConcreteImportingStrategies;
+using VehicleTracking_Data_DataAccess;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -58,7 +60,7 @@ namespace VehicleTracking.UI.WinApp
             newLabel.Font = new Font("Microsoft Sans Serif", 14, FontStyle.Regular);
             newLabel.ForeColor = System.Drawing.ColorTranslator.FromHtml("#ffcd00");
             ContainerPanel.Controls.Add(newLabel);
-            return newLabel.Width;         
+            return newLabel.Width;
         }
 
         private int CreateNewTextBox(Point elementOrigin)
@@ -102,7 +104,7 @@ namespace VehicleTracking.UI.WinApp
             return point;
         }
 
-        private void ChooseFileMouseClicked (object sender, MouseEventArgs e)
+        private void ChooseFileMouseClicked(object sender, MouseEventArgs e)
         {
             string path = "";
             OpenFileDialog file = new OpenFileDialog();
@@ -135,7 +137,25 @@ namespace VehicleTracking.UI.WinApp
                 string parameterName = c.Name.Substring(0, c.Name.Length - 3);
                 parameters.Add(parameterName, c.Text);
             }
-            
+            try
+            {
+                IEnumerable<Vehicle> vehiclesToImport = SelectedStrategy.GetVehicles(parameters);
+                using (var UnitOfWork = new UnitOfWork())
+                {
+                    foreach (Vehicle v in vehiclesToImport)
+                    {
+                        UnitOfWork.Vehicles.AddNewVehicle(v);
+                    }
+                    UnitOfWork.SaveChanges();
+                }
+                MessageBox.Show("Los vehículos han sido importados", "Importación de vehículos");
+                this.Close();
+            }
+            catch (VehicleTrackingException ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+
         }
     }
 }

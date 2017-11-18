@@ -6,7 +6,7 @@
     <Año>1981</Año>
     <Color>Red</Color>
     <Tipo>CAR</Tipo>
-    <VIN>RUSH2112MVNGPICRS</VIN>
+    <VIN>RUSH2112MVNGPICRB</VIN>
   </Vehiculo>
   <Vehiculo>
     <Marca>Renault</Marca>
@@ -14,6 +14,6 @@
     <Año>2001</Año>
     <Color>Gris claro</Color>
     <Tipo>VAN</Tipo>
-    <VIN>ASNDJFU1258741SMD</VIN>
+    <VIN>ASNDJFU1258741SMB</VIN>
   </Vehiculo>
 </Vehiculos>
