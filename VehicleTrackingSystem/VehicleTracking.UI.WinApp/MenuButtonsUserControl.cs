@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using API.Services;
+using VehicleTracking_Data_DataAccess;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -146,8 +147,18 @@ namespace VehicleTracking.UI.WinApp
 
         private void SubzoneBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            CardPanel.Controls.Clear();
-            CardPanel.Controls.Add(new SubzoneUserControl(CardPanel));
+            ISubzoneServices subzoneServices = new SubzoneServices();
+            var x = subzoneServices.GetRegisteredSubzones();
+            if (x.Count() == 0)
+            {
+                MessageBox.Show("No hay zonas registradas. Debe registrar al menos una zona antes de comenzar "
+                    +" a registrar subzonas.", "Error");
+            }
+            else
+            {
+                CardPanel.Controls.Clear();
+                CardPanel.Controls.Add(new SubzoneUserControl(CardPanel));
+            }
         }
 
         private void FlowBtn_MouseClick(object sender, MouseEventArgs e)
