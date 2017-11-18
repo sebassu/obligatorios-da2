@@ -1,0 +1,41 @@
+<div class="header">
+    <br><br>
+    <h2 class="contentsTitle">Vehiculos</h2>
+</div>
+<div [hidden]="!vehicles.length" id="contentsContainer">
+    <br><br>
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th>VIN:</th>
+                <th>Tipo:</th>
+                <th>Marca:</th>
+                <th>Modelo:</th>
+                <th>Color:</th>
+                <th>Año:</th>
+                <th>Etapa actual:</th>
+                <th>Ver histórico:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let aVehicle of vehicles'>
+                <td>{{aVehicle.vin}}</td>
+                <td>{{aVehicle.type}}</td>
+                <td>{{aVehicle.brand}}</td>
+                <td>{{aVehicle.model}}</td>
+                <td>{{aVehicle.color}}</td>
+                <td>{{aVehicle.year}}</td>
+                <td>{{aVehicle.currentStage}}</td>
+                <td>
+                    <button type="button" class="btn btn-info" (click)="openVehicleHistoryFor(aVehicle.vin)">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div [hidden]="vehicles.length" id="noContentsContainer">
+    <br><br><br><br><br>
+    <h3>Sin datos a mostrar.</h3>
+</div>

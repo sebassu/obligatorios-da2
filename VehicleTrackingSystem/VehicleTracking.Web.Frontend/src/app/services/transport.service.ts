@@ -29,4 +29,13 @@ export class TransportService extends BaseService {
             .map((response: Response) => alert("Transporte registrado correctamente."))
             .catch(this.handleError);
     }
+
+    finalizeTransportWithId(transportId: number) {
+        let url = TransportService.URL + "/" + transportId;
+        let header = this.getHeader();
+        let body = new Date();
+        return this._httpService.post(url, body, { 'headers': header })
+            .map((response: Response) => alert("Transporte de ID \"" + transportId +
+                "\" finalizado correctamente.")).catch(this.handleError);
+    }
 }

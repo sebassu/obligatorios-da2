@@ -12,6 +12,7 @@ import { IsNotLoggedGuard } from './guards/is-not-logged-guard';
 import { TransportComponent } from './register-transport/transport.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { LotListComponent } from './lot-list/lot-list.component';
+import { TransportListComponent } from './transport-list/transport-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LotListComponent } from './lot-list/lot-list.component';
     TransportComponent,
     OptionsMenuComponent,
     VehicleListComponent,
-    LotListComponent
+    LotListComponent,
+    TransportListComponent
   ],
   imports: [
     BrowserModule,
