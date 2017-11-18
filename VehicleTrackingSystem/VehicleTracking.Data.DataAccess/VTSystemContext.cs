@@ -54,10 +54,14 @@ namespace VehicleTracking_Data_DataAccess
 
         private static void InspectionEntityDatabaseSettings(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Inspection>().Property(i => i.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<Inspection>().HasMany(i => i.Damages)
                 .WithRequired().WillCascadeOnDelete();
+            modelBuilder.Entity<Damage>().HasMany(d => d.ImageElements)
+                .WithRequired().WillCascadeOnDelete();
             modelBuilder.Entity<Inspection>().HasRequired(i => i.Responsible)
-                .WithOptional().WillCascadeOnDelete();
+                .WithMany().WillCascadeOnDelete();
         }
 
         private static void VehicleEntityDatabaseSettings(DbModelBuilder modelBuilder)

@@ -14,7 +14,7 @@ namespace VehicleTracking_Data_Entities
                 { LocationType.YARD, new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR }.AsReadOnly() }
             };
 
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         private DateTime dateTime;
         public DateTime DateTime
