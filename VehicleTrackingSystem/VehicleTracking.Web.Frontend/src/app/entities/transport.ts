@@ -1,21 +1,25 @@
 export class Transport {
 
-    vin: string;
-    type: string;
-    brand: string;
-    model: string;
-    color: string;
-    year: number;
-    currentStage: string;
+    id: number;
+    transporterUsername: string;
+    startDateTime: string;
+    transportedLotsNames: Array<string>;
+    endDateTime: string;
 
-    constructor(vin: string, type: string, brand: string, model: string,
-        color: string, year: number, currentStage: string) {
-        this.vin = vin;
-        this.type = type;
-        this.brand = brand;
-        this.model = model;
-        this.color = color;
-        this.year = year;
-        this.currentStage = currentStage;
+    constructor(id: number, transporterUsername: string, startDateTime: Date,
+        transportedLotsNames: Array<string>, endDateTime: string) {
+        this.id = id;
+        this.transporterUsername = transporterUsername;
+        this.startDateTime = startDateTime.toLocaleString();
+        this.transportedLotsNames = transportedLotsNames;
+        this.processStartDateTime(startDateTime);
+    }
+
+    private processStartDateTime(endDateTime: Date) {
+        if (endDateTime === null) {
+            this.endDateTime = "N/A";
+        } else {
+            this.endDateTime = endDateTime.toLocaleString();
+        }
     }
 }

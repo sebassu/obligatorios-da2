@@ -35,6 +35,7 @@ import { TransportListComponent } from './transport-list/transport-list.componen
         path: 'app', component: OptionsMenuComponent, canActivate: [IsLoggedGuard],
         children: [
           { path: 'registerTransport', component: TransportComponent, pathMatch: 'prefix' },
+          { path: 'transports', component: TransportListComponent, pathMatch: 'prefix' },
           { path: 'vehicles', component: VehicleListComponent, pathMatch: 'prefix' },
           { path: 'lots', component: LotListComponent, pathMatch: 'prefix' }
         ]

@@ -84,8 +84,8 @@ input {
     font-size: 16px;
 }
 
-.addBtn:hover {
-    background-color: #bbb;
+button.changeBtn {
+    color: black;
 }
 
 div#contentsContainer {

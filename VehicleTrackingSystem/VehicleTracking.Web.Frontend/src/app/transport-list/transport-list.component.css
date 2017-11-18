@@ -1,0 +1,7 @@
+button#finalizeTransportBtn {
+    float: right;
+}
+
+input.transportRadiobutton {
+    margin-left: 13%;
+}

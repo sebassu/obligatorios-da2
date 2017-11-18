@@ -20,7 +20,7 @@ namespace VehicleTracking_ConcreteImportingStrategies
             try
             {
                 var pathOfXMLFile = parameters[pathParameterName] as string;
-                return GetVehicleEnumerationFromFile(pathOfXMLFile);
+                return VehiclesToReturnFromFile(pathOfXMLFile);
             }
             catch (NullReferenceException)
             {
@@ -37,6 +37,16 @@ namespace VehicleTracking_ConcreteImportingStrategies
             string errorMessage = string.Format(CultureInfo.CurrentCulture,
                 ErrorMessages.IncompleteParameters, pathParameterName);
             return new ImportingException(errorMessage);
+        }
+
+        private IEnumerable<Vehicle> VehiclesToReturnFromFile(string pathOfXMLFile)
+        {
+            var vehicles = GetVehicleEnumerationFromFile(pathOfXMLFile);
+            foreach (var vehicle in vehicles)
+            {
+                vehicle.StagesData = new ProcessData();
+            }
+            return vehicles;
         }
 
         protected abstract IEnumerable<Vehicle> GetVehicleEnumerationFromFile(string filePath);

@@ -4,7 +4,8 @@ import { TransportService } from '../services/transport.service';
 
 @Component({
   selector: 'app-transport-list',
-  templateUrl: './transport-list.component.html'
+  templateUrl: './transport-list.component.html',
+  styleUrls: ['../styles/list-styles.css', './transport-list.component.css']
 })
 export class TransportListComponent implements OnInit {
 
@@ -20,8 +21,11 @@ export class TransportListComponent implements OnInit {
       .subscribe(transportsObtained => this.transports = transportsObtained);
   }
 
-  private finalizeTransport(transportId: number) {
-    alert(transportId);
-    this._transportService.finalizeTransportWithId(transportId);
+  private setSelectedTransportId(transportId: number) {
+    this.selectedTransportId = transportId;
+  }
+
+  private finalizeSelectedTransport() {
+    this._transportService.finalizeTransportWithId(this.selectedTransportId;
   }
 }

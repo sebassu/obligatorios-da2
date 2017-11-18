@@ -34,8 +34,9 @@ export class TransportService extends BaseService {
         let url = TransportService.URL + "/" + transportId;
         let header = this.getHeader();
         let body = new Date();
-        return this._httpService.post(url, body, { 'headers': header })
+        return this._httpService.put(url, body, { 'headers': header })
             .map((response: Response) => alert("Transporte de ID \"" + transportId +
-                "\" finalizado correctamente.")).catch(this.handleError);
+                "\" finalizado correctamente."))
+            .subscribe(null, err => this.handleError(err));
     }
 }

@@ -126,4 +126,7 @@
   <data name="VehicleRemovalIsUnsupported" xml:space="preserve">
     <value>Actualmente no se permite eliminar vehículos del sistema.</value>
   </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>La contraseña ingresada es incorrecta.</value>
+  </data>
 </root>
