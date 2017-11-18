@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
+using System;
 
 namespace VehicleTracking_Data_Entities
 {
@@ -43,7 +44,7 @@ namespace VehicleTracking_Data_Entities
             }
             set
             {
-                if (Utilities.IsValidItemEnumeration(value))
+                if (IsValidImageCollection(value))
                 {
                     var imageElementsToAdd = value.Select(i => ImageElement.FromImageData(i));
                     ImageElements = imageElementsToAdd.ToList();
@@ -53,6 +54,11 @@ namespace VehicleTracking_Data_Entities
                     throw new DamageException(ErrorMessages.CollectionIsInvalid);
                 }
             }
+        }
+
+        private bool IsValidImageCollection(ICollection<string> value)
+        {
+            return Utilities.IsNotNull(value) && value.Any();
         }
 
         internal static Damage InstanceForTestingPurposes()

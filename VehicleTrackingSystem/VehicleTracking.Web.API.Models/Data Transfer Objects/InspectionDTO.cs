@@ -1,14 +1,15 @@
-﻿using VehicleTracking_Data_Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Services
 {
+    [Serializable]
     public class InspectionDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string VehicleVIN { get; set; }
 
@@ -47,10 +48,10 @@ namespace API.Services
             }
         }
 
-        private InspectionDTO(int idToSet, string vinToSet, string locationNameToSet,
+        private InspectionDTO(Guid idToSet, string vinToSet, string locationNameToSet,
             string usernameToSet, DateTime dateTimeToSet)
         {
-            Id = idToSet;
+            Id = idToSet.ToString();
             VehicleVIN = vinToSet;
             LocationName = locationNameToSet;
             ResponsibleUsername = usernameToSet;
@@ -59,7 +60,10 @@ namespace API.Services
 
         internal Inspection ToInspection(User responsible, Location locationToSet, Vehicle vehicleToSet)
         {
-            return Inspection.CreateNewInspection(responsible, locationToSet, DateTime, GetDamages(), vehicleToSet);
+            var result = Inspection.CreateNewInspection(responsible, locationToSet, DateTime,
+                GetDamages(), vehicleToSet);
+            Id = result.Id.ToString();
+            return result;
         }
 
         internal ICollection<Damage> GetDamages()

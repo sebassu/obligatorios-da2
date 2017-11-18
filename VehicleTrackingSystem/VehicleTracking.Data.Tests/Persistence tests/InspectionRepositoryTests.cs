@@ -73,7 +73,7 @@ namespace Data.Persistence_tests
         [ExpectedException(typeof(RepositoryException))]
         public void IRepositoryGetInspectionWithNonExistentIdInvalidTest()
         {
-            testingInspectionRepository.GetInspectionWithId(42);
+            testingInspectionRepository.GetInspectionWithId(Guid.NewGuid());
         }
         #endregion
 

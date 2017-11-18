@@ -18,10 +18,19 @@ namespace VehicleTracking_Data_DataAccess
         public void AddNewInspection(Inspection inspectionToAdd)
         {
             Add(inspectionToAdd);
-            context.Damages.AddRange(inspectionToAdd.Damages);
+            AddDamagesToDatabase(inspectionToAdd);
         }
 
-        public Inspection GetInspectionWithId(int idToLookup)
+        private void AddDamagesToDatabase(Inspection inspectionToAdd)
+        {
+            foreach (var damage in inspectionToAdd.Damages)
+            {
+                context.ImageElements.AddRange(damage.ImageElements);
+                context.Damages.Add(damage);
+            }
+        }
+
+        public Inspection GetInspectionWithId(Guid idToLookup)
         {
             try
             {
