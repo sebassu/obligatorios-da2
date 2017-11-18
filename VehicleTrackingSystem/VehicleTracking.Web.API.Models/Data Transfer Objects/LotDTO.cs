@@ -1,10 +1,12 @@
-﻿using VehicleTracking_Data_Entities;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Services
 {
+    [Serializable]
     public class LotDTO
     {
         public string CreatorUsername { get; set; }
