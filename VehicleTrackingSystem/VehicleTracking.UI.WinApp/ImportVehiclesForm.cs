@@ -25,7 +25,6 @@ namespace VehicleTracking.UI.WinApp
             {
                 AddElement(param, origin);
                 origin = ModifyLocation(origin);
-                AddElement(param, origin);
             }
         }
 
@@ -75,6 +74,17 @@ namespace VehicleTracking.UI.WinApp
 
         private void CreateNewFileChooser()
         {
+            Button newButton = new Button();
+            newButton.Name = "";
+            newButton.Text = "Choose file...";
+            newButton.AutoSize = true;
+            newButton.FlatStyle = FlatStyle.Flat;
+            newButton.FlatAppearance.BorderColor = Color.Silver;
+            newButton.FlatAppearance.BorderSize = 4;
+            newButton.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
+            newButton.ForeColor = System.Drawing.ColorTranslator.FromHtml("#ffcd00");
+            newButton.Location = new Point(100, 100);
+            ContainerPanel.Controls.Add(newButton);
 
         }
 
