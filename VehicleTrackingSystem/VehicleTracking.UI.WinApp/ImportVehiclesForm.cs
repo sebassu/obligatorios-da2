@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
 using VehicleTracking_ConcreteImportingStrategies;
 using VehicleTracking_Data_DataAccess;
+using API.Services;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -146,6 +147,7 @@ namespace VehicleTracking.UI.WinApp
                     {
                         UnitOfWork.Vehicles.AddNewVehicle(v);
                     }
+                    UnitOfWork.LoggingStrategy.RegisterVehicleImport(SessionServices.LoggedUser);
                     UnitOfWork.SaveChanges();
                 }
                 MessageBox.Show("Los vehículos han sido importados", "Importación de vehículos");
