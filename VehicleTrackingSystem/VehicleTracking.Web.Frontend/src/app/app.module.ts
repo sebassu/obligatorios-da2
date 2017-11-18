@@ -9,7 +9,7 @@ import { OptionsMenuComponent } from './options-menu/options-menu.component';
 import { RouterModule } from '@angular/router';
 import { IsLoggedGuard } from './guards/is-logged-guard';
 import { IsNotLoggedGuard } from './guards/is-not-logged-guard';
-import { TransportComponent } from './transport/transport.component';
+import { TransportComponent } from './register-transport/transport.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 
 @NgModule({

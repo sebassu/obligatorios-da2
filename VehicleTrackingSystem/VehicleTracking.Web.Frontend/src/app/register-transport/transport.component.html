@@ -1,8 +1,9 @@
 <div class="header">
     <br><br>
-    <h2 id="transportTitle">Transporte</h2>
+    <h2 class="contentsTitle">Transporte</h2>
 </div>
 <div [hidden]="!availableLots.length" id="contentsContainer">
+    <br><br>
     <table class='table table-striped'>
         <thead>
             <tr>
@@ -23,9 +24,9 @@
             </tr>
         </tbody>
     </table>
-    <button type="button" class="btn btn-lg btn-success" (click)='beginTransport()' id="beginTransportBtn">Iniciar transporte</button>
+    <button type="button" class="btn btn-lg btn-success addBtn" (click)='beginTransport()' id="beginTransportBtn">Iniciar transporte</button>
 </div>
 <div [hidden]="availableLots.length" id="noContentsContainer">
     <br><br><br><br><br>
-    <h3>Sin datos a mostrar.</h3>
+    <h3>Sin datos a mostrar: no existen lotes transportables.</h3>
 </div>

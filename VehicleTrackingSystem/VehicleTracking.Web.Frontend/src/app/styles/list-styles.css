@@ -3,12 +3,6 @@ body {
     background-color: darkgray;
 }
 
-h2#transportTitle {
-    font-size: 50px;
-    font-weight: bolder;
-    color: rgb(73, 73, 73);
-}
-
 * {
     box-sizing: border-box;
 }
@@ -19,6 +13,7 @@ ul {
 }
 
 th {
+    text-align: center;
     background-color: black;
     color: white;
 }
@@ -73,13 +68,6 @@ ul li.checked::before {
 .close:hover {
     background-color: #f44336;
     color: white;
-}
-
-div.header {
-    background-color: steelblue;
-    padding: 30px 40px;
-    color: white;
-    text-align: center;
 }
 
 .header:after {

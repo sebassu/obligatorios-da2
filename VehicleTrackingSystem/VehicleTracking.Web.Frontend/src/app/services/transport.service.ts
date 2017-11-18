@@ -4,7 +4,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { Transport } from '../entities/transport';
 
-import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { BaseService } from './baseService';
 
@@ -18,7 +18,7 @@ export class TransportService extends BaseService {
     getTransports(): Observable<Array<Transport>> {
         let header = this.getHeader();
         return this._httpService.get(TransportService.URL, { 'headers': header })
-            .do((response: Response) => <Array<Transport>>response.json())
+            .map((response: Response) => <Array<Transport>>response.json())
             .catch(this.handleError);
     }
 
@@ -26,7 +26,7 @@ export class TransportService extends BaseService {
         let header = this.getHeader();
         let body = { "StartDateTime": new Date(), "TransportedLotsNames": transportedLotsNames }
         return this._httpService.post(TransportService.URL, body, { 'headers': header })
-            .do((response: Response) => alert("Transporte registrado correctamente."))
+            .map((response: Response) => alert("Transporte registrado correctamente."))
             .catch(this.handleError);
     }
 }

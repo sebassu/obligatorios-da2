@@ -5,7 +5,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { Lot } from '../entities/lot';
 import { environment } from '../../environments/environment';
 
-import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { BaseService } from './baseService';
 
@@ -19,7 +19,7 @@ export class LotService extends BaseService {
     getLots(): Observable<Array<Lot>> {
         let header = this.getHeader();
         return this._httpService.get(LotService.URL, { 'headers': header })
-            .do((response: Response) => <Array<Lot>>response.json())
+            .map((response: Response) => <Array<Lot>>response.json())
             .catch(this.handleError);
     }
 }

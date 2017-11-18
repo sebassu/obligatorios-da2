@@ -1,9 +1,10 @@
 <div class="header">
     <br><br>
-    <h2 id="listTitle">Vehiculos</h2>
+    <h2 class="contentsTitle">Vehiculos</h2>
 </div>
-<div [hidden]="!availableLots.length" id="contentsContainer">
-    <table class='table table-striped'>
+<div [hidden]="!vehicles.length" id="contentsContainer">
+    <br><br>
+    <table class='table table-bordered'>
         <thead>
             <tr>
                 <th>VIN:</th>
@@ -13,7 +14,7 @@
                 <th>Color:</th>
                 <th>Año:</th>
                 <th>Etapa actual:</th>
-                <th>Agregar a transporte:</th>
+                <th>Ver histórico:</th>
             </tr>
         </thead>
         <tbody>
@@ -34,7 +35,7 @@
         </tbody>
     </table>
 </div>
-<div [hidden]="availableLots.length" id="noContentsContainer">
+<div [hidden]="vehicles.length" id="noContentsContainer">
     <br><br><br><br><br>
     <h3>Sin datos a mostrar.</h3>
 </div>
