@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportVehiclesForm));
             this.LayoutPanel = new System.Windows.Forms.Panel();
-            this.TitleLbl = new System.Windows.Forms.Label();
+            this.ContainerPanel = new System.Windows.Forms.Panel();
             this.ImportVehiclesBtn = new System.Windows.Forms.Button();
+            this.TitleLbl = new System.Windows.Forms.Label();
             this.LayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // LayoutPanel
             // 
+            this.LayoutPanel.Controls.Add(this.ContainerPanel);
             this.LayoutPanel.Controls.Add(this.ImportVehiclesBtn);
             this.LayoutPanel.Controls.Add(this.TitleLbl);
             this.LayoutPanel.Location = new System.Drawing.Point(0, 1);
@@ -44,16 +45,12 @@
             this.LayoutPanel.Size = new System.Drawing.Size(901, 522);
             this.LayoutPanel.TabIndex = 0;
             // 
-            // TitleLbl
+            // ContainerPanel
             // 
-            this.TitleLbl.AutoSize = true;
-            this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(25, 22);
-            this.TitleLbl.Name = "TitleLbl";
-            this.TitleLbl.Size = new System.Drawing.Size(302, 39);
-            this.TitleLbl.TabIndex = 25;
-            this.TitleLbl.Text = "Importar vehiculos";
+            this.ContainerPanel.Location = new System.Drawing.Point(3, 73);
+            this.ContainerPanel.Name = "ContainerPanel";
+            this.ContainerPanel.Size = new System.Drawing.Size(895, 352);
+            this.ContainerPanel.TabIndex = 29;
             // 
             // ImportVehiclesBtn
             // 
@@ -69,6 +66,17 @@
             this.ImportVehiclesBtn.Text = "Importar vehiculos";
             this.ImportVehiclesBtn.UseVisualStyleBackColor = true;
             // 
+            // TitleLbl
+            // 
+            this.TitleLbl.AutoSize = true;
+            this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.TitleLbl.Location = new System.Drawing.Point(25, 22);
+            this.TitleLbl.Name = "TitleLbl";
+            this.TitleLbl.Size = new System.Drawing.Size(302, 39);
+            this.TitleLbl.TabIndex = 25;
+            this.TitleLbl.Text = "Importar vehiculos";
+            // 
             // ImportVehiclesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -76,7 +84,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.ClientSize = new System.Drawing.Size(901, 523);
             this.Controls.Add(this.LayoutPanel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ImportVehiclesForm";
             this.Text = "Importar vehiculos";
             this.LayoutPanel.ResumeLayout(false);
@@ -90,5 +97,6 @@
         private System.Windows.Forms.Panel LayoutPanel;
         private System.Windows.Forms.Label TitleLbl;
         private System.Windows.Forms.Button ImportVehiclesBtn;
+        private System.Windows.Forms.Panel ContainerPanel;
     }
 }
