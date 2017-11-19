@@ -14,6 +14,7 @@ import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { LotListComponent } from './lot-list/lot-list.component';
 import { TransportListComponent } from './transport-list/transport-list.component';
 import { MovementComponent } from './movement/movement.component';
+import { PortInspectionComponent } from './port-inspection/port-inspection.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MovementComponent } from './movement/movement.component';
     VehicleListComponent,
     LotListComponent,
     TransportListComponent,
-    MovementComponent
+    MovementComponent,
+    PortInspectionComponent
   ],
   imports: [
     BrowserModule,
@@ -37,17 +39,18 @@ import { MovementComponent } from './movement/movement.component';
         path: 'app', component: OptionsMenuComponent,
         children: [
           { path: 'registerTransport', component: TransportComponent, pathMatch: 'prefix' },
+          { path: 'registerPortInspection', component: PortInspectionComponent, pathMatch: 'prefix' },
           { path: 'transports', component: TransportListComponent, pathMatch: 'prefix' },
           { path: 'vehicles', component: VehicleListComponent, pathMatch: 'prefix' },
           { path: 'lots', component: LotListComponent, pathMatch: 'prefix' },
           { path: 'movements', component: MovementComponent, pathMatch: 'prefix' }
         ]
-      }/*,
+      },
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: '**', redirectTo: 'login', pathMatch: 'full' }*/
+      { path: '**', redirectTo: 'login', pathMatch: 'full' }
     ])
   ],
-  //providers: [IsLoggedGuard, IsNotLoggedGuard],
+  providers: [IsLoggedGuard, IsNotLoggedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

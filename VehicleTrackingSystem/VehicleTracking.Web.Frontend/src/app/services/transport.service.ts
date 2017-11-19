@@ -27,7 +27,7 @@ export class TransportService extends BaseService {
         let body = { "StartDateTime": new Date(), "TransportedLotsNames": transportedLotsNames }
         return this._httpService.post(TransportService.URL, body, { 'headers': header })
             .map((response: Response) => alert("Transporte registrado correctamente."))
-            .catch(this.handleError);
+            .subscribe(null, err => this.handleError(err));
     }
 
     finalizeTransportWithId(transportId: number) {

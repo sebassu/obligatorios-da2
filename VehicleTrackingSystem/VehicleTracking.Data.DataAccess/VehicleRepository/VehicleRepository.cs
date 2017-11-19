@@ -35,7 +35,7 @@ namespace VehicleTracking_Data_DataAccess
         {
             return elements.Include("StagesData.PortLot").Include("StagesData.TransportData")
                 .Include("StagesData.Inspections").Include("StagesData.YardMovements")
-                .Include("StagesData.YardCurrentLocation")
+                .Include("StagesData.YardCurrentLocation.Container")
                 .Single(v => v.VIN.Equals(vinToFind));
         }
 

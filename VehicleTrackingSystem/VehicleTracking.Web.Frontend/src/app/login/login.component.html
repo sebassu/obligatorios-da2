@@ -13,7 +13,7 @@
         <h3 id="subtitle">Sistema de gestión del proceso de venta de vehículos.</h3>
         <div class="container" id="formContainer">
             <h3 id="loginFormTitle">Inicio de sesión:</h3>
-            <form #loginForm="ngForm" (ngSubmit)="attemptToLoginUser(loginForm)" id="loginForm" accept-charset="UTF-8" role="form">
+            <form #loginForm="ngForm" (ngSubmit)="attemptToLoginUser()" pattern="\^[ 0-9A-Z]+$\i" id="loginForm" accept-charset="UTF-8" role="form">
                 <label for="txtUsername" class="sr-only">Usuario</label>
                 <input type="text" id="txtUsername" name="username" class="form-control" placeholder="Usuario" [(ngModel)]="username" type="text" required autofocus>
                 <label for="txtPassword" class="sr-only">Password</label>

@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace Web.API.Controllers
 {
-    [RoutePrefix("api/Vehicles")]
     [Authorize]
+    [RoutePrefix("api/Vehicles")]
     public class VehiclesController : BaseController
     {
         internal IVehicleServices Model { get; }
@@ -44,14 +44,7 @@ namespace Web.API.Controllers
         private IHttpActionResult AttemptToGetRegisteredVehicles()
         {
             IEnumerable<VehicleDTO> vehicles = Model.GetRegisteredVehicles();
-            if (Utilities.IsNotNull(vehicles))
-            {
-                return Ok(vehicles);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return Ok(vehicles);
         }
 
         [HttpGet]

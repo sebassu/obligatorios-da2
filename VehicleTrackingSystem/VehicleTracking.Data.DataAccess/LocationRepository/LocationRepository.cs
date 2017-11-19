@@ -11,7 +11,9 @@ namespace VehicleTracking_Data_DataAccess
         public LocationRepository(VTSystemContext someContext)
             : base(someContext) { }
 
-        public IEnumerable<Location> Elements => GetElementsWith();
+        public IEnumerable<Location> Ports => GetElementsWith("", l => l.Type == LocationType.PORT);
+
+        public IEnumerable<Location> Yards => GetElementsWith("", l => l.Type == LocationType.YARD);
 
         public Location GetLocationWithName(string nameToLookup)
         {

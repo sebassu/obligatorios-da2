@@ -1,6 +1,6 @@
-﻿using VehicleTracking_Data_Entities;
-using System;
+﻿using System;
 using System.Web.Http;
+using VehicleTracking_Data_Entities;
 
 namespace Web.API.Controllers
 {

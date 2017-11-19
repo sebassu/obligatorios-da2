@@ -28,6 +28,10 @@ namespace API.Services
         public short Year { get; set; }
 
         public string CurrentStage { get; set; }
+        public bool WasLotted { get; set; }
+        public bool HasPortInspection { get; set; }
+        public bool HasYardInspection { get; set; }
+
 
         public VehicleDTO() { }
 
@@ -39,7 +43,39 @@ namespace API.Services
         private VehicleDTO(Vehicle someVehicle) : this(someVehicle.Type, someVehicle.Brand,
             someVehicle.Model, someVehicle.Year, someVehicle.Color, someVehicle.VIN)
         {
-            CurrentStage = someVehicle.CurrentStage.ToString();
+            SetCurrentStageData(someVehicle);
+            WasLotted = someVehicle.IsLotted;
+            HasPortInspection = Utilities.IsNotNull(someVehicle.PortInspection);
+            HasYardInspection = Utilities.IsNotNull(someVehicle.YardInspection);
+        }
+
+        private void SetCurrentStageData(Vehicle someVehicle)
+        {
+            switch (someVehicle.CurrentStage)
+            {
+                case ProcessStages.STUCK_IN_PROCESS:
+                    CurrentStage = "Trancado en el proceso";
+                    break;
+                case ProcessStages.PORT:
+                    CurrentStage = "Puerto";
+                    break;
+                case ProcessStages.TRANSPORT:
+                    CurrentStage = "Transporte";
+                    break;
+                case ProcessStages.YARD:
+                    string currentLocation = someVehicle.StagesData.YardCurrentLocation.ToString();
+                    CurrentStage = "Patio: \"" + currentLocation + "\"";
+                    break;
+                case ProcessStages.READY_FOR_SALE:
+                    CurrentStage = "Pronto para venta";
+                    break;
+                case ProcessStages.SOLD:
+                    CurrentStage = "Vendido";
+                    break;
+                default:
+                    CurrentStage = "Etapa desconocida";
+                    break;
+            }
         }
 
         public static VehicleDTO FromData(VehicleType type, string brand, string model,

@@ -11,7 +11,7 @@ export class OptionsMenuComponent {
   constructor(private _router: Router) { }
 
   private processLogout() {
-    localStorage.clear();
+    sessionStorage.clear();
     this._router.navigate(["/login"]);
   }
 }
