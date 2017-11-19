@@ -68,15 +68,8 @@ namespace Web.API.Controllers
 
         private IHttpActionResult AttemptToGetRegisteredInspections()
         {
-            IEnumerable<InspectionDTO> users = Model.GetRegisteredInspections();
-            if (Utilities.IsNotNull(users))
-            {
-                return Ok(users);
-            }
-            else
-            {
-                return NotFound();
-            }
+            IEnumerable<InspectionDTO> inspections = Model.GetRegisteredInspections();
+            return Ok(inspections);
         }
 
         [HttpGet]

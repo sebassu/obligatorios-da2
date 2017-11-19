@@ -21,12 +21,21 @@ namespace Data.Persistence_tests
         }
 
         [TestMethod]
-        public void LCRepositoryElementsAreDefaultLocationsValidTest()
+        public void LCRepositoryElementsAreDefaultLocationsPortsValidTest()
         {
             var defaultLocations = VTSystemDatabaseInitializer
-                .defaultSystemLocations.ToList();
+                .defaultSystemPorts.ToList();
             CollectionAssert.AreEqual(defaultLocations,
-                testingLocationRepository.Elements.ToList());
+                testingLocationRepository.Ports.ToList());
+        }
+
+        [TestMethod]
+        public void LCRepositoryElementsAreDefaultLocationsYardsValidTest()
+        {
+            var defaultLocations = VTSystemDatabaseInitializer
+                .defaultSystemYards.ToList();
+            CollectionAssert.AreEqual(defaultLocations,
+                testingLocationRepository.Yards.ToList());
         }
 
         #region GetLocationWithName tests
@@ -66,7 +75,7 @@ namespace Data.Persistence_tests
         [TestMethod]
         public void LRepositoryElementExistsInCollectionExistingElementTest()
         {
-            var addedLocation = testingLocationRepository.Elements.First();
+            var addedLocation = testingLocationRepository.Ports.First();
             var castRepostory = testingLocationRepository as GenericRepository<Location>;
             Assert.IsFalse(castRepostory.ElementExistsInCollection(addedLocation));
         }

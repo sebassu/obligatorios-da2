@@ -98,8 +98,7 @@ namespace Data.Persistence_tests
 
         private static Inspection GetNewValidTestingInspection()
         {
-            var location = testingUnitOfWork.Locations.Elements.First(l
-                => l.Type == LocationType.PORT);
+            var location = testingUnitOfWork.Locations.Ports.First();
             var testingVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS");
             var inspectionToAdd = Inspection.CreateNewInspection(testingCreator, location,

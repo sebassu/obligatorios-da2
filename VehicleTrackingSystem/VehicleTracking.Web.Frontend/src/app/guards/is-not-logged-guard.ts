@@ -7,8 +7,8 @@ export class IsNotLoggedGuard implements CanActivate {
     constructor(private _router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        let redirectToHome = localStorage.getItem("loggedUsername") !== null &&
-            localStorage.getItem("loggedUserRole") !== null;
+        let redirectToHome = sessionStorage.getItem("loggedUsername") !== null &&
+            sessionStorage.getItem("loggedUserRole") !== null;
         if (redirectToHome) {
             this._router.navigate(['/app']);
             return false;

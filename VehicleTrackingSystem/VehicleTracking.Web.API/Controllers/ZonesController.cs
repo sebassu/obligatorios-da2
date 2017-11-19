@@ -1,7 +1,7 @@
 ﻿using API.Services;
-using VehicleTracking_Data_Entities;
-using System.Collections.Generic;
 using System.Web.Http;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 namespace Web.API.Controllers
 {
@@ -44,15 +44,8 @@ namespace Web.API.Controllers
 
         private IHttpActionResult AttemptToGetRegisteredZones()
         {
-            IEnumerable<ZoneDTO> users = Model.GetRegisteredZones();
-            if (Utilities.IsNotNull(users))
-            {
-                return Ok(users);
-            }
-            else
-            {
-                return NotFound();
-            }
+            IEnumerable<ZoneDTO> zones = Model.GetRegisteredZones();
+            return Ok(zones);
         }
 
         [HttpGet]

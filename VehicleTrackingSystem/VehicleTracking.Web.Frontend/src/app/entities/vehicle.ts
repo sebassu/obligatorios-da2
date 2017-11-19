@@ -7,6 +7,9 @@ export class Vehicle {
     color: string;
     year: number;
     currentStage: string;
+    wasLotted: boolean;
+    hasPortInspection: boolean;
+    hasYardInspection: boolean;
 
     constructor(vin: string, type: string, brand: string, model: string,
         color: string, year: number, currentStage: string) {
@@ -15,8 +18,8 @@ export class Vehicle {
         this.model = model;
         this.color = color;
         this.year = year;
+        this.currentStage = currentStage;
         this.setVehicleType(type);
-        this.setProcessStage(currentStage);
     }
 
     private setVehicleType(typeToSet: string): void {
@@ -32,24 +35,6 @@ export class Vehicle {
             this.type = "Mini-van";
         } else {
             this.type = "Tipo desconocido";
-        }
-    }
-
-    private setProcessStage(stageToSet: string): void {
-        if (stageToSet == "STUCK_IN_PROCESS") {
-            this.currentStage = "Trancado en el proceso";
-        } else if (stageToSet == "PORT") {
-            this.currentStage = "Puerto";
-        } else if (stageToSet == "TRANSPORT") {
-            this.currentStage = "Transporte";
-        } else if (stageToSet == "YARD") {
-            this.currentStage = "Patio";
-        } else if (stageToSet == "READY_FOR_SALE") {
-            this.currentStage = "Pronto para venta";
-        } else if (stageToSet == "SOLD") {
-            this.currentStage = "Vendido";
-        } else {
-            this.currentStage = "Etapa desconocida";
         }
     }
 }

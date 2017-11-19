@@ -10,7 +10,7 @@ export class BaseService {
     protected getHeader() {
         return new Headers({
             'Authorization':
-                'Bearer '.concat(localStorage.getItem("token")),
+                'Bearer '.concat(sessionStorage.getItem("token")),
             'Content-Type':
                 'application/json'
         });

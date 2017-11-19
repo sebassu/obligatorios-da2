@@ -55,7 +55,7 @@ namespace VehicleTracking_Data_DataAccess
         private static void InspectionEntityDatabaseSettings(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Inspection>().Property(i => i.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Inspection>().HasMany(i => i.Damages)
                 .WithRequired().WillCascadeOnDelete();
             modelBuilder.Entity<Damage>().HasMany(d => d.ImageElements)

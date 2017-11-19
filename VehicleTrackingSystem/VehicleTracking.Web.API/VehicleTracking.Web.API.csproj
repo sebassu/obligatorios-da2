@@ -133,6 +133,7 @@
     <Compile Include="AuthorizeRolesAttribute.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\InspectionsController.cs" />
+    <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\LotsController.cs" />
     <Compile Include="Controllers\SubzonesController.cs" />
     <Compile Include="Controllers\TransportsController.cs" />

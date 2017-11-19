@@ -26,6 +26,6 @@ export class TransportListComponent implements OnInit {
   }
 
   private finalizeSelectedTransport() {
-    this._transportService.finalizeTransportWithId(this.selectedTransportId;
+    this._transportService.finalizeTransportWithId(this.selectedTransportId)
   }
 }

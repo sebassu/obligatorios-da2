@@ -24,9 +24,9 @@ export class LoginService {
 
     private processLogin(username: string, response: Response, component: LoginComponent) {
         let responseData = response.json();
-        localStorage.setItem("loggedUsername", username);
-        localStorage.setItem("loggedUserRole", responseData["role"]);
-        localStorage.setItem("token", responseData["access_token"]);
+        sessionStorage.setItem("loggedUsername", username);
+        sessionStorage.setItem("loggedUserRole", responseData["role"]);
+        sessionStorage.setItem("token", responseData["access_token"]);
         this.successfulLogin(component);
     }
 

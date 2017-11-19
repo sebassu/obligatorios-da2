@@ -7,8 +7,8 @@ export class IsLoggedGuard implements CanActivate {
     constructor(private _router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        let redirectToLogin = localStorage.getItem("loggedUsername") === null ||
-            localStorage.getItem("loggedUserRole") === null;
+        let redirectToLogin = sessionStorage.getItem("loggedUsername") === null ||
+            sessionStorage.getItem("loggedUserRole") === null;
         if (redirectToLogin) {
             this._router.navigate(['/login']);
             return false;

@@ -13,6 +13,7 @@ import { TransportComponent } from './register-transport/transport.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { LotListComponent } from './lot-list/lot-list.component';
 import { TransportListComponent } from './transport-list/transport-list.component';
+import { PortInspectionComponent } from './port-inspection/port-inspection.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TransportListComponent } from './transport-list/transport-list.componen
     OptionsMenuComponent,
     VehicleListComponent,
     LotListComponent,
-    TransportListComponent
+    TransportListComponent,
+    PortInspectionComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +37,7 @@ import { TransportListComponent } from './transport-list/transport-list.componen
         path: 'app', component: OptionsMenuComponent, canActivate: [IsLoggedGuard],
         children: [
           { path: 'registerTransport', component: TransportComponent, pathMatch: 'prefix' },
+          { path: 'registerPortInspection', component: PortInspectionComponent, pathMatch: 'prefix' },
           { path: 'transports', component: TransportListComponent, pathMatch: 'prefix' },
           { path: 'vehicles', component: VehicleListComponent, pathMatch: 'prefix' },
           { path: 'lots', component: LotListComponent, pathMatch: 'prefix' }

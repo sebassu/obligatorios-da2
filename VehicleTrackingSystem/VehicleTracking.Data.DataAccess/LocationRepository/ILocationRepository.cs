@@ -5,7 +5,8 @@ namespace VehicleTracking_Data_DataAccess
 {
     public interface ILocationRepository
     {
-        IEnumerable<Location> Elements { get; }
+        IEnumerable<Location> Ports { get; }
+        IEnumerable<Location> Yards { get; }
         Location GetLocationWithName(string nameToLookup);
     }
 }
