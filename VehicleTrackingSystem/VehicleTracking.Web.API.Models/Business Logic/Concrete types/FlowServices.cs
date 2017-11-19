@@ -49,16 +49,16 @@ namespace API.Services
             IEnumerable<VehicleDTO> registeredVehicles = Vehicles.GetRegisteredVehicles();
             foreach(var vDTO in registeredVehicles)
             {
-                Vehicle v = Model.Vehicles.GetFullyLoadedVehicleWithVIN(vDTO.VIN);
-                AttemptToStuckVehicle(v, vDTO);
+                Vehicle v = Model.Vehicles.GetVehicleWithVIN(vDTO.VIN);
+                AttemptToStuckVehicle(v);
             }
         }
 
-        private void AttemptToStuckVehicle(Vehicle vehicle, VehicleDTO vehicleDTO)
+        private void AttemptToStuckVehicle(Vehicle vehicle)
         {
             if (vehicle.Movements.Count > 0)
             {
-                vehicleDTO.CurrentStage = ProcessStages.STUCK_IN_PROCESS.ToString();
+                vehicle.CurrentStage = ProcessStages.STUCK_IN_PROCESS;
             }
         }
 

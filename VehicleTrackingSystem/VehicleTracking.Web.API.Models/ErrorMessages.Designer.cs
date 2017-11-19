@@ -106,6 +106,24 @@ namespace API.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El movimiento realizado no es válido. Solo se puede mover vehículos entre las subzonas definidas en el fujo de venta..
+        /// </summary>
+        internal static string InvalidMovementSubzone {
+            get {
+                return ResourceManager.GetString("InvalidMovementSubzone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El movimiento no es válido. Solo se puede mover vehículos que se encuentren en subzonas que pertenecen al flujo de venta..
+        /// </summary>
+        internal static string InvalidMovementVehicle {
+            get {
+                return ResourceManager.GetString("InvalidMovementVehicle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El lote se encuentra en una etapa en la cual no está permitido editarlo..
         /// </summary>
         internal static string LotWasTransported {

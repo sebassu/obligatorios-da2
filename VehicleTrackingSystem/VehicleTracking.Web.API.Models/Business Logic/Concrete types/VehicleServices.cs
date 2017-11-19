@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
 using VehicleTracking_Data_DataAccess;
+using System.Linq;
 
 namespace API.Services
 {
@@ -9,17 +10,23 @@ namespace API.Services
     {
         internal IUnitOfWork Model { get; }
         internal IVehicleRepository Vehicles { get; }
+        private IFlowRepository Flows;
+        private Flow actualFlow;
 
         public VehicleServices()
         {
             Model = new UnitOfWork();
             Vehicles = Model.Vehicles;
+            Flows = Model.Flow;
+            actualFlow = Flows.GetCurrentFlow();
         }
 
         public VehicleServices(IUnitOfWork someUnitOfWork)
         {
             Model = someUnitOfWork;
             Vehicles = someUnitOfWork.Vehicles;
+            Flows = Model.Flow;
+            actualFlow = Flows.GetCurrentFlow();
         }
 
         public int AddNewVehicleFromData(VehicleDTO vehicleDataToAdd)
@@ -111,13 +118,76 @@ namespace API.Services
         {
             if (Utilities.IsNotNull(movementDataToAdd))
             {
-                return AttemptToAddNewMovementFromData(responsibleUsername,
-                    vinToModify, movementDataToAdd);
+                Vehicle actualVehicle = Vehicles.GetFullyLoadedVehicleWithVIN(vinToModify);
+                if (IsValidMovementVehicle(actualVehicle))
+                {
+                    if (IsValidMovementSubzone(movementDataToAdd, actualVehicle))
+                    {
+                        return AttemptToAddNewMovementFromData(responsibleUsername,
+                            vinToModify, movementDataToAdd);
+                    }
+                    else
+                    {
+                        throw new ServiceException(ErrorMessages.InvalidMovementSubzone);
+                    }
+                }
+                else
+                {
+                    throw new ServiceException(ErrorMessages.InvalidMovementVehicle);
+                }
             }
             else
             {
                 throw new ServiceException(ErrorMessages.NullDTOReference);
             }
+        }
+
+        private bool IsValidMovementVehicle(Vehicle actualVehicle)
+        {
+            if (actualVehicle.CurrentStage.Equals(ProcessStages.YARD))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool IsValidMovementSubzone(MovementDTOIn movementData, Vehicle actualVehicle)
+        {
+            ISubzoneServices subzoneInstance = new SubzoneServices();
+            SubzoneDTO arrivalSubzone = subzoneInstance.GetSubzoneWithId(movementData.ArrivalSubzoneId);
+            Subzone departureSubzone = actualVehicle.Movements.Last().Arrival;
+            if (BelongsToFlowAndIsNextSubzone(departureSubzone.Name, arrivalSubzone.Name))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool BelongsToFlowAndIsNextSubzone(string departure, string arrival)
+        {
+            if (DoesBelongToFlow(arrival))
+            {
+                IEnumerable<string> flowList = actualFlow.RequiredSubzoneNames;
+                for (int i = 0; i < flowList.Count(); i++)
+                {
+                    if (flowList.ElementAt(i).Equals(departure) && flowList.ElementAt(i + 1).Equals(arrival))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool DoesBelongToFlow(string subzoneName)
+        {
+            return actualFlow.RequiredSubzoneNames.Contains(subzoneName);
         }
 
         private int AttemptToAddNewMovementFromData(string responsibleUsername,
@@ -135,8 +205,17 @@ namespace API.Services
         {
             Model.Movements.AddNewMovement(movementToAdd);
             Vehicles.UpdateVehicle(movedVehicle);
+            SetReadyForSale(movedVehicle, movementToAdd.Arrival);
             Model.SaveChanges();
             return movementToAdd.Id;
+        }
+
+        private void SetReadyForSale(Vehicle movedVehicle, Subzone arrival)
+        {
+            if (actualFlow.RequiredSubzoneNames.Last().Equals(arrival.Name))
+            {
+                movedVehicle.CurrentStage = ProcessStages.READY_FOR_SALE;
+            }
         }
 
         public HistoryDTO GetHistoryForVehicleWithVIN(string vinToLookup)
