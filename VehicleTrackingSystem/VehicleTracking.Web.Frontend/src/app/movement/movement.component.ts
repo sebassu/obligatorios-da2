@@ -26,8 +26,10 @@ export class MovementComponent implements OnInit {
   ngOnInit(): void {
     this._subzoneService.getSubzones()
       .subscribe(subzonesObtained => this.subzones = subzonesObtained);
+    this.subzones.map((itemInArray) => itemInArray.name); 
     this._vehicleService.getVehicles()
       .subscribe(vehiclesObtained => this.vehicles = vehiclesObtained);
+    this.vehicles.map((itemInArray) => itemInArray.vin); 
   }
 
   private registerMovement(vehicleVIN: string, arrivalName: string): void {

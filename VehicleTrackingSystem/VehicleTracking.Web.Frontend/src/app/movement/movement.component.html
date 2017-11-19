@@ -2,7 +2,7 @@
   <br><br>
   <h2 class="contentsTitle">Registrar movimiento</h2>
 </div>
-<div [hidden]="!subzones.length" id="contentsContainer">
+<div [hidden]="!subzones.length && !vehicles.length" id="contentsContainer">
   <br><br>
   <table>
       <thead>
@@ -16,21 +16,21 @@
           <tr>
               <td> 
                 <select #vehicleSelect>
-                  <option *ngFor = 'let aVehicle of vehicles' [value] = "aVehicle.vin">
+                  <option *ngFor = 'let aVehicle of vehicles' [ngValue] = "aVehicle.vin">
                       {{aVehicle.vin}}
                   </option>
                 </select>
               </td>
               <td> 
                   <select #departureSelect>
-                      <option *ngFor = 'let aSubzone of subzones' [value] = "aSubzone.name">
+                      <option *ngFor = 'let aSubzone of subzones' [ngValue] = "aSubzone.name">
                           {{aSubzone.name}}
                       </option>
                     </select>
               </td>
               <td> 
                   <select #arrivalSelect>
-                      <option *ngFor = 'let aSubzone of subzones' [value] = "aSubzone.name">
+                      <option *ngFor = 'let aSubzone of subzones' [ngValue] = "aSubzone.name">
                           {{aSubzone.name}}
                       </option>
                     </select>
@@ -41,7 +41,7 @@
   <br><br>
   <button type="button" class="btn btn-lg btn-success changeBtn" (click)='registerMovement(#departureSelect.value, #arrivalSelect.value)' id="registerMovementBtn">Registrar movimiento</button>
 </div>
-<div [hidden]="subzones.length" id="noContentsContainer">
+<div [hidden]="subzones.length || vehicles.length" id="noContentsContainer">
   <br><br><br><br><br>
   <h3>Sin datos a mostrar.</h3>
 </div>
