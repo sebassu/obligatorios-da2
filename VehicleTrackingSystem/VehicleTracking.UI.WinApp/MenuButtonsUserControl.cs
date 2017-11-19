@@ -147,9 +147,9 @@ namespace VehicleTracking.UI.WinApp
 
         private void SubzoneBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            ISubzoneServices subzoneServices = new SubzoneServices();
-            var x = subzoneServices.GetRegisteredSubzones();
-            if (x.Count() == 0)
+            IZoneServices zoneServices = new ZoneServices();
+            var zones = zoneServices.GetRegisteredZones();
+            if (zones.Count() == 0)
             {
                 MessageBox.Show("No hay zonas registradas. Debe registrar al menos una zona antes de comenzar "
                     +" a registrar subzonas.", "Error");

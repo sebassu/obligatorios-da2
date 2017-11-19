@@ -48,10 +48,9 @@
             this.ModifyZoneBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ModifyZoneBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ModifyZoneBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ModifyZoneBtn.Location = new System.Drawing.Point(1184, 718);
-            this.ModifyZoneBtn.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.ModifyZoneBtn.Location = new System.Drawing.Point(444, 301);
             this.ModifyZoneBtn.Name = "ModifyZoneBtn";
-            this.ModifyZoneBtn.Size = new System.Drawing.Size(312, 105);
+            this.ModifyZoneBtn.Size = new System.Drawing.Size(117, 44);
             this.ModifyZoneBtn.TabIndex = 20;
             this.ModifyZoneBtn.Text = "Modificar";
             this.ModifyZoneBtn.UseVisualStyleBackColor = true;
@@ -64,10 +63,9 @@
             this.DeleteZoneBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteZoneBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DeleteZoneBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.DeleteZoneBtn.Location = new System.Drawing.Point(1512, 718);
-            this.DeleteZoneBtn.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.DeleteZoneBtn.Location = new System.Drawing.Point(567, 301);
             this.DeleteZoneBtn.Name = "DeleteZoneBtn";
-            this.DeleteZoneBtn.Size = new System.Drawing.Size(309, 105);
+            this.DeleteZoneBtn.Size = new System.Drawing.Size(116, 44);
             this.DeleteZoneBtn.TabIndex = 19;
             this.DeleteZoneBtn.Text = "Eliminar";
             this.DeleteZoneBtn.UseVisualStyleBackColor = true;
@@ -80,10 +78,9 @@
             this.AddSubzoneBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddSubzoneBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddSubzoneBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.AddSubzoneBtn.Location = new System.Drawing.Point(1539, 193);
-            this.AddSubzoneBtn.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.AddSubzoneBtn.Location = new System.Drawing.Point(577, 81);
             this.AddSubzoneBtn.Name = "AddSubzoneBtn";
-            this.AddSubzoneBtn.Size = new System.Drawing.Size(283, 105);
+            this.AddSubzoneBtn.Size = new System.Drawing.Size(106, 44);
             this.AddSubzoneBtn.TabIndex = 18;
             this.AddSubzoneBtn.Text = "Agregar";
             this.AddSubzoneBtn.UseVisualStyleBackColor = true;
@@ -94,10 +91,9 @@
             this.TitleLbl.AutoSize = true;
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(472, 55);
-            this.TitleLbl.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.TitleLbl.Location = new System.Drawing.Point(177, 23);
             this.TitleLbl.Name = "TitleLbl";
-            this.TitleLbl.Size = new System.Drawing.Size(469, 105);
+            this.TitleLbl.Size = new System.Drawing.Size(194, 42);
             this.TitleLbl.TabIndex = 17;
             this.TitleLbl.Text = "Subzonas";
             // 
@@ -107,10 +103,9 @@
             this.ViewPnl.Controls.Add(this.ZoneLbl);
             this.ViewPnl.Controls.Add(this.CapacityLbl);
             this.ViewPnl.Controls.Add(this.NameLbl);
-            this.ViewPnl.Location = new System.Drawing.Point(1277, 362);
-            this.ViewPnl.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.ViewPnl.Location = new System.Drawing.Point(479, 152);
             this.ViewPnl.Name = "ViewPnl";
-            this.ViewPnl.Size = new System.Drawing.Size(443, 317);
+            this.ViewPnl.Size = new System.Drawing.Size(166, 133);
             this.ViewPnl.TabIndex = 16;
             // 
             // ZoneLbl
@@ -118,10 +113,9 @@
             this.ZoneLbl.AutoSize = true;
             this.ZoneLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ZoneLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.ZoneLbl.Location = new System.Drawing.Point(8, 231);
-            this.ZoneLbl.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.ZoneLbl.Location = new System.Drawing.Point(3, 97);
             this.ZoneLbl.Name = "ZoneLbl";
-            this.ZoneLbl.Size = new System.Drawing.Size(111, 46);
+            this.ZoneLbl.Size = new System.Drawing.Size(46, 20);
             this.ZoneLbl.TabIndex = 2;
             this.ZoneLbl.Text = "Zona";
             // 
@@ -130,10 +124,9 @@
             this.CapacityLbl.AutoSize = true;
             this.CapacityLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CapacityLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.CapacityLbl.Location = new System.Drawing.Point(8, 145);
-            this.CapacityLbl.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.CapacityLbl.Location = new System.Drawing.Point(3, 61);
             this.CapacityLbl.Name = "CapacityLbl";
-            this.CapacityLbl.Size = new System.Drawing.Size(211, 46);
+            this.CapacityLbl.Size = new System.Drawing.Size(85, 20);
             this.CapacityLbl.TabIndex = 1;
             this.CapacityLbl.Text = "Capacidad";
             // 
@@ -142,10 +135,9 @@
             this.NameLbl.AutoSize = true;
             this.NameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NameLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.NameLbl.Location = new System.Drawing.Point(8, 55);
-            this.NameLbl.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.NameLbl.Location = new System.Drawing.Point(3, 23);
             this.NameLbl.Name = "NameLbl";
-            this.NameLbl.Size = new System.Drawing.Size(162, 46);
+            this.NameLbl.Size = new System.Drawing.Size(65, 20);
             this.NameLbl.TabIndex = 0;
             this.NameLbl.Text = "Nombre";
             // 
@@ -155,29 +147,27 @@
             this.SubzoneListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SubzoneListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.SubzoneListBox.FormattingEnabled = true;
-            this.SubzoneListBox.ItemHeight = 46;
-            this.SubzoneListBox.Location = new System.Drawing.Point(491, 193);
-            this.SubzoneListBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.SubzoneListBox.ItemHeight = 20;
+            this.SubzoneListBox.Location = new System.Drawing.Point(184, 81);
             this.SubzoneListBox.Name = "SubzoneListBox";
-            this.SubzoneListBox.Size = new System.Drawing.Size(428, 602);
+            this.SubzoneListBox.Size = new System.Drawing.Size(163, 244);
             this.SubzoneListBox.TabIndex = 14;
             this.SubzoneListBox.SelectedIndexChanged += new System.EventHandler(this.SubzoneListBox_SelectedIndexChanged);
             // 
             // ArrowLbl
             // 
             this.ArrowLbl.AutoSize = true;
-            this.ArrowLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 54.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.ArrowLbl.Font = new System.Drawing.Font("Wingdings 3", 54.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.ArrowLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ArrowLbl.Location = new System.Drawing.Point(984, 417);
-            this.ArrowLbl.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.ArrowLbl.Location = new System.Drawing.Point(369, 175);
             this.ArrowLbl.Name = "ArrowLbl";
-            this.ArrowLbl.Size = new System.Drawing.Size(248, 204);
+            this.ArrowLbl.Size = new System.Drawing.Size(104, 83);
             this.ArrowLbl.TabIndex = 21;
             this.ArrowLbl.Text = "]";
             // 
             // SubzoneUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.Controls.Add(this.ArrowLbl);
@@ -187,9 +177,8 @@
             this.Controls.Add(this.TitleLbl);
             this.Controls.Add(this.ViewPnl);
             this.Controls.Add(this.SubzoneListBox);
-            this.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.Name = "SubzoneUserControl";
-            this.Size = new System.Drawing.Size(2403, 870);
+            this.Size = new System.Drawing.Size(901, 365);
             this.ViewPnl.ResumeLayout(false);
             this.ViewPnl.PerformLayout();
             this.ResumeLayout(false);
