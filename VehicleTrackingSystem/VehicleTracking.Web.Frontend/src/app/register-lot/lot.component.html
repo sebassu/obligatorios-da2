@@ -1,0 +1,53 @@
+<div class="header">
+    <br><br>
+    <h2 class="contentsTitle">Registro de Lote</h2>
+</div>
+<div [hidden]="availableVehicles.length == 0" id="contentsContainer">
+    <br><br>
+    <form class="form-horizontal" #lotForm="ngForm" (ngSubmit)="registerNewLot()" name="lotForm" role="form" id="lotForm">
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="name">Nombre del lote:</label>
+            <div class="col-lg-5">
+                <input type="text" required class="form-control" pattern=".*[a-zA-Z].*$" id="name" [(ngModel)]="name" name="name">
+            </div>
+        </div><br>
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="description">Descripción:</label>
+            <div class="col-lg-5">
+                <textarea rows="4" required class="form-control" pattern=".*[a-zA-Z].*$" id="description" [(ngModel)]="description" name="description"></textarea>
+            </div>
+        </div>
+        <br>
+        <table class='table table-bordered'>
+            <thead>
+                <tr>
+                    <th>Agregar a lote:</th>
+                    <th>VIN:</th>
+                    <th>Tipo:</th>
+                    <th>Marca:</th>
+                    <th>Modelo:</th>
+                    <th>Color:</th>
+                    <th>Año:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let aVehicle of availableVehicles'>
+                    <td> <input type="checkbox" class="checkbox" name="vehicle" (change)="addOrRemoveVIN(aVehicle.vin)" /></td>
+                    <td>{{aVehicle.vin}}</td>
+                    <td>{{aVehicle.type}}</td>
+                    <td>{{aVehicle.brand}}</td>
+                    <td>{{aVehicle.model}}</td>
+                    <td>{{aVehicle.color}}</td>
+                    <td>{{aVehicle.year}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <button type="reset" class="btn btn-lg btn-primary changeBtn">Reestablecer</button>
+        <button type="submit" form="lotForm" [disabled]="lotForm.invalid" class="btn btn-lg btn-success changeBtn">Confirmar</button>
+    </form>
+</div>
+<div [hidden]="availableVehicles.length > 0" id="noContentsContainer">
+    <br><br><br><br><br>
+    <h3>Sin datos a mostrar: no existen vehículos válidos.</h3>
+</div>

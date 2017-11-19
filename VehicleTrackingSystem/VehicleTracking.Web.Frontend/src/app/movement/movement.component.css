@@ -2,8 +2,3 @@ form#movementForm {
     margin-top: 5%;
     margin-left: 9%;
 }
-
-button.changeBtn {
-    color: black;
-    float: right;
-}

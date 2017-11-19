@@ -60,8 +60,8 @@
               <h4>Inspección sin daños.</h4>
             </span>
             </div><br>
-            <button type="submit" form="inspectionForm" [disabled]="inspectionForm.invalid" class="btn btn-lg btn-success yardButton" id="registerInspection">Confirmar</button>
-            <button type="reset" class="btn btn-lg btn-primary yardButton" (click)='clearDamages()'>Reestablecer</button>
+            <button type="reset" class="btn btn-lg btn-primary changeBtn" (click)='clearDamages()'>Reestablecer</button>
+            <button type="submit" form="inspectionForm" [disabled]="inspectionForm.invalid" class="btn btn-lg btn-success changeBtn" id="registerInspection">Confirmar</button>
         </form>
     </div>
     <div [hidden]="vehicles.length > 0 && yardNames.length > 0" id="noContentsContainer">

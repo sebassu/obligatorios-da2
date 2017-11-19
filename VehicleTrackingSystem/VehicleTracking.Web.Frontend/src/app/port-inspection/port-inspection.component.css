@@ -3,11 +3,6 @@ form#inspectionForm {
     margin-left: 12%;
 }
 
-button.portButton {
-    float: right;
-    vertical-align: bottom;
-}
-
 button#registerInspection {
     margin-left: 15px;
 }

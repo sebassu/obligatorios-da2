@@ -22,4 +22,11 @@ export class LotService extends BaseService {
             .map((response: Response) => <Array<Lot>>response.json())
             .catch(this.handleError);
     }
+
+    registerNewLot(lotToAdd: Lot) {
+        let header = this.getHeader();
+        return this._httpService.post(LotService.URL, JSON.stringify(lotToAdd), { 'headers': header })
+            .map((response: Response) => alert("Lote creado correctamente."))
+            .subscribe(null, err => this.handleError(err));
+    }
 }

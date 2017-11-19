@@ -18,13 +18,13 @@ namespace VehicleTracking_Data_DataAccess
         {
             if (stageToFilterBy.HasValue)
             {
-                return GetElementsWith("StagesData.Inspections,StagesData." +
+                return GetElementsWith("StagesData.PortLot,StagesData.Inspections,StagesData." +
                     "YardCurrentLocation.Container", v => v.StagesData.CurrentStage
                     == stageToFilterBy);
             }
             else
             {
-                return GetElementsWith("StagesData.Inspections,StagesData." +
+                return GetElementsWith("StagesData.PortLot,StagesData.Inspections,StagesData." +
                     "YardCurrentLocation.Container");
             }
         }

@@ -11,7 +11,6 @@ import { TransportService } from '../services/transport.service';
 export class TransportComponent implements OnInit {
   transportedLotsNames: Array<string>;
   availableLots: Array<Lot>;
-  errorMessage: string;
 
   constructor(private _lotService: LotService,
     private _transportService: TransportService) {

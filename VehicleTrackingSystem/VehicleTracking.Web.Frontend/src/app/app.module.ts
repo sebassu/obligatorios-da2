@@ -16,6 +16,7 @@ import { TransportListComponent } from './transport-list/transport-list.componen
 import { MovementComponent } from './movement/movement.component';
 import { PortInspectionComponent } from './port-inspection/port-inspection.component';
 import { YardInspectionComponent } from './yard-inspection/yard-inspection.component';
+import { LotComponent } from './register-lot/lot.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { YardInspectionComponent } from './yard-inspection/yard-inspection.compo
     OptionsMenuComponent,
     VehicleListComponent,
     LotListComponent,
+    LotComponent,
     TransportListComponent,
     MovementComponent,
     PortInspectionComponent,
@@ -40,8 +42,9 @@ import { YardInspectionComponent } from './yard-inspection/yard-inspection.compo
       {
         path: 'app', component: OptionsMenuComponent,
         children: [
-          { path: 'registerTransport', component: TransportComponent, pathMatch: 'prefix' },
+          { path: 'registerLot', component: LotComponent, pathMatch: 'prefix' },
           { path: 'registerPortInspection', component: PortInspectionComponent, pathMatch: 'prefix' },
+          { path: 'registerTransport', component: TransportComponent, pathMatch: 'prefix' },
           { path: 'registerYardInspection', component: YardInspectionComponent, pathMatch: 'prefix' },
           { path: 'transports', component: TransportListComponent, pathMatch: 'prefix' },
           { path: 'vehicles', component: VehicleListComponent, pathMatch: 'prefix' },
