@@ -94,7 +94,6 @@
     <Compile Include="ImportVehiclesUserControl.Designer.cs">
       <DependentUpon>ImportVehiclesUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="InterfaceUtilities.cs" />
     <Compile Include="Login.cs">
       <SubType>UserControl</SubType>
     </Compile>
