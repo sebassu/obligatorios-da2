@@ -5,11 +5,11 @@
 <div class="container">
     <div [hidden]="!vehicles.length && !portNames.length" id="contentsContainer">
         <div class="row">
-            <form class="form-horizontal col-lg-10" role="form" id="portForm">
+            <form class="form-horizontal col-lg-10" (ngSubmit)="registerPortInspection()" #inspectionForm="ngForm" name="inspectionForm" role="form" id="inspectionForm">
                 <div class="form-group">
                     <label class="control-label col-lg-2" for="nameTxt">Vehículo:</label>
                     <div class="col-lg-7">
-                        <select class="form-control" id="vehicleSelect">
+                        <select class="form-control" [(ngModel)]="selectedVehicle" required name="vehicleSelect" id="vehicleSelect">
                           <option *ngFor='let aVehicle of vehicles'>{{aVehicle.vin}}</option>
                         </select>
                     </div>
@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <label class="control-label col-lg-2" for="email">Ubicación:</label>
                     <div class="col-lg-7">
-                        <select class="form-control" id="locationSelect">
+                        <select class="form-control" [(ngModel)]="selectedLocation" required name="locationSelect" id="locationSelect">
                           <option *ngFor='let aName of portNames'>{{aName}}</option>
                         </select>
                     </div>
@@ -42,15 +42,15 @@
                 <table [hidden]="!damages.length" class='table table-bordered'>
                     <thead>
                         <tr>
-                            <th>Descripción:</th>
+                            <th id="descriptionColumn">Descripción:</th>
                             <th>Imágenes:</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor='let damage of damages'>
-                            <td>{{damage.description}}</td>
+                            <td class="descriptionCell">{{damage.description}}</td>
                             <td>
-                                <img *ngFor='let image of damage.images' [src]="_DomSanitizer.bypassSecurityTrustUrl(image)" width="250" height="auto" alt="Evidencia de daño.">
+                                <img class="img-thumbnail" *ngFor='let image of damage.images' [src]="_DomSanitizer.bypassSecurityTrustUrl(image)" width="250" height="auto" alt="Evidencia de daño.">
                             </td>
                         </tr>
                     </tbody>
@@ -60,8 +60,8 @@
               <h4>Inspección sin daños.</h4>
             </span>
             </div><br>
-            <button type="button" class="btn btn-lg btn-success portButton" (click)='beginTransport()' id="registerInspection">Confirmar</button>
-            <button type="reset" class="btn btn-lg btn-primary portButton">Reestablecer</button>
+            <button type="submit" form="inspectionForm" [disabled]="inspectionForm.invalid" class="btn btn-lg btn-success portButton" id="registerInspection">Confirmar</button>
+            <button type="reset" class="btn btn-lg btn-primary portButton" (click)='clearDamages()'>Reestablecer</button>
         </form>
     </div>
     <div [hidden]="vehicles.length || portNames.length" id="noContentsContainer">

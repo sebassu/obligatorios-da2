@@ -1,4 +1,4 @@
-form#portForm {
+form#inspectionForm {
     margin-top: 3%;
     margin-left: 12%;
 }
@@ -28,4 +28,14 @@ input.damageInput {
 
 h3#addDamage {
     font-weight: bold;
+}
+
+th#descriptionColumn {
+    min-width: 300px;
+    max-width: 475px;
+}
+
+td.descriptionCell {
+    max-width: 475px;
+    overflow-wrap: break-word;
 }

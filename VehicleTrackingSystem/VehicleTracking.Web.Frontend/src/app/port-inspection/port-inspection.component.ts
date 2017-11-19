@@ -5,6 +5,8 @@ import { Vehicle } from '../entities/vehicle';
 import { Damage } from '../entities/damage';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Inspection } from '../entities/inspection';
+import { InspectionService } from '../services/inspection..service';
 
 @Component({
   selector: 'app-port-inspection',
@@ -13,13 +15,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class PortInspectionComponent implements OnInit {
 
+  selectedVehicle: string;
+  selectedLocation: string;
   vehicles: Array<Vehicle>;
   portNames: Array<string>;
   damages: Array<Damage>;
   imageFiles: FileList;
   damageDescription: string;
 
-  constructor(private _DomSanitizer: DomSanitizer,
+  constructor(private _DomSanitizer: DomSanitizer, private _inspectionService: InspectionService,
     private _vehicleService: VehicleService, private _locationService: LocationService) {
     this.vehicles = [];
     this.portNames = [];
@@ -75,5 +79,16 @@ export class PortInspectionComponent implements OnInit {
         this.vehicles.push(vehicle);
       }
     }
+  }
+
+  private clearDamages() {
+    this.damages = [];
+  }
+
+  private registerPortInspection() {
+    let inspectionToRegister = new Inspection(this.selectedLocation,
+      new Date(), this.damages);
+    this._inspectionService.registerPortInspection(this.selectedVehicle,
+      inspectionToRegister);
   }
 }

@@ -19,7 +19,7 @@ export class BaseService {
     protected handleError(error: Response) {
         console.error(error);
         let errorBody = error.json();
-        var message = errorBody["message"] + " " + errorBody["messageDetail"];
+        var message = errorBody["message"];
         if (!message) {
             message = "Error al establecerse una conexion con el servidor.";
         }

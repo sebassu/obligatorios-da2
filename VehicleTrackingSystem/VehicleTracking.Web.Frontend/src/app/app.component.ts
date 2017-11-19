@@ -3,12 +3,13 @@ import { LotService } from './services/lot.service';
 import { TransportService } from './services/transport.service';
 import { VehicleService } from './services/vehicle.service';
 import { LocationService } from './services/location.service';
+import { InspectionService } from './services/inspection..service';
 
 @Component({
   selector: 'app-root',
   template: '<router-outlet></router-outlet>',
-  providers: [LotService, TransportService,
-    VehicleService, LocationService]
+  providers: [LotService, TransportService, VehicleService, LocationService,
+    InspectionService]
 })
 export class AppComponent {
   title = 'app';
