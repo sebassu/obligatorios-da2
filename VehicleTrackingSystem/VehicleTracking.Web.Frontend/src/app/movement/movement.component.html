@@ -22,13 +22,6 @@
                 </select>
               </td>
               <td> 
-                  <select #departureSelect>
-                      <option *ngFor = 'let aSubzone of subzones' [ngValue] = "aSubzone.name">
-                          {{aSubzone.name}}
-                      </option>
-                    </select>
-              </td>
-              <td> 
                   <select #arrivalSelect>
                       <option *ngFor = 'let aSubzone of subzones' [ngValue] = "aSubzone.id">
                           {{aSubzone.name}}
@@ -39,7 +32,7 @@
       </tbody>
   </table>
   <br><br>
-  <button type="button" class="btn btn-lg btn-success changeBtn" (click)='registerMovement(departureSelect.value, arrivalSelect.value)' id="registerMovementBtn">Registrar movimiento</button>
+  <button type="button" class="btn btn-lg btn-success changeBtn" (click)='registerMovement(vehicleSelect.value, arrivalSelect.value)' id="registerMovementBtn">Registrar movimiento</button>
 </div>
 <div [hidden]="subzones.length || vehicles.length" id="noContentsContainer">
   <br><br><br><br><br>

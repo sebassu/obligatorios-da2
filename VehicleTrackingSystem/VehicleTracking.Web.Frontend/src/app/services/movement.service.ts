@@ -21,6 +21,6 @@ export class MovementService extends BaseService {
         let body = { "DateTime": new Date(), "ArrivalSubzoneId": arrival }
         return this._httpService.post(url, body, { 'headers': header })
             .map((response: Response) => alert("Movimiento registrado correctamente."))
-            .catch(this.handleError);
+            .subscribe(null, err => this.handleError(err));
     }
 }
