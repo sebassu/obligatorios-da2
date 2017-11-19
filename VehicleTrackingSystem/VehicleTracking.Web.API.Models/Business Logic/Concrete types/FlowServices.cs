@@ -45,20 +45,20 @@ namespace API.Services
 
         private void SetStuckVehicles()
         {
-            IVehicleServices Vehicles = new VehicleServices();
-            IEnumerable<VehicleDTO> registeredVehicles = Vehicles.GetRegisteredVehicles();
-            foreach(var vDTO in registeredVehicles)
+            IEnumerable<Vehicle> registeredVehicles = Model.Vehicles.GetRegisteredVehiclesIn(
+                ProcessStages.YARD);
+            foreach (var vehicle in registeredVehicles)
             {
-                Vehicle v = Model.Vehicles.GetVehicleWithVIN(vDTO.VIN);
-                AttemptToStuckVehicle(v);
+                MarkVehicleAsStuckIfCorresponds(vehicle);
             }
         }
 
-        private void AttemptToStuckVehicle(Vehicle vehicle)
+        private void MarkVehicleAsStuckIfCorresponds(Vehicle someVehicle)
         {
-            if (vehicle.Movements.Count > 0)
+            if (someVehicle.Movements.Count > 0)
             {
-                vehicle.CurrentStage = ProcessStages.STUCK_IN_PROCESS;
+                someVehicle.CurrentStage = ProcessStages.STUCK_IN_PROCESS;
+                Model.Vehicles.UpdateVehicle(someVehicle);
             }
         }
 

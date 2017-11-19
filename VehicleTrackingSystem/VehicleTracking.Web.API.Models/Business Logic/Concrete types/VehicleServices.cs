@@ -1,24 +1,32 @@
-﻿using System.Globalization;
+﻿using System.Linq;
+using System.Globalization;
 using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
 using VehicleTracking_Data_DataAccess;
-using System.Linq;
 
 namespace API.Services
 {
     public class VehicleServices : IVehicleServices
     {
+        private static readonly IReadOnlyDictionary<UserRoles, ProcessStages?> processStagesForUserRoles =
+            new Dictionary<UserRoles, ProcessStages?>
+            {
+                { UserRoles.ADMINISTRATOR, null },
+                { UserRoles.PORT_OPERATOR, ProcessStages.PORT },
+                { UserRoles.TRANSPORTER, ProcessStages.TRANSPORT },
+                { UserRoles.YARD_OPERATOR, ProcessStages.YARD },
+                { UserRoles.SALESMAN, ProcessStages.READY_FOR_SALE }
+            };
+
         internal IUnitOfWork Model { get; }
         internal IVehicleRepository Vehicles { get; }
-        private IFlowRepository Flows;
-        private Flow actualFlow;
+        internal IFlowRepository Flows { get; }
 
         public VehicleServices()
         {
             Model = new UnitOfWork();
             Vehicles = Model.Vehicles;
             Flows = Model.Flow;
-            actualFlow = Flows.GetCurrentFlow();
         }
 
         public VehicleServices(IUnitOfWork someUnitOfWork)
@@ -26,7 +34,6 @@ namespace API.Services
             Model = someUnitOfWork;
             Vehicles = someUnitOfWork.Vehicles;
             Flows = Model.Flow;
-            actualFlow = Flows.GetCurrentFlow();
         }
 
         public int AddNewVehicleFromData(VehicleDTO vehicleDataToAdd)
@@ -60,10 +67,11 @@ namespace API.Services
             }
         }
 
-        public IEnumerable<VehicleDTO> GetRegisteredVehicles()
+        public IEnumerable<VehicleDTO> GetRegisteredVehiclesFor(UserRoles roleToProcess)
         {
             var result = new List<VehicleDTO>();
-            foreach (var vehicle in Vehicles.Elements)
+            var stageToFilterBy = processStagesForUserRoles[roleToProcess];
+            foreach (var vehicle in Vehicles.GetRegisteredVehiclesIn(stageToFilterBy))
             {
                 result.Add(VehicleDTO.FromVehicle(vehicle));
             }
@@ -159,21 +167,15 @@ namespace API.Services
             ISubzoneServices subzoneInstance = new SubzoneServices();
             SubzoneDTO arrivalSubzone = subzoneInstance.GetSubzoneWithId(movementData.ArrivalSubzoneId);
             Subzone departureSubzone = actualVehicle.Movements.Last().Arrival;
-            if (BelongsToFlowAndIsNextSubzone(departureSubzone.Name, arrivalSubzone.Name))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return BelongsToFlowAndIsNextSubzone(departureSubzone.Name, arrivalSubzone.Name);
         }
 
         private bool BelongsToFlowAndIsNextSubzone(string departure, string arrival)
         {
-            if (DoesBelongToFlow(arrival))
+            Flow currentFlow = Flows.GetCurrentFlow();
+            if (BelongsToFlow(currentFlow, arrival))
             {
-                IEnumerable<string> flowList = actualFlow.RequiredSubzoneNames;
+                IEnumerable<string> flowList = currentFlow.RequiredSubzoneNames;
                 for (int i = 0; i < flowList.Count(); i++)
                 {
                     if (flowList.ElementAt(i).Equals(departure) && flowList.ElementAt(i + 1).Equals(arrival))
@@ -185,9 +187,9 @@ namespace API.Services
             return false;
         }
 
-        private bool DoesBelongToFlow(string subzoneName)
+        private bool BelongsToFlow(Flow currentFlow, string subzoneName)
         {
-            return actualFlow.RequiredSubzoneNames.Contains(subzoneName);
+            return currentFlow.RequiredSubzoneNames.Contains(subzoneName);
         }
 
         private int AttemptToAddNewMovementFromData(string responsibleUsername,
@@ -205,14 +207,14 @@ namespace API.Services
         {
             Model.Movements.AddNewMovement(movementToAdd);
             Vehicles.UpdateVehicle(movedVehicle);
-            SetReadyForSale(movedVehicle, movementToAdd.Arrival);
+            SetReadyForSaleIfCorresponds(movedVehicle, movementToAdd.Arrival);
             Model.SaveChanges();
             return movementToAdd.Id;
         }
 
-        private void SetReadyForSale(Vehicle movedVehicle, Subzone arrival)
+        private void SetReadyForSaleIfCorresponds(Vehicle movedVehicle, Subzone arrival)
         {
-            if (actualFlow.RequiredSubzoneNames.Last().Equals(arrival.Name))
+            if (Flows.GetCurrentFlow().RequiredSubzoneNames.Last().Equals(arrival.Name))
             {
                 movedVehicle.CurrentStage = ProcessStages.READY_FOR_SALE;
             }

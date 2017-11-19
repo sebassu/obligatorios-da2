@@ -1,12 +1,10 @@
-﻿using System;
-using System.Text;
+﻿using Moq;
+using API.Services;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VehicleTracking_Data_Entities;
 using System.Diagnostics.CodeAnalysis;
 using VehicleTracking_Data_DataAccess;
-using Moq;
-using VehicleTracking_Data_Entities;
-using API.Services;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Web.API.Tests.Services_Tests
 {
@@ -15,7 +13,7 @@ namespace Web.API.Tests.Services_Tests
     public class FlowServicesTests
     {
         private static readonly FlowServices testingFlowServices = new FlowServices();
-        private static readonly List<string> testingFlowData = new List<string>(new string[] {"Subzone 1", "Subzone 2", "Subzone 3" });
+        private static readonly List<string> testingFlowData = new List<string>(new string[] { "Subzone 1", "Subzone 2", "Subzone 3" });
 
         [TestMethod]
         public void FServicesDefaultParameterlessConstructorTest()
@@ -29,8 +27,10 @@ namespace Web.API.Tests.Services_Tests
         public void FServicesAddNewFlowFromDataValidTest()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(f => f.Flow.RegisterNewFlow(It.IsAny<Flow>()))
+            mockUnitOfWork.Setup(u => u.Flow.RegisterNewFlow(It.IsAny<Flow>()))
                 .Verifiable();
+            mockUnitOfWork.Setup(u => u.Vehicles.GetRegisteredVehiclesIn(
+                ProcessStages.YARD)).Returns(new List<Vehicle>()).Verifiable();
             var flowServices = new FlowServices(mockUnitOfWork.Object);
             flowServices.AddNewFlowFromData(testingFlowData);
             mockUnitOfWork.Verify();
@@ -56,7 +56,7 @@ namespace Web.API.Tests.Services_Tests
             mockUnitOfWork.Verify();
             Assert.AreEqual(GetFlow(), result);
         }
-        
+
         private Flow GetFlow()
         {
             return Flow.FromSubzoneNames(testingFlowData);

@@ -2,6 +2,9 @@
 using API.Services;
 using System.Web.Http;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System;
+using System.Linq;
 
 namespace Web.API.Controllers
 {
@@ -43,8 +46,17 @@ namespace Web.API.Controllers
 
         private IHttpActionResult AttemptToGetRegisteredVehicles()
         {
-            IEnumerable<VehicleDTO> vehicles = Model.GetRegisteredVehicles();
+            UserRoles roleToProcess = GetRoleOfActiveUser();
+            IEnumerable<VehicleDTO> vehicles = Model.GetRegisteredVehiclesFor(roleToProcess);
             return Ok(vehicles);
+        }
+
+        private UserRoles GetRoleOfActiveUser()
+        {
+            var userIdentity = (ClaimsIdentity)User.Identity;
+            var claims = userIdentity.Claims;
+            var claimOfActiveUser = claims.Where(c => c.Type == ClaimTypes.Role).Single();
+            return (UserRoles)Enum.Parse(typeof(UserRoles), claimOfActiveUser.Value);
         }
 
         [HttpGet]

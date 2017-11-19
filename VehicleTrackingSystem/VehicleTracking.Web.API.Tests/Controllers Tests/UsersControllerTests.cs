@@ -113,19 +113,6 @@ namespace Web.API.Controllers_tests
         }
 
         [TestMethod]
-        public void UControllerGetRegisteredUsersNullResponseInvalidTest()
-        {
-            IEnumerable<UserDTO> unexpectedUsers = null;
-            var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.GetRegisteredUsers()).Returns(unexpectedUsers);
-            var controller = new UsersController(mockUsersServices.Object);
-            IHttpActionResult obtainedResult = controller.GetRegisteredUsers();
-            mockUsersServices.VerifyAll();
-            Assert.IsNotNull(obtainedResult);
-            Assert.IsInstanceOfType(obtainedResult, typeof(NotFoundResult));
-        }
-
-        [TestMethod]
         public void UControllerGetRegisteredUsersUnexpectedErrorInvalidTest()
         {
             SystemException expectedException = new SystemException();

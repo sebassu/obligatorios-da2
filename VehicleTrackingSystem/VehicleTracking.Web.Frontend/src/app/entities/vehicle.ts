@@ -8,7 +8,7 @@ export class Vehicle {
     year: number;
     currentStage: string;
     wasLotted: boolean;
-    hasPortInspection: boolean;
+    portInspectionId: string;
     hasYardInspection: boolean;
 
     constructor(vin: string, type: string, brand: string, model: string,

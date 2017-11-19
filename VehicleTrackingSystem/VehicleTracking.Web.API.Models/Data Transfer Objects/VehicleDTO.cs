@@ -29,7 +29,7 @@ namespace API.Services
 
         public string CurrentStage { get; set; }
         public bool WasLotted { get; set; }
-        public bool HasPortInspection { get; set; }
+        public string PortInspectionId { get; set; }
         public bool HasYardInspection { get; set; }
 
 
@@ -45,7 +45,8 @@ namespace API.Services
         {
             SetCurrentStageData(someVehicle);
             WasLotted = someVehicle.IsLotted;
-            HasPortInspection = Utilities.IsNotNull(someVehicle.PortInspection);
+            PortInspectionId = Utilities.IsNotNull(someVehicle.PortInspection) ?
+                someVehicle.PortInspection.Id.ToString() : null;
             HasYardInspection = Utilities.IsNotNull(someVehicle.YardInspection);
         }
 

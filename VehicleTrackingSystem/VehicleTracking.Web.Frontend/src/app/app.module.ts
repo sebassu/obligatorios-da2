@@ -15,6 +15,7 @@ import { LotListComponent } from './lot-list/lot-list.component';
 import { TransportListComponent } from './transport-list/transport-list.component';
 import { MovementComponent } from './movement/movement.component';
 import { PortInspectionComponent } from './port-inspection/port-inspection.component';
+import { YardInspectionComponent } from './yard-inspection/yard-inspection.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PortInspectionComponent } from './port-inspection/port-inspection.compo
     LotListComponent,
     TransportListComponent,
     MovementComponent,
-    PortInspectionComponent
+    PortInspectionComponent,
+    YardInspectionComponent
   ],
   imports: [
     BrowserModule,

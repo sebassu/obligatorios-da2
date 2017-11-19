@@ -22,9 +22,9 @@ namespace VehicleTracking.UI.WinApp
         }
 
         private void LoadListBox()
-        {            
+        {
             VehicleListBox.Items.Clear();
-            IEnumerable<VehicleDTO> allVehicles = Instance.GetRegisteredVehicles();
+            IEnumerable<VehicleDTO> allVehicles = Instance.GetRegisteredVehiclesFor(UserRoles.ADMINISTRATOR);
             for (int i = 0; i < allVehicles.Count(); i++)
             {
                 VehicleDTO aux = allVehicles.ElementAt(i);

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subzone } from '../entities/subzone';
 import { SubzoneService } from '../services/subzone.service';
 import { Vehicle } from '../entities/vehicle';
@@ -9,8 +9,7 @@ import { MovementService } from '../services/movement.service';
 @Component({
   selector: 'app-movement',
   templateUrl: './movement.component.html',
-  styleUrls: ['./movement.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./movement.component.css']
 })
 export class MovementComponent implements OnInit {
 

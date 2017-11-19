@@ -9,16 +9,16 @@ import { Inspection } from '../entities/inspection';
 import { InspectionService } from '../services/inspection.service';
 
 @Component({
-  selector: 'app-port-inspection',
-  templateUrl: './port-inspection.component.html',
-  styleUrls: ['../styles/list-styles.css', './port-inspection.component.css'],
+  selector: 'app-yard-inspection',
+  templateUrl: './yard-inspection.component.html',
+  styleUrls: ['../styles/list-styles.css', './yard-inspection.component.css'],
 })
-export class PortInspectionComponent implements OnInit {
+export class YardInspectionComponent implements OnInit {
 
   selectedVehicle: string;
   selectedLocation: string;
   vehicles: Array<Vehicle>;
-  portNames: Array<string>;
+  yardNames: Array<string>;
   damages: Array<Damage>;
   imageFiles: FileList;
   damageDescription: string;
@@ -26,7 +26,7 @@ export class PortInspectionComponent implements OnInit {
   constructor(private _DomSanitizer: DomSanitizer, private _inspectionService: InspectionService,
     private _vehicleService: VehicleService, private _locationService: LocationService) {
     this.vehicles = [];
-    this.portNames = [];
+    this.yardNames = [];
     this.damages = [];
   }
 
@@ -40,7 +40,7 @@ export class PortInspectionComponent implements OnInit {
       this.damages.push(new Damage(this.damageDescription, images));
       alert("Daño agregado exitosamente.");
     } else {
-      alert("Error: es necesario aportar evidencia fotográfica para"
+      alert("Error: es necesario ayardar evidencia fotográfica para"
         + " poder registrar un daño.");
     }
   }
@@ -69,13 +69,13 @@ export class PortInspectionComponent implements OnInit {
   ngOnInit() {
     this._vehicleService.getVehicles()
       .subscribe(obtainedVehicles => this.initializeVehicles(obtainedVehicles));
-    this._locationService.getPorts()
-      .subscribe(portsObtained => this.portNames = portsObtained);
+    this._locationService.getYards()
+      .subscribe(yardsObtained => this.yardNames = yardsObtained);
   }
 
   private initializeVehicles(obtainedVehicles: Array<Vehicle>): void {
     for (let vehicle of obtainedVehicles) {
-      if (vehicle.portInspectionId !== null) {
+      if (!vehicle.hasYardInspection) {
         this.vehicles.push(vehicle);
       }
     }
@@ -85,10 +85,10 @@ export class PortInspectionComponent implements OnInit {
     this.damages = [];
   }
 
-  private registerPortInspection() {
+  private registerYardInspection() {
     let inspectionToRegister = new Inspection(this.selectedLocation,
       new Date(), this.damages);
-    this._inspectionService.registerPortInspection(this.selectedVehicle,
+    this._inspectionService.registerYardInspection(this.selectedVehicle,
       inspectionToRegister);
   }
 }

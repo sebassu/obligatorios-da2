@@ -13,7 +13,19 @@ namespace VehicleTracking_Data_DataAccess
     {
         public VehicleRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<Vehicle> Elements => GetElementsWith("StagesData");
+        public IEnumerable<Vehicle> GetRegisteredVehiclesIn(ProcessStages?
+            stageToFilterBy = null)
+        {
+            if (stageToFilterBy.HasValue)
+            {
+                return GetElementsWith("StagesData",
+                    v => v.StagesData.CurrentStage == stageToFilterBy);
+            }
+            else
+            {
+                return GetElementsWith("StagesData");
+            }
+        }
 
         public void AddNewVehicle(Vehicle vehicleToAdd)
         {

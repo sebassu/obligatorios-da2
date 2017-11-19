@@ -1,0 +1,41 @@
+form#inspectionForm {
+    margin-top: 3%;
+    margin-left: 12%;
+}
+
+button.yardButton {
+    float: right;
+    vertical-align: bottom;
+}
+
+button#registerInspection {
+    margin-left: 15px;
+}
+
+div#damagesContainer {
+    background-color: white;
+    min-height: 150px;
+    text-align: center;
+}
+
+input#descriptionTxt {
+    min-width: 350px;
+}
+
+input.damageInput {
+    margin-right: 20px;
+}
+
+h3#addDamage {
+    font-weight: bold;
+}
+
+th#descriptionColumn {
+    min-width: 300px;
+    max-width: 475px;
+}
+
+td.descriptionCell {
+    max-width: 475px;
+    overflow-wrap: break-word;
+}
