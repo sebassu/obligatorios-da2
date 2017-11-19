@@ -81,7 +81,7 @@
             this.TitleLbl.AutoSize = true;
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(379, 0);
+            this.TitleLbl.Location = new System.Drawing.Point(323, 0);
             this.TitleLbl.Name = "TitleLbl";
             this.TitleLbl.Size = new System.Drawing.Size(109, 39);
             this.TitleLbl.TabIndex = 23;
@@ -200,13 +200,14 @@
             this.ImportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ImportBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ImportBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ImportBtn.Location = new System.Drawing.Point(608, 17);
+            this.ImportBtn.Location = new System.Drawing.Point(628, 17);
             this.ImportBtn.Name = "ImportBtn";
             this.ImportBtn.Size = new System.Drawing.Size(119, 46);
             this.ImportBtn.TabIndex = 26;
             this.ImportBtn.Text = "Importar";
             this.ImportBtn.UseVisualStyleBackColor = true;
             this.ImportBtn.Visible = false;
+            this.ImportBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImportBtn_MouseClick);
             // 
             // TypeLbl
             // 

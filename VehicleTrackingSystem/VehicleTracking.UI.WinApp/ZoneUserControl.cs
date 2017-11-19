@@ -53,12 +53,12 @@ namespace VehicleTracking.UI.WinApp
                 }
                 else
                 {
-                    MessageBox.Show("Debe seleccionar una zona", "Error");
+                    MessageBox.Show("Debe seleccionar una zona", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch(ServiceException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -86,7 +86,7 @@ namespace VehicleTracking.UI.WinApp
             }
             else
             {
-                MessageBox.Show("Debe seleccionar una zona", "Error");
+                MessageBox.Show("Debe seleccionar una zona", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

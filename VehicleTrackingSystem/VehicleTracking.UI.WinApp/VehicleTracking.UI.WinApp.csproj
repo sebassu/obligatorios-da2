@@ -82,11 +82,35 @@
     <Compile Include="CreateModifyZone.Designer.cs">
       <DependentUpon>CreateModifyZone.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportVehiclesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportVehiclesForm.Designer.cs">
+      <DependentUpon>ImportVehiclesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportVehiclesUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImportVehiclesUserControl.Designer.cs">
+      <DependentUpon>ImportVehiclesUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogOutUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LogOutUserControl.Designer.cs">
+      <DependentUpon>LogOutUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LogsUserControl.Designer.cs">
+      <DependentUpon>LogsUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="MenuButtonsUserControl.cs">
       <SubType>UserControl</SubType>
@@ -119,11 +143,11 @@
     <Compile Include="UserUserControl.Designer.cs">
       <DependentUpon>UserUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="VehicleTrackingUI.cs">
+    <Compile Include="VehicleTrackingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VehicleTrackingUI.Designer.cs">
-      <DependentUpon>VehicleTrackingUI.cs</DependentUpon>
+    <Compile Include="VehicleTrackingForm.Designer.cs">
+      <DependentUpon>VehicleTrackingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="VehicleUserControl.cs">
       <SubType>UserControl</SubType>
@@ -149,8 +173,20 @@
     <EmbeddedResource Include="CreateModifyZone.resx">
       <DependentUpon>CreateModifyZone.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ImportVehiclesForm.resx">
+      <DependentUpon>ImportVehiclesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportVehiclesUserControl.resx">
+      <DependentUpon>ImportVehiclesUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogOutUserControl.resx">
+      <DependentUpon>LogOutUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogsUserControl.resx">
+      <DependentUpon>LogsUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuButtonsUserControl.resx">
       <DependentUpon>MenuButtonsUserControl.cs</DependentUpon>
@@ -169,8 +205,8 @@
     <EmbeddedResource Include="UserUserControl.resx">
       <DependentUpon>UserUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VehicleTrackingUI.resx">
-      <DependentUpon>VehicleTrackingUI.cs</DependentUpon>
+    <EmbeddedResource Include="VehicleTrackingForm.resx">
+      <DependentUpon>VehicleTrackingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VehicleUserControl.resx">
       <DependentUpon>VehicleUserControl.cs</DependentUpon>
@@ -193,6 +229,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VehicleTracking.ConcreteImportingStrategies\VehicleTracking.ConcreteImportingStrategies.csproj">
+      <Project>{f9a2f0af-208d-4aa1-ae62-c6249bb2f7b3}</Project>
+      <Name>VehicleTracking.ConcreteImportingStrategies</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VehicleTracking.Data.DataAccess\VehicleTracking.Data.DataAccess.csproj">
       <Project>{F3DCC088-C021-4233-9C82-9B1A3461A7B2}</Project>
       <Name>VehicleTracking.Data.DataAccess</Name>
@@ -200,6 +240,10 @@
     <ProjectReference Include="..\VehicleTracking.Data.Entities\VehicleTracking.Data.Entities.csproj">
       <Project>{39B5263B-309E-423A-A4D0-B198180EF4AA}</Project>
       <Name>VehicleTracking.Data.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleTracking.Reflection\VehicleTracking.WinApp.Reflection.csproj">
+      <Project>{a2bcf5a2-15ab-40da-afc9-8ca992334ae2}</Project>
+      <Name>VehicleTracking.WinApp.Reflection</Name>
     </ProjectReference>
     <ProjectReference Include="..\VehicleTracking.Web.API.Models\VehicleTracking.Web.API.Services.csproj">
       <Project>{869D99F0-4C71-476C-ADAA-82DEBD18B7BA}</Project>

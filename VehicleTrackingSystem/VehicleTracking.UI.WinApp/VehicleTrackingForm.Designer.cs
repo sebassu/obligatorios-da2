@@ -1,6 +1,6 @@
 ﻿namespace VehicleTracking.UI.WinApp
 {
-    partial class VehicleTrackingUI
+    partial class VehicleTrackingForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VehicleTrackingUI));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VehicleTrackingForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.logoutPanel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cardPanel = new System.Windows.Forms.Panel();
@@ -40,12 +41,20 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
+            this.panel1.Controls.Add(this.logoutPanel);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(1, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(900, 117);
             this.panel1.TabIndex = 0;
+            // 
+            // logoutPanel
+            // 
+            this.logoutPanel.Location = new System.Drawing.Point(711, 60);
+            this.logoutPanel.Name = "logoutPanel";
+            this.logoutPanel.Size = new System.Drawing.Size(189, 57);
+            this.logoutPanel.TabIndex = 2;
             // 
             // label2
             // 
@@ -81,18 +90,22 @@
             this.buttonsPanel.Size = new System.Drawing.Size(900, 44);
             this.buttonsPanel.TabIndex = 6;
             // 
-            // VehicleTrackingUI
+            // VehicleTrackingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(901, 526);
+            this.ClientSize = new System.Drawing.Size(901, 523);
             this.Controls.Add(this.buttonsPanel);
             this.Controls.Add(this.cardPanel);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "VehicleTrackingUI";
-            this.Text = "VehicleTrackingUI";
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(522, 327);
+            this.Name = "VehicleTrackingForm";
+            this.Text = "Vehicle Tracking System";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -106,5 +119,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel cardPanel;
         private System.Windows.Forms.Panel buttonsPanel;
+        private System.Windows.Forms.Panel logoutPanel;
     }
 }

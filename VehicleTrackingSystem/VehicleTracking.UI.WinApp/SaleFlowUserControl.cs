@@ -42,7 +42,7 @@ namespace VehicleTracking.UI.WinApp
             return allDistinctSubzones;
         }
 
-       private void NotExistingSubzoneCheckBox_CheckStateChanged(object sender, EventArgs e)
+        private void NotExistingSubzoneCheckBox_CheckStateChanged(object sender, EventArgs e)
         {
             if (NotExistingSubzoneCheckBox.Checked)
             {
@@ -62,18 +62,11 @@ namespace VehicleTracking.UI.WinApp
             }
             else
             {
-                AttemptToAddSubzone();
-            }
-        }
-
-        private void RemoveBtn_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (SavedSubzones.Contains(SelectedSubzoneNameToRemove))
-            {
-                AddRemoveSubzone(SelectedSubzoneNameToRemove, SubzonesForFlow, AvailableSubzones, "remove");
-            }else
-            {
-                RemoveSubzone(SelectedSubzoneNameToRemove);
+                if (AddOk())
+                {
+                    AddRemoveSubzone(SelectedSubzoneNameToAdd, AvailableSubzones, SubzonesForFlow, "add");
+                    SelectedSubzoneNameToAdd = null;
+                }
             }
         }
 
@@ -85,20 +78,15 @@ namespace VehicleTracking.UI.WinApp
                 {
                     SubzonesForFlow.Add(name);
                     LoadListBoxDynamic(SubzonesForFlow, subzonesToSetListBox);
-                }else
+                }
+                else
                 {
                     MessageBox.Show("La subzona '" + NewSubzoneTxt.Text
-                    + "' ya se encuentra registrada.", "Error");                   
+                    + "' ya se encuentra registrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 NotExistingSubzoneCheckBox.Checked = false;
                 NewSubzoneTxt.Text = "";
             }
-        }
-
-        private void RemoveSubzone(string name)
-        {
-            SubzonesForFlow.Remove(name);
-            LoadListBoxDynamic(SubzonesForFlow, subzonesToSetListBox);
         }
 
         private bool ValidateName(string name)
@@ -113,35 +101,88 @@ namespace VehicleTracking.UI.WinApp
             }
         }
 
-        private void AttemptToAddSubzone()
+        private bool AddOk()
         {
-            if (AvailableSubzones.Count() > 0)
+            if (AvailableSubzones.Count() == 0)
             {
-                AddRemoveSubzone(SelectedSubzoneNameToAdd, AvailableSubzones, SubzonesForFlow, "add");
+                MessageBox.Show("No mas subzonas para agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else if (SelectedSubzoneNameToAdd == null)
+            {
+                MessageBox.Show("Debe seleccionar una subzona para agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
             else
             {
-                MessageBox.Show("No hay mas subzonas para agregar", "Error");
+                return true;
             }
+        }
+
+        private void RemoveBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (RemoveOk())
+            {
+                if (SavedSubzones.Contains(SelectedSubzoneNameToRemove))
+                {
+                    AddRemoveSubzone(SelectedSubzoneNameToRemove, SubzonesForFlow, AvailableSubzones, "remove");
+                }
+                else
+                {
+                    AttemptToRemoveSubzone(SelectedSubzoneNameToRemove);
+                }
+                SelectedSubzoneNameToRemove = null;
+            }
+        }
+
+        private bool RemoveOk()
+        {
+            if (SubzonesForFlow.Count() == 0)
+            {
+                MessageBox.Show("No hay subzonas para quitar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }else if(SelectedSubzoneNameToRemove == null)
+            {
+                MessageBox.Show("Debe seleccionar una subzona para quitar", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }else
+            {
+                return true;
+            }
+        }
+
+        private void AttemptToRemoveSubzone(string name)
+        {
+            SubzonesForFlow.Remove(name);
+            LoadListBoxDynamic(SubzonesForFlow, subzonesToSetListBox);
         }
 
         private void AddRemoveSubzone(string name,
             List<string> listFrom, List<string> listTo, string direction)
         {
-            listFrom.Remove(name);
-            listTo.Add(name);
-            if (direction.Equals("add"))
+            if (listFrom.Count > 0)
             {
-                LoadListBoxDynamic(listFrom, availableSubzonesListBox);
-                LoadListBoxDynamic(listTo, subzonesToSetListBox);
-            }else
+                listFrom.Remove(name);
+                listTo.Add(name);
+                if (direction.Equals("add"))
+                {
+                    LoadListBoxDynamic(listFrom, availableSubzonesListBox);
+                    LoadListBoxDynamic(listTo, subzonesToSetListBox);
+                }
+                else
+                {
+                    LoadListBoxDynamic(listFrom, subzonesToSetListBox);
+                    LoadListBoxDynamic(listTo, availableSubzonesListBox);
+                }
+            }
+            else
             {
-                LoadListBoxDynamic(listFrom, subzonesToSetListBox);
-                LoadListBoxDynamic(listTo, availableSubzonesListBox);
+                MessageBox.Show("No hay mas subzonas para mover", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void LoadListBoxDynamic (List<string> list, ListBox listBoxToModify)
+        private void LoadListBoxDynamic(List<string> list, ListBox listBoxToModify)
         {
             listBoxToModify.Items.Clear();
             foreach (string aux in list)

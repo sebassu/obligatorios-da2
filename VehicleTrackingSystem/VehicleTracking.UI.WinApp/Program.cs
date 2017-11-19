@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VehicleTracking.UI.WinApp
@@ -16,7 +13,7 @@ namespace VehicleTracking.UI.WinApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VehicleTrackingUI());
+            Application.Run(new VehicleTrackingForm());
         }
     }
 }

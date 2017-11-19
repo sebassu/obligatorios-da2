@@ -55,12 +55,12 @@ namespace VehicleTracking.UI.WinApp
                 }
                 catch (VehicleTrackingException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error");
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un vehículo", "Error");
+                MessageBox.Show("Debe seleccionar un vehículo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -83,7 +83,7 @@ namespace VehicleTracking.UI.WinApp
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un vehículo", "Error");
+                MessageBox.Show("Debe seleccionar un vehículo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

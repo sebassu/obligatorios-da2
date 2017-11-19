@@ -1,7 +1,7 @@
 ﻿using System;
+using API.Services;
 using System.Drawing;
 using System.Windows.Forms;
-using API.Services;
 using VehicleTracking_Data_Entities;
 
 namespace VehicleTracking.UI.WinApp
@@ -30,7 +30,7 @@ namespace VehicleTracking.UI.WinApp
             {
                 FirstNameTxt.Text = SelectedUser.FirstName;
                 LastNameTxt.Text = SelectedUser.LastName;
-                PhoneTxt.Text = SelectedUser.PhoneNumber;
+                PhoneNumberTxt.Text = SelectedUser.PhoneNumber;
                 UsernameTxt.Text = SelectedUser.Username;
                 RoleComboBox.SelectedText = SelectedUser.Role.ToString();
                 RoleComboBox.Enabled = false;
@@ -68,8 +68,8 @@ namespace VehicleTracking.UI.WinApp
 
         private void PhoneTxt_MouseClick(object sender, MouseEventArgs e)
         {
-            PhoneTxt.Text = "";
-            PhoneTxt.ForeColor = Color.Black;
+            PhoneNumberTxt.Text = "";
+            PhoneNumberTxt.ForeColor = Color.Black;
         }
 
         private void UsernameTxt_MouseClick(object sender, MouseEventArgs e)
@@ -97,7 +97,7 @@ namespace VehicleTracking.UI.WinApp
             {
                 user.FirstName = FirstNameTxt.Text;
                 user.LastName = LastNameTxt.Text;
-                user.PhoneNumber = PhoneTxt.Text;
+                user.PhoneNumber = PhoneNumberTxt.Text;
                 user.Username = UsernameTxt.Text;
                 if (Origin.Equals("modify"))
                 {
@@ -123,7 +123,7 @@ namespace VehicleTracking.UI.WinApp
             }
             catch (VehicleTrackingException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

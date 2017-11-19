@@ -51,6 +51,7 @@
             this.LogsBtn.TabIndex = 9;
             this.LogsBtn.Text = "Ver Logs";
             this.LogsBtn.UseVisualStyleBackColor = false;
+            this.LogsBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LogsBtn_MouseClick);
             this.LogsBtn.MouseLeave += new System.EventHandler(this.LogsBtn_MouseLeave);
             this.LogsBtn.MouseHover += new System.EventHandler(this.LogsBtn_MouseHover);
             // 
