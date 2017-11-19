@@ -27,7 +27,7 @@ namespace VehicleTracking.UI.WinApp
                 IEnumerable<IImportingStrategy> strategies = ImportingStrategiesLoader.FromDllFilePath(strategiesPath);
                 UpdateStrategies(strategies);
             }catch(ReflectionException ex) {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
             }
 
@@ -42,7 +42,7 @@ namespace VehicleTracking.UI.WinApp
                 UpdateStrategies(newStrategies);
             }catch (ReflectionException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -73,7 +73,7 @@ namespace VehicleTracking.UI.WinApp
                 ImportVehiclesForm window = new ImportVehiclesForm((IImportingStrategy)StrategiesListBox.SelectedItem);
                 window.Show();
             }else {
-                MessageBox.Show("Debe seleccionar una estrategia", "Error");
+                MessageBox.Show("Debe seleccionar una estrategia", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

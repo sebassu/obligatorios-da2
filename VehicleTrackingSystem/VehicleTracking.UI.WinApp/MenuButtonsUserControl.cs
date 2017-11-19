@@ -152,7 +152,7 @@ namespace VehicleTracking.UI.WinApp
             if (zones.Count() == 0)
             {
                 MessageBox.Show("No hay zonas registradas. Debe registrar al menos una zona antes de comenzar "
-                    +" a registrar subzonas.", "Error");
+                    +" a registrar subzonas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

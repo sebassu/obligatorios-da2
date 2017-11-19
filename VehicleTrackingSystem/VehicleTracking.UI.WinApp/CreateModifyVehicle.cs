@@ -104,7 +104,7 @@ namespace VehicleTracking.UI.WinApp
             short year;
             if (!short.TryParse(YearTxt.Text, out year))
             {
-                MessageBox.Show("El año solo puede contener números", "Error");
+                MessageBox.Show("El año solo puede contener números", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (Origin.Equals("modify"))
                 {
                     YearTxt.Text = SelectedVehicle.Year.ToString();
@@ -147,11 +147,11 @@ namespace VehicleTracking.UI.WinApp
             }
             catch (VehicleTrackingException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (FormatException)
             {
-                MessageBox.Show("El año no puede ser vacio", "Error");
+                MessageBox.Show("El año no puede ser vacio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -35,12 +35,12 @@ namespace VehicleTracking.UI.WinApp
                 }
             }catch(ServiceException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 PasswordTxt.Text = "";
 
             } catch (RepositoryException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 PasswordTxt.Text = "";
             }
         }

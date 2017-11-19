@@ -82,7 +82,7 @@ namespace VehicleTracking.UI.WinApp
                 else
                 {
                     MessageBox.Show("La subzona '" + NewSubzoneTxt.Text
-                    + "' ya se encuentra registrada.", "Error");
+                    + "' ya se encuentra registrada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 NotExistingSubzoneCheckBox.Checked = false;
                 NewSubzoneTxt.Text = "";
@@ -105,12 +105,12 @@ namespace VehicleTracking.UI.WinApp
         {
             if (AvailableSubzones.Count() == 0)
             {
-                MessageBox.Show("No mas subzonas para agregar", "Error");
+                MessageBox.Show("No mas subzonas para agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else if (SelectedSubzoneNameToAdd == null)
             {
-                MessageBox.Show("Debe seleccionar una subzona para agregar", "Error");
+                MessageBox.Show("Debe seleccionar una subzona para agregar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else
@@ -139,11 +139,12 @@ namespace VehicleTracking.UI.WinApp
         {
             if (SubzonesForFlow.Count() == 0)
             {
-                MessageBox.Show("No hay subzonas para quitar", "Error");
+                MessageBox.Show("No hay subzonas para quitar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }else if(SelectedSubzoneNameToRemove == null)
             {
-                MessageBox.Show("Debe seleccionar una subzona para quitar", "Error");
+                MessageBox.Show("Debe seleccionar una subzona para quitar", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }else
             {
@@ -177,7 +178,7 @@ namespace VehicleTracking.UI.WinApp
             }
             else
             {
-                MessageBox.Show("No hay mas subzonas para mover", "Error");
+                MessageBox.Show("No hay mas subzonas para mover", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

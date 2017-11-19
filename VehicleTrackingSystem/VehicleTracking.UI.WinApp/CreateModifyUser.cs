@@ -123,7 +123,7 @@ namespace VehicleTracking.UI.WinApp
             }
             catch (VehicleTrackingException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

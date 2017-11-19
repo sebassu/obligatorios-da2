@@ -67,7 +67,7 @@ namespace VehicleTracking.UI.WinApp
             LogsGridView.Rows.Clear();
             if (Utilities.IsNull(logsToShow))
             {
-                MessageBox.Show("No hay logs para mostrar", "Error");
+                MessageBox.Show("No hay logs para mostrar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -90,7 +90,8 @@ namespace VehicleTracking.UI.WinApp
                 LoadGridView(GetFilteredLogs(DateFrom, DateUntil));
             }else
             {
-                MessageBox.Show("La fecha hasta no puede ser mayor a la de hoy", "Error");
+                MessageBox.Show("La fecha hasta no puede ser mayor a la de hoy", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -98,7 +99,8 @@ namespace VehicleTracking.UI.WinApp
         {
             DateTime? DateUntil = DateUntilPicker.Value.Date;
             if (DateUntil > DateTime.Now.Date) { 
-                MessageBox.Show("La fecha hasta no puede ser mayor a la de hoy", "Error");
+                MessageBox.Show("La fecha hasta no puede ser mayor a la de hoy", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

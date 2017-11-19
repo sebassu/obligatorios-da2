@@ -150,12 +150,12 @@ namespace VehicleTracking.UI.WinApp
                     UnitOfWork.LoggingStrategy.RegisterVehicleImport(SessionServices.LoggedUser);
                     UnitOfWork.SaveChanges();
                 }
-                MessageBox.Show("Los vehículos han sido importados", "Importación de vehículos");
+                MessageBox.Show("Los vehículos han sido importados", "Importación de vehículos", MessageBoxButtons.OK, MessageBoxIcon.None);
                 this.Close();
             }
             catch (VehicleTrackingException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
