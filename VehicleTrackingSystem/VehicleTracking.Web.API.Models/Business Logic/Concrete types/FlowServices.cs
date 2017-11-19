@@ -38,8 +38,28 @@ namespace API.Services
         {
             Flow flowToAdd = Flow.FromSubzoneNames(flowDataToAdd);
             Flows.RegisterNewFlow(flowToAdd);
+            SetStuckVehicles();
             Model.SaveChanges();
             return flowToAdd.Id;
+        }
+
+        private void SetStuckVehicles()
+        {
+            IVehicleServices Vehicles = new VehicleServices();
+            IEnumerable<VehicleDTO> registeredVehicles = Vehicles.GetRegisteredVehicles();
+            foreach(var vDTO in registeredVehicles)
+            {
+                Vehicle v = Model.Vehicles.GetFullyLoadedVehicleWithVIN(vDTO.VIN);
+                AttemptToStuckVehicle(v, vDTO);
+            }
+        }
+
+        private void AttemptToStuckVehicle(Vehicle vehicle, VehicleDTO vehicleDTO)
+        {
+            if (vehicle.Movements.Count > 0)
+            {
+                vehicleDTO.CurrentStage = ProcessStages.STUCK_IN_PROCESS.ToString();
+            }
         }
 
         public Flow GetRegisteredFlow()
