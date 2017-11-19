@@ -64,8 +64,8 @@ namespace API.Services
                     CurrentStage = "Transporte";
                     break;
                 case ProcessStages.YARD:
-                    string currentLocation = someVehicle.StagesData.YardCurrentLocation.ToString();
-                    CurrentStage = "Patio: \"" + currentLocation + "\"";
+                    string currentLocation = GetYardCurrentLocationToShow(someVehicle);
+                    CurrentStage = "Patio - Ubicación: \"" + currentLocation + "\"";
                     break;
                 case ProcessStages.READY_FOR_SALE:
                     CurrentStage = "Pronto para venta";
@@ -77,6 +77,12 @@ namespace API.Services
                     CurrentStage = "Etapa desconocida";
                     break;
             }
+        }
+
+        private static string GetYardCurrentLocationToShow(Vehicle someVehicle)
+        {
+            var currentLocation = someVehicle.StagesData.YardCurrentLocation;
+            return Utilities.IsNotNull(currentLocation) ? currentLocation.ToString() : "Patio";
         }
 
         public static VehicleDTO FromData(VehicleType type, string brand, string model,

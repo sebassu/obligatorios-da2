@@ -75,7 +75,7 @@ export class PortInspectionComponent implements OnInit {
 
   private initializeVehicles(obtainedVehicles: Array<Vehicle>): void {
     for (let vehicle of obtainedVehicles) {
-      if (vehicle.portInspectionId !== null) {
+      if (vehicle.portInspectionId == null) {
         this.vehicles.push(vehicle);
       }
     }

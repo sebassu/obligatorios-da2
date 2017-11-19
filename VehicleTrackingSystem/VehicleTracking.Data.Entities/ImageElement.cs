@@ -39,7 +39,7 @@ namespace VehicleTracking_Data_Entities
         {
             get
             {
-                return Convert.ToBase64String(ImageData);
+                return "data:image/jpeg;base64," + Convert.ToBase64String(ImageData);
             }
         }
 
@@ -60,7 +60,8 @@ namespace VehicleTracking_Data_Entities
         {
             try
             {
-                ImageData = Convert.FromBase64String(imageDataToSet);
+                var imageToSave = imageDataToSet.Replace("data:image/jpeg;base64,", "");
+                ImageData = Convert.FromBase64String(imageToSave);
             }
             catch (SystemException)
             {

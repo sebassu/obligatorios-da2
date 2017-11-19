@@ -1,10 +1,10 @@
-﻿using VehicleTracking_Data_Entities;
+﻿using System;
+using System.Linq;
 using API.Services;
 using System.Web.Http;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System;
-using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 namespace Web.API.Controllers
 {

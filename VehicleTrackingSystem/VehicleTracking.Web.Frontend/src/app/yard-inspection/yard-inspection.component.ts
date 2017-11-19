@@ -15,7 +15,7 @@ import { InspectionService } from '../services/inspection.service';
 })
 export class YardInspectionComponent implements OnInit {
 
-  selectedVehicle: string;
+  selectedVehicle: Vehicle;
   selectedLocation: string;
   vehicles: Array<Vehicle>;
   yardNames: Array<string>;
@@ -43,6 +43,12 @@ export class YardInspectionComponent implements OnInit {
       alert("Error: es necesario ayardar evidencia fotográfica para"
         + " poder registrar un daño.");
     }
+  }
+
+  private updateInspectionDamages() {
+    let inspectionIdToFind = this.selectedVehicle.portInspectionId;
+    this._inspectionService.getInspectionWithId(inspectionIdToFind)
+      .subscribe(foundInspection => this.damages = foundInspection.damages);
   }
 
   private getImageStrings(): Array<string> {
@@ -88,7 +94,7 @@ export class YardInspectionComponent implements OnInit {
   private registerYardInspection() {
     let inspectionToRegister = new Inspection(this.selectedLocation,
       new Date(), this.damages);
-    this._inspectionService.registerYardInspection(this.selectedVehicle,
+    this._inspectionService.registerYardInspection(this.selectedVehicle.vin,
       inspectionToRegister);
   }
 }

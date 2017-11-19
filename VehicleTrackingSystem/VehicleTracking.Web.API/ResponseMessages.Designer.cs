@@ -61,6 +61,15 @@ namespace Web.API {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rol de usuario desconocido detectado..
+        /// </summary>
+        internal static string InvalidUserRole {
+            get {
+                return ResourceManager.GetString("InvalidUserRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modificación del elemento realizada exitosamente..
         /// </summary>
         internal static string SuccessfulModification {

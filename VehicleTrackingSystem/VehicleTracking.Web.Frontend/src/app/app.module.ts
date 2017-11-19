@@ -42,6 +42,7 @@ import { YardInspectionComponent } from './yard-inspection/yard-inspection.compo
         children: [
           { path: 'registerTransport', component: TransportComponent, pathMatch: 'prefix' },
           { path: 'registerPortInspection', component: PortInspectionComponent, pathMatch: 'prefix' },
+          { path: 'registerYardInspection', component: YardInspectionComponent, pathMatch: 'prefix' },
           { path: 'transports', component: TransportListComponent, pathMatch: 'prefix' },
           { path: 'vehicles', component: VehicleListComponent, pathMatch: 'prefix' },
           { path: 'lots', component: LotListComponent, pathMatch: 'prefix' },

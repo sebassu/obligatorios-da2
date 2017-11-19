@@ -9,8 +9,8 @@
                 <div class="form-group">
                     <label class="control-label col-lg-2" for="nameTxt">Vehículo:</label>
                     <div class="col-lg-7">
-                        <select class="form-control" [(ngModel)]="selectedVehicle" required name="vehicleSelect" id="vehicleSelect">
-                          <option *ngFor='let aVehicle of vehicles' [ngValue]="aVehicle.vin">{{aVehicle.vin}}</option>
+                        <select class="form-control" [(ngModel)]="selectedVehicle" (change)="updateInspectionDamages()" required name="vehicleSelect" id="vehicleSelect">
+                          <option *ngFor='let aVehicle of vehicles' [ngValue]="aVehicle">{{aVehicle.vin}}</option>
                         </select>
                     </div>
                 </div>
@@ -66,6 +66,6 @@
     </div>
     <div [hidden]="vehicles.length > 0 && yardNames.length > 0" id="noContentsContainer">
         <br><br><br><br><br>
-        <h3>Datos insuficientes para completar el registro.</h3>
+        <h3>No existen vehículos inspeccionables.</h3>
     </div>
 </div>

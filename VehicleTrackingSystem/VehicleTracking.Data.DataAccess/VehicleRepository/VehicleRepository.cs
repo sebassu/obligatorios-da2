@@ -18,12 +18,14 @@ namespace VehicleTracking_Data_DataAccess
         {
             if (stageToFilterBy.HasValue)
             {
-                return GetElementsWith("StagesData",
-                    v => v.StagesData.CurrentStage == stageToFilterBy);
+                return GetElementsWith("StagesData.Inspections,StagesData." +
+                    "YardCurrentLocation.Container", v => v.StagesData.CurrentStage
+                    == stageToFilterBy);
             }
             else
             {
-                return GetElementsWith("StagesData");
+                return GetElementsWith("StagesData.Inspections,StagesData." +
+                    "YardCurrentLocation.Container");
             }
         }
 
@@ -47,7 +49,7 @@ namespace VehicleTracking_Data_DataAccess
         {
             return elements.Include("StagesData.PortLot").Include("StagesData.TransportData")
                 .Include("StagesData.Inspections").Include("StagesData.YardMovements")
-                .Include("StagesData.YardCurrentLocation.Container")
+                .Include("StagesData.YardCurrentLocation.Container").Include("StagesData.SaleRecord")
                 .Single(v => v.VIN.Equals(vinToFind));
         }
 
@@ -63,7 +65,7 @@ namespace VehicleTracking_Data_DataAccess
                 .Include("StagesData.Inspections.Location").Include("StagesData.TransportData.Transporter")
                 .Include("StagesData.TransportData.LotsTransported").Include("StagesData.YardMovements.Departure.Container")
                 .Include("StagesData.YardMovements.Arrival.Container").Include("StagesData.YardMovements.Responsible")
-                .Single(v => v.VIN.Equals(vinToLookup));
+                .Include("StagesData.SaleRecord.Buyer").Single(v => v.VIN.Equals(vinToLookup));
         }
 
         public Vehicle AttemptToExecuteActionWithVIN(Func<string, Vehicle> actionToExecute,

@@ -31,4 +31,12 @@ export class InspectionService extends BaseService {
             .map((response: Response) => alert("Inspección de patio registrada correctamente."))
             .subscribe(null, err => this.handleError(err));
     }
+
+    getInspectionWithId(idToFind: string): Observable<Inspection> {
+        let url = environment.APIURL + "/api/Inspections/" + idToFind;
+        let header = this.getHeader();
+        return this._httpService.get(url, { 'headers': header })
+            .map((response: Response) => <Inspection>response.json())
+            .catch(this.handleError);
+    }
 }
