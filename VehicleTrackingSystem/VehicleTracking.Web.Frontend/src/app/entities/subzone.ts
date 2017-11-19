@@ -1,11 +1,12 @@
 export class Subzone {
     
-        containerName: string;
-        name: string;
-        capacity: number;
-        vehicleVINs: Array<string>
+    id: number    
+    containerName: string;
+    name: string;
+    capacity: number;
+    vehicleVINs: Array<string>
     
-        constructor(containerName: string, name: string, capacity: number,
+        constructor(id:number, containerName: string, name: string, capacity: number,
         vehicleVINs: Array<string>) {
             this.containerName = containerName;
             this.name = name;

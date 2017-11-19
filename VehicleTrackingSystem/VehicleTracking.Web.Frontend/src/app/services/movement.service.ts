@@ -11,14 +11,15 @@ import { BaseService } from './base.service';
 @Injectable()
 export class MovementService extends BaseService {
 
-    private static URL: string = environment.APIURL + "/api/Vehicles/";
+    private  static URL: string = environment.APIURL + "/api/Vehicles/";
 
     constructor(_httpService: Http) { super(_httpService); }
 
-    registerNewMovement(arrival: number) {
+    registerNewMovement(arrival: number, VehicleVin: string) {
+        let url = MovementService.URL +  + VehicleVin + "/Movement";
         let header = this.getHeader();
         let body = { "DateTime": new Date(), "ArrivalSubzoneId": arrival }
-        return this._httpService.post(MovementService.URL, body, { 'headers': header })
+        return this._httpService.post(url, body, { 'headers': header })
             .map((response: Response) => alert("Movimiento registrado correctamente."))
             .catch(this.handleError);
     }

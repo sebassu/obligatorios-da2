@@ -17,6 +17,7 @@ export class MovementComponent implements OnInit {
   subzones: Array<Subzone>;
   vehicles: Array<Vehicle>
 
+
   constructor(private _subzoneService: SubzoneService, private _vehicleService: VehicleService, 
     private _movementService: MovementService) {
     this.subzones = [];
@@ -32,10 +33,8 @@ export class MovementComponent implements OnInit {
     this.vehicles.map((itemInArray) => itemInArray.vin); 
   }
 
-  private registerMovement(vehicleVIN: string, arrivalName: string): void {
-    this._movementService.registerNewMovement(8);//aca va el id de la subzona de destino
-                                                //acordarme que falta agregar en el URL el vin del vehiculo y 
-                                                ///Movements para registrar el movimiento
+  private registerMovement(vehicleVIN: string, arrivalId: number): void {
+    this._movementService.registerNewMovement(arrivalId, vehicleVIN); 
   }
 
 }
