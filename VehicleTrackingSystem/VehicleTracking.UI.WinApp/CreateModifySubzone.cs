@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
 using VehicleTracking_Data_DataAccess;
+using System;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -12,15 +13,15 @@ namespace VehicleTracking.UI.WinApp
         private ISubzoneServices subzones;
         private IZoneServices zones;
         private SubzoneDTO subzoneToModify;
-        private Panel systemPanel;
+        private Panel CardPnl;
         private bool openedForModification;
 
-        public CreateModifySubzone(Panel somePanel,
+        public CreateModifySubzone(Panel cardPanel,
             SubzoneDTO selectedSubzone = null)
         {
             InitializeComponent();
             SetServicesObjects();
-            systemPanel = somePanel;
+            CardPnl = cardPanel;
             openedForModification = Utilities.IsNotNull(selectedSubzone);
             subzoneToModify = selectedSubzone;
             LoadComponentInformation();
@@ -73,8 +74,8 @@ namespace VehicleTracking.UI.WinApp
 
         private void CancelBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            systemPanel.Controls.Clear();
-            systemPanel.Controls.Add(new SubzoneUserControl(systemPanel));
+            CardPnl.Controls.Clear();
+            CardPnl.Controls.Add(new SubzoneUserControl(CardPnl));
         }
 
         private void NameTxt_MouseClick(object sender, MouseEventArgs e)
@@ -85,10 +86,29 @@ namespace VehicleTracking.UI.WinApp
 
         private void OkBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            InterfaceUtilities.ExcecuteActionOrThrowErrorMessageBox(
-                PerformAdditionModificationAction);
-            InterfaceUtilities.ChangeUserControl(new SubzoneUserControl(systemPanel),
-                systemPanel);
+            SubzoneDTO subzone = new SubzoneDTO();
+            try
+            {
+                subzone.Name = NameTxt.Text;
+                subzone.Capacity = (int)CapacityNud.Value;
+                subzone.ContainerName = ZoneComboBox.SelectedItem.ToString();
+                if (openedForModification)
+                {
+                    subzones.ModifySubzoneWithId(subzoneToModify.Id, subzone);
+                }
+                else
+                {
+                    subzones.AddNewSubzoneFromData(subzone.ContainerName, subzone);
+
+                }
+            }
+            catch (VehicleTrackingException ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }catch(NullReferenceException)
+            {
+                MessageBox.Show("Debe seleccionar una zona", "Error");
+            }
         }
 
         private void PerformAdditionModificationAction()
