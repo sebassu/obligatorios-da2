@@ -13,6 +13,7 @@ import { TransportComponent } from './register-transport/transport.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { LotListComponent } from './lot-list/lot-list.component';
 import { TransportListComponent } from './transport-list/transport-list.component';
+import { MovementComponent } from './movement/movement.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TransportListComponent } from './transport-list/transport-list.componen
     OptionsMenuComponent,
     VehicleListComponent,
     LotListComponent,
-    TransportListComponent
+    TransportListComponent,
+    MovementComponent
   ],
   imports: [
     BrowserModule,
@@ -30,21 +32,22 @@ import { TransportListComponent } from './transport-list/transport-list.componen
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: 'login', component: LoginComponent, canActivate: [IsNotLoggedGuard] },
+      { path: 'login', component: LoginComponent },
       {
-        path: 'app', component: OptionsMenuComponent, canActivate: [IsLoggedGuard],
+        path: 'app', component: OptionsMenuComponent,
         children: [
           { path: 'registerTransport', component: TransportComponent, pathMatch: 'prefix' },
           { path: 'transports', component: TransportListComponent, pathMatch: 'prefix' },
           { path: 'vehicles', component: VehicleListComponent, pathMatch: 'prefix' },
-          { path: 'lots', component: LotListComponent, pathMatch: 'prefix' }
+          { path: 'lots', component: LotListComponent, pathMatch: 'prefix' },
+          { path: 'movements', component: MovementComponent, pathMatch: 'prefix' }
         ]
-      },
+      }/*,
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: '**', redirectTo: 'login', pathMatch: 'full' }
+      { path: '**', redirectTo: 'login', pathMatch: 'full' }*/
     ])
   ],
-  providers: [IsLoggedGuard, IsNotLoggedGuard],
+  //providers: [IsLoggedGuard, IsNotLoggedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
