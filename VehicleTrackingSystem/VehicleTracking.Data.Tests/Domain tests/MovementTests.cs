@@ -27,7 +27,7 @@ namespace Data.Domain_tests
         public void MovementInstanceForTestingPurposesTest()
         {
             Assert.AreEqual(0, testingMovement.Id);
-            Assert.IsNull(testingMovement.ResponsibleUser);
+            Assert.IsNull(testingMovement.Responsible);
             Assert.AreEqual(DateTime.MinValue, testingMovement.DateTime);
             Assert.IsNull(testingMovement.Departure);
             Assert.AreEqual(Subzone.InstanceForTestingPurposes(), testingMovement.Arrival);
@@ -45,15 +45,15 @@ namespace Data.Domain_tests
         {
             User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez",
                 "jPerez", "Password", "26061199");
-            testingMovement.ResponsibleUser = alternativeUser;
-            Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
+            testingMovement.Responsible = alternativeUser;
+            Assert.AreEqual(alternativeUser, testingMovement.Responsible);
         }
 
         [TestMethod]
         [ExpectedException(typeof(MovementException))]
         public void MovementSetInvalidResponsibleUserNullTest()
         {
-            testingMovement.ResponsibleUser = null;
+            testingMovement.Responsible = null;
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace Data.Domain_tests
         {
             User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan",
                 "Perez", "miUsuario", "pass", "26061199");
-            testingMovement.ResponsibleUser = alternativeUser;
+            testingMovement.Responsible = alternativeUser;
         }
 
         [TestMethod]
@@ -151,7 +151,7 @@ namespace Data.Domain_tests
             DateTime alternativeDateTime = new DateTime(2014, 12, 11, 12, 34, 11);
             testingMovement = Movement.CreateNewMovement(alternativeUser, alternativeDateTime,
                 alternativeDeparture, alternativeArrival);
-            Assert.AreEqual(alternativeUser, testingMovement.ResponsibleUser);
+            Assert.AreEqual(alternativeUser, testingMovement.Responsible);
             Assert.AreEqual(alternativeDateTime, testingMovement.DateTime);
             Assert.AreEqual(alternativeDeparture, testingMovement.Departure);
             Assert.AreEqual(alternativeArrival, testingMovement.Arrival);

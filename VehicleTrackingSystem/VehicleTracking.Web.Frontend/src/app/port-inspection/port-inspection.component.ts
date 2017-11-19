@@ -6,7 +6,7 @@ import { Damage } from '../entities/damage';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Inspection } from '../entities/inspection';
-import { InspectionService } from '../services/inspection..service';
+import { InspectionService } from '../services/inspection.service';
 
 @Component({
   selector: 'app-port-inspection',

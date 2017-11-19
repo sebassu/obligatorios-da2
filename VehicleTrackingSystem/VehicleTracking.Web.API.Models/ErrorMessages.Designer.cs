@@ -19,7 +19,7 @@ namespace API.Services {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ErrorMessages {
@@ -106,7 +106,7 @@ namespace API.Services {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El movimiento realizado no es válido. Solo se puede mover vehículos entre las subzonas definidas en el fujo de venta..
+        ///   Looks up a localized string similar to El movimiento realizado no es válido. Solamente es posible mover vehículos entre las subzonas definidas en el flujo de venta..
         /// </summary>
         internal static string InvalidMovementSubzone {
             get {
@@ -115,7 +115,7 @@ namespace API.Services {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El movimiento no es válido. Solo se puede mover vehículos que se encuentren en subzonas que pertenecen al flujo de venta..
+        ///   Looks up a localized string similar to El movimiento no es válido. Sólo se puede mover vehículos que se encuentren en subzonas que pertenecen al flujo de venta..
         /// </summary>
         internal static string InvalidMovementVehicle {
             get {
@@ -178,7 +178,7 @@ namespace API.Services {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: Solo pueden ingresar usuarios que tengan rol de administrador..
+        ///   Looks up a localized string similar to Error: Sólo pueden ingresar usuarios que tengan rol de administrador..
         /// </summary>
         internal static string WrongUserRole {
             get {

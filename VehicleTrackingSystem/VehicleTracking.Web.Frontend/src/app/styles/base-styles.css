@@ -52,3 +52,12 @@ td {
     background-color: white;
     text-shadow: none;
 }
+
+div#contentsContainer {
+    background-color: darkgray;
+    overflow: auto;
+}
+
+div#noContentsContainer {
+    text-align: center;
+}

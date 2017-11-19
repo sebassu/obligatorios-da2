@@ -3,7 +3,7 @@
     <h2 class="contentsTitle">Registro de Inspección de Puerto</h2>
 </div>
 <div class="container">
-    <div [hidden]="!vehicles.length && !portNames.length" id="contentsContainer">
+    <div [hidden]="vehicles.length == 0 || portNames.length == 0" id="contentsContainer">
         <div class="row">
             <form class="form-horizontal col-lg-10" (ngSubmit)="registerPortInspection()" #inspectionForm="ngForm" name="inspectionForm" role="form" id="inspectionForm">
                 <div class="form-group">
@@ -64,7 +64,7 @@
             <button type="reset" class="btn btn-lg btn-primary portButton" (click)='clearDamages()'>Reestablecer</button>
         </form>
     </div>
-    <div [hidden]="vehicles.length || portNames.length" id="noContentsContainer">
+    <div [hidden]="vehicles.length > 0 && portNames.length > 0" id="noContentsContainer">
         <br><br><br><br><br>
         <h3>Datos insuficientes para completar el registro.</h3>
     </div>

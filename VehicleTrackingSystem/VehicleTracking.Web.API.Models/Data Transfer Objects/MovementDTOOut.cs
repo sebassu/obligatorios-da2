@@ -34,7 +34,7 @@ namespace API.Services
             DepartureSubzone = Utilities.IsNull(departure) ? "Patio"
                 : departure.ToString();
             ArrivalSubzone = someMovement.Arrival.ToString();
-            ResponsibleUsername = someMovement.ResponsibleUser.Username;
+            ResponsibleUsername = someMovement.Responsible.Username;
         }
     }
 }

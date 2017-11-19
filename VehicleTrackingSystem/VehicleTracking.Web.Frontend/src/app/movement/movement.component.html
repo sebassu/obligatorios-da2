@@ -1,39 +1,33 @@
 <div class="header">
-  <br><br>
-  <h2 class="contentsTitle">Registrar movimiento</h2>
-</div>
-<div [hidden]="!subzones.length && !vehicles.length" id="contentsContainer">
-  <br><br>
-  <table>
-      <thead>
-          <tr>
-              <th>Vehículo:</th>
-              <th>Subzona llegada:</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr>
-              <td> 
-                <select #vehicleSelect>
-                  <option *ngFor = 'let aVehicle of vehicles' [ngValue] = "aVehicle.vin">
-                      {{aVehicle.vin}}
-                  </option>
-                </select>
-              </td>
-              <td> 
-                  <select #arrivalSelect>
-                      <option *ngFor = 'let aSubzone of subzones' [ngValue] = "aSubzone.id">
-                          {{aSubzone.name}}
-                      </option>
+    <br><br>
+    <h2 class="contentsTitle">Registrar movimiento</h2>
+</div><br><br>
+<div class="container">
+    <div class="row" [hidden]="subzones.length == 0 || vehicles.length == 0" id="contentsContainer">
+        <form class="form-horizontal col-lg-10" (ngSubmit)="registerMovement()" #movementForm="ngForm" name="movementForm" role="form" id="movementForm">
+            <div class="form-group">
+                <label class="control-label col-lg-3" for="vehicleSelect">Vehículo:</label>
+                <div class="col-lg-7">
+                    <select class="form-control" [(ngModel)]="selectedVehicleVIN" required name="vehicleSelect" id="vehicleSelect">
+                        <option *ngFor = 'let aVehicle of vehicles' [ngValue]="aVehicle.vin">{{aVehicle.vin}}</option>
                     </select>
-              </td>
-          </tr>
-      </tbody>
-  </table>
-  <br><br>
-  <button type="button" class="btn btn-lg btn-success changeBtn" (click)='registerMovement(vehicleSelect.value, arrivalSelect.value)' id="registerMovementBtn">Registrar movimiento</button>
+                </div>
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label class="control-label col-lg-3" for="arrivalSelect">Subzona de llegada:</label>
+                <div class="col-lg-7">
+                    <select class="form-control" [(ngModel)]="arrivalId" required name="arrivalSelect" id="arrivalSelect">
+                        <option *ngFor = 'let aSubzone of subzones' [ngValue]="aSubzone.id">{{aSubzone.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <br><br><br><br><br><br>
+            <button type="submit" class="btn btn-lg btn-success changeBtn" id="registerMovementBtn">Registrar movimiento</button>
+        </form>
+    </div>
 </div>
-<div [hidden]="subzones.length || vehicles.length" id="noContentsContainer">
-  <br><br><br><br><br>
-  <h3>Sin datos a mostrar.</h3>
+<div [hidden]="subzones.length > 0 && vehicles.length > 0" id="noContentsContainer">
+    <br><br><br><br><br>
+    <h3>No es posible registrar movimientos con los datos ingresados en el sistema.</h3>
 </div>

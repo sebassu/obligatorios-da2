@@ -79,12 +79,3 @@ ul li.checked::before {
 button.changeBtn {
     color: black;
 }
-
-div#contentsContainer {
-    background-color: darkgray;
-    overflow: auto;
-}
-
-div#noContentsContainer {
-    text-align: center;
-}

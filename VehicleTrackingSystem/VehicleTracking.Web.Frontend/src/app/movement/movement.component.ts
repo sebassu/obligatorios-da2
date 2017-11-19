@@ -14,11 +14,12 @@ import { MovementService } from '../services/movement.service';
 })
 export class MovementComponent implements OnInit {
 
+  selectedVehicleVIN: string;
+  arrivalId: string;
   subzones: Array<Subzone>;
-  vehicles: Array<Vehicle>
+  vehicles: Array<Vehicle>;
 
-
-  constructor(private _subzoneService: SubzoneService, private _vehicleService: VehicleService, 
+  constructor(private _subzoneService: SubzoneService, private _vehicleService: VehicleService,
     private _movementService: MovementService) {
     this.subzones = [];
     this.vehicles = [];
@@ -27,14 +28,14 @@ export class MovementComponent implements OnInit {
   ngOnInit(): void {
     this._subzoneService.getSubzones()
       .subscribe(subzonesObtained => this.subzones = subzonesObtained);
-    this.subzones.map((itemInArray) => itemInArray.name); 
+    this.subzones.map((itemInArray) => itemInArray.name);
     this._vehicleService.getVehicles()
       .subscribe(vehiclesObtained => this.vehicles = vehiclesObtained);
-    this.vehicles.map((itemInArray) => itemInArray.vin); 
+    this.vehicles.map((itemInArray) => itemInArray.vin);
   }
 
-  private registerMovement(vehicleVIN: string, arrivalId: number): void {
-    this._movementService.registerNewMovement(arrivalId, vehicleVIN); 
+  private registerMovement(): void {
+    this._movementService.registerNewMovement(this.arrivalId,
+      this.selectedVehicleVIN);
   }
-
 }
