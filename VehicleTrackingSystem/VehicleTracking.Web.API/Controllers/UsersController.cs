@@ -45,14 +45,7 @@ namespace Web.API.Controllers
         private IHttpActionResult AttemptToGetRegisteredUsers()
         {
             IEnumerable<UserDTO> users = Model.GetRegisteredUsers();
-            if (Utilities.IsNotNull(users))
-            {
-                return Ok(users);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return Ok(users);
         }
 
         [HttpGet]

@@ -8,6 +8,8 @@ namespace VehicleTracking_Data_Entities
     {
         public int Id { get; set; }
 
+        public string DataInformation { get; set; }
+
         private byte[] imageData;
         public virtual byte[] ImageData
         {
@@ -39,7 +41,7 @@ namespace VehicleTracking_Data_Entities
         {
             get
             {
-                return Convert.ToBase64String(ImageData);
+                return DataInformation + Convert.ToBase64String(ImageData);
             }
         }
 
@@ -56,11 +58,13 @@ namespace VehicleTracking_Data_Entities
             return new ImageElement(imageDataToSet);
         }
 
-        protected ImageElement(string imageDataToSet)
+        protected ImageElement(string input)
         {
             try
             {
-                ImageData = Convert.FromBase64String(imageDataToSet);
+                var inputParts = input.Split(',');
+                DataInformation = inputParts[0] + ",";
+                ImageData = Convert.FromBase64String(inputParts[1]);
             }
             catch (SystemException)
             {

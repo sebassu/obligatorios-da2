@@ -6,7 +6,8 @@ namespace VehicleTracking_Data_DataAccess
     public interface IVehicleRepository
     {
         void AddNewVehicle(Vehicle vehicleToAdd);
-        IEnumerable<Vehicle> Elements { get; }
+        IEnumerable<Vehicle> GetRegisteredVehiclesIn(ProcessStages?
+            stageToFilterBy = null);
         bool ExistsVehicleWithVIN(string usernameToLookup);
         Vehicle GetVehicleWithVIN(string vinToLookup);
         void UpdateVehicle(Vehicle vehicleToModify);

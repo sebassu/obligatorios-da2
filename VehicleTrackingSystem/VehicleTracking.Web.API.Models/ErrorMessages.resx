@@ -132,6 +132,12 @@
   <data name="FieldMustBeUnique" xml:space="preserve">
     <value>No es posible completar la acción: el {0} ingresado ya se encuentra registrado en el sistema.</value>
   </data>
+  <data name="InvalidMovementSubzone" xml:space="preserve">
+    <value>El movimiento realizado no es válido. Solamente es posible mover vehículos entre las subzonas definidas en el flujo de venta.</value>
+  </data>
+  <data name="InvalidMovementVehicle" xml:space="preserve">
+    <value>El movimiento no es válido. Sólo se puede mover vehículos que se encuentren en subzonas que pertenecen al flujo de venta.</value>
+  </data>
   <data name="LotWasTransported" xml:space="preserve">
     <value>El lote se encuentra en una etapa en la cual no está permitido editarlo.</value>
   </data>
@@ -151,6 +157,6 @@
     <value>Error: un transporte sólo puede ser marcado como finalizado por su usuario transportador creador.</value>
   </data>
   <data name="WrongUserRole" xml:space="preserve">
-    <value>Error: Solo pueden ingresar usuarios que tengan rol de administrador.</value>
+    <value>Error: Sólo pueden ingresar usuarios que tengan rol de administrador.</value>
   </data>
 </root>

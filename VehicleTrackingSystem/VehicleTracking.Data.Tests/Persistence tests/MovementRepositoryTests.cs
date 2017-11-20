@@ -117,10 +117,8 @@ namespace Data.Persistence_tests
 
         private static Vehicle GetNewValidVehicleForMovement()
         {
-            var portLocation = testingUnitOfWork.Locations.Elements.First(
-                l => l.Type == LocationType.PORT);
-            var yardLocation = testingUnitOfWork.Locations.Elements.First(
-                l => l.Type == LocationType.YARD);
+            var portLocation = testingUnitOfWork.Locations.Ports.First();
+            var yardLocation = testingUnitOfWork.Locations.Yards.First();
             var testingVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS");
             testingVehicle.PortInspection = Inspection.CreateNewInspection(testingPortOperator,

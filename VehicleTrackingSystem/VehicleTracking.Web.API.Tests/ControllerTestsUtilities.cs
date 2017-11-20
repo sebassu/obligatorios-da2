@@ -34,7 +34,7 @@ namespace Web.API.Tests
             Mock mockUsersServices, Exception expectedException)
         {
             var result = methodToTest.Invoke() as ExceptionResult;
-            mockUsersServices.VerifyAll();
+            mockUsersServices.Verify();
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedException, result.Exception);
         }

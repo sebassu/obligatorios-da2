@@ -28,8 +28,10 @@ namespace Web.API.Tests.Services_Tests
         public void FServicesAddNewFlowFromDataValidTest()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(f => f.Flow.RegisterNewFlow(It.IsAny<Flow>()))
+            mockUnitOfWork.Setup(u => u.Flow.RegisterNewFlow(It.IsAny<Flow>()))
                 .Verifiable();
+            mockUnitOfWork.Setup(u => u.Vehicles.GetRegisteredVehiclesIn(
+                ProcessStages.YARD)).Returns(new List<Vehicle>()).Verifiable();
             var flowServices = new FlowServices(mockUnitOfWork.Object);
             flowServices.AddNewFlowFromData(testingFlowData);
             mockUnitOfWork.Verify();

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
 using System.Runtime.CompilerServices;
@@ -7,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace API.Services
 {
+    [Serializable]
     public class SubzoneDTO
     {
         public int Id { get; set; }

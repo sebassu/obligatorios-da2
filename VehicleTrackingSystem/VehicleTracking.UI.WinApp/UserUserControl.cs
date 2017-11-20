@@ -8,7 +8,7 @@ using VehicleTracking_Data_Entities;
 namespace VehicleTracking.UI.WinApp
 {
     public partial class UserUserControl : UserControl
-    { 
+    {
         Panel CardPanel;
         UserDTO SelectedUser;
         IUserServices Instance;
@@ -59,7 +59,7 @@ namespace VehicleTracking.UI.WinApp
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un usuario", "Error");
+                MessageBox.Show("Debe seleccionar un usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -75,7 +75,7 @@ namespace VehicleTracking.UI.WinApp
                 }
                 catch (VehicleTrackingException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error");
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

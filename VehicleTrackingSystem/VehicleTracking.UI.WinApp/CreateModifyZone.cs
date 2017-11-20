@@ -57,7 +57,7 @@ namespace VehicleTracking.UI.WinApp
             int cap;
             if(!int.TryParse(CapacityTxt.Text, out cap))
             {
-                MessageBox.Show("La capacidad solo puede contener números", "Error");
+                MessageBox.Show("La capacidad solo puede contener números", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (Origin.Equals("modify"))
                 {
                     CapacityTxt.Text = SelectedZone.Capacity.ToString();
@@ -94,11 +94,11 @@ namespace VehicleTracking.UI.WinApp
             }
             catch (VehicleTrackingException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (FormatException)
             {
-                MessageBox.Show("La capacidad no puede ser vacia", "Error");
+                MessageBox.Show("La capacidad no puede ser vacia", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

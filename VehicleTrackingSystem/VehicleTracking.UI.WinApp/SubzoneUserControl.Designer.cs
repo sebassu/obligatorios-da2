@@ -150,7 +150,7 @@
             this.SubzoneListBox.ItemHeight = 20;
             this.SubzoneListBox.Location = new System.Drawing.Point(184, 81);
             this.SubzoneListBox.Name = "SubzoneListBox";
-            this.SubzoneListBox.Size = new System.Drawing.Size(163, 264);
+            this.SubzoneListBox.Size = new System.Drawing.Size(163, 244);
             this.SubzoneListBox.TabIndex = 14;
             this.SubzoneListBox.SelectedIndexChanged += new System.EventHandler(this.SubzoneListBox_SelectedIndexChanged);
             // 

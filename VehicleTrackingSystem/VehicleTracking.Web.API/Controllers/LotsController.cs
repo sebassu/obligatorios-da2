@@ -47,14 +47,7 @@ namespace Web.API.Controllers
         private IHttpActionResult AttemptToGetRegisteredLots()
         {
             IEnumerable<LotDTO> lots = Model.GetRegisteredLots();
-            if (Utilities.IsNotNull(lots))
-            {
-                return Ok(lots);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return Ok(lots);
         }
 
         [HttpGet]

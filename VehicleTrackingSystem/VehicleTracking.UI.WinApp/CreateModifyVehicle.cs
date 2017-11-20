@@ -21,6 +21,7 @@ namespace VehicleTracking.UI.WinApp
             Origin = origin;
             SelectedVehicle = selectedVehicle;
             LoadInfo();
+            ShowImport();
         }
 
         private void LoadInfo()
@@ -52,6 +53,19 @@ namespace VehicleTracking.UI.WinApp
             foreach (string type in types)
             {
                 TypeComboBox.Items.Add(type);
+            }
+        }
+
+        private void ShowImport()
+        {
+            if (Origin.Equals("modify"))
+            {
+                ImportBtn.Enabled = false;
+                ImportBtn.Visible = false;
+            }else
+            {
+                ImportBtn.Enabled = true;
+                ImportBtn.Visible = true;
             }
         }
 
@@ -90,7 +104,7 @@ namespace VehicleTracking.UI.WinApp
             short year;
             if (!short.TryParse(YearTxt.Text, out year))
             {
-                MessageBox.Show("El año solo puede contener números", "Error");
+                MessageBox.Show("El año solo puede contener números", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (Origin.Equals("modify"))
                 {
                     YearTxt.Text = SelectedVehicle.Year.ToString();
@@ -133,12 +147,19 @@ namespace VehicleTracking.UI.WinApp
             }
             catch (VehicleTrackingException ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (FormatException)
             {
-                MessageBox.Show("El año no puede ser vacio", "Error");
+                MessageBox.Show("El año no puede ser vacio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ImportBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            CardPanel.Controls.Clear();
+            CardPanel.Controls.Add(new ImportVehiclesUserControl(CardPanel));
+
         }
     }
 }

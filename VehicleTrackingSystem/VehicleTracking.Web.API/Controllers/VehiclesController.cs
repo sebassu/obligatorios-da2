@@ -1,12 +1,15 @@
-﻿using VehicleTracking_Data_Entities;
+﻿using System;
+using System.Linq;
 using API.Services;
 using System.Web.Http;
+using System.Security.Claims;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 namespace Web.API.Controllers
 {
-    [RoutePrefix("api/Vehicles")]
     [Authorize]
+    [RoutePrefix("api/Vehicles")]
     public class VehiclesController : BaseController
     {
         internal IVehicleServices Model { get; }
@@ -43,15 +46,17 @@ namespace Web.API.Controllers
 
         private IHttpActionResult AttemptToGetRegisteredVehicles()
         {
-            IEnumerable<VehicleDTO> vehicles = Model.GetRegisteredVehicles();
-            if (Utilities.IsNotNull(vehicles))
-            {
-                return Ok(vehicles);
-            }
-            else
-            {
-                return NotFound();
-            }
+            UserRoles roleToProcess = GetRoleOfActiveUser();
+            IEnumerable<VehicleDTO> vehicles = Model.GetRegisteredVehiclesFor(roleToProcess);
+            return Ok(vehicles);
+        }
+
+        private UserRoles GetRoleOfActiveUser()
+        {
+            var userIdentity = (ClaimsIdentity)User.Identity;
+            var claims = userIdentity.Claims;
+            var claimOfActiveUser = claims.Where(c => c.Type == ClaimTypes.Role).Single();
+            return (UserRoles)Enum.Parse(typeof(UserRoles), claimOfActiveUser.Value);
         }
 
         [HttpGet]

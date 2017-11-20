@@ -50,9 +50,9 @@
             this.VehicleListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.VehicleListBox.FormattingEnabled = true;
             this.VehicleListBox.ItemHeight = 20;
-            this.VehicleListBox.Location = new System.Drawing.Point(205, 73);
+            this.VehicleListBox.Location = new System.Drawing.Point(148, 73);
             this.VehicleListBox.Name = "VehicleListBox";
-            this.VehicleListBox.Size = new System.Drawing.Size(183, 264);
+            this.VehicleListBox.Size = new System.Drawing.Size(240, 264);
             this.VehicleListBox.TabIndex = 0;
             this.VehicleListBox.SelectedIndexChanged += new System.EventHandler(this.VehicleListBox_SelectedIndexChanged);
             // 
@@ -66,7 +66,7 @@
             this.ViewPnl.Controls.Add(this.VINLbl);
             this.ViewPnl.Location = new System.Drawing.Point(500, 144);
             this.ViewPnl.Name = "ViewPnl";
-            this.ViewPnl.Size = new System.Drawing.Size(204, 133);
+            this.ViewPnl.Size = new System.Drawing.Size(254, 133);
             this.ViewPnl.TabIndex = 2;
             // 
             // YearLbl
@@ -142,7 +142,7 @@
             this.AddVehicleBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddVehicleBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddVehicleBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.AddVehicleBtn.Location = new System.Drawing.Point(598, 73);
+            this.AddVehicleBtn.Location = new System.Drawing.Point(639, 73);
             this.AddVehicleBtn.Name = "AddVehicleBtn";
             this.AddVehicleBtn.Size = new System.Drawing.Size(106, 44);
             this.AddVehicleBtn.TabIndex = 4;
@@ -157,7 +157,7 @@
             this.DeleteVehicleBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteVehicleBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DeleteVehicleBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.DeleteVehicleBtn.Location = new System.Drawing.Point(588, 293);
+            this.DeleteVehicleBtn.Location = new System.Drawing.Point(629, 293);
             this.DeleteVehicleBtn.Name = "DeleteVehicleBtn";
             this.DeleteVehicleBtn.Size = new System.Drawing.Size(116, 44);
             this.DeleteVehicleBtn.TabIndex = 5;
@@ -172,7 +172,7 @@
             this.ModifyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ModifyBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ModifyBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.ModifyBtn.Location = new System.Drawing.Point(465, 293);
+            this.ModifyBtn.Location = new System.Drawing.Point(506, 293);
             this.ModifyBtn.Name = "ModifyBtn";
             this.ModifyBtn.Size = new System.Drawing.Size(117, 44);
             this.ModifyBtn.TabIndex = 6;

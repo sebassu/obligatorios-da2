@@ -28,7 +28,8 @@ namespace Data.Persistence_tests
             Vehicle vehicleToAdd = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR1");
             AddNewVehicleAndSaveChanges(vehicleToAdd);
-            CollectionAssert.Contains(testingVehicleRepository.Elements.ToList(), vehicleToAdd);
+            CollectionAssert.Contains(testingVehicleRepository.GetRegisteredVehiclesIn()
+                .ToList(), vehicleToAdd);
         }
 
         [TestMethod]
@@ -39,7 +40,8 @@ namespace Data.Persistence_tests
             Vehicle vehicleToVerify = Vehicle.InstanceForTestingPurposes();
             vehicleToVerify.VIN = "RUSH2112MVNGPICR2";
             AddNewVehicleAndSaveChanges(addedVehicle);
-            CollectionAssert.Contains(testingVehicleRepository.Elements.ToList(), vehicleToVerify);
+            CollectionAssert.Contains(testingVehicleRepository.GetRegisteredVehiclesIn()
+                .ToList(), vehicleToVerify);
         }
 
         [TestMethod]
@@ -49,7 +51,8 @@ namespace Data.Persistence_tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR3");
             AddNewVehicleAndSaveChanges(addedVehicle);
             AddNewVehicleAndSaveChanges(addedVehicle);
-            CollectionAssert.Contains(testingVehicleRepository.Elements.ToList(), addedVehicle);
+            CollectionAssert.Contains(testingVehicleRepository.GetRegisteredVehiclesIn()
+                .ToList(), addedVehicle);
         }
 
         [TestMethod]
@@ -101,7 +104,8 @@ namespace Data.Persistence_tests
         [TestMethod]
         public void VRepositoryExistsVehicleWithVINAddedTest()
         {
-            Vehicle userToVerify = testingVehicleRepository.Elements.First();
+            Vehicle userToVerify = testingVehicleRepository.GetRegisteredVehiclesIn()
+                .First();
             bool result = testingVehicleRepository.ExistsVehicleWithVIN(userToVerify.VIN);
             Assert.IsTrue(result);
         }
@@ -143,7 +147,8 @@ namespace Data.Persistence_tests
         [TestMethod]
         public void VRepositoryModifyVehicleSetSameDataValidTest()
         {
-            Vehicle vehicleToModify = testingVehicleRepository.Elements.First();
+            Vehicle vehicleToModify = testingVehicleRepository.GetRegisteredVehiclesIn()
+                .First();
             var previousType = vehicleToModify.Type;
             var previousModel = vehicleToModify.Model;
             var previousBrand = vehicleToModify.Brand;
@@ -197,7 +202,8 @@ namespace Data.Persistence_tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR5");
             AddNewVehicleAndSaveChanges(vehicleToVerify);
             RemoveVehicleWithVINAndSaveChanges(vehicleToVerify.VIN);
-            CollectionAssert.DoesNotContain(testingVehicleRepository.Elements.ToList(), vehicleToVerify);
+            CollectionAssert.DoesNotContain(testingVehicleRepository.GetRegisteredVehiclesIn()
+                .ToList(), vehicleToVerify);
         }
 
         [TestMethod]

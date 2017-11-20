@@ -8,7 +8,7 @@ namespace VehicleTracking_ConcreteImportingStrategies
 {
     public abstract class FileReadingImportingStrategy : IImportingStrategy
     {
-        private const string pathParameterName = "Ubicación del archivo";
+        private const string pathParameterName = "Ubicacióndelarchivo";
 
         public Dictionary<string, Type> RequiredParameters =>
             new Dictionary<string, Type>() {
@@ -20,7 +20,9 @@ namespace VehicleTracking_ConcreteImportingStrategies
             try
             {
                 var pathOfXMLFile = parameters[pathParameterName] as string;
-                return GetVehicleEnumerationFromFile(pathOfXMLFile);
+                IEnumerable<Vehicle> vehicles = GetVehicleEnumerationFromFile(pathOfXMLFile);
+                SetStageData(vehicles);
+                return vehicles;
             }
             catch (NullReferenceException)
             {
@@ -32,11 +34,29 @@ namespace VehicleTracking_ConcreteImportingStrategies
             }
         }
 
+        private void SetStageData(IEnumerable<Vehicle> vehicles)
+        {
+            foreach(Vehicle v in vehicles)
+            {
+                v.StagesData = new ProcessData();
+            }
+        }
+
         private static ImportingException ErrorOnParameterInput()
         {
             string errorMessage = string.Format(CultureInfo.CurrentCulture,
                 ErrorMessages.IncompleteParameters, pathParameterName);
             return new ImportingException(errorMessage);
+        }
+
+        private IEnumerable<Vehicle> VehiclesToReturnFromFile(string pathOfXMLFile)
+        {
+            var vehicles = GetVehicleEnumerationFromFile(pathOfXMLFile);
+            foreach (var vehicle in vehicles)
+            {
+                vehicle.StagesData = new ProcessData();
+            }
+            return vehicles;
         }
 
         protected abstract IEnumerable<Vehicle> GetVehicleEnumerationFromFile(string filePath);

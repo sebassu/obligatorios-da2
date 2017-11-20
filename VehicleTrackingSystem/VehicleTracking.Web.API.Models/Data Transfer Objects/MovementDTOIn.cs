@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API.Services
 {
+    [Serializable]
     public class MovementDTOIn
     {
         [Required]

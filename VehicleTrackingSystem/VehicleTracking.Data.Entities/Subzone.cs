@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace VehicleTracking_Data_Entities
 {
@@ -60,11 +60,7 @@ namespace VehicleTracking_Data_Entities
                 value >= Vehicles.Count;
         }
 
-        public Zone Container
-        {
-            get;
-            set;
-        }
+        public Zone Container { get; set; }
 
         public bool CanAdd(Vehicle someVehicle)
         {

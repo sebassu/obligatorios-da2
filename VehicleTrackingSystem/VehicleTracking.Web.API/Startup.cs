@@ -1,10 +1,13 @@
 ﻿using Owin;
 using System;
+using System.Linq;
 using Microsoft.Owin;
+using Newtonsoft.Json;
 using System.Web.Http;
 using Microsoft.Owin.Cors;
 using VehicleTrackingSystem;
 using Microsoft.Owin.Security;
+using System.Net.Http.Formatting;
 using Microsoft.Owin.Security.OAuth;
 
 [assembly: OwinStartup(typeof(Web.API.Startup))]
@@ -14,10 +17,12 @@ namespace Web.API
     {
         public void Configuration(IAppBuilder application)
         {
+            application.UseCors(CorsOptions.AllowAll);
             ConfigureOAuthentication(application);
             HttpConfiguration configuration = new HttpConfiguration();
             WebApiConfig.Register(configuration);
-            application.UseCors(CorsOptions.AllowAll);
+            var jsonFormatter = configuration.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
             application.UseWebApi(configuration);
         }
 

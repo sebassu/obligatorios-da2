@@ -70,7 +70,7 @@ namespace VehicleTracking_Data_DataAccess {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: el {0} &quot;{1}&quot; no se encuentra registrado en el sistema..
+        ///   Looks up a localized string similar to el {0} &quot;{1}&quot; no se encuentra registrado en el sistema..
         /// </summary>
         internal static string CouldNotFindField {
             get {

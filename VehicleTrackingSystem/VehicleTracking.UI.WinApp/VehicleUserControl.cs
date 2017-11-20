@@ -22,9 +22,9 @@ namespace VehicleTracking.UI.WinApp
         }
 
         private void LoadListBox()
-        {            
+        {
             VehicleListBox.Items.Clear();
-            IEnumerable<VehicleDTO> allVehicles = Instance.GetRegisteredVehicles();
+            IEnumerable<VehicleDTO> allVehicles = Instance.GetRegisteredVehiclesFor(UserRoles.ADMINISTRATOR);
             for (int i = 0; i < allVehicles.Count(); i++)
             {
                 VehicleDTO aux = allVehicles.ElementAt(i);
@@ -55,12 +55,12 @@ namespace VehicleTracking.UI.WinApp
                 }
                 catch (VehicleTrackingException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error");
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un vehículo", "Error");
+                MessageBox.Show("Debe seleccionar un vehículo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -83,7 +83,7 @@ namespace VehicleTracking.UI.WinApp
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un vehículo", "Error");
+                MessageBox.Show("Debe seleccionar un vehículo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -28,7 +28,7 @@ namespace Data.Domain_tests
         [TestMethod]
         public void InspectionInstanceForTestingPurposesTest()
         {
-            Assert.AreEqual(0, testingInspection.Id);
+            Assert.IsNotNull(testingInspection.Id);
             Assert.AreEqual(Location.InstanceForTestingPurposes(), testingInspection.Location);
             Assert.AreEqual(User.InstanceForTestingPurposes(), testingInspection.Responsible);
             Assert.IsNotNull(testingInspection.Damages);
@@ -38,8 +38,9 @@ namespace Data.Domain_tests
         [TestMethod]
         public void InspectionSetIdValidTest()
         {
-            testingInspection.Id = 42;
-            Assert.AreEqual(42, testingInspection.Id);
+            var idToSet = Guid.NewGuid();
+            testingInspection.Id = idToSet;
+            Assert.AreEqual(idToSet, testingInspection.Id);
         }
 
         [TestMethod]
@@ -277,6 +278,7 @@ namespace Data.Domain_tests
         public void InspectionEqualsSymmetricTest()
         {
             Inspection secondTestingInspection = Inspection.InstanceForTestingPurposes();
+            secondTestingInspection.Id = testingInspection.Id;
             Assert.AreEqual(testingInspection, secondTestingInspection);
             Assert.AreEqual(secondTestingInspection, testingInspection);
         }

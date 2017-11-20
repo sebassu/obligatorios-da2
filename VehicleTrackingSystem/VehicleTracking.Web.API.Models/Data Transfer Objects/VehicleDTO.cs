@@ -1,10 +1,12 @@
-﻿using VehicleTracking_Data_Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using VehicleTracking_Data_Entities;
 using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace API.Services
 {
+    [Serializable]
     public class VehicleDTO
     {
         [Required]
@@ -26,6 +28,10 @@ namespace API.Services
         public short Year { get; set; }
 
         public string CurrentStage { get; set; }
+        public bool WasLotted { get; set; }
+        public string PortInspectionId { get; set; }
+        public bool HasYardInspection { get; set; }
+
 
         public VehicleDTO() { }
 
@@ -37,7 +43,46 @@ namespace API.Services
         private VehicleDTO(Vehicle someVehicle) : this(someVehicle.Type, someVehicle.Brand,
             someVehicle.Model, someVehicle.Year, someVehicle.Color, someVehicle.VIN)
         {
-            CurrentStage = someVehicle.CurrentStage.ToString();
+            SetCurrentStageData(someVehicle);
+            WasLotted = someVehicle.IsLotted;
+            PortInspectionId = Utilities.IsNotNull(someVehicle.PortInspection) ?
+                someVehicle.PortInspection.Id.ToString() : null;
+            HasYardInspection = Utilities.IsNotNull(someVehicle.YardInspection);
+        }
+
+        private void SetCurrentStageData(Vehicle someVehicle)
+        {
+            switch (someVehicle.CurrentStage)
+            {
+                case ProcessStages.STUCK_IN_PROCESS:
+                    CurrentStage = "Trancado en el proceso";
+                    break;
+                case ProcessStages.PORT:
+                    CurrentStage = "Puerto";
+                    break;
+                case ProcessStages.TRANSPORT:
+                    CurrentStage = "Transporte";
+                    break;
+                case ProcessStages.YARD:
+                    string currentLocation = GetYardCurrentLocationToShow(someVehicle);
+                    CurrentStage = "Patio - Ubicación: \"" + currentLocation + "\"";
+                    break;
+                case ProcessStages.READY_FOR_SALE:
+                    CurrentStage = "Pronto para venta";
+                    break;
+                case ProcessStages.SOLD:
+                    CurrentStage = "Vendido";
+                    break;
+                default:
+                    CurrentStage = "Etapa desconocida";
+                    break;
+            }
+        }
+
+        private static string GetYardCurrentLocationToShow(Vehicle someVehicle)
+        {
+            var currentLocation = someVehicle.StagesData.YardCurrentLocation;
+            return Utilities.IsNotNull(currentLocation) ? currentLocation.ToString() : "Patio";
         }
 
         public static VehicleDTO FromData(VehicleType type, string brand, string model,

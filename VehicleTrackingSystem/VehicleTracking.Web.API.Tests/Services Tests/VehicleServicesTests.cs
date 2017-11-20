@@ -112,16 +112,16 @@ namespace Web.API.Services_tests
         }
         #endregion
 
-        #region GetRegisteredVehicles tests
+        #region GetRegisteredVehiclesFor tests
         [TestMethod]
-        public void VServicesGetRegisteredVehiclesWithDataTest()
+        public void VServicesGetRegisteredVehiclesForWithDataTest()
         {
             var someVehicles = GetCollectionOfFakeVehicles();
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(v => v.Vehicles.Elements).Returns(someVehicles)
+            mockUnitOfWork.Setup(v => v.Vehicles.GetRegisteredVehiclesIn(null)).Returns(someVehicles)
                 .Verifiable();
             var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
-            var result = vehicleServices.GetRegisteredVehicles().ToList();
+            var result = vehicleServices.GetRegisteredVehiclesFor(UserRoles.ADMINISTRATOR).ToList();
             mockUnitOfWork.Verify();
             CollectionAssert.AreEqual(GetCollectionOfFakeVehicleDTOs(), result);
         }
@@ -148,13 +148,14 @@ namespace Web.API.Services_tests
         }
 
         [TestMethod]
-        public void VServicesGetRegisteredVehiclesNoDataTest()
+        public void VServicesGetRegisteredVehiclesForNoDataTest()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(v => v.Vehicles.Elements).Returns(new List<Vehicle>());
+            mockUnitOfWork.Setup(v => v.Vehicles.GetRegisteredVehiclesIn(null))
+                .Returns(new List<Vehicle>());
             var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
             CollectionAssert.AreEqual(new List<VehicleDTO>(),
-                vehicleServices.GetRegisteredVehicles().ToList());
+                vehicleServices.GetRegisteredVehiclesFor(UserRoles.ADMINISTRATOR).ToList());
         }
         #endregion
 

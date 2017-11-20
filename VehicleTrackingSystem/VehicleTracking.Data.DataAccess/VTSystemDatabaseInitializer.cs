@@ -6,13 +6,17 @@ namespace VehicleTracking_Data_DataAccess
 {
     internal class VTSystemDatabaseInitializer : DropCreateDatabaseIfModelChanges<VTSystemContext>
     {
-        internal static readonly IReadOnlyCollection<Location> defaultSystemLocations =
+        internal static readonly IReadOnlyCollection<Location> defaultSystemPorts =
             new List<Location> {
                 Location.CreateNewLocation(LocationType.PORT, "Puerto de Montevideo"),
                 Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este"),
                 Location.CreateNewLocation(LocationType.PORT, "El puertito"),
                 Location.CreateNewLocation(LocationType.PORT, "Pearl Harbor"),
                 Location.CreateNewLocation(LocationType.PORT, "Puerto Ochenta Ochenta"),
+            }.AsReadOnly();
+
+        internal static readonly IReadOnlyCollection<Location> defaultSystemYards =
+            new List<Location> {
                 Location.CreateNewLocation(LocationType.YARD, "Patio para Inspecciones"),
                 Location.CreateNewLocation(LocationType.YARD, "El patiecito"),
                 Location.CreateNewLocation(LocationType.YARD, "Playa de estacionamiento"),
@@ -36,7 +40,8 @@ namespace VehicleTracking_Data_DataAccess
 
         private void AddDefaultLocationsToDatabase(VTSystemContext context)
         {
-            context.Locations.AddRange(defaultSystemLocations);
+            context.Locations.AddRange(defaultSystemPorts);
+            context.Locations.AddRange(defaultSystemYards);
         }
     }
 }
