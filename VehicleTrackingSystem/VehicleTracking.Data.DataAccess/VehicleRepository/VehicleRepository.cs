@@ -13,7 +13,21 @@ namespace VehicleTracking_Data_DataAccess
     {
         public VehicleRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<Vehicle> Elements => GetElementsWith("StagesData");
+        public IEnumerable<Vehicle> GetRegisteredVehiclesIn(ProcessStages?
+            stageToFilterBy = null)
+        {
+            if (stageToFilterBy.HasValue)
+            {
+                return GetElementsWith("StagesData.PortLot,StagesData.Inspections,StagesData." +
+                    "YardCurrentLocation.Container", v => v.StagesData.CurrentStage
+                    == stageToFilterBy);
+            }
+            else
+            {
+                return GetElementsWith("StagesData.PortLot,StagesData.Inspections,StagesData." +
+                    "YardCurrentLocation.Container");
+            }
+        }
 
         public void AddNewVehicle(Vehicle vehicleToAdd)
         {
@@ -34,7 +48,7 @@ namespace VehicleTracking_Data_DataAccess
         {
             return elements.Include("StagesData.PortLot").Include("StagesData.TransportData")
                 .Include("StagesData.Inspections").Include("StagesData.YardMovements")
-                .Include("StagesData.YardCurrentLocation")
+                .Include("StagesData.YardCurrentLocation.Container").Include("StagesData.SaleRecord")
                 .Single(v => v.VIN.Equals(vinToFind));
         }
 
@@ -46,11 +60,11 @@ namespace VehicleTracking_Data_DataAccess
         private Vehicle VehicleFullData(string vinToLookup)
         {
             return elements.Include("StagesData.PortLot.Creator").Include("StagesData.PortLot.Vehicles")
-                .Include("StagesData.Inspections.ResponsibleUser").Include("StagesData.Inspections.Damages")
+                .Include("StagesData.Inspections.Responsible").Include("StagesData.Inspections.Damages")
                 .Include("StagesData.Inspections.Location").Include("StagesData.TransportData.Transporter")
                 .Include("StagesData.TransportData.LotsTransported").Include("StagesData.YardMovements.Departure.Container")
-                .Include("StagesData.YardMovements.Arrival.Container").Include("StagesData.YardMovements.ResponsibleUser")
-                .Single(v => v.VIN.Equals(vinToLookup));
+                .Include("StagesData.YardMovements.Arrival.Container").Include("StagesData.YardMovements.Responsible")
+                .Include("StagesData.SaleRecord.Buyer").Single(v => v.VIN.Equals(vinToLookup));
         }
 
         public Vehicle AttemptToExecuteActionWithVIN(Func<string, Vehicle> actionToExecute,

@@ -140,7 +140,7 @@ namespace VehicleTracking_Data_Entities
         public ProcessStages CurrentStage
         {
             get { return StagesData.CurrentStage; }
-            internal set { StagesData.CurrentStage = value; }
+            set { StagesData.CurrentStage = value; }
         }
 
         public Lot PortLot

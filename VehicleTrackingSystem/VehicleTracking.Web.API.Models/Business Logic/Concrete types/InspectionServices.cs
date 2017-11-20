@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
 using VehicleTracking_Data_DataAccess;
 
@@ -21,7 +22,7 @@ namespace API.Services
             Inspections = Model.Inspections;
         }
 
-        public int AddNewPortInspectionFromData(string vehicleVIN, string currentUsername,
+        public string AddNewPortInspectionFromData(string vehicleVIN, string currentUsername,
             InspectionDTO inspectionDataToAdd)
         {
             ValidateNonNullDTO(inspectionDataToAdd);
@@ -29,11 +30,10 @@ namespace API.Services
             Inspection inspectionToAdd = CreateInspectionFromDTOData(vehicleToSet,
                 currentUsername, inspectionDataToAdd);
             vehicleToSet.PortInspection = inspectionToAdd;
-            return AddNewDataAndSaveChanges(inspectionDataToAdd, vehicleToSet,
-                inspectionToAdd);
+            return AddNewInspectionAndSaveChanges(vehicleToSet, inspectionToAdd);
         }
 
-        public int AddNewYardInspectionFromData(string vehicleVIN, string currentUsername,
+        public string AddNewYardInspectionFromData(string vehicleVIN, string currentUsername,
             InspectionDTO inspectionDataToAdd)
         {
             ValidateNonNullDTO(inspectionDataToAdd);
@@ -41,8 +41,7 @@ namespace API.Services
             Inspection inspectionToAdd = CreateInspectionFromDTOData(vehicleToSet, currentUsername,
                 inspectionDataToAdd);
             vehicleToSet.YardInspection = inspectionToAdd;
-            return AddNewDataAndSaveChanges(inspectionDataToAdd,
-                vehicleToSet, inspectionToAdd);
+            return AddNewInspectionAndSaveChanges(vehicleToSet, inspectionToAdd);
         }
 
         private Inspection CreateInspectionFromDTOData(Vehicle vehicleToSet,
@@ -55,16 +54,15 @@ namespace API.Services
             return inspectionToAdd;
         }
 
-        private int AddNewDataAndSaveChanges(InspectionDTO inspectionDataToAdd,
-            Vehicle vehicleToSet, Inspection inspectionToAdd)
+        private string AddNewInspectionAndSaveChanges(Vehicle vehicleToSet, Inspection inspectionToAdd)
         {
             Inspections.AddNewInspection(inspectionToAdd);
             Model.Vehicles.UpdateVehicle(vehicleToSet);
             Model.SaveChanges();
-            return inspectionDataToAdd.Id;
+            return inspectionToAdd.Id.ToString();
         }
 
-        public InspectionDTO GetInspectionWithId(int idToLookup)
+        public InspectionDTO GetInspectionWithId(Guid idToLookup)
         {
             Inspection inspectionFound = Inspections.GetInspectionWithId(idToLookup);
             return InspectionDTO.FromInspection(inspectionFound);

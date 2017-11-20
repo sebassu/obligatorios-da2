@@ -1,10 +1,11 @@
-﻿using VehicleTracking_Data_Entities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 namespace API.Services
 {
+    [Serializable]
     public class MovementDTOOut
     {
         public string ResponsibleUsername { get; set; }
@@ -33,7 +34,7 @@ namespace API.Services
             DepartureSubzone = Utilities.IsNull(departure) ? "Patio"
                 : departure.ToString();
             ArrivalSubzone = someMovement.Arrival.ToString();
-            ResponsibleUsername = someMovement.ResponsibleUser.Username;
+            ResponsibleUsername = someMovement.Responsible.Username;
         }
     }
 }

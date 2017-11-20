@@ -63,79 +63,13 @@ namespace Web.API.Controllers_tests
         }
         #endregion
 
-        #region GetRegisteredVehicles tests
-        [TestMethod]
-        public void VControllerGetRegisteredVehiclesWithDataValidTest()
-        {
-            var expectedVehicles = GetCollectionOfFakeVehicles();
-            VerifyMethodReturnsExpectedVehicles(expectedVehicles);
-        }
-
-        private IEnumerable<VehicleDTO> GetCollectionOfFakeVehicles()
-        {
-            return new List<VehicleDTO>
-            {
-                VehicleDTO.FromData(VehicleType.SUV, "Chevrolet", "Onix",
-                    2016, "Green", "QWERTYUIO12345678"),
-                VehicleDTO.FromData(VehicleType.MINI_VAN, "Renault",
-                    "Megane", 1996, "DarkGray", "AJSNDQ122345MANSD"),
-            }.AsReadOnly();
-        }
-
-        [TestMethod]
-        public void VControllerGetRegisteredVehiclesNoDataValidTest()
-        {
-            var expectedVehicles = new List<VehicleDTO>().AsReadOnly();
-            VerifyMethodReturnsExpectedVehicles(expectedVehicles);
-        }
-
-        private static void VerifyMethodReturnsExpectedVehicles(
-            IEnumerable<VehicleDTO> expectedVehicles)
-        {
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.GetRegisteredVehicles()).Returns(expectedVehicles);
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            IHttpActionResult obtainedResult = controller.GetRegisteredVehicles();
-            var contentResult = obtainedResult as
-                OkNegotiatedContentResult<IEnumerable<VehicleDTO>>;
-            mockVehicleServices.VerifyAll();
-            Assert.IsNotNull(contentResult);
-            Assert.IsNotNull(contentResult.Content);
-            CollectionAssert.AreEqual(expectedVehicles.ToList(),
-                contentResult.Content.ToList());
-        }
-
-        [TestMethod]
-        public void VControllerGetRegisteredVehiclesNullResponseInvalidTest()
-        {
-            IEnumerable<VehicleDTO> unexpectedVehicles = null;
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.GetRegisteredVehicles()).Returns(unexpectedVehicles);
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            IHttpActionResult obtainedResult = controller.GetRegisteredVehicles();
-            mockVehicleServices.VerifyAll();
-            Assert.IsNotNull(obtainedResult);
-            Assert.IsInstanceOfType(obtainedResult, typeof(NotFoundResult));
-        }
-
-        [TestMethod]
-        public void VControllerGetRegisteredVehiclesUnexpectedErrorInvalidTest()
-        {
-            SystemException expectedException = new SystemException();
-            var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.GetRegisteredVehicles()).Throws(expectedException);
-            var controller = new VehiclesController(mockVehicleServices.Object);
-            ControllerTestsUtilities.VerifyMethodReturnsServerErrorResponse(delegate { return controller.GetRegisteredVehicles(); },
-                mockVehicleServices, expectedException);
-        }
-        #endregion
-
         #region GetVehicleWithVIN tests
         [TestMethod]
         public void VContollerGetVehicleWithVINValidTest()
         {
             var mockVehicleServices = new Mock<IVehicleServices>();
-            mockVehicleServices.Setup(v => v.GetVehicleWithVIN("REGISTEREDVIN1245")).Returns(fakeVehicleData);
+            mockVehicleServices.Setup(v => v.GetVehicleWithVIN("REGISTEREDVIN1245"))
+                .Returns(fakeVehicleData);
             var controller = new VehiclesController(mockVehicleServices.Object);
             IHttpActionResult obtainedResult = controller.GetVehicleWithVIN("REGISTEREDVIN1245");
             var result = obtainedResult as OkNegotiatedContentResult<VehicleDTO>;

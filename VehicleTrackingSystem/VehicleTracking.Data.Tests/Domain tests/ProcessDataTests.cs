@@ -260,7 +260,7 @@ namespace Data.Domain_tests
             testingData.RegisterYardInspection(yardInspectionToSet);
             var result = testingData.RegisterNewMovementToSubzone(movementValidResponsible,
                dateTimeToSet, firstDestination);
-            Assert.AreSame(movementValidResponsible, result.ResponsibleUser);
+            Assert.AreSame(movementValidResponsible, result.Responsible);
             Assert.AreEqual(dateTimeToSet, result.DateTime);
             Assert.IsNull(result.Departure);
             Assert.AreSame(firstDestination, result.Arrival);

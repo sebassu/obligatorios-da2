@@ -1,0 +1,33 @@
+<div class="header">
+    <br><br>
+    <h2 class="contentsTitle">Registro de transporte</h2>
+</div>
+<div [hidden]="!availableLots.length" id="contentsContainer">
+    <br><br>
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th>Agregar a transporte:</th>
+                <th>Nombre:</th>
+                <th>Descripción:</th>
+                <th>Creador:</th>
+                <th>Vehículos:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let aLot of availableLots'>
+                <td> <input type="checkbox" class="checkbox" name="vehicle" (change)="addOrRemoveLot(aLot.name)" /></td>
+                <td>{{aLot.name}}</td>
+                <td>{{aLot.description}}</td>
+                <td>{{aLot.creatorUsername}}</td>
+                <td>{{aLot.vehicleVINs}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <button type="button" class="btn btn-lg btn-success changeBtn" (click)='beginTransport()' id="beginTransportBtn">Iniciar transporte</button>
+</div>
+<div [hidden]="availableLots.length" id="noContentsContainer">
+    <br><br><br><br><br>
+    <h3>Sin datos a mostrar: no existen lotes transportables.</h3>
+</div>

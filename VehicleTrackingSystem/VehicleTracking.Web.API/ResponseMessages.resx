@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidUserRole" xml:space="preserve">
+    <value>Rol de usuario desconocido detectado.</value>
+  </data>
   <data name="SuccessfulModification" xml:space="preserve">
     <value>Modificación del elemento realizada exitosamente.</value>
   </data>
@@ -125,5 +128,8 @@
   </data>
   <data name="VehicleRemovalIsUnsupported" xml:space="preserve">
     <value>Actualmente no se permite eliminar vehículos del sistema.</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>La contraseña ingresada es incorrecta.</value>
   </data>
 </root>

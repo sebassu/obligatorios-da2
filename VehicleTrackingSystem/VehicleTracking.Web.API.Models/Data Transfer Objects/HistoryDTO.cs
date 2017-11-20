@@ -1,8 +1,10 @@
-﻿using VehicleTracking_Data_Entities;
+﻿using System;
+using VehicleTracking_Data_Entities;
 using System.Collections.Generic;
 
 namespace API.Services
 {
+    [Serializable]
     public class HistoryDTO
     {
         public LotDTO LotData { get; private set; }

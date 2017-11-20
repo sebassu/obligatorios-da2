@@ -49,6 +49,16 @@ namespace VehicleTracking_ConcreteImportingStrategies
             return new ImportingException(errorMessage);
         }
 
+        private IEnumerable<Vehicle> VehiclesToReturnFromFile(string pathOfXMLFile)
+        {
+            var vehicles = GetVehicleEnumerationFromFile(pathOfXMLFile);
+            foreach (var vehicle in vehicles)
+            {
+                vehicle.StagesData = new ProcessData();
+            }
+            return vehicles;
+        }
+
         protected abstract IEnumerable<Vehicle> GetVehicleEnumerationFromFile(string filePath);
     }
 }

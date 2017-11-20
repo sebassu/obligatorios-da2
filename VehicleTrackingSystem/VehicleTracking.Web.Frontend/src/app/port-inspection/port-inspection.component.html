@@ -1,0 +1,71 @@
+<div class="header">
+    <br><br>
+    <h2 class="contentsTitle">Registro de Inspección de Puerto</h2>
+</div>
+<div class="container">
+    <div [hidden]="vehicles.length == 0 || portNames.length == 0" id="contentsContainer">
+        <div class="row">
+            <form class="form-horizontal col-lg-10" (ngSubmit)="registerPortInspection()" #inspectionForm="ngForm" name="inspectionForm" role="form" id="inspectionForm">
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="vehicleSelect">Vehículo:</label>
+                    <div class="col-lg-7">
+                        <select class="form-control" [(ngModel)]="selectedVehicle" required name="vehicleSelect" id="vehicleSelect">
+                          <option *ngFor='let aVehicle of vehicles'>{{aVehicle.vin}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="locationSelect">Ubicación:</label>
+                    <div class="col-lg-7">
+                        <select class="form-control" [(ngModel)]="selectedLocation" required name="locationSelect" id="locationSelect">
+                          <option *ngFor='let aName of portNames'>{{aName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div><br>
+        <h3 id="addDamage">Agregar daño:</h3><br>
+        <form class="form-inline" #damageForm="ngForm" (ngSubmit)="attemptToAddDamage()" name="damageForm">
+            <div class="form-group">
+                <label for="descriptionTxt">Descripción:</label>
+                <input type="text" required class="form-control damageInput" pattern=".*[a-zA-Z].*$" id="descriptionTxt" [(ngModel)]="damageDescription" name="description">
+            </div>
+            <div class="form-group">
+                <label for="imageFileChooser">Imágenes:</label>
+                <input type="file" name="pic" required accept="image/*" multiple (change)="getFiles($event)" class="form-control damageInput" id="imageFileChooser">
+            </div>
+            <button type="submit" [disabled]="damageForm.invalid" class="btn btn-default btn-danger" name="addDamage" id="addDamage">Agregar daño</button>
+            <div class="row">
+                <br>
+            </div>
+            <div class="row" id="damagesContainer">
+                <table [hidden]="!damages.length" class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th id="descriptionColumn">Descripción:</th>
+                            <th>Imágenes:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let damage of damages'>
+                            <td class="descriptionCell">{{damage.description}}</td>
+                            <td>
+                                <img class="img-thumbnail" *ngFor='let image of damage.images' [src]="_DomSanitizer.bypassSecurityTrustUrl(image)" width="250" height="auto" alt="Evidencia de daño.">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span [hidden]="damages.length">
+              <br><br>
+              <h4>Inspección sin daños.</h4>
+            </span>
+            </div><br>
+            <button type="reset" class="btn btn-lg btn-primary changeBtn" (click)='clearDamages()'>Reestablecer</button>
+            <button type="submit" form="inspectionForm" [disabled]="inspectionForm.invalid" class="btn btn-lg btn-success changeBtn" id="registerInspection">Confirmar</button>
+        </form>
+    </div>
+    <div [hidden]="vehicles.length > 0 && portNames.length > 0" id="noContentsContainer">
+        <br><br><br><br><br>
+        <h3>No existen vehículos inspeccionables.</h3>
+    </div>
+</div>

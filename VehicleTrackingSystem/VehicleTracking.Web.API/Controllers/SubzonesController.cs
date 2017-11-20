@@ -48,15 +48,8 @@ namespace Web.API.Controllers
 
         private IHttpActionResult AttemptToGetRegisteredSubzones()
         {
-            IEnumerable<SubzoneDTO> users = Model.GetRegisteredSubzones();
-            if (Utilities.IsNotNull(users))
-            {
-                return Ok(users);
-            }
-            else
-            {
-                return NotFound();
-            }
+            IEnumerable<SubzoneDTO> subzones = Model.GetRegisteredSubzones();
+            return Ok(subzones);
         }
 
         [HttpGet]
