@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { LoginService } from './login-service';
+import { LoginService } from '../services/login-service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';

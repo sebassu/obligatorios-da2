@@ -21,12 +21,12 @@
                         <span class="glyphicon glyphicon-menu-right"></span> Ver vehículos registrados
                     </a>
                 </li>
-                <li>
+                <li [class.hidden]="userHasNoPortPrivileges">
                     <a routerLink="/app/registerPortInspection">
                         <span class="glyphicon glyphicon-menu-right"></span> Registrar inspeccion de puerto
                     </a>
                 </li>
-                <li id="dropdown">
+                <li [class.hidden]="userHasNoLotVisualizationPrivileges" id="dropdown">
                     <a data-toggle="collapse" href="#dropdown-lotes" class="collapsed">
                         <span class="glyphicon glyphicon-menu-right"></span> Lotes
                         <span class="caret"></span>
@@ -34,17 +34,17 @@
                     <div id="dropdown-lotes" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li>
+                                <li [class.hidden]="userHasNoLotVisualizationPrivileges">
                                     <a class="secondLevel" routerLink="/app/lots">Ver lotes</a>
                                 </li>
-                                <li>
+                                <li [class.hidden]="userHasNoPortPrivileges">
                                     <a class="secondLevel" routerLink="/app/registerLot">Registrar nuevo lote</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li id="dropdown">
+                <li [class.hidden]="userHasNoTransportPrivileges" id="dropdown">
                     <a data-toggle="collapse" href="#dropdown-transportes" class="collapsed">
                         <span class="glyphicon glyphicon-menu-right"></span> Transportes
                         <span class="caret"></span>
@@ -62,17 +62,17 @@
                         </div>
                     </div>
                 </li>
-                <li>
+                <li [class.hidden]="userHasNoYardPrivileges">
                     <a routerLink="/app/registerYardInspection">
                         <span class="glyphicon glyphicon-menu-right"></span> Registrar inspección de patio
                     </a>
                 </li>
-                <li>
-                    <a routerLink="/app/movements">
+                <li [class.hidden]="userHasNoYardPrivileges">
+                    <a routerLink="/app/registerMovement">
                         <span class="glyphicon glyphicon-menu-right"></span> Registrar movimiento
                     </a>
                 </li>
-                <li>
+                <li [class.hidden]="userHasNoSalePrivileges">
                     <a routerLink="#">
                         <span class="glyphicon glyphicon-menu-right"></span> Registrar venta
                     </a>

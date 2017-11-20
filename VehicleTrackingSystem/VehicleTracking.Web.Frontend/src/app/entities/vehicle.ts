@@ -1,3 +1,5 @@
+import { environment } from "../../environments/environment.prod";
+
 export class Vehicle {
 
     vin: string;
@@ -23,15 +25,15 @@ export class Vehicle {
     }
 
     private setVehicleType(typeToSet: string): void {
-        if (typeToSet == "0") {
+        if (typeToSet == environment.CAR_TYPE) {
             this.type = "Automóvil";
-        } else if (typeToSet == "1") {
+        } else if (typeToSet == environment.TRUCK_TYPE) {
             this.type = "Camión";
-        } else if (typeToSet == "2") {
+        } else if (typeToSet == environment.SUV_TYPE) {
             this.type = "SUV";
-        } else if (typeToSet == "3") {
+        } else if (typeToSet == environment.VAN_TYPE) {
             this.type = "Camioneta";
-        } else if (typeToSet == "4") {
+        } else if (typeToSet == environment.MINI_VAN_TYPE) {
             this.type = "Mini-van";
         } else {
             this.type = "Tipo desconocido";

@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
-import { RequestOptions, Request, RequestMethod } from '@angular/http';
+import { RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/map';
-import { LoginComponent } from './login.component';
+import { LoginComponent } from '../login/login.component';
 
 @Injectable()
 export class LoginService {
@@ -19,13 +18,13 @@ export class LoginService {
         component.success = true;
         setTimeout(() => {
             this._router.navigateByUrl('/app');
-        }, 2000);
+        }, 1500);
     }
 
     private processLogin(username: string, response: Response, component: LoginComponent) {
         let responseData = response.json();
-        sessionStorage.setItem("loggedUsername", username);
-        sessionStorage.setItem("loggedUserRole", responseData["role"]);
+        sessionStorage.setItem("username", username);
+        sessionStorage.setItem("role", responseData["role"]);
         sessionStorage.setItem("token", responseData["access_token"]);
         this.successfulLogin(component);
     }
