@@ -34,7 +34,7 @@ namespace Web.API.Controllers
                     var additionId = Model.AddNewPortInspectionFromData(vehicleVIN,
                         currentUsername, inspectionDataToAdd);
                     inspectionDataToAdd.VehicleVIN = vehicleVIN;
-                    inspectionDataToAdd.ResponsibleUsername = currentUsername;
+                    inspectionDataToAdd.ResponsiblesUsername = currentUsername;
                     return CreatedAtRoute("RegisterPortInspectionToVehicle",
                         new { id = additionId }, inspectionDataToAdd);
                 });
@@ -53,7 +53,7 @@ namespace Web.API.Controllers
                     var additionId = Model.AddNewYardInspectionFromData(vehicleVIN,
                         currentUsername, inspectionDataToAdd);
                     inspectionDataToAdd.VehicleVIN = vehicleVIN;
-                    inspectionDataToAdd.ResponsibleUsername = currentUsername;
+                    inspectionDataToAdd.ResponsiblesUsername = currentUsername;
                     return CreatedAtRoute("RegisterYardInspectionToVehicle",
                         new { id = additionId }, inspectionDataToAdd);
                 });
@@ -63,13 +63,12 @@ namespace Web.API.Controllers
         [Route("api/Inspections")]
         public IHttpActionResult GetRegisteredInspections()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredInspections);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredInspections()
-        {
-            IEnumerable<InspectionDTO> inspections = Model.GetRegisteredInspections();
-            return Ok(inspections);
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    IEnumerable<InspectionDTO> inspections = Model.GetRegisteredInspections();
+                    return Ok(inspections);
+                });
         }
 
         [HttpGet]

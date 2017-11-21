@@ -42,13 +42,12 @@ namespace Web.API.Controllers
         [HttpGet]
         public IHttpActionResult GetRegisteredTransports()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredTransports);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredTransports()
-        {
-            IEnumerable<TransportDTO> transports = Model.GetRegisteredTransports();
-            return Ok(transports);
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    IEnumerable<TransportDTO> transports = Model.GetRegisteredTransports();
+                    return Ok(transports);
+                });
         }
 
         [HttpPut]

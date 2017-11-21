@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace VehicleTracking.UI.WinApp
 {
-    public partial class VehicleTrackingUI : Form
+    public partial class VehicleTrackingForm : Form
     {
-        public VehicleTrackingUI()
+        public VehicleTrackingForm()
         {
             InitializeComponent();
             ShowLogin();
@@ -16,7 +16,7 @@ namespace VehicleTracking.UI.WinApp
         private void ShowLogin()
         {
             cardPanel.Controls.Clear();
-            cardPanel.Controls.Add(new Login(cardPanel, buttonsPanel));
+            cardPanel.Controls.Add(new Login(cardPanel, buttonsPanel, logoutPanel));
         }
 
         private void ShowButtons()

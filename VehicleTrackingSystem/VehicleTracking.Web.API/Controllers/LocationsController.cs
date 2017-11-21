@@ -1,6 +1,5 @@
 ﻿using API.Services;
 using System.Web.Http;
-using System.Collections.Generic;
 
 namespace Web.API.Controllers
 {
@@ -24,26 +23,24 @@ namespace Web.API.Controllers
         [Route("Ports")]
         public IHttpActionResult GetRegisteredPorts()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredPorts);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredPorts()
-        {
-            var ports = Model.GetRegisteredPorts();
-            return Ok(ports);
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    var ports = Model.GetRegisteredPorts();
+                    return Ok(ports);
+                });
         }
 
         [HttpGet]
         [Route("Yards")]
         public IHttpActionResult GetRegisteredYards()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredYards);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredYards()
-        {
-            var yards = Model.GetRegisteredYards();
-            return Ok(yards);
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    var yards = Model.GetRegisteredYards();
+                    return Ok(yards);
+                });
         }
     }
 }

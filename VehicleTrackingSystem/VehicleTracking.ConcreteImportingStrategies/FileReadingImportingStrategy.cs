@@ -20,7 +20,9 @@ namespace VehicleTracking_ConcreteImportingStrategies
             try
             {
                 var pathOfXMLFile = parameters[pathParameterName] as string;
-                return VehiclesToReturnFromFile(pathOfXMLFile);
+                IEnumerable<Vehicle> vehicles = GetVehicleEnumerationFromFile(pathOfXMLFile);
+                SetStageData(vehicles);
+                return vehicles;
             }
             catch (NullReferenceException)
             {
@@ -29,6 +31,14 @@ namespace VehicleTracking_ConcreteImportingStrategies
             catch (KeyNotFoundException)
             {
                 throw ErrorOnParameterInput();
+            }
+        }
+
+        private void SetStageData(IEnumerable<Vehicle> vehicles)
+        {
+            foreach(var vehicle in vehicles)
+            {
+                vehicle.StagesData = new ProcessData();
             }
         }
 

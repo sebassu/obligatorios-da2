@@ -10,30 +10,24 @@ namespace API.Services
 
         public static bool LogIn(string username, string password)
         {
-            if (username.Trim() != "" && password.Trim() != "")
+            bool recievedEmptyField = string.IsNullOrWhiteSpace(username)
+                || string.IsNullOrWhiteSpace(password);
+            if (recievedEmptyField)
             {
-                return AttemptToLogIn(username, password);
+                throw new ServiceException(ErrorMessages.NotEmptyValues);
             }
             else
             {
-                throw new ServiceException(ErrorMessages.NotEmptyValues);
+                return AttemptToLogIn(username, password);
             }
         }
 
         private static bool AttemptToLogIn(string username, string password)
         {
-            User actualUser = GetUser(username);
+            User actualUser = GetUserWithUsername(username);
             if (ValidPassword(password, actualUser))
             {
-                if (ValidateRole(actualUser))
-                {
-                    LoggedUser = actualUser;
-                    return true;
-                }
-                else
-                {
-                    throw new ServiceException(ErrorMessages.WrongUserRole);
-                }
+                return LogInUserIfAdministrator(actualUser);
             }
             else
             {
@@ -41,7 +35,21 @@ namespace API.Services
             }
         }
 
-        private static User GetUser(string username)
+        private static bool LogInUserIfAdministrator(User someUser)
+        {
+            bool isAdministrator = someUser.Role.Equals(UserRoles.ADMINISTRATOR);
+            if (isAdministrator)
+            {
+                LoggedUser = someUser;
+                return true;
+            }
+            else
+            {
+                throw new ServiceException(ErrorMessages.WrongUserRole);
+            }
+        }
+
+        private static User GetUserWithUsername(string username)
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork())
             {
@@ -50,16 +58,9 @@ namespace API.Services
             }
         }
 
-        private static bool ValidPassword (string password, User actualUser)
+        private static bool ValidPassword(string password, User actualUser)
         {
             return actualUser.Password.Equals(password);
         }
-
-        private static bool ValidateRole(User actualUser)
-        {
-            return actualUser.Role.Equals(UserRoles.ADMINISTRATOR);
-        }
     }
 }
-    
-

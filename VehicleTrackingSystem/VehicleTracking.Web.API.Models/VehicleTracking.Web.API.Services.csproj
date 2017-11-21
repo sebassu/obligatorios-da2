@@ -45,6 +45,7 @@
     <Compile Include="Business Logic\Concrete types\InspectionServices.cs" />
     <Compile Include="Business Logic\Concrete types\LocationServices.cs" />
     <Compile Include="Business Logic\Concrete types\LotServices.cs" />
+    <Compile Include="Business Logic\Concrete types\SaleServices.cs" />
     <Compile Include="Business Logic\Concrete types\SessionServices.cs" />
     <Compile Include="Business Logic\Concrete types\SubzoneServices.cs" />
     <Compile Include="Business Logic\Concrete types\TransportServices.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Business Logic\Interfaces\IInspectionServices.cs" />
     <Compile Include="Business Logic\Interfaces\ILocationServices.cs" />
     <Compile Include="Business Logic\Interfaces\ILotServices.cs" />
+    <Compile Include="Business Logic\Interfaces\ISaleServices.cs" />
     <Compile Include="Business Logic\Interfaces\ITransportServices.cs" />
     <Compile Include="Business Logic\Interfaces\IZoneServices.cs" />
     <Compile Include="Business Logic\Interfaces\IUserServices.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="Data Transfer Objects\LotDTO.cs" />
     <Compile Include="Data Transfer Objects\MovementDTOIn.cs" />
     <Compile Include="Data Transfer Objects\MovementDTOOut.cs" />
+    <Compile Include="Data Transfer Objects\SaleDTO.cs" />
     <Compile Include="Data Transfer Objects\SubzoneDTO.cs" />
     <Compile Include="Data Transfer Objects\TransportDTO.cs" />
     <Compile Include="Data Transfer Objects\UserDTO.cs" />

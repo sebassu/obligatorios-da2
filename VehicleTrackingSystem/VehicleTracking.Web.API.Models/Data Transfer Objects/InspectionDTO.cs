@@ -16,7 +16,7 @@ namespace API.Services
         [Required]
         public string LocationName { get; set; }
 
-        public string ResponsibleUsername { get; set; }
+        public string ResponsiblesUsername { get; set; }
 
         [Required]
         public DateTime DateTime { get; set; }
@@ -54,7 +54,7 @@ namespace API.Services
             Id = idToSet.ToString();
             VehicleVIN = vinToSet;
             LocationName = locationNameToSet;
-            ResponsibleUsername = usernameToSet;
+            ResponsiblesUsername = usernameToSet;
             DateTime = dateTimeToSet;
         }
 
