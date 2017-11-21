@@ -32,7 +32,7 @@ namespace Web.API.Controllers
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    int databaseId = Model.AddNewVehicleFromData(vehicleDataToAdd);
+                    var databaseId = Model.AddNewVehicleFromData(vehicleDataToAdd);
                     return CreatedAtRoute("VTSystemAPI", new { id = databaseId },
                         vehicleDataToAdd);
                 });
@@ -96,7 +96,7 @@ namespace Web.API.Controllers
         [HttpPost]
         [Route("{vinToModify}/Movements", Name = "AddMovementToVehicle")]
         public IHttpActionResult AddMovementToVehicleWith(string vinToModify,
-            MovementDTOIn movementData)
+            [FromBody]MovementDTOIn movementData)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate

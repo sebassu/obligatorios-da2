@@ -132,6 +132,7 @@
     <Compile Include="Controllers\InspectionsController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\LotsController.cs" />
+    <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\SubzonesController.cs" />
     <Compile Include="Controllers\TransportsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />

@@ -15,6 +15,12 @@ namespace API.Services
             Locations = Model.Locations;
         }
 
+        public LocationServices(IUnitOfWork someUnitOfWork)
+        {
+            Model = someUnitOfWork;
+            Locations = someUnitOfWork.Locations;
+        }
+
         public IEnumerable<string> GetRegisteredPorts()
         {
             return Locations.Ports.Select(p => p.Name);

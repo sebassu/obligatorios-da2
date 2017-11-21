@@ -39,13 +39,12 @@ namespace Web.API.Controllers
         [AuthorizeRoles(UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR)]
         public IHttpActionResult GetRegisteredZones()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredZones);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredZones()
-        {
-            IEnumerable<ZoneDTO> zones = Model.GetRegisteredZones();
-            return Ok(zones);
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    IEnumerable<ZoneDTO> zones = Model.GetRegisteredZones();
+                    return Ok(zones);
+                });
         }
 
         [HttpGet]

@@ -32,6 +32,7 @@ namespace VehicleTracking_Data_DataAccess
         public void AddNewVehicle(Vehicle vehicleToAdd)
         {
             Add(vehicleToAdd);
+            context.ProcessDatas.Add(vehicleToAdd.StagesData);
         }
 
         public bool ExistsVehicleWithVIN(string VINToLookup)

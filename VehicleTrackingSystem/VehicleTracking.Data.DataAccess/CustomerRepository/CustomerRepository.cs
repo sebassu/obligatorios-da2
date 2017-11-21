@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Globalization;
 using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
 
@@ -17,12 +19,20 @@ namespace VehicleTracking_Data_DataAccess
             Add(customerToAdd);
         }
 
-        public Customer IfExistsGetCustomerWithData(string nameToFind,
+        public Customer GetCustomerWithData(string nameToFind,
             string phoneNumberToFind)
         {
-            return context.Customers.SingleOrDefault(c
-                => c.Name.Equals(nameToFind) &&
-                c.PhoneNumber.Equals(phoneNumberToFind));
+            try
+            {
+                return context.Customers.Single(c => c.Name.Equals(nameToFind)
+                && c.PhoneNumber.Equals(phoneNumberToFind));
+            }
+            catch (InvalidOperationException)
+            {
+                string errorMessage = string.Format(CultureInfo.CurrentCulture,
+                    ErrorMessages.CouldNotFindField, "cliente de nombre", nameToFind);
+                throw new RepositoryException(errorMessage);
+            }
         }
     }
 }
