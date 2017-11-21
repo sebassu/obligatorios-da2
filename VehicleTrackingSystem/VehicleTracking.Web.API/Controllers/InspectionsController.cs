@@ -34,7 +34,7 @@ namespace Web.API.Controllers
                     var additionId = Model.AddNewPortInspectionFromData(vehicleVIN,
                         currentUsername, inspectionDataToAdd);
                     inspectionDataToAdd.VehicleVIN = vehicleVIN;
-                    inspectionDataToAdd.ResponsibleUsername = currentUsername;
+                    inspectionDataToAdd.ResponsiblesUsername = currentUsername;
                     return CreatedAtRoute("RegisterPortInspectionToVehicle",
                         new { id = additionId }, inspectionDataToAdd);
                 });
@@ -53,7 +53,7 @@ namespace Web.API.Controllers
                     var additionId = Model.AddNewYardInspectionFromData(vehicleVIN,
                         currentUsername, inspectionDataToAdd);
                     inspectionDataToAdd.VehicleVIN = vehicleVIN;
-                    inspectionDataToAdd.ResponsibleUsername = currentUsername;
+                    inspectionDataToAdd.ResponsiblesUsername = currentUsername;
                     return CreatedAtRoute("RegisterYardInspectionToVehicle",
                         new { id = additionId }, inspectionDataToAdd);
                 });

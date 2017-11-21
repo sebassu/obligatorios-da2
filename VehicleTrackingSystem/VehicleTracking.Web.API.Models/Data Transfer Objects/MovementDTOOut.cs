@@ -8,7 +8,7 @@ namespace API.Services
     [Serializable]
     public class MovementDTOOut
     {
-        public string ResponsibleUsername { get; set; }
+        public string ResponsiblesUsername { get; set; }
 
         public string DepartureSubzone { get; set; }
 
@@ -34,7 +34,7 @@ namespace API.Services
             DepartureSubzone = Utilities.IsNull(departure) ? "Patio"
                 : departure.ToString();
             ArrivalSubzone = someMovement.Arrival.ToString();
-            ResponsibleUsername = someMovement.Responsible.Username;
+            ResponsiblesUsername = someMovement.Responsible.Username;
         }
     }
 }
