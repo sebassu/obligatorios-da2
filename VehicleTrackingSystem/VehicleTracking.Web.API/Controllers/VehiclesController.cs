@@ -96,7 +96,7 @@ namespace Web.API.Controllers
         [HttpPost]
         [Route("{vinToModify}/Movements", Name = "AddMovementToVehicle")]
         public IHttpActionResult AddMovementToVehicleWith(string vinToModify,
-            MovementDTOIn movementData)
+            [FromBody]MovementDTOIn movementData)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate

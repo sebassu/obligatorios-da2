@@ -1,7 +1,7 @@
-﻿using VehicleTracking_Data_Entities;
-using API.Services;
+﻿using API.Services;
 using System.Web.Http;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 namespace Web.API.Controllers
 {
@@ -41,13 +41,12 @@ namespace Web.API.Controllers
         [HttpGet]
         public IHttpActionResult GetRegisteredLots()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredLots);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredLots()
-        {
-            IEnumerable<LotDTO> lots = Model.GetRegisteredLots();
-            return Ok(lots);
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    IEnumerable<LotDTO> lots = Model.GetRegisteredLots();
+                    return Ok(lots);
+                });
         }
 
         [HttpGet]

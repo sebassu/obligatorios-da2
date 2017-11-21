@@ -63,13 +63,12 @@ namespace Web.API.Controllers
         [Route("api/Inspections")]
         public IHttpActionResult GetRegisteredInspections()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredInspections);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredInspections()
-        {
-            IEnumerable<InspectionDTO> inspections = Model.GetRegisteredInspections();
-            return Ok(inspections);
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    IEnumerable<InspectionDTO> inspections = Model.GetRegisteredInspections();
+                    return Ok(inspections);
+                });
         }
 
         [HttpGet]
