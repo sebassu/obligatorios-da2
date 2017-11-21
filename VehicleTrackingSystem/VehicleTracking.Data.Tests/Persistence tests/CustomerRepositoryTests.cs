@@ -65,25 +65,26 @@ namespace Data.Persistence_tests
         [TestMethod]
         public void CRepositoryIfExistsGetCustomerWithDataReturnsElementTest()
         {
-            var result = testingCustomerRepository.IfExistsGetCustomerWithData(testingCustomer.Name,
+            var result = testingCustomerRepository.GetCustomerWithData(testingCustomer.Name,
                 testingCustomer.PhoneNumber);
             Assert.AreEqual(testingCustomer, result);
         }
 
         [TestMethod]
-        public void CRepositoryIfExistsGetCustomerWithDataDifferentNamesReturnsNullTest()
+        [ExpectedException(typeof(RepositoryException))]
+        public void CRepositoryGetCustomerWithDataDifferentNamesInvalidTest()
         {
-            var result = testingCustomerRepository.IfExistsGetCustomerWithData("Wololo",
+            var result = testingCustomerRepository.GetCustomerWithData("Wololo",
                 testingCustomer.PhoneNumber);
             Assert.IsNull(result);
         }
 
         [TestMethod]
-        public void CRepositoryIfExistsGetCustomerWithDataDifferentPhoneNumbersReturnsNullTest()
+        [ExpectedException(typeof(RepositoryException))]
+        public void CRepositoryGetCustomerWithDataDifferentPhoneNumbersInvalidTest()
         {
-            var result = testingCustomerRepository.IfExistsGetCustomerWithData(testingCustomer.Name,
+            var result = testingCustomerRepository.GetCustomerWithData(testingCustomer.Name,
                 null);
-            Assert.IsNull(result);
         }
         #endregion
 

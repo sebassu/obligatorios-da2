@@ -8,7 +8,7 @@ namespace VehicleTracking_ConcreteImportingStrategies
 {
     public abstract class FileReadingImportingStrategy : IImportingStrategy
     {
-        private const string pathParameterName = "Ubicacióndelarchivo";
+        private const string pathParameterName = "Ubicación del archivo";
 
         public Dictionary<string, Type> RequiredParameters =>
             new Dictionary<string, Type>() {
@@ -36,9 +36,9 @@ namespace VehicleTracking_ConcreteImportingStrategies
 
         private void SetStageData(IEnumerable<Vehicle> vehicles)
         {
-            foreach(Vehicle v in vehicles)
+            foreach(var vehicle in vehicles)
             {
-                v.StagesData = new ProcessData();
+                vehicle.StagesData = new ProcessData();
             }
         }
 

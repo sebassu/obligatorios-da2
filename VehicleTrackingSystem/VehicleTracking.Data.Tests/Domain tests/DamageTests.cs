@@ -22,9 +22,9 @@ namespace Data.Domain_tests
         public static void ClassSetup(TestContext context)
         {
             ImageConverter converter = new ImageConverter();
-            var image1Data = GetImageDataFromFileWithName("TestImage1.jpg",
+            var image1Data = "data:image/jpeg;base64," + GetImageDataFromFileWithName("TestImage1.jpg",
                 converter);
-            var image2Data = GetImageDataFromFileWithName("TestImage2.jpg",
+            var image2Data = "data:image/jpeg;base64," + GetImageDataFromFileWithName("TestImage2.jpg",
                 converter);
             imagesDataToAdd = new List<string> { image1Data, image2Data };
         }

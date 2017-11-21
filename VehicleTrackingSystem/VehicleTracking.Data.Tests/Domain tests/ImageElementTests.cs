@@ -71,7 +71,8 @@ namespace Data.Domain_tests
         [TestMethod]
         public void ImageElementFromImageDataValidTest()
         {
-            var imageDataToSet = Convert.ToBase64String(testImageBinaryData);
+            var imageDataToSet = "data:image/jpeg;base64," +
+                Convert.ToBase64String(testImageBinaryData);
             testingImageElement = ImageElement.FromImageData(imageDataToSet);
             CollectionAssert.AreEqual(testImageBinaryData,
                 testingImageElement.ImageData);
@@ -102,9 +103,11 @@ namespace Data.Domain_tests
         [TestMethod]
         public void ImageElementStringifiedImageValidTest()
         {
-            var imageDataToSet = Convert.ToBase64String(testImageBinaryData);
+            var imageDataToSet = "data:image/jpeg;base64," +
+                Convert.ToBase64String(testImageBinaryData);
             testingImageElement = ImageElement.FromImageData(imageDataToSet);
-            Assert.AreEqual(imageDataToSet, testingImageElement.StringifiedImage);
+            Assert.AreEqual(imageDataToSet,
+                testingImageElement.StringifiedImage);
         }
     }
 }

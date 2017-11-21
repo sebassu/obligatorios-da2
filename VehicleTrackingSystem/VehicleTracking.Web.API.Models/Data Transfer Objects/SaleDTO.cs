@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using VehicleTracking_Data_Entities;
 
-namespace API.Services.Data_Transfer_Objects
+namespace API.Services
 {
     public class SaleDTO
     {

@@ -22,7 +22,7 @@ namespace Data.Strategies_tests
                 Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1981, "Red", "RUSH2112MVNGPICRS"),
                 Vehicle.CreateNewVehicle(VehicleType.CAR, "Renault",
-                "Kangoo", 2001, "Gris claro", "ASNDJFU1258741SMD")
+                "Kangoo", 2001, "Gris claro", "ASNDJFU1258741SMB")
             }.AsReadOnly();
 
         [ClassInitialize]
@@ -47,6 +47,7 @@ namespace Data.Strategies_tests
         {
             var obtainedResult =
                 RunTestForFileWithName("VehicleXMLImportingTestFile.xml");
+            Console.WriteLine(obtainedResult.ToString());
             CollectionAssert.AreEqual(expectedVehicles.ToList(),
                 obtainedResult.ToList());
         }

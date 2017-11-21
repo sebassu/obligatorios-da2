@@ -8,12 +8,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Web.API.Tests.Services_Tests
 {
-    [ExcludeFromCodeCoverage]
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class FlowServicesTests
     {
         private static readonly FlowServices testingFlowServices = new FlowServices();
-        private static readonly List<string> testingFlowData = new List<string>(new string[] { "Subzone 1", "Subzone 2", "Subzone 3" });
+        private static readonly List<string> testingFlowData = new List<string>(new string[]
+        { "Subzone 1", "Subzone 2", "Subzone 3" });
 
         [TestMethod]
         public void FServicesDefaultParameterlessConstructorTest()

@@ -32,7 +32,7 @@ namespace Web.API.Controllers
             return ExecuteActionAndReturnOutcome(
                 delegate
                 {
-                    int databaseId = Model.AddNewVehicleFromData(vehicleDataToAdd);
+                    var databaseId = Model.AddNewVehicleFromData(vehicleDataToAdd);
                     return CreatedAtRoute("VTSystemAPI", new { id = databaseId },
                         vehicleDataToAdd);
                 });

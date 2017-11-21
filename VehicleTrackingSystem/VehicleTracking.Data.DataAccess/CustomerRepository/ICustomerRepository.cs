@@ -7,7 +7,7 @@ namespace VehicleTracking_Data_DataAccess
     {
         void AddNewCustomer(Customer customerToAdd);
         IEnumerable<Customer> Elements { get; }
-        Customer IfExistsGetCustomerWithData(string nameToFind,
+        Customer GetCustomerWithData(string nameToFind,
             string phoneNumberToFind);
     }
 }
