@@ -6,8 +6,8 @@ export class Transport {
     transportedLotsNames: Array<string>;
     endDateTime: string;
 
-    constructor(id: number, transporterUsername: string, startDateTime: Date,
-        transportedLotsNames: Array<string>, endDateTime: string) {
+    constructor(id: number = 0, transporterUsername: string = "", startDateTime: Date = new Date(),
+        transportedLotsNames: Array<string> = [], endDateTime: string = "") {
         this.id = id;
         this.transporterUsername = transporterUsername;
         this.startDateTime = startDateTime.toLocaleString();

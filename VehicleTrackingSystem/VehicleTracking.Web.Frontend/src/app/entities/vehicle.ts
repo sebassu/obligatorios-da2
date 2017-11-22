@@ -13,8 +13,9 @@ export class Vehicle {
     portInspectionId: string;
     hasYardInspection: boolean;
 
-    constructor(vin: string, type: string, brand: string, model: string,
-        color: string, year: number, currentStage: string) {
+    constructor(vin: string = "", type: string = "", brand: string = "",
+        model: string = "", color: string = "", year: number = 0,
+        currentStage: string = "") {
         this.vin = vin;
         this.brand = brand;
         this.model = model;

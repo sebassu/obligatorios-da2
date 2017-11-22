@@ -7,8 +7,8 @@ namespace VehicleTracking_Data_Entities
 {
     public enum ProcessStages
     {
-        STUCK_IN_PROCESS, PORT, TRANSPORT,
-        YARD, READY_FOR_SALE, SOLD
+        PORT, TRANSPORT, YARD, READY_FOR_SALE,
+        SOLD, STUCK_IN_PROCESS
     }
 
     public class ProcessData

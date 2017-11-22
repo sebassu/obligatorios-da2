@@ -6,8 +6,8 @@ export class Sale {
     dateTime: Date;
     vehicleVIN: string;
 
-    constructor(customerName: string, customerPhoneNumber: string,
-        sellingPrice: number) {
+    constructor(customerName: string = "", customerPhoneNumber: string = "",
+        sellingPrice: number = 0) {
         this.customerName = customerName;
         this.customerPhoneNumber = customerPhoneNumber;
         this.sellingPrice = sellingPrice;

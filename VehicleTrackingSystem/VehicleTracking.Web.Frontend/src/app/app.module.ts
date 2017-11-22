@@ -24,6 +24,7 @@ import { HasSalePrivilegesGuard } from './guards/has-sale-privileges-guard';
 import { CanViewRegisteredLotsGuard } from './guards/can-view-registered-lots-guard';
 import { SaleComponent } from './register-sale/sale.component';
 import { SaleListComponent } from './sale-list/sale-list.component';
+import { VehicleHistoryComponent } from './vehicle-history/vehicle-history.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { SaleListComponent } from './sale-list/sale-list.component';
     PortInspectionComponent,
     YardInspectionComponent,
     SaleComponent,
-    SaleListComponent
+    SaleListComponent,
+    VehicleHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +92,10 @@ import { SaleListComponent } from './sale-list/sale-list.component';
           {
             path: 'registerSale', component: SaleComponent,
             canActivate: [HasSalePrivilegesGuard], pathMatch: 'prefix'
+          },
+          {
+            path: 'vehicleHistory/:vehicleVIN', component: VehicleHistoryComponent,
+            canActivate: [IsLoggedGuard], pathMatch: 'prefix'
           }
         ]
       },
