@@ -3,8 +3,8 @@ import { Subzone } from '../entities/subzone';
 import { SubzoneService } from '../services/subzone.service';
 import { Vehicle } from '../entities/vehicle';
 import { VehicleService } from '../services/vehicle.service';
-import { MovementIn } from '../entities/movement-in';
 import { MovementService } from '../services/movement.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-movement',
@@ -29,8 +29,17 @@ export class MovementComponent implements OnInit {
       .subscribe(subzonesObtained => this.subzones = subzonesObtained);
     this.subzones.map((itemInArray) => itemInArray.name);
     this._vehicleService.getVehicles()
-      .subscribe(vehiclesObtained => this.vehicles = vehiclesObtained);
+      .subscribe(obtainedVehicles => this.initializeVehicles(obtainedVehicles));
     this.vehicles.map((itemInArray) => itemInArray.vin);
+  }
+
+  private initializeVehicles(obtainedVehicles: Array<Vehicle>): void {
+    for (let vehicle of obtainedVehicles) {
+      if (vehicle.currentStage.indexOf(environment.YARD_STAGE_PREFIX)
+        !== -1) {
+        this.vehicles.push(vehicle);
+      }
+    }
   }
 
   private registerMovement(): void {

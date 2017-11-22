@@ -29,7 +29,15 @@ export class TransportComponent implements OnInit {
 
   ngOnInit(): void {
     this._lotService.getLots()
-      .subscribe(lotsObtained => this.availableLots = lotsObtained);
+      .subscribe(lotsObtained => this.initializeLots(lotsObtained));
+  }
+
+  private initializeLots(lotsObtained: Array<Lot>): void {
+    for (let lot of lotsObtained) {
+      if (lot.isReadyForTransport) {
+        this.availableLots.push(lot);
+      }
+    }
   }
 
   private beginTransport(): void {

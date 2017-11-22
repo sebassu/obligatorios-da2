@@ -1,8 +1,10 @@
 ﻿using API.Services;
 using System.Web.Http;
+using VehicleTracking_Data_Entities;
 
 namespace Web.API.Controllers
 {
+    [AuthorizeRoles(UserRoles.ADMINISTRATOR, UserRoles.SALESMAN)]
     public class SalesController : BaseController
     {
         internal ISaleServices Model { get; }
@@ -30,8 +32,8 @@ namespace Web.API.Controllers
         }
 
         [HttpPost]
-        [Route("api/Vehicles/{vinToModify}/Sales", Name = "SaleOfVehicle")]
-        public IHttpActionResult AddMovementToVehicleWith(string vinToModify,
+        [Route("api/Vehicles/{vinToModify}/Sale", Name = "SaleOfVehicle")]
+        public IHttpActionResult RegisterSaleOfVehicleWith(string vinToModify,
             [FromBody]SaleDTO saleData)
         {
             return ExecuteActionAndReturnOutcome(

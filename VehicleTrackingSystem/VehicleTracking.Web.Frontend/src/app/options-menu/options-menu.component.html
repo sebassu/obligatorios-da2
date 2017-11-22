@@ -27,11 +27,11 @@
                     </a>
                 </li>
                 <li [class.hidden]="userHasNoLotVisualizationPrivileges" id="dropdown">
-                    <a data-toggle="collapse" href="#dropdown-lotes" class="collapsed">
+                    <a data-toggle="collapse" href="#dropdown-lots" class="collapsed">
                         <span class="glyphicon glyphicon-menu-right"></span> Lotes
                         <span class="caret"></span>
                     </a>
-                    <div id="dropdown-lotes" class="panel-collapse collapse">
+                    <div id="dropdown-lots" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
                                 <li [class.hidden]="userHasNoLotVisualizationPrivileges">
@@ -45,11 +45,11 @@
                     </div>
                 </li>
                 <li [class.hidden]="userHasNoTransportPrivileges" id="dropdown">
-                    <a data-toggle="collapse" href="#dropdown-transportes" class="collapsed">
+                    <a data-toggle="collapse" href="#dropdown-transports" class="collapsed">
                         <span class="glyphicon glyphicon-menu-right"></span> Transportes
                         <span class="caret"></span>
                     </a>
-                    <div id="dropdown-transportes" class="panel-collapse collapse">
+                    <div id="dropdown-transports" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
                                 <li>
@@ -72,10 +72,23 @@
                         <span class="glyphicon glyphicon-menu-right"></span> Registrar movimiento
                     </a>
                 </li>
-                <li [class.hidden]="userHasNoSalePrivileges">
-                    <a routerLink="#">
-                        <span class="glyphicon glyphicon-menu-right"></span> Registrar venta
+                <li [class.hidden]="userHasNoSalePrivileges" id="dropdown">
+                    <a data-toggle="collapse" href="#dropdown-sales" class="collapsed">
+                        <span class="glyphicon glyphicon-menu-right"></span> Ventas
+                        <span class="caret"></span>
                     </a>
+                    <div id="dropdown-sales" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a class="secondLevel" routerLink="/app/sales">Ver ventas registradas</a>
+                                </li>
+                                <li>
+                                    <a class="secondLevel" routerLink="/app/registerSale">Registrar nueva venta</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </li>
                 <li id="logoutBtnContainer">
                     <br><br>

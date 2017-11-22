@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Inspection } from '../entities/inspection';
 import { InspectionService } from '../services/inspection.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-yard-inspection',
@@ -81,7 +82,8 @@ export class YardInspectionComponent implements OnInit {
 
   private initializeVehicles(obtainedVehicles: Array<Vehicle>): void {
     for (let vehicle of obtainedVehicles) {
-      if (!vehicle.hasYardInspection) {
+      if (vehicle.currentStage.indexOf(environment.YARD_STAGE_PREFIX) !== -1
+        && !vehicle.hasYardInspection) {
         this.vehicles.push(vehicle);
       }
     }

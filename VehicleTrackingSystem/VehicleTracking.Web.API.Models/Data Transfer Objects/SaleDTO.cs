@@ -7,10 +7,10 @@ namespace API.Services
     public class SaleDTO
     {
         [Required]
-        public string CustomerName { get; set; }
+        public string BuyerName { get; set; }
 
         [Required]
-        public string CustomerPhoneNumber { get; set; }
+        public string BuyerPhoneNumber { get; set; }
 
         [Required]
         public int SellingPrice { get; set; }
@@ -27,8 +27,8 @@ namespace API.Services
 
         public SaleDTO(Sale someSale)
         {
-            CustomerName = someSale.Buyer.Name;
-            CustomerPhoneNumber = someSale.Buyer.PhoneNumber;
+            BuyerName = someSale.Buyer.Name;
+            BuyerPhoneNumber = someSale.Buyer.PhoneNumber;
             SellingPrice = someSale.SellingPrice;
             DateTime = someSale.DateTime;
             VehicleVIN = someSale.VehicleVIN;

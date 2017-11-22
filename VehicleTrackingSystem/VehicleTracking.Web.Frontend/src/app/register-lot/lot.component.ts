@@ -3,6 +3,7 @@ import { LotService } from '../services/lot.service';
 import { Vehicle } from '../entities/vehicle';
 import { VehicleService } from '../services/vehicle.service';
 import { Lot } from '../entities/lot';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'lot-component',
@@ -37,7 +38,8 @@ export class LotComponent implements OnInit {
 
   private initializeVehicles(obtainedVehicles: Array<Vehicle>): void {
     for (let vehicle of obtainedVehicles) {
-      if (!vehicle.wasLotted) {
+      if (vehicle.currentStage === environment.PORT_STAGE &&
+        !vehicle.wasLotted) {
         this.availableVehicles.push(vehicle);
       }
     }

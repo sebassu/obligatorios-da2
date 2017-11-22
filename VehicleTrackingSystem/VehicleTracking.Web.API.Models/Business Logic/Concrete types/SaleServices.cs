@@ -41,8 +41,8 @@ namespace API.Services
 
         private Customer GetCustomerFromData(SaleDTO saleData)
         {
-            var name = saleData.CustomerName;
-            var phoneNumber = saleData.CustomerPhoneNumber;
+            var name = saleData.BuyerName;
+            var phoneNumber = saleData.BuyerPhoneNumber;
             try
             {
                 return Model.Customers.GetCustomerWithData(name, phoneNumber);

@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Inspection } from '../entities/inspection';
 import { InspectionService } from '../services/inspection.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-port-inspection',
@@ -75,7 +76,8 @@ export class PortInspectionComponent implements OnInit {
 
   private initializeVehicles(obtainedVehicles: Array<Vehicle>): void {
     for (let vehicle of obtainedVehicles) {
-      if (vehicle.portInspectionId == null) {
+      if (vehicle.currentStage === environment.PORT_STAGE
+        && vehicle.portInspectionId == null) {
         this.vehicles.push(vehicle);
       }
     }
