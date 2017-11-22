@@ -1,0 +1,31 @@
+<div class="header">
+    <br><br>
+    <h2 class="contentsTitle">Ventas</h2>
+</div>
+<div [hidden]="sales.length == 0" id="contentsContainer">
+    <br><br>
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th>VIN del vehículo:</th>
+                <th>Nombre del comprador:</th>
+                <th>Teléfono del comprador:</th>
+                <th>Precio de venta:</th>
+                <th>Fecha y hora:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let aSale of sales'>
+                <td>{{aSale.vehicleVIN}}</td>
+                <td>{{aSale.customerName}}</td>
+                <td>{{aSale.customerPhoneNumber}}</td>
+                <td>{{aSale.sellingPrice}}</td>
+                <td>{{aSale.dateTime}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div [hidden]="sales.length > 0" id="noContentsContainer">
+    <br><br><br><br><br>
+    <h3>Sin datos a mostrar.</h3>
+</div>

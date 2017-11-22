@@ -1,6 +1,6 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using VehicleTracking_Data_Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Services
 {

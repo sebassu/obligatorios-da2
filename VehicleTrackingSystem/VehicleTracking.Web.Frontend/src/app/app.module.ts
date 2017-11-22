@@ -23,6 +23,7 @@ import { HasYardPrivilegesGuard } from './guards/has-yard-privileges-guard';
 import { HasSalePrivilegesGuard } from './guards/has-sale-privileges-guard';
 import { CanViewRegisteredLotsGuard } from './guards/can-view-registered-lots-guard';
 import { SaleComponent } from './register-sale/sale.component';
+import { SaleListComponent } from './sale-list/sale-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SaleComponent } from './register-sale/sale.component';
     MovementComponent,
     PortInspectionComponent,
     YardInspectionComponent,
-    SaleComponent
+    SaleComponent,
+    SaleListComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,10 @@ import { SaleComponent } from './register-sale/sale.component';
           {
             path: 'registerMovement', component: MovementComponent,
             canActivate: [HasYardPrivilegesGuard], pathMatch: 'prefix'
+          },
+          {
+            path: 'sales', component: SaleListComponent,
+            canActivate: [HasSalePrivilegesGuard], pathMatch: 'prefix'
           },
           {
             path: 'registerSale', component: SaleComponent,
