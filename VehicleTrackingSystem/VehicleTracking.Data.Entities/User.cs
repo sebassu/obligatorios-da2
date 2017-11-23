@@ -7,12 +7,6 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace VehicleTracking_Data_Entities
 {
-    public enum UserRoles
-    {
-        ADMINISTRATOR, PORT_OPERATOR, TRANSPORTER,
-        YARD_OPERATOR, SALESMAN
-    }
-
     public class User
     {
         public int Id { get; set; }

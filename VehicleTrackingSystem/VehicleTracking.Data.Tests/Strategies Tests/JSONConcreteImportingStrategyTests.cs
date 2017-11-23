@@ -35,7 +35,7 @@ namespace Data.Strategies_tests
         public void JSONCISGetRequiredParametersTest()
         {
             var expectedResult = new Dictionary<string, Type>() {
-                { "Ubicación del archivo", typeof(Path) }
+                { "Ubicación_del_archivo", typeof(Path) }
             };
             var obtainedResult = testingStrategy.RequiredParameters;
             CollectionAssert.AreEqual(expectedResult,
@@ -111,7 +111,7 @@ namespace Data.Strategies_tests
         {
             string xmlTestFilePath = testFileLocation + fileName;
             var parameters = new Dictionary<string, object>() {
-                { "Ubicación del archivo", xmlTestFilePath }
+                { "Ubicación_del_archivo", xmlTestFilePath }
             };
             return testingStrategy.GetVehicles(parameters);
         }

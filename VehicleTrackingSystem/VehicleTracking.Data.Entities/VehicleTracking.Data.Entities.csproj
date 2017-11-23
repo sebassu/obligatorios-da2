@@ -72,6 +72,7 @@
     <Compile Include="LoggingRecord.cs" />
     <Compile Include="Lot.cs" />
     <Compile Include="Movement.cs" />
+    <Compile Include="ProcessStages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sale.cs" />
     <Compile Include="Subzone.cs" />
@@ -79,8 +80,10 @@
     <Compile Include="Transport.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Exceptions\VehicleTrackingException.cs" />
+    <Compile Include="UserRoles.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Vehicle.cs" />
+    <Compile Include="VehicleType.cs" />
     <Compile Include="Zone.cs" />
   </ItemGroup>
   <ItemGroup>

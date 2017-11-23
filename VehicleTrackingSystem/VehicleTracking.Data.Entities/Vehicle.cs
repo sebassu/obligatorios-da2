@@ -4,8 +4,6 @@ using System.Globalization;
 
 namespace VehicleTracking_Data_Entities
 {
-    public enum VehicleType { CAR, TRUCK, SUV, VAN, MINI_VAN }
-
     public class Vehicle
     {
         public int Id { get; set; }
