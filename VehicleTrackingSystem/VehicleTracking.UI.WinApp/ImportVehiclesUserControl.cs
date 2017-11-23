@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using VehicleTracking.Reflection;
+using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
 
 namespace VehicleTracking.UI.WinApp
@@ -14,23 +14,6 @@ namespace VehicleTracking.UI.WinApp
         {
             InitializeComponent();
             CardPanel = cardPanel;
-            LoadStrategies();
-        }
-
-        private void LoadStrategies()
-        {
-            StrategiesListBox.Items.Clear();
-            try
-            {
-                string strategiesPath = 
-                    @"..\..\..\VehicleTracking.ConcreteImportingStrategies\bin\Debug\VehicleTracking_ConcreteImportingStrategies.dll";
-                IEnumerable<IImportingStrategy> strategies = ImportingStrategiesLoader.FromDllFilePath(strategiesPath);
-                UpdateStrategies(strategies);
-            }catch(ReflectionException ex) {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
-            }
-
         }
 
         private void AddStrategiesBtn_MouseClick(object sender, MouseEventArgs e)
@@ -40,11 +23,11 @@ namespace VehicleTracking.UI.WinApp
                 string path = GetFilePath();
                 IEnumerable<IImportingStrategy> newStrategies = ImportingStrategiesLoader.FromDllFilePath(path);
                 UpdateStrategies(newStrategies);
-            }catch (ReflectionException ex)
+            }
+            catch (ReflectionException ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private string GetFilePath()
@@ -72,7 +55,9 @@ namespace VehicleTracking.UI.WinApp
             {
                 ImportVehiclesForm window = new ImportVehiclesForm((IImportingStrategy)StrategiesListBox.SelectedItem);
                 window.Show();
-            }else {
+            }
+            else
+            {
                 MessageBox.Show("Debe seleccionar una estrategia", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

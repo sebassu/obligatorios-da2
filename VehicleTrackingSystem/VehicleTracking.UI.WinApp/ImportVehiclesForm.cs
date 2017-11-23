@@ -1,11 +1,10 @@
 ﻿using System;
+using API.Services;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
-using VehicleTracking_ConcreteImportingStrategies;
 using VehicleTracking_Data_DataAccess;
-using API.Services;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -39,8 +38,8 @@ namespace VehicleTracking.UI.WinApp
             actualElementName = parameter.Key.Replace(" ", "");
             int labelWidth = CreateLabel(origin);
             Point elementOrigin = ModifyXLocation(origin, labelWidth);
-            Type s = parameter.Value;
-            switch (s.Name)
+            var type = parameter.Value;
+            switch (type.Name)
             {
                 case "Path":
                     CreateNewFileChooser(elementOrigin);
@@ -53,24 +52,28 @@ namespace VehicleTracking.UI.WinApp
 
         private int CreateLabel(Point origin)
         {
-            Label newLabel = new Label();
-            newLabel.Name = actualElementName + "lbl";
-            newLabel.Text = actualElementName + ":";
-            newLabel.AutoSize = true;
-            newLabel.Location = origin;
-            newLabel.Font = new Font("Microsoft Sans Serif", 14, FontStyle.Regular);
-            newLabel.ForeColor = System.Drawing.ColorTranslator.FromHtml("#ffcd00");
+            Label newLabel = new Label
+            {
+                Name = actualElementName + "lbl",
+                Text = actualElementName + ":",
+                AutoSize = true,
+                Location = origin,
+                Font = new Font("Microsoft Sans Serif", 14, FontStyle.Regular),
+                ForeColor = System.Drawing.ColorTranslator.FromHtml("#ffcd00")
+            };
             ContainerPanel.Controls.Add(newLabel);
             return newLabel.Width;
         }
 
         private int CreateNewTextBox(Point elementOrigin)
         {
-            TextBox newTextBox = new TextBox();
-            newTextBox.Location = elementOrigin;
-            newTextBox.Name = actualElementName + "txt";
-            newTextBox.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
-            newTextBox.Width = (ContainerPanel.Width) / 3;
+            TextBox newTextBox = new TextBox
+            {
+                Location = elementOrigin,
+                Name = actualElementName + "txt",
+                Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular),
+                Width = (ContainerPanel.Width) / 3
+            };
             AvailableControls.Add(newTextBox);
             ContainerPanel.Controls.Add(newTextBox);
             return newTextBox.Width;
@@ -85,18 +88,20 @@ namespace VehicleTracking.UI.WinApp
 
         private void CreateFileChooserButton(Point elementOrigin)
         {
-            Button newButton = new Button();
-            newButton.Name = actualElementName + "btn";
-            newButton.Text = "Choose file...";
-            newButton.AutoSize = true;
-            newButton.FlatStyle = FlatStyle.Flat;
-            newButton.FlatAppearance.BorderColor = Color.Silver;
-            newButton.FlatAppearance.BorderSize = 4;
-            newButton.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
-            newButton.ForeColor = System.Drawing.ColorTranslator.FromHtml("#ffcd00");
-            newButton.Location = CenterButton(elementOrigin);
-            newButton.MouseClick += ChooseFileMouseClicked;
-            ContainerPanel.Controls.Add(newButton);
+            var button = new Button
+            {
+                Name = actualElementName + "btn",
+                Text = "Elegir archivo...",
+                AutoSize = true,
+                FlatStyle = FlatStyle.Flat
+            };
+            button.FlatAppearance.BorderColor = Color.Silver;
+            button.FlatAppearance.BorderSize = 4;
+            button.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
+            button.ForeColor = System.Drawing.ColorTranslator.FromHtml("#ffcd00");
+            button.Location = CenterButton(elementOrigin);
+            button.MouseClick += ChooseFileMouseClicked;
+            ContainerPanel.Controls.Add(button);
         }
 
         private Point CenterButton(Point point)
@@ -141,23 +146,30 @@ namespace VehicleTracking.UI.WinApp
             try
             {
                 IEnumerable<Vehicle> vehiclesToImport = SelectedStrategy.GetVehicles(parameters);
-                using (var UnitOfWork = new UnitOfWork())
-                {
-                    foreach (Vehicle v in vehiclesToImport)
-                    {
-                        UnitOfWork.Vehicles.AddNewVehicle(v);
-                    }
-                    UnitOfWork.LoggingStrategy.RegisterVehicleImport(SessionServices.LoggedUser);
-                    UnitOfWork.SaveChanges();
-                }
-                MessageBox.Show("Los vehículos han sido importados", "Importación de vehículos", MessageBoxButtons.OK, MessageBoxIcon.None);
-                this.Close();
+                ProcessImportedVehicles(vehiclesToImport);
+                MessageBox.Show("Los vehículos han sido importados correctamente.", "Importación de vehículos",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
             }
-            catch (VehicleTrackingException ex)
+            catch (VehicleTrackingException exception)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
+        private static void ProcessImportedVehicles(IEnumerable<Vehicle> vehiclesToImport)
+        {
+            using (var unitOfWork = new UnitOfWork())
+            {
+                var service = new VehicleServices(unitOfWork);
+                foreach (var vehicle in vehiclesToImport)
+                {
+                    var vehicleData = VehicleDTO.FromVehicle(vehicle);
+                    service.AddNewVehicleFromData(vehicleData);
+                }
+                unitOfWork.LoggingStrategy.RegisterVehicleImport(SessionServices.LoggedUser);
+                unitOfWork.SaveChanges();
+            }
         }
     }
 }

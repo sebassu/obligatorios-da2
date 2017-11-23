@@ -19,7 +19,7 @@ namespace VehicleTracking.Reflection
             {
                 throw new ReflectionException(exception.Message);
             }
-            catch (ArgumentException)
+            catch (SystemException)
             {
                 throw new ReflectionException(ErrorMessages.FileNotFound);
             }

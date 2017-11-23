@@ -8,5 +8,6 @@ namespace VehicleTracking_Data_Entities
         Dictionary<string, Type> RequiredParameters { get; }
         IEnumerable<Vehicle> GetVehicles(
             IDictionary<string, object> parameters);
+        string ToString();
     }
 }

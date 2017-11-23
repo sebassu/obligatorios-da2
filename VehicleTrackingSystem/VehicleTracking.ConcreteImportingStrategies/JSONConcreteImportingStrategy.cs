@@ -24,5 +24,10 @@ namespace VehicleTracking_ConcreteImportingStrategies
                 throw new ImportingException(exception.Message);
             }
         }
+
+        public override string ToString()
+        {
+            return "Importación desde archivo JSON";
+        }
     }
 }

@@ -101,5 +101,10 @@ namespace VehicleTracking_ConcreteImportingStrategies
         {
             throw new ImportingException(ErrorMessages.ErrorWhenReadingFile);
         }
+
+        public override string ToString()
+        {
+            return "Importación desde archivo XML";
+        }
     }
 }

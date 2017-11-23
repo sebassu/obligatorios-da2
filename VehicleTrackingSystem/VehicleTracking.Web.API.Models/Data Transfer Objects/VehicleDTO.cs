@@ -35,7 +35,7 @@ namespace API.Services
 
         public VehicleDTO() { }
 
-        internal static VehicleDTO FromVehicle(Vehicle someVehicle)
+        public static VehicleDTO FromVehicle(Vehicle someVehicle)
         {
             return new VehicleDTO(someVehicle);
         }
