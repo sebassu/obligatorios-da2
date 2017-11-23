@@ -156,7 +156,7 @@ namespace VehicleTracking_Data_Entities
 
         public bool IsReadyForTransport()
         {
-            return vehicles.All(v => v.IsReadyForTransport());
+            return !WasTransported && vehicles.All(v => v.IsReadyForTransport());
         }
 
         private bool CreatorIsValid(User someUser)

@@ -7,7 +7,6 @@ namespace API.Services
     [Serializable]
     public class HistoryDTO
     {
-        public ProcessStages CurrentStage { get; set; }
         public LotDTO LotData { get; private set; }
         public InspectionDTO PortInspectionData { get; private set; }
         public TransportDTO TransportData { get; private set; }
@@ -22,7 +21,6 @@ namespace API.Services
 
         public HistoryDTO(Vehicle someVehicle)
         {
-            CurrentStage = someVehicle.CurrentStage;
             SetPortData(someVehicle.PortLot, someVehicle.PortInspection);
             SetTransportData(someVehicle.TransportData);
             SetYardData(someVehicle.YardInspection, someVehicle.Movements);

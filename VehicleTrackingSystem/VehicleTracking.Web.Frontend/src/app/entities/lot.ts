@@ -5,6 +5,7 @@ export class Lot {
     description: string;
     vehicleVINs: Array<string>;
     isReadyForTransport: boolean;
+    wasTransported: boolean;
 
     constructor(name: string = "", description: string = "",
         vehicleVINs: Array<string> = []) {

@@ -22,6 +22,8 @@ namespace API.Services
 
         public bool IsReadyForTransport { get; set; }
 
+        public bool WasTransported { get; set; }
+
         internal LotDTO() { }
 
         internal static LotDTO FromLot(Lot someLot)
@@ -34,6 +36,7 @@ namespace API.Services
         {
             VehicleVINs = someLot.Vehicles.Select(v => v.VIN).ToList();
             IsReadyForTransport = someLot.IsReadyForTransport();
+            WasTransported = someLot.WasTransported;
         }
 
         private LotDTO(string nameToSet, string descriptionToSet,

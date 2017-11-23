@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from '../services/login-service';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 
@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  encapsulation: ViewEncapsulation.None,
   providers: [LoginService]
 })
 export class LoginComponent {

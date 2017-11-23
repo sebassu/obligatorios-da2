@@ -1,6 +1,6 @@
 import { Lot } from "./lot";
 import { Inspection } from "./inspection";
-import { Movement } from "./movement-in";
+import { Movement } from "./movement";
 import { Transport } from "./transport";
 import { Sale } from "./sale";
 

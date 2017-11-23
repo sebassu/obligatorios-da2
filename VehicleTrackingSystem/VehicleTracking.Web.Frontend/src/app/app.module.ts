@@ -25,6 +25,7 @@ import { CanViewRegisteredLotsGuard } from './guards/can-view-registered-lots-gu
 import { SaleComponent } from './register-sale/sale.component';
 import { SaleListComponent } from './sale-list/sale-list.component';
 import { VehicleHistoryComponent } from './vehicle-history/vehicle-history.component';
+import { EditLotComponent } from './edit-lot/edit-lot.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { VehicleHistoryComponent } from './vehicle-history/vehicle-history.compo
     YardInspectionComponent,
     SaleComponent,
     SaleListComponent,
-    VehicleHistoryComponent
+    VehicleHistoryComponent,
+    EditLotComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +98,10 @@ import { VehicleHistoryComponent } from './vehicle-history/vehicle-history.compo
           {
             path: 'vehicleHistory/:vehicleVIN', component: VehicleHistoryComponent,
             canActivate: [IsLoggedGuard], pathMatch: 'prefix'
+          },
+          {
+            path: 'editLot/:lotName', component: EditLotComponent,
+            canActivate: [HasPortPrivilegesGuard], pathMatch: 'prefix'
           }
         ]
       },
