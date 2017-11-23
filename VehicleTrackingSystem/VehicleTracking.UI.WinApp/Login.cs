@@ -1,11 +1,13 @@
 ﻿using System.Windows.Forms;
 using VehicleTracking_Data_DataAccess;
 using API.Services;
+using System;
+using VehicleTracking_Data_Entities;
 
 namespace VehicleTracking.UI.WinApp
 {
     public partial class Login : UserControl
-    { 
+    {
         Panel CardPanel;
         Panel ButtonsPanel;
         Panel LogoutPanel;
@@ -33,14 +35,15 @@ namespace VehicleTracking.UI.WinApp
                     Instance.LoggingStrategy.RegisterUserLogin(SessionServices.LoggedUser);
                     Instance.SaveChanges();
                 }
-            }catch(ServiceException ex)
+            }
+            catch (VehicleTrackingException ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 PasswordTxt.Text = "";
-
-            } catch (RepositoryException ex)
+            }
+            catch (SystemException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 PasswordTxt.Text = "";
             }
         }

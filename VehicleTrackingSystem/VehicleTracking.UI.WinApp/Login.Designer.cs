@@ -43,9 +43,9 @@
             this.UsernameLbl.Location = new System.Drawing.Point(659, 265);
             this.UsernameLbl.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.UsernameLbl.Name = "UsernameLbl";
-            this.UsernameLbl.Size = new System.Drawing.Size(331, 69);
+            this.UsernameLbl.Size = new System.Drawing.Size(260, 69);
             this.UsernameLbl.TabIndex = 0;
-            this.UsernameLbl.Text = "Username:";
+            this.UsernameLbl.Text = "Usuario:";
             // 
             // UsernameTxt
             // 
@@ -71,12 +71,12 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(203)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(659, 374);
+            this.label1.Location = new System.Drawing.Point(553, 374);
             this.label1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(318, 69);
+            this.label1.Size = new System.Drawing.Size(366, 69);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Password:";
+            this.label1.Text = "Contraseña:";
             // 
             // LoginBtn
             // 
@@ -88,7 +88,7 @@
             this.LoginBtn.Name = "LoginBtn";
             this.LoginBtn.Size = new System.Drawing.Size(363, 98);
             this.LoginBtn.TabIndex = 4;
-            this.LoginBtn.Text = "Sign in";
+            this.LoginBtn.Text = "Ingresar";
             this.LoginBtn.UseVisualStyleBackColor = false;
             this.LoginBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LoginBtn_MouseClick);
             // 

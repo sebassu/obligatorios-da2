@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using API.Services;
-using VehicleTracking_Data_DataAccess;
+using System.Windows.Forms;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -29,7 +22,8 @@ namespace VehicleTracking.UI.WinApp
             if (SessionServices.LoggedUser != null)
             {
                 EnableMenuButtons();
-            }else
+            }
+            else
             {
                 DisableMenuButtons();
             }
@@ -151,8 +145,8 @@ namespace VehicleTracking.UI.WinApp
             var zones = zoneServices.GetRegisteredZones();
             if (zones.Count() == 0)
             {
-                MessageBox.Show("No hay zonas registradas. Debe registrar al menos una zona antes de comenzar "
-                    +" a registrar subzonas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No hay zonas registradas. Debe registrar al menos una zona antes de comenzar"
+                    + " a registrar subzonas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

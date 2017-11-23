@@ -99,13 +99,13 @@ namespace VehicleTracking.UI.WinApp
                 else
                 {
                     subzones.AddNewSubzoneFromData(subzone.ContainerName, subzone);
-
                 }
             }
             catch (VehicleTrackingException ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }catch(NullReferenceException)
+            }
+            catch (NullReferenceException)
             {
                 MessageBox.Show("Debe seleccionar una zona", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
