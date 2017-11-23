@@ -1,10 +1,10 @@
-﻿using API.Services;
+﻿using System;
+using API.Services;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
 using VehicleTracking_Data_DataAccess;
-using System;
 
 namespace VehicleTracking.UI.WinApp
 {
@@ -95,10 +95,14 @@ namespace VehicleTracking.UI.WinApp
                 if (openedForModification)
                 {
                     subzones.ModifySubzoneWithId(subzoneToModify.Id, subzone);
+                    MessageBox.Show("Subzona modificada correctamente", "Éxito",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     subzones.AddNewSubzoneFromData(subzone.ContainerName, subzone);
+                    MessageBox.Show("Subzona creada correctamente", "Éxito",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (VehicleTrackingException ex)

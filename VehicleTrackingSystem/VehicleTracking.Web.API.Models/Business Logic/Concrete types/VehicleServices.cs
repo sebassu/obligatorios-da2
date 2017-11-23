@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
 using VehicleTracking_Data_Entities;
@@ -127,23 +126,7 @@ namespace API.Services
         {
             if (Utilities.IsNotNull(movementDataToAdd))
             {
-                Vehicle actualVehicle = Vehicles.GetFullyLoadedVehicleWithVIN(vinToModify);
-                if (IsValidMovementVehicle(actualVehicle))
-                {
-                    if (IsValidMovementSubzone(movementDataToAdd, actualVehicle))
-                    {
-                        return AttemptToAddNewMovementFromData(responsibleUsername,
-                            vinToModify, movementDataToAdd);
-                    }
-                    else
-                    {
-                        throw new ServiceException(ErrorMessages.InvalidMovementSubzone);
-                    }
-                }
-                else
-                {
-                    throw new ServiceException(ErrorMessages.InvalidMovementVehicle);
-                }
+                return ProcessVehicleMovement(responsibleUsername, vinToModify, movementDataToAdd);
             }
             else
             {
@@ -151,15 +134,18 @@ namespace API.Services
             }
         }
 
-        private bool IsValidMovementVehicle(Vehicle actualVehicle)
+        private int ProcessVehicleMovement(string responsibleUsername, string vinToModify,
+            MovementDTOIn movementDataToAdd)
         {
-            if (actualVehicle.CurrentStage.Equals(ProcessStages.YARD))
+            Vehicle actualVehicle = Vehicles.GetFullyLoadedVehicleWithVIN(vinToModify);
+            if (IsValidMovementSubzone(movementDataToAdd, actualVehicle))
             {
-                return true;
+                return AttemptToAddNewMovementFromData(responsibleUsername,
+                    vinToModify, movementDataToAdd);
             }
             else
             {
-                return false;
+                throw new ServiceException(ErrorMessages.InvalidMovementSubzone);
             }
         }
 
@@ -167,19 +153,33 @@ namespace API.Services
         {
             ISubzoneServices subzoneInstance = new SubzoneServices();
             SubzoneDTO arrivalSubzone = subzoneInstance.GetSubzoneWithId(movementData.ArrivalSubzoneId);
-            Subzone departureSubzone = actualVehicle.Movements.Last().Arrival;
-            return BelongsToFlowAndIsNextSubzone(departureSubzone.Name, arrivalSubzone.Name);
+            Subzone departureSubzone = actualVehicle.StagesData.YardCurrentLocation;
+            return BelongsToFlowAndIsNextSubzone(departureSubzone, arrivalSubzone.Name);
         }
 
-        private bool BelongsToFlowAndIsNextSubzone(string departure, string arrival)
+        private bool BelongsToFlowAndIsNextSubzone(Subzone departure, string arrival)
         {
             Flow currentFlow = Flows.GetCurrentFlow();
+            if (Utilities.IsNull(departure))
+            {
+                return arrival.Equals(currentFlow.RequiredSubzoneNames.First());
+            }
+            else
+            {
+                return MovementBelongsToFlow(departure, arrival, currentFlow);
+            }
+        }
+
+        private bool MovementBelongsToFlow(Subzone departure, string arrival, Flow currentFlow)
+        {
             if (BelongsToFlow(currentFlow, arrival))
             {
                 IEnumerable<string> flowList = currentFlow.RequiredSubzoneNames;
                 for (int i = 0; i < flowList.Count(); i++)
                 {
-                    if (flowList.ElementAt(i).Equals(departure) && flowList.ElementAt(i + 1).Equals(arrival))
+                    bool isValidMovement = flowList.ElementAt(i).Equals(departure.Name) &&
+                        flowList.ElementAt(i + 1).Equals(arrival);
+                    if (isValidMovement)
                     {
                         return true;
                     }

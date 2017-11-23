@@ -94,7 +94,7 @@
             this.TitleLbl.AutoSize = true;
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))));
-            this.TitleLbl.Location = new System.Drawing.Point(472, 55);
+            this.TitleLbl.Location = new System.Drawing.Point(334, 53);
             this.TitleLbl.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.TitleLbl.Name = "TitleLbl";
             this.TitleLbl.Size = new System.Drawing.Size(469, 105);
@@ -156,10 +156,10 @@
             this.SubzoneListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.SubzoneListBox.FormattingEnabled = true;
             this.SubzoneListBox.ItemHeight = 46;
-            this.SubzoneListBox.Location = new System.Drawing.Point(491, 193);
+            this.SubzoneListBox.Location = new System.Drawing.Point(230, 193);
             this.SubzoneListBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.SubzoneListBox.Name = "SubzoneListBox";
-            this.SubzoneListBox.Size = new System.Drawing.Size(428, 556);
+            this.SubzoneListBox.Size = new System.Drawing.Size(689, 556);
             this.SubzoneListBox.TabIndex = 14;
             this.SubzoneListBox.SelectedIndexChanged += new System.EventHandler(this.SubzoneListBox_SelectedIndexChanged);
             // 

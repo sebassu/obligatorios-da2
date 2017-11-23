@@ -42,8 +42,6 @@ export class EditLotComponent implements OnInit {
   ngOnInit(): void {
     this._lotService.getLotWithName(this.editedLotName)
       .subscribe(obtainedLot => this.setPreviousData(obtainedLot));
-    this._vehicleService.getVehicles()
-      .subscribe(vehiclesObtained => this.initializeVehicles(vehiclesObtained));
   }
 
   private setPreviousData(editedLot: Lot) {
@@ -51,12 +49,14 @@ export class EditLotComponent implements OnInit {
     this.name = editedLot.name;
     this.description = editedLot.description;
     this.previousVehicles = editedLot.vehicleVINs;
+    this._vehicleService.getVehicles()
+      .subscribe(vehiclesObtained => this.initializeVehicles(vehiclesObtained));
   }
 
   private initializeVehicles(obtainedVehicles: Array<Vehicle>): void {
     for (let vehicle of obtainedVehicles) {
       if (vehicle.currentStage === environment.PORT_STAGE &&
-        !vehicle.wasLotted) {
+        (!vehicle.wasLotted || this.previousVehicles.indexOf(vehicle.vin) > -1)) {
         this.availableVehicles.push(vehicle);
       }
     }

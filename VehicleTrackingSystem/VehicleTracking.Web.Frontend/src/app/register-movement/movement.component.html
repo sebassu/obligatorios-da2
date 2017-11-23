@@ -18,7 +18,7 @@
                 <label class="control-label col-lg-3" for="arrivalSelect">Subzona de llegada:</label>
                 <div class="col-lg-7">
                     <select class="form-control" [(ngModel)]="arrivalId" required name="arrivalSelect" id="arrivalSelect">
-                        <option *ngFor = 'let aSubzone of subzones' [ngValue]="aSubzone.id">{{aSubzone.name}}</option>
+                        <option *ngFor = 'let aSubzone of subzones' [ngValue]="aSubzone.id">{{aSubzone.containerName}}/{{aSubzone.name}}</option>
                     </select>
                 </div>
             </div>

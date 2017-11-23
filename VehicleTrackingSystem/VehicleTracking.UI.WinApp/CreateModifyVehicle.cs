@@ -62,7 +62,8 @@ namespace VehicleTracking.UI.WinApp
             {
                 ImportBtn.Enabled = false;
                 ImportBtn.Visible = false;
-            }else
+            }
+            else
             {
                 ImportBtn.Enabled = true;
                 ImportBtn.Visible = true;
@@ -104,7 +105,8 @@ namespace VehicleTracking.UI.WinApp
             short year;
             if (!short.TryParse(YearTxt.Text, out year))
             {
-                MessageBox.Show("El año solo puede contener números", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El año solo puede contener números", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (Origin.Equals("modify"))
                 {
                     YearTxt.Text = SelectedVehicle.Year.ToString();

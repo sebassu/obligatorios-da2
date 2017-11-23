@@ -60,8 +60,8 @@ namespace VehicleTracking_Data_DataAccess
 
         private Vehicle VehicleFullData(string vinToLookup)
         {
-            return elements.Include("StagesData.PortLot.Creator").Include("StagesData.PortLot.Vehicles")
-                .Include("StagesData.Inspections.Responsible").Include("StagesData.Inspections.Damages")
+            return elements.Include("StagesData.PortLot.Creator").Include("StagesData.PortLot.Vehicles.StagesData.Inspections")
+                .Include("StagesData.Inspections.Responsible").Include("StagesData.Inspections.Damages.ImageElements")
                 .Include("StagesData.Inspections.Location").Include("StagesData.TransportData.Transporter")
                 .Include("StagesData.TransportData.LotsTransported").Include("StagesData.YardMovements.Departure.Container")
                 .Include("StagesData.YardMovements.Arrival.Container").Include("StagesData.YardMovements.Responsible")

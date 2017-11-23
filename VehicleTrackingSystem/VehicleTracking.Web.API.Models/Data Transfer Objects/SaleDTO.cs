@@ -25,6 +25,8 @@ namespace API.Services
             return new SaleDTO(someSale);
         }
 
+        public SaleDTO() { }
+
         public SaleDTO(Sale someSale)
         {
             BuyerName = someSale.Buyer.Name;

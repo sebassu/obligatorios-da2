@@ -157,7 +157,7 @@
                         <td>{{movement.responsiblesUsername}}</td>
                         <td>{{movement.departureSubzone}}</td>
                         <td>{{movement.arrivalSubzone}}</td>
-                        <td>{{prettyPrintDate(movement.date)}}</td>
+                        <td>{{prettyPrintDate(movement.dateTime)}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -169,7 +169,7 @@
         <div class="panel-body">
             <form class="form-horizontal col-lg-10" name="saleForm" role="form" id="saleForm">
                 <div class="form-group">
-                    <label class="control-label col-lg-3" for="buyerName"></label>
+                    <label class="control-label col-lg-3" for="buyerName">Nombre del comprador:</label>
                     <div class="col-lg-7">
                         <input type="text" disabled class="form-control" id="buyerName" value="{{saleData.buyerName}}" name="buyerName">
                     </div>

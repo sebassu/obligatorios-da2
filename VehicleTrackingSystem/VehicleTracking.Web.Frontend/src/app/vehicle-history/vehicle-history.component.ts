@@ -8,6 +8,7 @@ import { VehicleService } from '../services/vehicle.service';
 import { VehicleHistory } from '../entities/vehicle-history';
 import { Transport } from '../entities/transport';
 import { environment } from '../../environments/environment';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-vehicle-history',
@@ -32,7 +33,7 @@ export class VehicleHistoryComponent implements OnInit {
   movementsData: Array<Movement>;
   saleData: Sale;
 
-  constructor(private _currentRoute: ActivatedRoute,
+  constructor(private _currentRoute: ActivatedRoute, private _DomSanitizer: DomSanitizer,
     private _vehicleService: VehicleService) {
     this.vehicleVIN = this._currentRoute.snapshot.params['vehicleVIN'];
     this.lotData = new Lot();
@@ -41,6 +42,12 @@ export class VehicleHistoryComponent implements OnInit {
     this.yardInspectionData = new Inspection();
     this.movementsData = [];
     this.saleData = new Sale();
+    this.hasNoLotData = true;
+    this.hasNoPortInspectionData = true;
+    this.hasNoTransportData = true;
+    this.hasNoYardInspectionData = true;
+    this.hasNoMovementsData = true;
+    this.hasNoSaleData = true;
   }
 
   ngOnInit() {
