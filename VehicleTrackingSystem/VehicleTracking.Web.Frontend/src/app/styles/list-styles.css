@@ -75,9 +75,3 @@ ul li.checked::before {
     display: table;
     clear: both;
 }
-
-button.changeBtn {
-    margin-left: 10px;
-    float: right;
-    vertical-align: bottom;
-}

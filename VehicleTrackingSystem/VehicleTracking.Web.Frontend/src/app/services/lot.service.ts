@@ -29,4 +29,28 @@ export class LotService extends BaseService {
             .map((response: Response) => alert("Lote creado correctamente."))
             .subscribe(null, err => this.handleError(err));
     }
+
+    deleteLotWithName(nameOfLotToDelete: string) {
+        let url = LotService.URL + "/" + nameOfLotToDelete;
+        let header = this.getHeader();
+        return this._httpService.delete(url, { 'headers': header })
+            .map((response: Response) => alert("Lote eliminado correctamente."))
+            .subscribe(null, err => this.handleError(err));
+    }
+
+    getLotWithName(nameOfLotToFind: string): Observable<Lot> {
+        let url = LotService.URL + "/" + nameOfLotToFind;
+        let header = this.getHeader();
+        return this._httpService.get(url, { 'headers': header })
+            .map((response: Response) => <Lot>response.json())
+            .catch(this.handleError);
+    }
+
+    editLotWithName(nameOfLotTOEdit: string, lotData: Lot) {
+        let url = LotService.URL + "/" + nameOfLotTOEdit;
+        let header = this.getHeader();
+        return this._httpService.put(url, JSON.stringify(lotData), { 'headers': header })
+            .map((response: Response) => alert("Lote modificado correctamente."))
+            .subscribe(null, err => this.handleError(err));
+    }
 }

@@ -7,12 +7,13 @@ import { LocationService } from './services/location.service';
 import { InspectionService } from './services/inspection.service';
 import { MovementService } from './services/movement.service';
 import { LoginService } from './services/login-service';
+import { SaleService } from './services/saleService';
 
 @Component({
   selector: 'app-root',
   template: '<router-outlet></router-outlet>',
   providers: [LotService, TransportService, VehicleService, SubzoneService,
-    LocationService, InspectionService, MovementService, LoginService]
+    LocationService, InspectionService, MovementService, LoginService, SaleService]
 })
 export class AppComponent {
   title = 'app';

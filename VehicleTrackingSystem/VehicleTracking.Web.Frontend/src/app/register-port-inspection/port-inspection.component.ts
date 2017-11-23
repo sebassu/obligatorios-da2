@@ -7,18 +7,19 @@ import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Inspection } from '../entities/inspection';
 import { InspectionService } from '../services/inspection.service';
+import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'app-yard-inspection',
-  templateUrl: './yard-inspection.component.html',
-  styleUrls: ['../styles/list-styles.css', './yard-inspection.component.css'],
+  selector: 'app-port-inspection',
+  templateUrl: './port-inspection.component.html',
+  styleUrls: ['../styles/list-styles.css', './port-inspection.component.css'],
 })
-export class YardInspectionComponent implements OnInit {
+export class PortInspectionComponent implements OnInit {
 
-  selectedVehicle: Vehicle;
+  selectedVehicle: string;
   selectedLocation: string;
   vehicles: Array<Vehicle>;
-  yardNames: Array<string>;
+  portNames: Array<string>;
   damages: Array<Damage>;
   imageFiles: FileList;
   damageDescription: string;
@@ -26,7 +27,7 @@ export class YardInspectionComponent implements OnInit {
   constructor(private _DomSanitizer: DomSanitizer, private _inspectionService: InspectionService,
     private _vehicleService: VehicleService, private _locationService: LocationService) {
     this.vehicles = [];
-    this.yardNames = [];
+    this.portNames = [];
     this.damages = [];
   }
 
@@ -40,15 +41,9 @@ export class YardInspectionComponent implements OnInit {
       this.damages.push(new Damage(this.damageDescription, images));
       alert("Daño agregado exitosamente.");
     } else {
-      alert("Error: es necesario ayardar evidencia fotográfica para"
+      alert("Error: es necesario aportar evidencia fotográfica para"
         + " poder registrar un daño.");
     }
-  }
-
-  private updateInspectionDamages() {
-    let inspectionIdToFind = this.selectedVehicle.portInspectionId;
-    this._inspectionService.getInspectionWithId(inspectionIdToFind)
-      .subscribe(foundInspection => this.damages = foundInspection.damages);
   }
 
   private getImageStrings(): Array<string> {
@@ -75,13 +70,14 @@ export class YardInspectionComponent implements OnInit {
   ngOnInit() {
     this._vehicleService.getVehicles()
       .subscribe(obtainedVehicles => this.initializeVehicles(obtainedVehicles));
-    this._locationService.getYards()
-      .subscribe(yardsObtained => this.yardNames = yardsObtained);
+    this._locationService.getPorts()
+      .subscribe(portsObtained => this.portNames = portsObtained);
   }
 
   private initializeVehicles(obtainedVehicles: Array<Vehicle>): void {
     for (let vehicle of obtainedVehicles) {
-      if (!vehicle.hasYardInspection) {
+      if (vehicle.currentStage === environment.PORT_STAGE
+        && vehicle.portInspectionId == null) {
         this.vehicles.push(vehicle);
       }
     }
@@ -91,10 +87,10 @@ export class YardInspectionComponent implements OnInit {
     this.damages = [];
   }
 
-  private registerYardInspection() {
+  private registerPortInspection() {
     let inspectionToRegister = new Inspection(this.selectedLocation,
-      new Date(), this.damages);
-    this._inspectionService.registerYardInspection(this.selectedVehicle.vin,
+      new Date().toUTCString(), this.damages);
+    this._inspectionService.registerPortInspection(this.selectedVehicle,
       inspectionToRegister);
   }
 }

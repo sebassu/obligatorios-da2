@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Headers, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
-import { MovementIn } from '../entities/movement-in';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';

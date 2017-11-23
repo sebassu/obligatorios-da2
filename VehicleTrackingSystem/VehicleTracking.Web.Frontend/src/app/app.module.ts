@@ -12,9 +12,9 @@ import { TransportComponent } from './register-transport/transport.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { LotListComponent } from './lot-list/lot-list.component';
 import { TransportListComponent } from './transport-list/transport-list.component';
-import { MovementComponent } from './movement/movement.component';
-import { PortInspectionComponent } from './port-inspection/port-inspection.component';
-import { YardInspectionComponent } from './yard-inspection/yard-inspection.component';
+import { MovementComponent } from './register-movement/movement.component';
+import { PortInspectionComponent } from './register-port-inspection/port-inspection.component';
+import { YardInspectionComponent } from './register-yard-inspection/yard-inspection.component';
 import { LotComponent } from './register-lot/lot.component';
 import { IsLoggedGuard } from './guards/is-logged-guard';
 import { HasPortPrivilegesGuard } from './guards/has-port-privileges-guard';
@@ -22,6 +22,10 @@ import { HasTrasportPrivilegesGuard } from './guards/has-transport-privileges-gu
 import { HasYardPrivilegesGuard } from './guards/has-yard-privileges-guard';
 import { HasSalePrivilegesGuard } from './guards/has-sale-privileges-guard';
 import { CanViewRegisteredLotsGuard } from './guards/can-view-registered-lots-guard';
+import { SaleComponent } from './register-sale/sale.component';
+import { SaleListComponent } from './sale-list/sale-list.component';
+import { VehicleHistoryComponent } from './vehicle-history/vehicle-history.component';
+import { EditLotComponent } from './edit-lot/edit-lot.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,11 @@ import { CanViewRegisteredLotsGuard } from './guards/can-view-registered-lots-gu
     TransportListComponent,
     MovementComponent,
     PortInspectionComponent,
-    YardInspectionComponent
+    YardInspectionComponent,
+    SaleComponent,
+    SaleListComponent,
+    VehicleHistoryComponent,
+    EditLotComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +86,22 @@ import { CanViewRegisteredLotsGuard } from './guards/can-view-registered-lots-gu
           {
             path: 'registerMovement', component: MovementComponent,
             canActivate: [HasYardPrivilegesGuard], pathMatch: 'prefix'
+          },
+          {
+            path: 'sales', component: SaleListComponent,
+            canActivate: [HasSalePrivilegesGuard], pathMatch: 'prefix'
+          },
+          {
+            path: 'registerSale', component: SaleComponent,
+            canActivate: [HasSalePrivilegesGuard], pathMatch: 'prefix'
+          },
+          {
+            path: 'vehicleHistory/:vehicleVIN', component: VehicleHistoryComponent,
+            canActivate: [IsLoggedGuard], pathMatch: 'prefix'
+          },
+          {
+            path: 'editLot/:lotName', component: EditLotComponent,
+            canActivate: [HasPortPrivilegesGuard], pathMatch: 'prefix'
           }
         ]
       },

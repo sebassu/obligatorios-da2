@@ -10,7 +10,7 @@ import { TransportService } from '../services/transport.service';
 export class TransportListComponent implements OnInit {
 
   transports: Array<Transport>;
-  selectedTransportId: number;
+  selectedTransport: Transport;
 
   constructor(private _transportService: TransportService) {
     this.transports = [];
@@ -21,11 +21,19 @@ export class TransportListComponent implements OnInit {
       .subscribe(transportsObtained => this.transports = transportsObtained);
   }
 
-  private setSelectedTransportId(transportId: number) {
-    this.selectedTransportId = transportId;
+  private setSelectedTransportId(transport: Transport) {
+    this.selectedTransport = transport;
   }
 
   private finalizeSelectedTransport() {
-    this._transportService.finalizeTransportWithId(this.selectedTransportId);
+    this._transportService.finalizeTransportWithId(this.selectedTransport.id);
+  }
+
+  private prettyPrintDate(someDate: string): string {
+    if (someDate == null) {
+      return "N/a";
+    } else {
+      return new Date(someDate).toLocaleString();
+    }
   }
 }

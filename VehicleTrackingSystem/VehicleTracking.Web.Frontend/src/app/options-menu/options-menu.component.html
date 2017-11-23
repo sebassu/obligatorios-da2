@@ -18,45 +18,53 @@
                 <br><br><br><br>
                 <li>
                     <a routerLink="/app/vehicles">
-                        <span class="glyphicon glyphicon-menu-right"></span> Ver vehículos registrados
+                        <span class="glyphicon glyphicon-triangle-right"></span> Ver vehículos registrados
                     </a>
                 </li>
                 <li [class.hidden]="userHasNoPortPrivileges">
                     <a routerLink="/app/registerPortInspection">
-                        <span class="glyphicon glyphicon-menu-right"></span> Registrar inspeccion de puerto
+                        <span class="glyphicon glyphicon-triangle-right"></span> Registrar inspección de puerto
                     </a>
                 </li>
                 <li [class.hidden]="userHasNoLotVisualizationPrivileges" id="dropdown">
-                    <a data-toggle="collapse" href="#dropdown-lotes" class="collapsed">
-                        <span class="glyphicon glyphicon-menu-right"></span> Lotes
+                    <a data-toggle="collapse" href="#dropdown-lots" class="collapsed">
+                        <span class="glyphicon glyphicon-triangle-right"></span> Lotes
                         <span class="caret"></span>
                     </a>
-                    <div id="dropdown-lotes" class="panel-collapse collapse">
+                    <div id="dropdown-lots" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
                                 <li [class.hidden]="userHasNoLotVisualizationPrivileges">
-                                    <a class="secondLevel" routerLink="/app/lots">Ver lotes</a>
+                                    <a class="secondLevel" routerLink="/app/lots">
+                                        <span class="glyphicon glyphicon-menu-right"></span> Ver lotes
+                                    </a>
                                 </li>
                                 <li [class.hidden]="userHasNoPortPrivileges">
-                                    <a class="secondLevel" routerLink="/app/registerLot">Registrar nuevo lote</a>
+                                    <a class="secondLevel" routerLink="/app/registerLot">
+                                        <span class="glyphicon glyphicon-menu-right"></span> Registrar nuevo lote
+                                    </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li [class.hidden]="userHasNoTransportPrivileges" id="dropdown">
-                    <a data-toggle="collapse" href="#dropdown-transportes" class="collapsed">
-                        <span class="glyphicon glyphicon-menu-right"></span> Transportes
+                    <a data-toggle="collapse" href="#dropdown-transports" class="collapsed">
+                        <span class="glyphicon glyphicon-triangle-right"></span> Transportes
                         <span class="caret"></span>
                     </a>
-                    <div id="dropdown-transportes" class="panel-collapse collapse">
+                    <div id="dropdown-transports" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <a class="secondLevel" routerLink="/app/transports">Ver transportes</a>
+                                    <a class="secondLevel" routerLink="/app/transports">
+                                        <span class="glyphicon glyphicon-menu-right"></span> Ver transportes
+                                    </a>
                                 </li>
                                 <li>
-                                    <a class="secondLevel" routerLink="/app/registerTransport">Registrar nuevo transporte</a>
+                                    <a class="secondLevel" routerLink="/app/registerTransport">
+                                        <span class="glyphicon glyphicon-menu-right"></span> Registrar transporte
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -64,18 +72,35 @@
                 </li>
                 <li [class.hidden]="userHasNoYardPrivileges">
                     <a routerLink="/app/registerYardInspection">
-                        <span class="glyphicon glyphicon-menu-right"></span> Registrar inspección de patio
+                        <span class="glyphicon glyphicon-triangle-right"></span> Registrar inspección de patio
                     </a>
                 </li>
                 <li [class.hidden]="userHasNoYardPrivileges">
                     <a routerLink="/app/registerMovement">
-                        <span class="glyphicon glyphicon-menu-right"></span> Registrar movimiento
+                        <span class="glyphicon glyphicon-triangle-right"></span> Registrar movimiento
                     </a>
                 </li>
-                <li [class.hidden]="userHasNoSalePrivileges">
-                    <a routerLink="#">
-                        <span class="glyphicon glyphicon-menu-right"></span> Registrar venta
+                <li [class.hidden]="userHasNoSalePrivileges" id="dropdown">
+                    <a data-toggle="collapse" href="#dropdown-sales" class="collapsed">
+                        <span class="glyphicon glyphicon-triangle-right"></span> Ventas
+                        <span class="caret"></span>
                     </a>
+                    <div id="dropdown-sales" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a class="secondLevel" routerLink="/app/sales">
+                                        <span class="glyphicon glyphicon-menu-right"></span> Ver ventas registradas
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="secondLevel" routerLink="/app/registerSale">
+                                        <span class="glyphicon glyphicon-menu-right"></span> Registrar nueva venta
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </li>
                 <li id="logoutBtnContainer">
                     <br><br>

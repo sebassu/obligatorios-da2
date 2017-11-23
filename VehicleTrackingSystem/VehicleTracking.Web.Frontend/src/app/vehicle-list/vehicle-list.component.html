@@ -2,7 +2,7 @@
     <br><br>
     <h2 class="contentsTitle">Vehículos</h2>
 </div>
-<div [hidden]="!vehicles.length" id="contentsContainer">
+<div [hidden]="vehicles.length == 0" id="contentsContainer">
     <br><br>
     <table class='table table-bordered'>
         <thead>
@@ -20,7 +20,7 @@
         <tbody>
             <tr *ngFor='let aVehicle of vehicles'>
                 <td>{{aVehicle.vin}}</td>
-                <td>{{aVehicle.type}}</td>
+                <td>{{prettyPrintType(aVehicle.type)}}</td>
                 <td>{{aVehicle.brand}}</td>
                 <td>{{aVehicle.model}}</td>
                 <td>{{aVehicle.color}}</td>
@@ -35,7 +35,7 @@
         </tbody>
     </table>
 </div>
-<div [hidden]="vehicles.length" id="noContentsContainer">
+<div [hidden]="vehicles.length > 0" id="noContentsContainer">
     <br><br><br><br><br>
     <h3>Sin datos a mostrar.</h3>
 </div>

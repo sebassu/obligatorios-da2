@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { BaseService } from './base.service';
 import { Vehicle } from '../entities/vehicle';
+import { VehicleHistory } from '../entities/vehicle-history';
 
 @Injectable()
 export class VehicleService extends BaseService {
@@ -19,6 +20,14 @@ export class VehicleService extends BaseService {
         let header = this.getHeader();
         return this._httpService.get(VehicleService.URL, { 'headers': header })
             .map((response: Response) => <Array<Vehicle>>response.json())
+            .catch(this.handleError);
+    }
+
+    getHistoryOfVehicleWithVIN(vinToFind: string): Observable<VehicleHistory> {
+        let url = VehicleService.URL + "/" + vinToFind + "/History";
+        let header = this.getHeader();
+        return this._httpService.get(url, { 'headers': header })
+            .map((response: Response) => <VehicleHistory>response.json())
             .catch(this.handleError);
     }
 }
