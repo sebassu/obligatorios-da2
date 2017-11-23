@@ -4,7 +4,7 @@ using VehicleTracking_Data_DataAccess;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Web.API.Tests.Services_Tests
+namespace WinApp.Services_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -15,8 +15,8 @@ namespace Web.API.Tests.Services_Tests
         [TestMethod]
         public void LogInSuccessfullyTest()
         {
-            User administrator = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez",
-                "jPerez", "Juancito", "099424242");
+            User administrator = User.CreateNewUser(UserRoles.ADMINISTRATOR,
+                "Juan", "Perez", "jPerez", "Juancito", "099424242");
             AddNewUserAndSaveChanges(administrator);
             Assert.IsTrue(SessionServices.LogIn("jPerez", "Juancito"));
         }
@@ -39,8 +39,8 @@ namespace Web.API.Tests.Services_Tests
         [ExpectedException(typeof(ServiceException))]
         public void CannotLogInWrongUserRoleTest()
         {
-            User transporter = User.CreateNewUser(UserRoles.TRANSPORTER, "Maria", "Gonzalez",
-                "mGonzalez", "mGonzalez123", "099424242");
+            User transporter = User.CreateNewUser(UserRoles.TRANSPORTER, "Maria",
+                "Gonzalez", "mGonzalez", "mGonzalez123", "099424242");
             AddNewUserAndSaveChanges(transporter);
             SessionServices.LogIn("mGonzalez", "mGonzalez123");
         }
@@ -66,4 +66,3 @@ namespace Web.API.Tests.Services_Tests
         }
     }
 }
-

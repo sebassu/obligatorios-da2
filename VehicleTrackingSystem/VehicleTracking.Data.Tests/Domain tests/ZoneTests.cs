@@ -173,7 +173,8 @@ namespace Data.Domain_tests
         public void ZoneGetHashCodeTest()
         {
             object testingZoneAsObject = testingZone;
-            Assert.AreEqual(testingZoneAsObject.GetHashCode(), testingZone.GetHashCode());
+            Assert.AreEqual(testingZoneAsObject.GetHashCode(),
+                testingZone.GetHashCode());
         }
 
         [TestMethod]

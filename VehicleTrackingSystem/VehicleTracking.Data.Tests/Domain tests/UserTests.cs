@@ -387,7 +387,8 @@ namespace Data.Domain_tests
         public void UserGetHashCodeTest()
         {
             object testingUserAsObject = testingUser;
-            Assert.AreEqual(testingUserAsObject.GetHashCode(), testingUser.GetHashCode());
+            Assert.AreEqual(testingUserAsObject.GetHashCode(),
+                testingUser.GetHashCode());
         }
 
         [TestMethod]

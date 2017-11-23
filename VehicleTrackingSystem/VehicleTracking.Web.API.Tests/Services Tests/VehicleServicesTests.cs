@@ -32,6 +32,7 @@ namespace Web.API.Services_tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(v => v.Vehicles.AddNewVehicle(It.IsAny<Vehicle>()))
                 .Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
             vehicleServices.AddNewVehicleFromData(testingVehicleData);
             mockUnitOfWork.Verify();
@@ -193,6 +194,7 @@ namespace Web.API.Services_tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(v => v.Vehicles.GetVehicleWithVIN(vehicleToModify.VIN))
                 .Returns(vehicleToModify).Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var userServices = new VehicleServices(mockUnitOfWork.Object);
             userServices.ModifyVehicleWithVIN(vehicleToModify.VIN, testingVehicleData);
             mockUnitOfWork.Verify();
@@ -212,6 +214,7 @@ namespace Web.API.Services_tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(v => v.Vehicles.GetVehicleWithVIN(vehicleToModify.VIN))
                 .Returns(vehicleToModify).Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var userServices = new VehicleServices(mockUnitOfWork.Object);
             var dataToSet = VehicleDTO.FromVehicle(testingVehicle);
             dataToSet.VIN = vehicleToModify.VIN;
@@ -309,6 +312,7 @@ namespace Web.API.Services_tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(v => v.Vehicles.RemoveVehicleWithVIN(It.IsAny<string>()))
                 .Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
             vehicleServices.RemoveVehicleWithVIN("AJSNDQ122345MANSD");
             mockUnitOfWork.Verify();
@@ -336,6 +340,7 @@ namespace Web.API.Services_tests
             Assert.IsNull(defaultVehicleDTO.Brand);
             Assert.AreEqual(0, defaultVehicleDTO.Year);
             Assert.AreEqual(VehicleType.CAR, defaultVehicleDTO.Type);
+            Assert.IsNull(defaultVehicleDTO.CurrentStage);
         }
 
         [TestMethod]
@@ -343,6 +348,14 @@ namespace Web.API.Services_tests
         {
             object someRandomObject = new object();
             Assert.AreNotEqual(testingVehicleData, someRandomObject);
+        }
+
+        [TestMethod]
+        public void VehicleDTOGetHashCodeTest()
+        {
+            object testingVehicleDataAsObject = testingVehicleData;
+            Assert.AreEqual(testingVehicleDataAsObject.GetHashCode(),
+                testingVehicleData.GetHashCode());
         }
     }
 }

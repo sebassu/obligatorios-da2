@@ -121,7 +121,7 @@ namespace VehicleTracking_Data_Entities
             Subzone subzoneToCompareAgainst = obj as Subzone;
             if (Utilities.IsNotNull(subzoneToCompareAgainst))
             {
-                return Id.Equals(subzoneToCompareAgainst.Id);
+                return name.Equals(subzoneToCompareAgainst.name);
             }
             else
             {

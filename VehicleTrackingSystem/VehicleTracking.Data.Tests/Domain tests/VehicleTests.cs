@@ -323,7 +323,7 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        public void UserGetHashCodeTest()
+        public void VehicleGetHashCodeTest()
         {
             object testingVehicleAsObject = testingVehicle;
             Assert.AreEqual(testingVehicleAsObject.GetHashCode(),

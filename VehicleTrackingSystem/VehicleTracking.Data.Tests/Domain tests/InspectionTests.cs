@@ -284,10 +284,11 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        public void UserGetHashCodeTest()
+        public void InspectionGetHashCodeTest()
         {
             object testingInspectionAsObject = testingInspection;
-            Assert.AreEqual(testingInspection.GetHashCode(), testingInspection.GetHashCode());
+            Assert.AreEqual(testingInspectionAsObject.GetHashCode(),
+                testingInspection.GetHashCode());
         }
     }
 }
