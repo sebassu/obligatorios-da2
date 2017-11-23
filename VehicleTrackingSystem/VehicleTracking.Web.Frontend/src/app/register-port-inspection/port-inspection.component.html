@@ -10,7 +10,7 @@
                     <label class="control-label col-lg-2" for="vehicleSelect">Vehículo:</label>
                     <div class="col-lg-7">
                         <select class="form-control" [(ngModel)]="selectedVehicle" required name="vehicleSelect" id="vehicleSelect">
-                          <option *ngFor='let aVehicle of vehicles'>{{aVehicle.vin}}</option>
+                          <option *ngFor='let aVehicle of vehicles' [ngValue]="aVehicle.vin">{{aVehicle.vin}}</option>
                         </select>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                     <label class="control-label col-lg-2" for="locationSelect">Ubicación:</label>
                     <div class="col-lg-7">
                         <select class="form-control" [(ngModel)]="selectedLocation" required name="locationSelect" id="locationSelect">
-                          <option *ngFor='let aName of portNames'>{{aName}}</option>
+                          <option *ngFor='let aName of portNames' [ngValue]="aName">{{aName}}</option>
                         </select>
                     </div>
                 </div>
