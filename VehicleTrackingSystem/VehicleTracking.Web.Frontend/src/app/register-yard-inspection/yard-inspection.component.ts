@@ -95,7 +95,7 @@ export class YardInspectionComponent implements OnInit {
 
   private registerYardInspection() {
     let inspectionToRegister = new Inspection(this.selectedLocation,
-      new Date(), this.damages);
+      new Date().toUTCString(), this.damages);
     this._inspectionService.registerYardInspection(this.selectedVehicle.vin,
       inspectionToRegister);
   }

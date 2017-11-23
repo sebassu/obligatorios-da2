@@ -169,6 +169,15 @@ namespace API.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No es posible realizar la modificación: causaría un nombre de subzona repetido en la zona..
+        /// </summary>
+        internal static string SubzoneNameMustBeUniqueInZone {
+            get {
+                return ResourceManager.GetString("SubzoneNameMustBeUniqueInZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: un transporte sólo puede ser marcado como finalizado por su usuario transportador creador..
         /// </summary>
         internal static string TransportFinalizerMustBeCreator {

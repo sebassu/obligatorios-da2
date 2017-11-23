@@ -153,6 +153,9 @@
   <data name="NullDTOReference" xml:space="preserve">
     <value>No se recibieron datos en el formato correcto esperado para acceder a esta funcionalidad.</value>
   </data>
+  <data name="SubzoneNameMustBeUniqueInZone" xml:space="preserve">
+    <value>No es posible realizar la modificación: causaría un nombre de subzona repetido en la zona.</value>
+  </data>
   <data name="TransportFinalizerMustBeCreator" xml:space="preserve">
     <value>Error: un transporte sólo puede ser marcado como finalizado por su usuario transportador creador.</value>
   </data>

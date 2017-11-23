@@ -89,7 +89,7 @@ export class PortInspectionComponent implements OnInit {
 
   private registerPortInspection() {
     let inspectionToRegister = new Inspection(this.selectedLocation,
-      new Date(), this.damages);
+      new Date().toUTCString(), this.damages);
     this._inspectionService.registerPortInspection(this.selectedVehicle,
       inspectionToRegister);
   }

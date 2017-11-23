@@ -93,4 +93,12 @@ export class VehicleHistoryComponent implements OnInit {
       this.hasNoSaleData = false;
     }
   }
+
+  private prettyPrintDate(someDate: string): string {
+    if (someDate == null) {
+      return "N/a";
+    } else {
+      return new Date(someDate).toLocaleString();
+    }
+  }
 }

@@ -21,7 +21,7 @@ namespace VehicleTracking_Data_DataAccess
         {
             try
             {
-                return elements.Include("Container").Include("Vehicles")
+                return elements.Include("Container.Subzones").Include("Vehicles")
                     .Single(s => s.Id == idToFind);
             }
             catch (InvalidOperationException)

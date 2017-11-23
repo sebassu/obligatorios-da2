@@ -20,7 +20,7 @@
         <tbody>
             <tr *ngFor='let aVehicle of vehicles'>
                 <td>{{aVehicle.vin}}</td>
-                <td>{{aVehicle.type}}</td>
+                <td>{{prettyPrintType(aVehicle.type)}}</td>
                 <td>{{aVehicle.brand}}</td>
                 <td>{{aVehicle.model}}</td>
                 <td>{{aVehicle.color}}</td>

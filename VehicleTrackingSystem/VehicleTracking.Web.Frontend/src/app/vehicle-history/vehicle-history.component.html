@@ -35,13 +35,13 @@
                 <div class="form-group">
                     <label class="control-label col-lg-2" for="vehicleName">Vehículo:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" disabled [(ngModel)]="portInspectionData.vehicleVIN" required name="vehicleName" id="vehicleName">
+                        <input type="text" class="form-control" disabled value="portInspectionData.vehicleVIN" required name="vehicleName" id="vehicleName">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-2" for="locationName">Ubicación:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" disabled [(ngModel)]="portInspectionData.locationName" required name="locationName" id="locationName">
+                        <input type="text" class="form-control" disabled value="portInspectionData.locationName" required name="locationName" id="locationName">
                     </div>
                 </div>
             </form>
@@ -78,25 +78,25 @@
                 <div class="form-group">
                     <label class="control-label col-lg-3" for="transporterUsername">Transportador:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" disabled [(ngModel)]="transportData.transporterUsername" name="transporterUsername" id="transporterUsername">
+                        <input type="text" class="form-control" disabled value="transportData.transporterUsername" name="transporterUsername" id="transporterUsername">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3" for="startDateTime">Fecha de Inicio:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" disabled [(ngModel)]="transportData.startDateTime" name="startDateTime" id="startDateTime">
+                        <input type="text" class="form-control" disabled value="prettyPrintDate(transportData.startDateTime)" name="startDateTime" id="startDateTime">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3" for="endDateTime">Fecha de Fin:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" disabled [(ngModel)]="transportData.endDateTime" name="endDateTime" id="endDateTime">
+                        <input type="text" class="form-control" disabled value="prettyPrintDate(transportData.endDateTime)" name="endDateTime" id="endDateTime">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3" for="transportedLots">Lotes transportados:</label>
                     <div class="col-lg-7">
-                        <textarea rows="4" required class="form-control" disabled id="description" [(ngModel)]="transportData.transportedLotsNames" name="transportedLots" id="transportedLots"></textarea>
+                        <textarea rows="4" required class="form-control" disabled id="description" value="transportData.transportedLotsNames" name="transportedLots" id="transportedLots"></textarea>
                     </div>
                 </div>
             </form>
@@ -110,7 +110,7 @@
                 <div class="form-group">
                     <label class="control-label col-lg-2" for="yardLocationName">Ubicación:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" disabled [(ngModel)]="yardInspectionData.locationName" required name="yardLocationName" id="yardLocationName">
+                        <input type="text" class="form-control" disabled value="yardInspectionData.locationName" required name="yardLocationName" id="yardLocationName">
                     </div>
                 </div>
             </form>
@@ -157,7 +157,7 @@
                         <td>{{movement.responsiblesUsername}}</td>
                         <td>{{movement.departureSubzone}}</td>
                         <td>{{movement.arrivalSubzone}}</td>
-                        <td>{{movement.date}}</td>
+                        <td>{{prettyPrintDate(movement.date)}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -165,25 +165,31 @@
     </div>
 
     <div [hidden]="hasNoSaleData" class="panel panel-primary">
-        <div class="panel-heading">Movimientos en patio</div>
+        <div class="panel-heading">Información de venta</div>
         <div class="panel-body">
             <form class="form-horizontal col-lg-10" name="saleForm" role="form" id="saleForm">
                 <div class="form-group">
                     <label class="control-label col-lg-3" for="buyerName"></label>
                     <div class="col-lg-7">
-                        <input type="text" disabled class="form-control" id="buyerName" [(ngModel)]="buyerName" name="saleData.buyerName">
+                        <input type="text" disabled class="form-control" id="buyerName" value="saleData.buyerName" name="buyerName">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3" for="buyerPhoneNumber">Teléfono del comprador:</label>
                     <div class="col-lg-7">
-                        <input type="text" disabled class="form-control" id="buyerPhoneNumber" [(ngModel)]="saleData.buyerPhoneNumber" name="buyerPhoneNumber">
+                        <input type="text" disabled class="form-control" id="buyerPhoneNumber" value="saleData.buyerPhoneNumber" name="buyerPhoneNumber">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-3" for="sellingPrice">Precio de venta:</label>
                     <div class="col-lg-7">
-                        <input type="number" disabled class="form-control" id="sellingPrice" [(ngModel)]="sellingPrice" name="saleData.sellingPrice">
+                        <input type="number" disabled class="form-control" id="sellingPrice" value="saleData.sellingPrice" name="sellingPrice">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3" for="saleDate">Fecha:</label>
+                    <div class="col-lg-7">
+                        <input type="text" disabled class="form-control" id="saleDate" value="prettyPrintDate(saleData.dateTime)" name="saleDate">
                     </div>
                 </div>
             </form>
