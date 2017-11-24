@@ -86,6 +86,17 @@ namespace Data.Persistence_tests
         }
 
         [TestMethod]
+        public void VRepositoryGetFullyLoadedVehicleWithVINValidTest()
+        {
+            Vehicle addedVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPIC19");
+            AddNewVehicleAndSaveChanges(addedVehicle);
+            Vehicle result = testingVehicleRepository.GetFullyLoadedVehicleWithVIN("RUSH2112MVNGPIC19");
+            Assert.AreEqual(addedVehicle, result);
+            Assert.IsNotNull(result.StagesData);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void VRepositoryGetVehicleWithUnaddedVINInvalidTest()
         {

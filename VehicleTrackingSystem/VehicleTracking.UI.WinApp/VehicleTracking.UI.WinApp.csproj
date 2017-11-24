@@ -229,10 +229,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VehicleTracking.ConcreteImportingStrategies\VehicleTracking.ConcreteImportingStrategies.csproj">
-      <Project>{f9a2f0af-208d-4aa1-ae62-c6249bb2f7b3}</Project>
-      <Name>VehicleTracking.ConcreteImportingStrategies</Name>
-    </ProjectReference>
     <ProjectReference Include="..\VehicleTracking.Data.DataAccess\VehicleTracking.Data.DataAccess.csproj">
       <Project>{F3DCC088-C021-4233-9C82-9B1A3461A7B2}</Project>
       <Name>VehicleTracking.Data.DataAccess</Name>

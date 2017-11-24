@@ -109,6 +109,13 @@ namespace Data.Strategies_tests
             RunTestForFileWithName("Wololo.xml");
         }
 
+        [TestMethod]
+        public void XMLCIStrategyToStringTest()
+        {
+            var result = testingStrategy.ToString();
+            Assert.AreEqual("Importación desde archivo XML", result);
+        }
+
         private static IEnumerable<Vehicle> RunTestForFileWithName(string fileName)
         {
             string xmlTestFilePath = testFileLocation + fileName;

@@ -107,6 +107,13 @@ namespace Data.Strategies_tests
             RunTestForFileWithName(null);
         }
 
+        [TestMethod]
+        public void JSONCIStrategyToStringTest()
+        {
+            var result = testingStrategy.ToString();
+            Assert.AreEqual("Importación desde archivo JSON", result);
+        }
+
         private static IEnumerable<Vehicle> RunTestForFileWithName(string fileName)
         {
             string xmlTestFilePath = testFileLocation + fileName;

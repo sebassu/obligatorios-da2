@@ -370,7 +370,21 @@ namespace Data.Domain_tests
             ICollection<Vehicle> someTestingVehicles = new List<Vehicle>() { someVehicle };
             Lot someLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot",
                 "Some description", someTestingVehicles);
-            Assert.IsTrue(testingLot.IsReadyForTransport());
+            Assert.IsTrue(someLot.IsReadyForTransport());
+        }
+
+        [TestMethod]
+        public void LotTransportedLotIsNotReadyForTransportTest()
+        {
+            Vehicle someVehicle = Vehicle.InstanceForTestingPurposes();
+            someVehicle.PortInspection = Inspection.InstanceForTestingPurposes();
+            ICollection<Vehicle> someTestingVehicles = new List<Vehicle>() { someVehicle };
+            Lot someLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot",
+                "Some description", someTestingVehicles);
+            var someTransport = Transport.InstanceForTestingPurposes();
+            someTransport.LotsTransported = new List<Lot>() { someLot };
+            someLot.MarkAsTransported(someTransport);
+            Assert.IsFalse(someLot.IsReadyForTransport());
         }
 
         [TestMethod]
