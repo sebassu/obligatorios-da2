@@ -199,6 +199,19 @@ namespace Web.API.Tests.Services_Tests
             RunModifySubzoneTestWithInvalidDataOnDTO(someSubzoneData);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException))]
+        public void SZServicesModifySubzoneWithIdCausesRepeatedNameOnZoneInvalidTest()
+        {
+            Subzone subzoneToModify = Subzone.CreateNewSubzone("Wololo", 42, testingZone);
+            Subzone.CreateNewSubzone("Some very unique name", 42, testingZone);
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(u => u.Subzones.GetSubzoneWithId(subzoneToModify.Id))
+                .Returns(subzoneToModify);
+            var zoneServices = new SubzoneServices(mockUnitOfWork.Object);
+            zoneServices.ModifySubzoneWithId(subzoneToModify.Id, testingSubzoneData);
+        }
+
         private static void RunModifySubzoneTestWithInvalidDataOnDTO(SubzoneDTO someSubzoneData)
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
