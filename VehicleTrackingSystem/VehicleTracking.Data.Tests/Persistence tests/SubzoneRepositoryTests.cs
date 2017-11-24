@@ -1,6 +1,6 @@
-﻿using Domain;
-using System.Linq;
-using Persistence;
+﻿using System.Linq;
+using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,14 +11,13 @@ namespace Data.Persistence_tests
     public class SubzoneRepositoryTests
     {
         private static readonly IUnitOfWork testingUnitOfWork = new UnitOfWork();
-        private static IZoneRepository testingZoneRepository;
         private static ISubzoneRepository testingSubzoneRepository;
 
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
         {
-            testingZoneRepository = testingUnitOfWork.Zones;
             testingSubzoneRepository = testingUnitOfWork.Subzones;
+            Assert.IsNotNull(testingSubzoneRepository);
         }
 
         #region AddNewSubzone tests
@@ -26,7 +25,6 @@ namespace Data.Persistence_tests
         public void SZRepositoryAddNewSubzoneValidTest()
         {
             Zone zoneToAdd = Zone.CreateNewZone("Zone10", 12);
-            AddNewZoneAndSaveChanges(zoneToAdd);
             Subzone testingSubzone = Subzone.CreateNewSubzone("One subzone",
                 11, zoneToAdd);
             AddNewSubzoneAndSaveChanges(testingSubzone);
@@ -35,7 +33,7 @@ namespace Data.Persistence_tests
         }
 
         [TestMethod]
-        public void SZRepositoryAddSubzoneNotExistingZoneValidTest()
+        public void SZRepositoryAddSubzoneNonExistingZoneValidTest()
         {
             Zone testingZone = Zone.CreateNewZone("Zonep", 23);
             Subzone testingSubzone = Subzone.CreateNewSubzone("Subzone", 22,
@@ -51,12 +49,30 @@ namespace Data.Persistence_tests
         }
         #endregion
 
+        #region GetSubzoneWithId tests
+        [TestMethod]
+        public void SZRepositoryGetSubzoneWithIdValidTest()
+        {
+            var subzoneToVerify = Subzone.InstanceForTestingPurposes();
+            AddNewSubzoneAndSaveChanges(subzoneToVerify);
+            Subzone result = testingSubzoneRepository.GetSubzoneWithId(
+                subzoneToVerify.Id);
+            Assert.AreEqual(subzoneToVerify, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RepositoryException))]
+        public void SZRepositoryGetSubzoneWithUnaddedIdInvalidTest()
+        {
+            testingSubzoneRepository.GetSubzoneWithId(42);
+        }
+        #endregion
+
         #region UpdateSubzone tests
         [TestMethod]
         public void SZRepositoryModifySubzoneValidTest()
         {
             Zone testingZone = Zone.CreateNewZone("Testing zone", 11);
-            AddNewZoneAndSaveChanges(testingZone);
             Subzone subzoneToVerify = Subzone.CreateNewSubzone("A subzone", 2, testingZone);
             AddNewSubzoneAndSaveChanges(subzoneToVerify);
             SetSubzoneData(subzoneToVerify, "One subzone", 10, testingZone);
@@ -65,7 +81,8 @@ namespace Data.Persistence_tests
             Assert.AreEqual(testingZone, subzoneToVerify.Container);
         }
 
-        private void SetSubzoneData(Subzone subzoneToVerify, string nameToSet, int capacityToSet, Zone zoneToSet)
+        private void SetSubzoneData(Subzone subzoneToVerify,
+            string nameToSet, int capacityToSet, Zone zoneToSet)
         {
             subzoneToVerify.Name = nameToSet;
             subzoneToVerify.Capacity = capacityToSet;
@@ -86,8 +103,8 @@ namespace Data.Persistence_tests
         public void SZRepositoryRemoveSubzoneValidTest()
         {
             Zone testingZone = Zone.CreateNewZone("Some new zone1", 8);
-            Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone", 6, testingZone);
-            AddNewZoneAndSaveChanges(testingZone);
+            Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone",
+                6, testingZone);
             AddNewSubzoneAndSaveChanges(subzoneToVerify);
             RemoveSubzoneAndSaveChanges(subzoneToVerify);
             CollectionAssert.DoesNotContain(testingSubzoneRepository.Elements.ToList(),
@@ -98,20 +115,14 @@ namespace Data.Persistence_tests
         public void ZRepositoryRemoveSubzoneWithVehiclesValidTest()
         {
             Zone testingZone = Zone.CreateNewZone("Zone21", 8);
-            AddNewZoneAndSaveChanges(testingZone);
-            Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone 2", 6, testingZone);
+            Subzone subzoneToVerify = Subzone.CreateNewSubzone("Delete subzone 2",
+                6, testingZone);
             Vehicle vehicleToAdd = Vehicle.InstanceForTestingPurposes();
             subzoneToVerify.Vehicles.Add(vehicleToAdd);
             AddNewSubzoneAndSaveChanges(subzoneToVerify);
             RemoveSubzoneAndSaveChanges(subzoneToVerify);
         }
         #endregion
-
-        private static void AddNewZoneAndSaveChanges(Zone someZone)
-        {
-            testingZoneRepository.AddNewZone(someZone);
-            testingUnitOfWork.SaveChanges();
-        }
 
         private static void AddNewSubzoneAndSaveChanges(Subzone someSubzone)
         {

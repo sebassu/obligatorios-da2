@@ -1,21 +1,22 @@
-﻿using Domain;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Services
 {
+    [Serializable]
     public class InspectionDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string VehicleVIN { get; set; }
 
         [Required]
         public string LocationName { get; set; }
 
-        public string ResponsibleUsername { get; set; }
+        public string ResponsiblesUsername { get; set; }
 
         [Required]
         public DateTime DateTime { get; set; }
@@ -32,7 +33,7 @@ namespace API.Services
 
         private InspectionDTO(Inspection someInspection) :
             this(someInspection.Id, someInspection.VehicleVIN, someInspection.Location.Name,
-                someInspection.ResponsibleUser.Username, someInspection.DateTime)
+                someInspection.Responsible.Username, someInspection.DateTime)
         {
             SetDamageDTOs(someInspection);
         }
@@ -47,19 +48,22 @@ namespace API.Services
             }
         }
 
-        private InspectionDTO(int idToSet, string vinToSet, string locationNameToSet,
+        private InspectionDTO(Guid idToSet, string vinToSet, string locationNameToSet,
             string usernameToSet, DateTime dateTimeToSet)
         {
-            Id = idToSet;
+            Id = idToSet.ToString();
             VehicleVIN = vinToSet;
             LocationName = locationNameToSet;
-            ResponsibleUsername = usernameToSet;
+            ResponsiblesUsername = usernameToSet;
             DateTime = dateTimeToSet;
         }
 
         internal Inspection ToInspection(User responsible, Location locationToSet, Vehicle vehicleToSet)
         {
-            return Inspection.CreateNewInspection(responsible, locationToSet, DateTime, GetDamages(), vehicleToSet);
+            var result = Inspection.CreateNewInspection(responsible, locationToSet, DateTime,
+                GetDamages(), vehicleToSet);
+            Id = result.Id.ToString();
+            return result;
         }
 
         internal ICollection<Damage> GetDamages()

@@ -1,12 +1,14 @@
-﻿using Domain;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace API.Services
 {
+    [Serializable]
     public class SubzoneDTO
     {
         public int Id { get; set; }
@@ -21,16 +23,17 @@ namespace API.Services
 
         public ICollection<string> VehicleVINs { get; set; }
 
-        internal SubzoneDTO() { }
+        public SubzoneDTO() { }
 
         internal static SubzoneDTO FromSubzone(Subzone someSubzone)
         {
             return new SubzoneDTO(someSubzone);
         }
 
-        private SubzoneDTO(Subzone someSubzone) : this(someSubzone.Id,
-            someSubzone.Name, someSubzone.Capacity)
+        private SubzoneDTO(Subzone someSubzone) : this(someSubzone.Name,
+            someSubzone.Capacity)
         {
+            Id = someSubzone.Id;
             SetVehiclesIds(someSubzone);
             ContainerName = someSubzone.Container.Name;
         }
@@ -44,10 +47,13 @@ namespace API.Services
             }
         }
 
-        private SubzoneDTO(int idToSet, string nameToSet,
-            int capacityToSet)
+        internal static SubzoneDTO FromData(string name, int capacity)
         {
-            Id = idToSet;
+            return new SubzoneDTO(name, capacity);
+        }
+
+        private SubzoneDTO(string nameToSet, int capacityToSet)
+        {
             Name = nameToSet;
             Capacity = capacityToSet;
         }

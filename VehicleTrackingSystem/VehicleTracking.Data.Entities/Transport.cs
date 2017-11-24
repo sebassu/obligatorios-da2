@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public class Transport
     {
@@ -102,10 +102,7 @@ namespace Domain
 
         internal static Transport InstanceForTestingPurposes()
         {
-            return new Transport()
-            {
-                transporter = User.InstanceForTestingPurposes()
-            };
+            return new Transport();
         }
 
         protected Transport() { }

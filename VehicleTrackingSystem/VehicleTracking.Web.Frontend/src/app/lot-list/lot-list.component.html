@@ -1,0 +1,46 @@
+<div class="header">
+    <br><br>
+    <h2 class="contentsTitle">Lotes</h2>
+</div>
+<div [hidden]="lots.length == 0" id="contentsContainer">
+    <br><br>
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Nombre:</th>
+                <th>Descripción:</th>
+                <th>Creador:</th>
+                <th>Vehículos:</th>
+                <th>Listo para el transporte:</th>
+                <th>Transportado:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let aLot of lots'>
+                <td>
+                    <input name="lotSelector" class="lotRadiobutton" type="radio" (click)="setSelectedLot(aLot)" />
+                </td>
+                <td>{{aLot.name}}</td>
+                <td>{{aLot.description}}</td>
+                <td>{{aLot.creatorUsername}}</td>
+                <td>{{aLot.vehicleVINs}}</td>
+                <td>
+                    <span *ngIf="aLot.isReadyForTransport" class="glyphicon glyphicon-ok"></span>
+                    <span *ngIf="!aLot.isReadyForTransport" class="glyphicon glyphicon-remove"></span>
+                </td>
+                <td>
+                    <span *ngIf="aLot.wasTransported" class="glyphicon glyphicon-ok"></span>
+                    <span *ngIf="!aLot.wasTransported" class="glyphicon glyphicon-remove"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <button type="button" class="btn btn-lg btn-danger changeBtn" [disabled]="selectedLot == null || selectedLot.wasTransported" (click)='deleteLot()' id="deleteLotBtn">Eliminar</button>
+    <button type="button" class="btn btn-lg btn-primary changeBtn" [disabled]="selectedLot == null || selectedLot.wasTransported" (click)='editLot()' id="editLotBtn">Editar</button>
+</div>
+<div [hidden]="lots.length > 0" id="noContentsContainer">
+    <br><br><br><br><br>
+    <h3>Sin datos a mostrar.</h3>
+</div>

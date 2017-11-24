@@ -1,7 +1,7 @@
-﻿using Domain;
-using API.Services;
+﻿using API.Services;
 using System.Web.Http;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
@@ -39,20 +39,12 @@ namespace Web.API.Controllers
         [HttpGet]
         public IHttpActionResult GetRegisteredUsers()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredUsers);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredUsers()
-        {
-            IEnumerable<UserDTO> users = Model.GetRegisteredUsers();
-            if (Utilities.IsNotNull(users))
-            {
-                return Ok(users);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    IEnumerable<UserDTO> users = Model.GetRegisteredUsers();
+                    return Ok(users);
+                });
         }
 
         [HttpGet]

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Vehiculos>
+  <Vehiculo>
+    <Marca>Ferrari</Marca>
+    <Modelo>Barchetta</Modelo>
+    <Año>1981</Año>
+    <Color>Red</Color>
+    <Tipo>CAR</Tipo>
+    <VIN>RUSH2112MVNGPICRS</VIN>
+  </Vehiculo>
+  <Vehiculo>
+    <Marca>Renault</Marca>
+    <Modelo>Kangoo</Modelo>
+    <Año>2001</Año>
+    <Color>Gris claro</Color>
+    <Tipo>VAN</Tipo>
+    <VIN>ASNDJFU1258741SMB</VIN>
+  </Vehiculo>
+</Vehiculos>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VehicleTracking_Data_Entities;
 using System.Diagnostics.CodeAnalysis;
-using Domain;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {
@@ -173,7 +173,7 @@ namespace Data.Domain_tests
             testingSubzone.Id = 1;
             Subzone secondTestingSubzone = Subzone.CreateNewSubzone("Subzone1", 8, zone2);
             secondTestingSubzone.Id = 2;
-            Assert.AreNotEqual(testingSubzone, secondTestingSubzone);
+            Assert.AreEqual(testingSubzone, secondTestingSubzone);
         }
 
         [TestMethod]

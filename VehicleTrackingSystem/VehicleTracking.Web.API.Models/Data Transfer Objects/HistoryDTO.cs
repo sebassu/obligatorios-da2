@@ -1,8 +1,10 @@
-﻿using Domain;
+﻿using System;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 namespace API.Services
 {
+    [Serializable]
     public class HistoryDTO
     {
         public LotDTO LotData { get; private set; }
@@ -10,6 +12,7 @@ namespace API.Services
         public TransportDTO TransportData { get; private set; }
         public InspectionDTO YardInspectionData { get; private set; }
         public IEnumerable<MovementDTOOut> MovementsData { get; private set; }
+        public SaleDTO SaleData { get; set; }
 
         internal static HistoryDTO FromFullyLoadedVehicle(Vehicle someVehicle)
         {
@@ -21,6 +24,8 @@ namespace API.Services
             SetPortData(someVehicle.PortLot, someVehicle.PortInspection);
             SetTransportData(someVehicle.TransportData);
             SetYardData(someVehicle.YardInspection, someVehicle.Movements);
+            SaleData = Utilities.IsNull(someVehicle.SaleRecord) ? null :
+                SaleDTO.FromSale(someVehicle.SaleRecord);
         }
 
         private void SetPortData(Lot portLot, Inspection portInspection)

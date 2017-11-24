@@ -1,8 +1,8 @@
-﻿using Domain;
-using System;
-using System.Web.Http;
+﻿using System;
 using API.Services;
+using System.Web.Http;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 namespace Web.API.Controllers
 {
@@ -42,21 +42,12 @@ namespace Web.API.Controllers
         [HttpGet]
         public IHttpActionResult GetRegisteredTransports()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredTransports);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredTransports()
-        {
-            IEnumerable<TransportDTO> transports =
-                Model.GetRegisteredTransports();
-            if (Utilities.IsNotNull(transports))
-            {
-                return Ok(transports);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    IEnumerable<TransportDTO> transports = Model.GetRegisteredTransports();
+                    return Ok(transports);
+                });
         }
 
         [HttpPut]

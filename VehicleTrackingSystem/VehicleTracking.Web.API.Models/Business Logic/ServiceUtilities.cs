@@ -1,5 +1,5 @@
-﻿using Domain;
-using System;
+﻿using System;
+using VehicleTracking_Data_Entities;
 
 namespace API.Services
 {

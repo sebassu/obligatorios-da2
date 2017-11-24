@@ -1,17 +1,17 @@
 ﻿using Moq;
-using Domain;
+using System;
+using System.Linq;
 using API.Services;
+using Web.API.Tests;
 using System.Web.Http;
 using Web.API.Controllers;
 using System.Web.Http.Results;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
+using VehicleTracking_Data_Entities;
 using System.Diagnostics.CodeAnalysis;
-using System;
-using Web.API.Tests;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Web.API.Controllers_Tests
+namespace Web.API.Controllers_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -110,19 +110,6 @@ namespace Web.API.Controllers_Tests
             Assert.IsNotNull(contentResult.Content);
             CollectionAssert.AreEqual(expectedUsers.ToList(),
                 contentResult.Content.ToList());
-        }
-
-        [TestMethod]
-        public void UControllerGetRegisteredUsersNullResponseInvalidTest()
-        {
-            IEnumerable<UserDTO> unexpectedUsers = null;
-            var mockUsersServices = new Mock<IUserServices>();
-            mockUsersServices.Setup(u => u.GetRegisteredUsers()).Returns(unexpectedUsers);
-            var controller = new UsersController(mockUsersServices.Object);
-            IHttpActionResult obtainedResult = controller.GetRegisteredUsers();
-            mockUsersServices.VerifyAll();
-            Assert.IsNotNull(obtainedResult);
-            Assert.IsInstanceOfType(obtainedResult, typeof(NotFoundResult));
         }
 
         [TestMethod]

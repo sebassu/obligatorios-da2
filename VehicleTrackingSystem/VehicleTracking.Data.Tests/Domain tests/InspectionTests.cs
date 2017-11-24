@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain;
 using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {
@@ -28,9 +28,9 @@ namespace Data.Domain_tests
         [TestMethod]
         public void InspectionInstanceForTestingPurposesTest()
         {
-            Assert.AreEqual(0, testingInspection.Id);
+            Assert.IsNotNull(testingInspection.Id);
             Assert.AreEqual(Location.InstanceForTestingPurposes(), testingInspection.Location);
-            Assert.AreEqual(User.InstanceForTestingPurposes(), testingInspection.ResponsibleUser);
+            Assert.AreEqual(User.InstanceForTestingPurposes(), testingInspection.Responsible);
             Assert.IsNotNull(testingInspection.Damages);
             Assert.AreEqual(0, testingInspection.Damages.Count);
         }
@@ -38,8 +38,9 @@ namespace Data.Domain_tests
         [TestMethod]
         public void InspectionSetIdValidTest()
         {
-            testingInspection.Id = 42;
-            Assert.AreEqual(42, testingInspection.Id);
+            var idToSet = Guid.NewGuid();
+            testingInspection.Id = idToSet;
+            Assert.AreEqual(idToSet, testingInspection.Id);
         }
 
         [TestMethod]
@@ -51,39 +52,39 @@ namespace Data.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionSetInvalidDatePassTodayTest()
+        public void InspectionSetInvalidFutureDateTest()
         {
             testingInspection.DateTime = new DateTime(2019, 9, 24, 10, 9, 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionSetInvalidDateTimeOldTest()
+        public void InspectionSetInvalidFarPastDateTimeTest()
         {
             testingInspection.DateTime = new DateTime(1856, 8, 30, 12, 8, 9);
         }
 
         [TestMethod]
-        public void InspectionSetValidResponsibleUserTest()
+        public void InspectionSetValidResponsibleTest()
         {
             User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez",
                 "miUsuario", "pass", "097364857");
-            testingInspection.ResponsibleUser = alternativeUser;
-            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
+            testingInspection.Responsible = alternativeUser;
+            Assert.AreEqual(alternativeUser, testingInspection.Responsible);
         }
 
         [TestMethod]
-        public void InspectionSetNullResponsibleUserValidTest()
+        public void InspectionSetNullResponsibleValidTest()
         {
-            testingInspection.ResponsibleUser = null;
+            testingInspection.Responsible = null;
         }
 
         [TestMethod]
-        public void InspectionSetTransporterResponsibleUserValidTest()
+        public void InspectionSetTransporterResponsibleValidTest()
         {
             User alternativeUser = User.CreateNewUser(UserRoles.TRANSPORTER, "Juan", "Perez",
                 "miUsuario", "pass", "26061199");
-            testingInspection.ResponsibleUser = alternativeUser;
+            testingInspection.Responsible = alternativeUser;
         }
 
         [TestMethod]
@@ -105,7 +106,7 @@ namespace Data.Domain_tests
         public void InspectionSetValidDamagesListTest()
         {
             testingInspection.Damages = damageList;
-            Assert.IsTrue(testingInspection.Damages.SequenceEqual(damageList));
+            Assert.AreSame(damageList, testingInspection.Damages);
         }
 
         [TestMethod]
@@ -124,7 +125,7 @@ namespace Data.Domain_tests
         }
 
         [TestMethod]
-        public void InspectionSetValidVINTest()
+        public void InspectionSetValidVehicleVINTest()
         {
             testingInspection.VehicleVIN = "QAZWSXEDCRFV12345";
             Assert.AreEqual("QAZWSXEDCRFV12345", testingInspection.VehicleVIN);
@@ -132,16 +133,44 @@ namespace Data.Domain_tests
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionSetInvalidVINShortTest()
+        public void InspectionSetInvalidVehicleVINTooShortTest()
         {
             testingInspection.VehicleVIN = "QWERT12345";
         }
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionSetInvalidVINLongTest()
+        public void InspectionSetInvalidVehicleVINTooLongTest()
         {
             testingInspection.VehicleVIN = "QWERTY1234567890QWERTY";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionSetInvalidVehicleVINPunctuationTest()
+        {
+            testingInspection.VehicleVIN = "1212^@% --- (((*//&#^%&^";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionSetInvalidVehicleVINSpacesTest()
+        {
+            testingInspection.VehicleVIN = "  \n\n\t    \t \t \n";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionSetInvalidVehicleVINEmptyTest()
+        {
+            testingInspection.VehicleVIN = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InspectionException))]
+        public void InspectionSetNullVehicleVINInvalidTest()
+        {
+            testingInspection.VehicleVIN = null;
         }
 
         [TestMethod]
@@ -149,8 +178,8 @@ namespace Data.Domain_tests
         {
             User alternativeUser = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Juan", "Perez", "miUsuario", "pass",
                 "097364857");
-            testingInspection.ResponsibleUser = alternativeUser;
-            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
+            testingInspection.Responsible = alternativeUser;
+            Assert.AreEqual(alternativeUser, testingInspection.Responsible);
         }
 
         [TestMethod]
@@ -162,16 +191,16 @@ namespace Data.Domain_tests
             DateTime alternativeDateTime = DateTime.Today;
             testingInspection = Inspection.CreateNewInspection(alternativeUser, alternativeLocation,
                 alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
-            Assert.AreEqual(alternativeUser, testingInspection.ResponsibleUser);
-            Assert.AreEqual(alternativeLocation, testingInspection.Location);
+            Assert.AreSame(alternativeUser, testingInspection.Responsible);
+            Assert.AreSame(alternativeLocation, testingInspection.Location);
             Assert.AreEqual(alternativeDateTime, testingInspection.DateTime);
-            Assert.IsTrue(damageList.SequenceEqual(testingInspection.Damages));
-            Assert.AreEqual(Vehicle.InstanceForTestingPurposes().VIN, testingInspection.VehicleVIN);
+            CollectionAssert.AreEqual(damageList, testingInspection.Damages.ToList());
+            Assert.AreSame(Vehicle.InstanceForTestingPurposes().VIN, testingInspection.VehicleVIN);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
-        public void InspectionParameterFactoryMethodInvalidResponsibleUserTest()
+        public void InspectionParameterFactoryMethodInvalidResponsibleTest()
         {
             Location alternativeLocation = Location.CreateNewLocation(LocationType.PORT, "Puerto de Punta del Este");
             DateTime alternativeDateTime = DateTime.Today;
@@ -189,7 +218,7 @@ namespace Data.Domain_tests
             testingInspection = Inspection.CreateNewInspection(alternativeUser, null,
                 alternativeDateTime, damageList, Vehicle.InstanceForTestingPurposes());
         }
-        
+
         [TestMethod]
         [ExpectedException(typeof(InspectionException))]
         public void InspectionParameterFactoryMethodInvalidDateTimeTest()
@@ -249,15 +278,17 @@ namespace Data.Domain_tests
         public void InspectionEqualsSymmetricTest()
         {
             Inspection secondTestingInspection = Inspection.InstanceForTestingPurposes();
+            secondTestingInspection.Id = testingInspection.Id;
             Assert.AreEqual(testingInspection, secondTestingInspection);
             Assert.AreEqual(secondTestingInspection, testingInspection);
         }
 
         [TestMethod]
-        public void UserGetHashCodeTest()
+        public void InspectionGetHashCodeTest()
         {
             object testingInspectionAsObject = testingInspection;
-            Assert.AreEqual(testingInspection.GetHashCode(), testingInspection.GetHashCode());
+            Assert.AreEqual(testingInspectionAsObject.GetHashCode(),
+                testingInspection.GetHashCode());
         }
     }
 }

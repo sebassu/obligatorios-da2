@@ -1,7 +1,7 @@
 ﻿using API.Services;
-using Domain;
-using System.Collections.Generic;
 using System.Web.Http;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 namespace Web.API.Controllers
 {
@@ -43,20 +43,12 @@ namespace Web.API.Controllers
         [AuthorizeRoles(UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR)]
         public IHttpActionResult GetRegisteredSubzones()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredSubzones);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredSubzones()
-        {
-            IEnumerable<SubzoneDTO> users = Model.GetRegisteredSubzones();
-            if (Utilities.IsNotNull(users))
-            {
-                return Ok(users);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    IEnumerable<SubzoneDTO> subzones = Model.GetRegisteredSubzones();
+                    return Ok(subzones);
+                });
         }
 
         [HttpGet]

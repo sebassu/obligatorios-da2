@@ -1,12 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
-    public enum ProcessStages { PORT, TRANSPORT, YARD }
-
     public class ProcessData
     {
         private const ushort portInspectionPosition = 0;
@@ -63,6 +61,8 @@ namespace Domain
             = new List<Movement>();
 
         public Subzone YardCurrentLocation { get; set; }
+
+        public Sale SaleRecord { get; set; }
 
         public DateTime? LastDateTimeToValidate { get; set; }
 
@@ -142,6 +142,7 @@ namespace Domain
                 && inspectionToAdd.Location.Type == LocationType.YARD;
             if (isValidYardInspectionToSet)
             {
+                ValidateDateOfActionIsCoherent(inspectionToAdd.DateTime);
                 inspections.Add(inspectionToAdd);
                 SortInspectionsByDate();
             }
@@ -158,18 +159,8 @@ namespace Domain
         {
             ValidateVehicleIsInStage(ProcessStages.YARD);
             ValidateVehicleWasInspectedInYard();
-            if (dateTimeOfMovement > LastDateTimeToValidate.GetValueOrDefault())
-            {
-                return AttemptToAddNewMovement(responsible, dateTimeOfMovement, destination);
-            }
-            else
-            {
-                var culture = CultureInfo.CurrentCulture;
-                string errorMessage = string.Format(culture,
-                    ErrorMessages.MovementDateIsInvalid, LastDateTimeToValidate
-                    .Value.ToString(culture));
-                throw new ProcessException(errorMessage);
-            }
+            ValidateDateOfActionIsCoherent(dateTimeOfMovement);
+            return AttemptToAddNewMovement(responsible, dateTimeOfMovement, destination);
         }
 
         private void ValidateVehicleWasInspectedInYard()
@@ -191,6 +182,15 @@ namespace Domain
             return movementToAdd;
         }
 
+        internal void RegisterVehicleSale(Sale associatedSale)
+        {
+            ValidatePropertyWasNotSetPreviously(SaleRecord);
+            ValidateVehicleIsInStage(ProcessStages.READY_FOR_SALE);
+            ValidateDateOfActionIsCoherent(associatedSale.DateTime);
+            SaleRecord = associatedSale;
+            CurrentStage = ProcessStages.SOLD;
+        }
+
         internal bool IsReadyForTransport()
         {
             return CurrentStage == ProcessStages.PORT &&
@@ -210,6 +210,18 @@ namespace Domain
             if (CurrentStage != expectedStage)
             {
                 throw new ProcessException(ErrorMessages.InvalidOperationOnVehicle);
+            }
+        }
+
+        private void ValidateDateOfActionIsCoherent(DateTime dateTimeOfMovement)
+        {
+            if (dateTimeOfMovement <= LastDateTimeToValidate.GetValueOrDefault())
+            {
+                var culture = CultureInfo.CurrentCulture;
+                string errorMessage = string.Format(culture,
+                    ErrorMessages.DateTimeForActionIsInvalid, LastDateTimeToValidate
+                    .Value.ToString(culture));
+                throw new ProcessException(errorMessage);
             }
         }
     }

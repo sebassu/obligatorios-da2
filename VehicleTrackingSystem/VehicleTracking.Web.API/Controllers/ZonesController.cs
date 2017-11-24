@@ -1,7 +1,7 @@
 ﻿using API.Services;
-using Domain;
-using System.Collections.Generic;
 using System.Web.Http;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 namespace Web.API.Controllers
 {
@@ -39,20 +39,12 @@ namespace Web.API.Controllers
         [AuthorizeRoles(UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR)]
         public IHttpActionResult GetRegisteredZones()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredZones);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredZones()
-        {
-            IEnumerable<ZoneDTO> users = Model.GetRegisteredZones();
-            if (Utilities.IsNotNull(users))
-            {
-                return Ok(users);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    IEnumerable<ZoneDTO> zones = Model.GetRegisteredZones();
+                    return Ok(zones);
+                });
         }
 
         [HttpGet]

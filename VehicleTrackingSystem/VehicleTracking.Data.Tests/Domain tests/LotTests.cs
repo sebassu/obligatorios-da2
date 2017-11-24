@@ -1,9 +1,9 @@
-﻿using Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {
@@ -143,10 +143,10 @@ namespace Data.Domain_tests
         [TestMethod]
         public void LotSetVehiclesUnmarksThemAsLottedTest()
         {
-            Vehicle vehicleToAddAndRemove = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
-                "Barchetta", 1984, "Red", "RUSH2112RLLTHEBNS");
-            Vehicle someOtherVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Chevrolet", "Onix",
-                2015, "DarkGray", "ASDFGHJKL12345678");
+            Vehicle vehicleToAddAndRemove = Vehicle.CreateNewVehicle(VehicleType.CAR,
+                "Ferrari", "Barchetta", 1984, "Red", "RUSH2112RLLTHEBNS");
+            Vehicle someOtherVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR,
+                "Chevrolet", "Onix", 2015, "DarkGray", "ASDFGHJKL12345678");
             testingLot.Vehicles = new Vehicle[] { vehicleToAddAndRemove };
             testingLot.Vehicles = new Vehicle[] { someOtherVehicle };
             Assert.IsFalse(vehicleToAddAndRemove.IsLotted);
@@ -340,7 +340,8 @@ namespace Data.Domain_tests
         public void LotGetHashCodeTest()
         {
             object testingLotAsObject = testingLot;
-            Assert.AreEqual(testingLotAsObject.GetHashCode(), testingLot.GetHashCode());
+            Assert.AreEqual(testingLotAsObject.GetHashCode(),
+                testingLot.GetHashCode());
         }
 
         public void LotToStringTest1()
@@ -353,17 +354,6 @@ namespace Data.Domain_tests
         {
             testingLot.Name = "El lotecito";
             Assert.AreEqual("El lotecito", testingLot.ToString());
-        }
-
-        [TestMethod]
-        public void LotFinalizeTransportValidTest()
-        {
-            Vehicle someVehicle = Vehicle.InstanceForTestingPurposes();
-            someVehicle.PortInspection = Inspection.InstanceForTestingPurposes();
-            ICollection<Vehicle> someTestingVehicles = new List<Vehicle>() { someVehicle };
-            testingLot.FinalizeTransport();
-            Assert.IsTrue(testingLot.Vehicles.All(v
-                => v.CurrentStage == ProcessStages.YARD));
         }
 
         [TestMethod]
@@ -380,7 +370,21 @@ namespace Data.Domain_tests
             ICollection<Vehicle> someTestingVehicles = new List<Vehicle>() { someVehicle };
             Lot someLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot",
                 "Some description", someTestingVehicles);
-            Assert.IsTrue(testingLot.IsReadyForTransport());
+            Assert.IsTrue(someLot.IsReadyForTransport());
+        }
+
+        [TestMethod]
+        public void LotTransportedLotIsNotReadyForTransportTest()
+        {
+            Vehicle someVehicle = Vehicle.InstanceForTestingPurposes();
+            someVehicle.PortInspection = Inspection.InstanceForTestingPurposes();
+            ICollection<Vehicle> someTestingVehicles = new List<Vehicle>() { someVehicle };
+            Lot someLot = Lot.CreatorNameDescriptionVehicles(testingCreator, "Testing lot",
+                "Some description", someTestingVehicles);
+            var someTransport = Transport.InstanceForTestingPurposes();
+            someTransport.LotsTransported = new List<Lot>() { someLot };
+            someLot.MarkAsTransported(someTransport);
+            Assert.IsFalse(someLot.IsReadyForTransport());
         }
 
         [TestMethod]

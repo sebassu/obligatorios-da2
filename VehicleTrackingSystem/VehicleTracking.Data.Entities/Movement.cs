@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public class Movement
     {
@@ -11,15 +11,15 @@ namespace Domain
 
         public int Id { get; set; }
 
-        private User responsibleUser;
-        public User ResponsibleUser
+        private User responsible;
+        public User Responsible
         {
-            get { return responsibleUser; }
+            get { return responsible; }
             set
             {
                 if (IsValidResponsibleUser(value))
                 {
-                    responsibleUser = value;
+                    responsible = value;
                 }
                 else
                 {
@@ -99,7 +99,7 @@ namespace Domain
         private void SetCreationParameters(User userToSet, DateTime dateTimeToSet,
             Subzone departureToSet, Subzone arrivalToSet)
         {
-            ResponsibleUser = userToSet;
+            Responsible = userToSet;
             DateTime = dateTimeToSet;
             Departure = departureToSet;
             Arrival = arrivalToSet;

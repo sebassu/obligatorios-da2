@@ -19,7 +19,7 @@ namespace API.Services {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ErrorMessages {
@@ -106,11 +106,56 @@ namespace API.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El movimiento realizado no es válido. Solamente es posible mover vehículos entre las subzonas definidas en el flujo de venta..
+        /// </summary>
+        internal static string InvalidMovementSubzone {
+            get {
+                return ResourceManager.GetString("InvalidMovementSubzone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El movimiento no es válido. Sólo se puede mover vehículos que se encuentren en subzonas que pertenecen al flujo de venta..
+        /// </summary>
+        internal static string InvalidMovementVehicle {
+            get {
+                return ResourceManager.GetString("InvalidMovementVehicle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El lote se encuentra en una etapa en la cual no está permitido editarlo..
         /// </summary>
         internal static string LotWasTransported {
             get {
                 return ResourceManager.GetString("LotWasTransported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El usuario y/o contraseña no pueden ser vacíos..
+        /// </summary>
+        internal static string NotEmptyValues {
+            get {
+                return ResourceManager.GetString("NotEmptyValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contraseña incorrecta..
+        /// </summary>
+        internal static string NotMatchingPasswords {
+            get {
+                return ResourceManager.GetString("NotMatchingPasswords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El valor ingresado no puede ser nulo..
+        /// </summary>
+        internal static string NotNullValues {
+            get {
+                return ResourceManager.GetString("NotNullValues", resourceCulture);
             }
         }
         
@@ -124,11 +169,29 @@ namespace API.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No es posible realizar la modificación: causaría un nombre de subzona repetido en la zona..
+        /// </summary>
+        internal static string SubzoneNameMustBeUniqueInZone {
+            get {
+                return ResourceManager.GetString("SubzoneNameMustBeUniqueInZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error: un transporte sólo puede ser marcado como finalizado por su usuario transportador creador..
         /// </summary>
         internal static string TransportFinalizerMustBeCreator {
             get {
                 return ResourceManager.GetString("TransportFinalizerMustBeCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Sólo pueden ingresar usuarios que tengan rol de administrador..
+        /// </summary>
+        internal static string WrongUserRole {
+            get {
+                return ResourceManager.GetString("WrongUserRole", resourceCulture);
             }
         }
     }

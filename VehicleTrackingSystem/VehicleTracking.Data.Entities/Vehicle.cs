@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
-    public enum VehicleType { CAR, TRUCK, SUV, VAN, MINI_VAN }
-
     public class Vehicle
     {
         public int Id { get; set; }
@@ -136,7 +134,12 @@ namespace Domain
         public ProcessData StagesData { get; set; }
 
         public bool IsLotted => Utilities.IsNotNull(StagesData.PortLot);
-        public ProcessStages CurrentStage => StagesData.CurrentStage;
+
+        public ProcessStages CurrentStage
+        {
+            get { return StagesData.CurrentStage; }
+            set { StagesData.CurrentStage = value; }
+        }
 
         public Lot PortLot
         {
@@ -169,6 +172,8 @@ namespace Domain
 
         public ICollection<Movement> Movements => StagesData.YardMovements;
 
+        public bool IsReadyForSale => CurrentStage == ProcessStages.READY_FOR_SALE;
+
         public bool IsReadyForTransport()
         {
             return StagesData.IsReadyForTransport();
@@ -191,6 +196,13 @@ namespace Domain
                 datetimeOfMovement, destination);
         }
 
+        public Sale SaleRecord => StagesData.SaleRecord;
+
+        internal void RegisterSale(Sale associatedSale)
+        {
+            StagesData.RegisterVehicleSale(associatedSale);
+        }
+
         internal static Vehicle InstanceForTestingPurposes()
         {
             return new Vehicle()
@@ -203,7 +215,7 @@ namespace Domain
         {
             brand = "Marca inválida";
             model = "Vehículo inválido";
-            year = 1800;
+            year = 1912;
             color = "Color inválido";
             vin = "VININVLDOVNINVLDO";
         }

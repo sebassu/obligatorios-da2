@@ -1,17 +1,18 @@
-﻿using Domain;
-using Persistence;
-using System.Linq;
+﻿using System.Linq;
+using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Data.Persistence_Tests
+namespace Data.Persistence_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
     public class UserRepositoryTests
     {
         private string unaddedUsername = "Wololo";
-        private static readonly UnitOfWork testingUnitOfWork = new UnitOfWork();
+        private static readonly UnitOfWork testingUnitOfWork
+            = new UnitOfWork();
         private static IUserRepository testingUserRepository;
 
         [AssemblyInitialize]
@@ -30,6 +31,9 @@ namespace Data.Persistence_Tests
         public static void ClassSetup(TestContext context)
         {
             testingUserRepository = testingUnitOfWork.Users;
+            Assert.IsNotNull(testingUserRepository);
+            CollectionAssert.Contains(testingUserRepository.Elements.ToList(),
+                VTSystemDatabaseInitializer.defaultAdministrator);
         }
 
         [TestMethod]
@@ -148,7 +152,7 @@ namespace Data.Persistence_Tests
         private static void RemoveAllAdministrators()
         {
             var administrators = testingUserRepository.Elements.Where(u =>
-                u.Role == UserRoles.ADMINISTRATOR).ToList();
+                u.Role == UserRoles.ADMINISTRATOR).Distinct().ToList();
             foreach (var administrator in administrators)
             {
                 RemoveUserWithUsernameAndSaveChanges(administrator.Username);
@@ -257,7 +261,7 @@ namespace Data.Persistence_Tests
 
         private static void AddNewUserAndSaveChanges(User userToAdd)
         {
-            testingUserRepository.AddNewUser(userToAdd);
+            testingUnitOfWork.Users.AddNewUser(userToAdd);
             testingUnitOfWork.SaveChanges();
         }
 

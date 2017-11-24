@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using Domain;
 using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal class SubzoneRepository : GenericRepository<Subzone>, ISubzoneRepository
     {
@@ -15,13 +15,13 @@ namespace Persistence
             Add(subzoneToAdd);
         }
 
-        public IEnumerable<Subzone> Elements => GetElementsWith(null, "Container");
+        public IEnumerable<Subzone> Elements => GetElementsWith("Container");
 
         public Subzone GetSubzoneWithId(int idToFind)
         {
             try
             {
-                return elements.Include("Container").Include("Vehicles")
+                return elements.Include("Container.Subzones").Include("Vehicles")
                     .Single(s => s.Id == idToFind);
             }
             catch (InvalidOperationException)
@@ -42,7 +42,7 @@ namespace Persistence
             AttemptToRemove(subzoneToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Subzone value)
+        internal override bool ElementExistsInCollection(Subzone value)
         {
             return Utilities.IsNotNull(value) && elements.Any(z => z.Id == value.Id);
         }

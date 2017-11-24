@@ -1,31 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using Domain;
 using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
-    internal class InspectionRepository : GenericRepository<Inspection>, IInspectionRepository
+    internal class InspectionRepository : GenericRepository<Inspection>,
+        IInspectionRepository
     {
         public InspectionRepository(VTSystemContext someContext)
             : base(someContext) { }
 
-        public IEnumerable<Inspection> Elements => GetElementsWith(null,
-            "ResponsibleUser,Location");
+        public IEnumerable<Inspection> Elements => GetElementsWith("Responsible," +
+            "Location");
 
         public void AddNewInspection(Inspection inspectionToAdd)
         {
             Add(inspectionToAdd);
-            context.Damages.AddRange(inspectionToAdd.Damages);
+            AddDamagesToDatabase(inspectionToAdd);
         }
 
-        public Inspection GetInspectionWithId(int idToLookup)
+        private void AddDamagesToDatabase(Inspection inspectionToAdd)
+        {
+            foreach (var damage in inspectionToAdd.Damages)
+            {
+                context.ImageElements.AddRange(damage.ImageElements);
+                context.Damages.Add(damage);
+            }
+        }
+
+        public Inspection GetInspectionWithId(Guid idToLookup)
         {
             try
             {
-                return elements.Include("ResponsibleUser").Include("Location")
-                    .Include("Damages.Images").Single(i => i.Id == idToLookup);
+                return elements.Include("Responsible").Include("Location")
+                    .Include("Damages.ImageElements").Single(i => i.Id == idToLookup);
             }
             catch (InvalidOperationException)
             {
@@ -33,12 +43,6 @@ namespace Persistence
                     ErrorMessages.CouldNotFindField, "identificador de inspección", idToLookup);
                 throw new RepositoryException(errorMessage);
             }
-        }
-
-        protected override bool ElementExistsInCollection(Inspection entityToUpdate)
-        {
-            return Utilities.IsNotNull(entityToUpdate) &&
-                elements.Any(i => i.Id == entityToUpdate.Id);
         }
     }
 }

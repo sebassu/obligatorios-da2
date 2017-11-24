@@ -1,9 +1,11 @@
-﻿using Domain;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Services
 {
+    [Serializable]
     public class DamageDTO
     {
         [Required]
@@ -11,6 +13,8 @@ namespace API.Services
 
         [Required]
         public ICollection<string> Images { get; set; }
+
+        internal DamageDTO() { }
 
         internal static DamageDTO FromDamage(Damage someDamage)
         {

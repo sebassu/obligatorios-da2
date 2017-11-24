@@ -1,10 +1,12 @@
-﻿using Domain;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Services
 {
+    [Serializable]
     public class LotDTO
     {
         public string CreatorUsername { get; set; }
@@ -20,6 +22,8 @@ namespace API.Services
 
         public bool IsReadyForTransport { get; set; }
 
+        public bool WasTransported { get; set; }
+
         internal LotDTO() { }
 
         internal static LotDTO FromLot(Lot someLot)
@@ -32,6 +36,7 @@ namespace API.Services
         {
             VehicleVINs = someLot.Vehicles.Select(v => v.VIN).ToList();
             IsReadyForTransport = someLot.IsReadyForTransport();
+            WasTransported = someLot.WasTransported;
         }
 
         private LotDTO(string nameToSet, string descriptionToSet,

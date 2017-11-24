@@ -1,6 +1,7 @@
 ﻿using System;
+using VehicleTracking_Data_Entities;
 
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     public interface IUnitOfWork : IDisposable
     {
@@ -13,6 +14,10 @@ namespace Persistence
         ILocationRepository Locations { get; }
         IMovementRepository Movements { get; }
         ITransportRepository Transports { get; }
+        ICustomerRepository Customers { get; }
+        ISaleRepository Sales { get; }
+        IFlowRepository Flow { get; }
+        ILoggingStrategy LoggingStrategy { get; }
         void SaveChanges();
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Persistence {
+namespace VehicleTracking_Data_DataAccess {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace Persistence {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ErrorMessages {
@@ -39,7 +39,7 @@ namespace Persistence {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Persistence.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VehicleTracking_Data_DataAccess.ErrorMessages", typeof(ErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,7 +70,7 @@ namespace Persistence {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: el {0} &quot;{1}&quot; no se encuentra registrado en el sistema..
+        ///   Looks up a localized string similar to el {0} &quot;{1}&quot; no se encuentra registrado en el sistema..
         /// </summary>
         internal static string CouldNotFindField {
             get {
@@ -102,6 +102,15 @@ namespace Persistence {
         internal static string FieldMustBeUnique {
             get {
                 return ResourceManager.GetString("FieldMustBeUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella..
+        /// </summary>
+        internal static string InvalidUserRoleForLogging {
+            get {
+                return ResourceManager.GetString("InvalidUserRoleForLogging", resourceCulture);
             }
         }
         

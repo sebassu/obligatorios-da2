@@ -1,10 +1,12 @@
-﻿using Domain;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using VehicleTracking_Data_Entities;
 using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace API.Services
 {
+    [Serializable]
     public class UserDTO
     {
         [Required]
@@ -25,7 +27,7 @@ namespace API.Services
         [Required]
         public string PhoneNumber { get; set; }
 
-        internal UserDTO() { }
+        public UserDTO() { }
 
         internal static UserDTO FromUser(User someUser)
         {

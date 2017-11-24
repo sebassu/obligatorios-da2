@@ -1,12 +1,12 @@
-﻿using Domain;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System;
 using System.Linq;
+using System.Globalization;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal class LotRepository : GenericRepository<Lot>, ILotRepository
     {
@@ -17,7 +17,7 @@ namespace Persistence
             Add(lotToAdd);
         }
 
-        public IEnumerable<Lot> Elements => GetElementsWith(null, "Creator," +
+        public IEnumerable<Lot> Elements => GetElementsWith("Creator," +
             "AssociatedTransport,Vehicles.StagesData.Inspections");
 
         public Lot GetLotWithName(string nameToFind)
@@ -46,7 +46,7 @@ namespace Persistence
             AttemptToRemove(lotToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Lot value)
+        internal override bool ElementExistsInCollection(Lot value)
         {
             return Utilities.IsNotNull(value) && elements.Any(l => l.Id == value.Id);
         }

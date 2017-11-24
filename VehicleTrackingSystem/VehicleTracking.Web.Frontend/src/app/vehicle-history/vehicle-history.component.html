@@ -1,0 +1,203 @@
+<div class="header">
+    <br><br>
+    <h2 class="contentsTitle">Historial del vehículo: {{vehicleVIN}}</h2>
+</div>
+<div class="container">
+    <br><br>
+    <div [hidden]="hasNoLotData" class="panel panel-primary">
+        <div class="panel-heading">Información de Lote</div>
+        <div class="panel-body">
+            <table class='table table-bordered'>
+                <thead>
+                    <tr>
+                        <th>Nombre:</th>
+                        <th>Descripción:</th>
+                        <th>Creador:</th>
+                        <th>Vehículos:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{lotData.name}}</td>
+                        <td>{{lotData.description}}</td>
+                        <td>{{lotData.creatorUsername}}</td>
+                        <td>{{lotData.vehicleVINs}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div [hidden]="hasNoPortInspectionData" class="panel panel-primary">
+        <div class="panel-heading">Información de inspección de puerto</div>
+        <div class="panel-body">
+            <form class="form-horizontal col-lg-9 col-lg-offset-2">
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="vehicleName">Vehículo:</label>
+                    <div class="col-lg-7">
+                        <input type="text" class="form-control" disabled value="{{portInspectionData.vehicleVIN}}" required name="vehicleName" id="vehicleName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="locationName">Ubicación:</label>
+                    <div class="col-lg-7">
+                        <input type="text" class="form-control" disabled value="{{portInspectionData.locationName}}" required name="locationName" id="locationName">
+                    </div>
+                </div>
+            </form>
+            <br><br><br><br><br>
+            <h3 id="addDamage">Daños:</h3>
+            <div id="damagesContainer">
+                <table [hidden]="portInspectionData.damages.length === 0" class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th id="descriptionColumn">Descripción:</th>
+                            <th>Imágenes:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let damage of portInspectionData.damages'>
+                            <td class="descriptionCell">{{damage.description}}</td>
+                            <td>
+                                <img class="img-thumbnail" *ngFor='let image of damage.images' [src]="_DomSanitizer.bypassSecurityTrustUrl(image)" width="250" height="auto" alt="Evidencia de daño.">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span [hidden]="portInspectionData.damages.length > 0">
+                    <br><br><h4>Inspección sin daños.</h4>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div [hidden]="hasNoTransportData" class="panel panel-primary">
+        <div class="panel-heading">Información de transporte</div>
+        <div class="panel-body">
+            <form class="form-horizontal col-lg-8 col-lg-offset-2">
+                <div class="form-group">
+                    <label class="control-label col-lg-3" for="transporterUsername">Transportador:</label>
+                    <div class="col-lg-7">
+                        <input type="text" class="form-control" disabled value="{{transportData.transporterUsername}}" name="transporterUsername" id="transporterUsername">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3" for="startDateTime">Fecha de Inicio:</label>
+                    <div class="col-lg-7">
+                        <input type="text" class="form-control" disabled value="{{prettyPrintDate(transportData.startDateTime)}}" name="startDateTime" id="startDateTime">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3" for="endDateTime">Fecha de Fin:</label>
+                    <div class="col-lg-7">
+                        <input type="text" class="form-control" disabled value="{{prettyPrintDate(transportData.endDateTime)}}" name="endDateTime" id="endDateTime">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3" for="transportedLots">Lotes transportados:</label>
+                    <div class="col-lg-7">
+                        <textarea rows="4" required class="form-control" disabled id="description" value="{{transportData.transportedLotsNames}}" name="transportedLots" id="transportedLots"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div [hidden]="hasNoYardInspectionData" class="panel panel-primary">
+        <div class="panel-heading">Información de inspección de patio</div>
+        <div class="panel-body">
+            <form class="form-horizontal col-lg-9 col-lg-offset-2">
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="yardLocationName">Ubicación:</label>
+                    <div class="col-lg-7">
+                        <input type="text" class="form-control" disabled value="{{yardInspectionData.locationName}}" required name="yardLocationName" id="yardLocationName">
+                    </div>
+                </div>
+            </form>
+            <br><br><br><br><br>
+            <h3 id="addDamage">Daños:</h3>
+            <div id="damagesContainer">
+                <table [hidden]="yardInspectionData.damages.length === 0" class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th id="descriptionColumn">Descripción:</th>
+                            <th>Imágenes:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let damage of yardInspectionData.damages'>
+                            <td class="descriptionCell">{{damage.description}}</td>
+                            <td>
+                                <img class="img-thumbnail" *ngFor='let image of damage.images' [src]="_DomSanitizer.bypassSecurityTrustUrl(image)" width="250" height="auto" alt="Evidencia de daño.">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span [hidden]="yardInspectionData.damages.length > 0">
+                        <br><br><h4>Inspección sin daños.</h4>
+                    </span>
+            </div>
+        </div>
+    </div>
+
+    <div [hidden]="hasNoMovementsData" class="panel panel-primary">
+        <div class="panel-heading">Movimientos en patio</div>
+        <div class="panel-body">
+            <table class='table table-bordered'>
+                <thead>
+                    <tr>
+                        <th>Responsable:</th>
+                        <th>Origen:</th>
+                        <th>Destino:</th>
+                        <th>Fecha y Hora:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let movement of movementsData'>
+                        <td>{{movement.responsiblesUsername}}</td>
+                        <td>{{movement.departureSubzone}}</td>
+                        <td>{{movement.arrivalSubzone}}</td>
+                        <td>{{prettyPrintDate(movement.dateTime)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div [hidden]="hasNoSaleData" class="panel panel-primary">
+        <div class="panel-heading">Información de venta</div>
+        <div class="panel-body">
+            <form class="form-horizontal col-lg-10" name="saleForm" role="form" id="saleForm">
+                <div class="form-group">
+                    <label class="control-label col-lg-3" for="buyerName">Nombre del comprador:</label>
+                    <div class="col-lg-7">
+                        <input type="text" disabled class="form-control" id="buyerName" value="{{saleData.buyerName}}" name="buyerName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3" for="buyerPhoneNumber">Teléfono del comprador:</label>
+                    <div class="col-lg-7">
+                        <input type="text" disabled class="form-control" id="buyerPhoneNumber" value="{{saleData.buyerPhoneNumber}}" name="buyerPhoneNumber">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3" for="sellingPrice">Precio de venta:</label>
+                    <div class="col-lg-7">
+                        <input type="number" disabled class="form-control" id="sellingPrice" value="{{saleData.sellingPrice}}" name="sellingPrice">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3" for="saleDate">Fecha:</label>
+                    <div class="col-lg-7">
+                        <input type="text" disabled class="form-control" id="saleDate" value="{{prettyPrintDate(saleData.dateTime)}}" name="saleDate">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div [hidden]="!hasNoLotData || !hasNoPortInspectionData" id="noContentsContainer">
+        <br><br><br><br><br>
+        <h3>Sin datos asociados al proceso del vehículo seleccionado.</h3>
+    </div>
+</div>

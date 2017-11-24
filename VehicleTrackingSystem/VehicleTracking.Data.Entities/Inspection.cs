@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public class Inspection
     {
@@ -14,7 +14,7 @@ namespace Domain
                 { LocationType.YARD, new List<UserRoles> { UserRoles.ADMINISTRATOR, UserRoles.YARD_OPERATOR }.AsReadOnly() }
             };
 
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         private DateTime dateTime;
         public DateTime DateTime
@@ -38,7 +38,7 @@ namespace Domain
             return Utilities.IsValidDate(value);
         }
 
-        public User ResponsibleUser { get; set; }
+        public User Responsible { get; set; }
 
         public static bool UserCanInspect(User user, Location location)
         {
@@ -98,7 +98,7 @@ namespace Domain
                 else
                 {
                     string errorMessage = string.Format(CultureInfo.CurrentCulture,
-                       ErrorMessages.VINIsInvalid, "VIN", value);
+                       ErrorMessages.VINIsInvalid, value);
                     throw new InspectionException(errorMessage);
                 }
             }
@@ -114,7 +114,8 @@ namespace Domain
             return new Inspection()
             {
                 Location = Location.InstanceForTestingPurposes(),
-                ResponsibleUser = User.InstanceForTestingPurposes()
+                Responsible = User.InstanceForTestingPurposes(),
+                dateTime = new DateTime(1900, 1, 1)
             };
         }
 
@@ -131,7 +132,7 @@ namespace Domain
         {
             if (UserCanInspect(userToSet, locationToSet))
             {
-                ResponsibleUser = userToSet;
+                Responsible = userToSet;
                 Location = locationToSet;
                 DateTime = dateTimeToSet;
                 Damages = damagesToSet;

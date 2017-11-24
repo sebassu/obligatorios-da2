@@ -7,7 +7,7 @@
     <ProjectGuid>{F3DCC088-C021-4233-9C82-9B1A3461A7B2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Persistence</RootNamespace>
+    <RootNamespace>VehicleTracking_Data_DataAccess</RootNamespace>
     <AssemblyName>VehicleTracking.Data.DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -34,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -50,12 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerRepository\CustomerRepository.cs" />
+    <Compile Include="CustomerRepository\ICustomerRepository.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Exceptions\RepositoryException.cs" />
+    <Compile Include="RepositoryException.cs" />
+    <Compile Include="FlowRepository\FlowRepository.cs" />
+    <Compile Include="FlowRepository\IFlowRepository.cs" />
+    <Compile Include="LoggingDatabaseConcreteStrategy.cs" />
     <Compile Include="MovementRepository\IMovementRepository.cs" />
     <Compile Include="InspectionRepository\IInspectionRepository.cs" />
     <Compile Include="LocationRepository\ILocationRepository.cs" />
@@ -63,6 +68,8 @@
     <Compile Include="GenericRepository.cs" />
     <Compile Include="LotRepository\ILotRepository.cs" />
     <Compile Include="MovementRepository\MovementRepository.cs" />
+    <Compile Include="SaleRepository\ISaleRepository.cs" />
+    <Compile Include="SaleRepository\SaleRepository.cs" />
     <Compile Include="SubzoneRepository\ISubzoneRepository.cs" />
     <Compile Include="TransportRepository\ITransportRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />

@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Diagnostics.CodeAnalysis;
-using Domain;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
+using VehicleTracking_Data_Entities;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Data.Domain_tests
 {
@@ -173,7 +173,8 @@ namespace Data.Domain_tests
         public void ZoneGetHashCodeTest()
         {
             object testingZoneAsObject = testingZone;
-            Assert.AreEqual(testingZoneAsObject.GetHashCode(), testingZone.GetHashCode());
+            Assert.AreEqual(testingZoneAsObject.GetHashCode(),
+                testingZone.GetHashCode());
         }
 
         [TestMethod]

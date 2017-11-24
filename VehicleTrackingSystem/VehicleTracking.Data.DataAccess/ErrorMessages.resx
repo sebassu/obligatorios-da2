@@ -121,7 +121,7 @@
     <value>Error: No se pudo encontrar al {0} con ID {1}.</value>
   </data>
   <data name="CouldNotFindField" xml:space="preserve">
-    <value>Error: el {0} "{1}" no se encuentra registrado en el sistema.</value>
+    <value>el {0} "{1}" no se encuentra registrado en el sistema.</value>
   </data>
   <data name="CouldNotRemoveElement" xml:space="preserve">
     <value>Error: el elemento recibido a eliminar no se encontraba registrado en el sistema.</value>
@@ -131,6 +131,9 @@
   </data>
   <data name="FieldMustBeUnique" xml:space="preserve">
     <value>No es posible completar la acción. El {0} ingresado ya se encuentra registrado en el sistema.</value>
+  </data>
+  <data name="InvalidUserRoleForLogging" xml:space="preserve">
+    <value>Se recibió un usuario inválido para el registro del histórico de una cierta acción. Verifique que éste cuenta con los privilegios suficientes para ella.</value>
   </data>
   <data name="NullIDRecieved" xml:space="preserve">
     <value>Se recibió una ID nula de elemento a eliminar.</value>

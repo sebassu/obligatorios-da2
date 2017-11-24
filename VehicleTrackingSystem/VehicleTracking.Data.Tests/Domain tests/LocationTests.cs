@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain;
+﻿using VehicleTracking_Data_Entities;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Data.Domain_Tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -134,7 +134,8 @@ namespace Data.Domain_Tests
         public void LocationGetHashCodeTest()
         {
             object testingLocationAsObject = testingLocation;
-            Assert.AreEqual(testingLocationAsObject.GetHashCode(), testingLocation.GetHashCode());
+            Assert.AreEqual(testingLocationAsObject.GetHashCode(),
+                testingLocation.GetHashCode());
         }
         #endregion
 

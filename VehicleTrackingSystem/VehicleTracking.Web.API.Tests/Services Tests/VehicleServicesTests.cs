@@ -1,13 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using API.Services;
-using Domain;
+using VehicleTracking_Data_Entities;
 using System.Collections.Generic;
-using Persistence;
+using VehicleTracking_Data_DataAccess;
 using System.Linq;
 using Moq;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Web.API.Services_Tests
+namespace Web.API.Services_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -32,6 +32,7 @@ namespace Web.API.Services_Tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(v => v.Vehicles.AddNewVehicle(It.IsAny<Vehicle>()))
                 .Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
             vehicleServices.AddNewVehicleFromData(testingVehicleData);
             mockUnitOfWork.Verify();
@@ -111,16 +112,16 @@ namespace Web.API.Services_Tests
         }
         #endregion
 
-        #region GetRegisteredVehicles tests
+        #region GetRegisteredVehiclesFor tests
         [TestMethod]
-        public void VServicesGetRegisteredVehiclesWithDataTest()
+        public void VServicesGetRegisteredVehiclesForWithDataTest()
         {
             var someVehicles = GetCollectionOfFakeVehicles();
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(v => v.Vehicles.Elements).Returns(someVehicles)
+            mockUnitOfWork.Setup(v => v.Vehicles.GetRegisteredVehiclesIn(null)).Returns(someVehicles)
                 .Verifiable();
             var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
-            var result = vehicleServices.GetRegisteredVehicles().ToList();
+            var result = vehicleServices.GetRegisteredVehiclesFor(UserRoles.ADMINISTRATOR).ToList();
             mockUnitOfWork.Verify();
             CollectionAssert.AreEqual(GetCollectionOfFakeVehicleDTOs(), result);
         }
@@ -147,13 +148,14 @@ namespace Web.API.Services_Tests
         }
 
         [TestMethod]
-        public void VServicesGetRegisteredVehiclesNoDataTest()
+        public void VServicesGetRegisteredVehiclesForNoDataTest()
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(v => v.Vehicles.Elements).Returns(new List<Vehicle>());
+            mockUnitOfWork.Setup(v => v.Vehicles.GetRegisteredVehiclesIn(null))
+                .Returns(new List<Vehicle>());
             var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
             CollectionAssert.AreEqual(new List<VehicleDTO>(),
-                vehicleServices.GetRegisteredVehicles().ToList());
+                vehicleServices.GetRegisteredVehiclesFor(UserRoles.ADMINISTRATOR).ToList());
         }
         #endregion
 
@@ -192,6 +194,7 @@ namespace Web.API.Services_Tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(v => v.Vehicles.GetVehicleWithVIN(vehicleToModify.VIN))
                 .Returns(vehicleToModify).Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var userServices = new VehicleServices(mockUnitOfWork.Object);
             userServices.ModifyVehicleWithVIN(vehicleToModify.VIN, testingVehicleData);
             mockUnitOfWork.Verify();
@@ -211,6 +214,7 @@ namespace Web.API.Services_Tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(v => v.Vehicles.GetVehicleWithVIN(vehicleToModify.VIN))
                 .Returns(vehicleToModify).Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var userServices = new VehicleServices(mockUnitOfWork.Object);
             var dataToSet = VehicleDTO.FromVehicle(testingVehicle);
             dataToSet.VIN = vehicleToModify.VIN;
@@ -308,6 +312,7 @@ namespace Web.API.Services_Tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(v => v.Vehicles.RemoveVehicleWithVIN(It.IsAny<string>()))
                 .Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var vehicleServices = new VehicleServices(mockUnitOfWork.Object);
             vehicleServices.RemoveVehicleWithVIN("AJSNDQ122345MANSD");
             mockUnitOfWork.Verify();
@@ -335,6 +340,7 @@ namespace Web.API.Services_Tests
             Assert.IsNull(defaultVehicleDTO.Brand);
             Assert.AreEqual(0, defaultVehicleDTO.Year);
             Assert.AreEqual(VehicleType.CAR, defaultVehicleDTO.Type);
+            Assert.IsNull(defaultVehicleDTO.CurrentStage);
         }
 
         [TestMethod]
@@ -342,6 +348,14 @@ namespace Web.API.Services_Tests
         {
             object someRandomObject = new object();
             Assert.AreNotEqual(testingVehicleData, someRandomObject);
+        }
+
+        [TestMethod]
+        public void VehicleDTOGetHashCodeTest()
+        {
+            object testingVehicleDataAsObject = testingVehicleData;
+            Assert.AreEqual(testingVehicleDataAsObject.GetHashCode(),
+                testingVehicleData.GetHashCode());
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using Domain;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Data.Domain_Tests
+namespace Data.Domain_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -22,10 +25,17 @@ namespace Data.Domain_Tests
             Assert.AreEqual(0, testingVehicle.Id);
             Assert.AreEqual("Marca inválida", testingVehicle.Brand);
             Assert.AreEqual("Vehículo inválido", testingVehicle.Model);
-            Assert.AreEqual(1800, testingVehicle.Year);
+            Assert.AreEqual(1912, testingVehicle.Year);
             Assert.AreEqual("Color inválido", testingVehicle.Color);
             Assert.AreEqual("VININVLDOVNINVLDO", testingVehicle.VIN);
             Assert.AreEqual(VehicleType.CAR, testingVehicle.Type);
+        }
+
+        [TestMethod]
+        public void VehicleSetIdValidTest()
+        {
+            testingVehicle.Id = 42;
+            Assert.AreEqual(42, testingVehicle.Id);
         }
 
         [TestMethod]
@@ -191,16 +201,37 @@ namespace Data.Domain_Tests
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVINEmptyTest()
+        public void VehicleSetInvalidVINTooLongTest()
         {
-            testingVehicle.VIN = "";
+            testingVehicle.VIN = "ASDFGHJKL123456789";
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVINOnlySpacesTest()
+        public void VehicleSetInvalidVINTooShortTest()
         {
-            testingVehicle.VIN = "   \n\n\t  ";
+            testingVehicle.VIN = "ASDFGH12345";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVINPunctuationTest()
+        {
+            testingVehicle.VIN = "!@$#%@ @(*# ^";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVINSpacesTest()
+        {
+            testingVehicle.VIN = " \n\t    \t\n\t  ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VehicleException))]
+        public void VehicleSetInvalidVINEmptyTest()
+        {
+            testingVehicle.VIN = "";
         }
 
         [TestMethod]
@@ -211,38 +242,10 @@ namespace Data.Domain_Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVINPunctuationTest()
-        {
-            testingVehicle.VIN = "!@$#%^";
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVINLongerTest()
-        {
-            testingVehicle.VIN = "ASDFGHJKL123456789";
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(VehicleException))]
-        public void VehicleSetInvalidVINShorterTest()
-        {
-            testingVehicle.VIN = "ASDFGH12345";
-        }
-
-        [TestMethod]
-        public void VehicleSetIdValidTest()
-        {
-            testingVehicle.Id = 42;
-            Assert.AreEqual(42, testingVehicle.Id);
-        }
-
-        [TestMethod]
         public void VehicleParameterFactoryMethodValidTest()
         {
-            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
-                2016, "Green", "QWERTYUIO12345678");
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV,
+                "Chevrolet", "Onix", 2016, "Green", "QWERTYUIO12345678");
             Assert.AreEqual(0, testingVehicle.Id);
             Assert.AreEqual(VehicleType.SUV, testingVehicle.Type);
             Assert.AreEqual("Chevrolet", testingVehicle.Brand);
@@ -256,40 +259,40 @@ namespace Data.Domain_Tests
         [ExpectedException(typeof(VehicleException))]
         public void VehicleParameterFactoryMethodInvalidBrandTest()
         {
-            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet1", "Onix",
-                2016, "Green", "QWERTYUIO12345678");
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV,
+                "Chevrolet1", "Onix", 2016, "Green", "QWERTYUIO12345678");
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
         public void VehicleParameterFactoryMethodInvalidModelTest()
         {
-            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix!",
-                2016, "Green", "QWERTYUIO12345678");
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV,
+                "Chevrolet", "Onix!", 2016, "Green", "QWERTYUIO12345678");
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
         public void UserParameterFactoryMethodInvalidYearTest()
         {
-            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
-                2040, "Green", "QWERTYUIO12345678");
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV,
+                "Chevrolet", "Onix", 2040, "Green", "QWERTYUIO12345678");
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
         public void UserParameterFactoryMethodInvalidColorTest()
         {
-            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
-                2016, "Green#", "QWERTYUIO12345678");
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV,
+                "Chevrolet", "Onix", 2016, "Green#", "QWERTYUIO12345678");
         }
 
         [TestMethod]
         [ExpectedException(typeof(VehicleException))]
         public void UserParameterFactoryMethodInvalidVINTest()
         {
-            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "Chevrolet", "Onix",
-                2016, "Green", "QWERTYUIO123");
+            testingVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV,
+                "Chevrolet", "Onix", 2016, "Green", "QWERTYUIO123");
         }
 
         [TestMethod]
@@ -320,17 +323,18 @@ namespace Data.Domain_Tests
         }
 
         [TestMethod]
-        public void UserGetHashCodeTest()
+        public void VehicleGetHashCodeTest()
         {
             object testingVehicleAsObject = testingVehicle;
-            Assert.AreEqual(testingVehicleAsObject.GetHashCode(), testingVehicle.GetHashCode());
+            Assert.AreEqual(testingVehicleAsObject.GetHashCode(),
+                testingVehicle.GetHashCode());
         }
 
         [TestMethod]
         public void VehicleToStringTest1()
         {
             Assert.AreEqual("VININVLDOVNINVLDO. Marca inválida " +
-                "Vehículo inválido. 1800", testingVehicle.ToString());
+                "Vehículo inválido. 1912", testingVehicle.ToString());
         }
 
         [TestMethod]
@@ -340,7 +344,8 @@ namespace Data.Domain_Tests
             testingVehicle.Brand = "Fiat";
             testingVehicle.Model = "1";
             testingVehicle.Year = 2017;
-            Assert.AreEqual("ZXCVBNM1234567890. Fiat 1. 2017", testingVehicle.ToString());
+            Assert.AreEqual("ZXCVBNM1234567890. Fiat 1. 2017",
+                testingVehicle.ToString());
         }
 
         [TestMethod]
@@ -370,6 +375,7 @@ namespace Data.Domain_Tests
             Assert.AreSame(testingVehicle.StagesData.YardInspection,
                 testingVehicle.YardInspection);
         }
+
         [TestMethod]
         public void VehicleGetYardMovementsValidTest()
         {
@@ -377,5 +383,45 @@ namespace Data.Domain_Tests
                 testingVehicle.Movements);
         }
 
+        [TestMethod]
+        public void VehicleSetYardInspectionValidTest()
+        {
+            Inspection inspectionToSet = GetValidYardInspectionForTestingVehicle();
+            PromoteTestingVehicleToYardStage();
+            testingVehicle.YardInspection = inspectionToSet;
+            Assert.AreSame(inspectionToSet, testingVehicle.YardInspection);
+        }
+
+        [TestMethod]
+        public void VehicleRegisterNewMovementToSubzoneValidTest()
+        {
+            var inspectionToSet = GetValidYardInspectionForTestingVehicle();
+            PromoteTestingVehicleToYardStage();
+            testingVehicle.YardInspection = inspectionToSet;
+            Movement result = testingVehicle.RegisterNewMovementToSubzone(
+                User.InstanceForTestingPurposes(), DateTime.Now,
+                Subzone.InstanceForTestingPurposes());
+            CollectionAssert.Contains(testingVehicle.Movements.ToList(), result);
+        }
+
+        private static void PromoteTestingVehicleToYardStage()
+        {
+            var fakeProcessData = new ProcessData
+            {
+                CurrentStage = ProcessStages.YARD,
+                Inspections = new List<Inspection>() {
+                    Inspection.InstanceForTestingPurposes() }
+            };
+            testingVehicle.StagesData = fakeProcessData;
+        }
+
+        private static Inspection GetValidYardInspectionForTestingVehicle()
+        {
+            Location someYard = Location.CreateNewLocation(LocationType.YARD,
+                "Scotland Yard");
+            Inspection result = Inspection.CreateNewInspection(User.InstanceForTestingPurposes(),
+                someYard, DateTime.Now, new List<Damage>(), testingVehicle);
+            return result;
+        }
     }
 }

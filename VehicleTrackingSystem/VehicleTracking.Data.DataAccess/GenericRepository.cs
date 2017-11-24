@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Linq;
 using System.Resources;
 using System.Data.Entity;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using Domain;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 [assembly: NeutralResourcesLanguage("es")]
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal abstract class GenericRepository<TEntity> where TEntity : class
     {
@@ -21,8 +21,8 @@ namespace Persistence
         }
 
         public virtual IEnumerable<TEntity> GetElementsWith(
-            Expression<Func<TEntity, bool>> filter = null,
-            string includeProperties = "")
+            string includeProperties = "",
+            Expression<Func<TEntity, bool>> filter = null)
         {
             IQueryable<TEntity> query = elements;
             AddWhereStatement(filter, ref query);
@@ -49,11 +49,6 @@ namespace Persistence
             }
         }
 
-        protected virtual TEntity GetById(object id)
-        {
-            return elements.Find(id);
-        }
-
         protected void Add(TEntity elementToAdd)
         {
             ValidateParameterIsNotNull(elementToAdd);
@@ -73,7 +68,7 @@ namespace Persistence
             PerformActionIfElementExistsInCollection(entityToRemove,
                 delegate
                 {
-                    AttachIfIsValid(entityToRemove);
+                    PerformAttachIfCorresponds(entityToRemove);
                     elements.Remove(entityToRemove);
                 });
         }
@@ -83,7 +78,7 @@ namespace Persistence
             PerformActionIfElementExistsInCollection(entityToUpdate,
                 delegate
                 {
-                    AttachIfIsValid(entityToUpdate);
+                    PerformAttachIfCorresponds(entityToUpdate);
                     context.Entry(entityToUpdate).State = EntityState.Modified;
                 });
         }
@@ -101,22 +96,12 @@ namespace Persistence
             }
         }
 
-        protected abstract bool ElementExistsInCollection(TEntity entityToUpdate);
-
-        protected void AttachIfIsValid(TEntity element)
+        internal virtual bool ElementExistsInCollection(TEntity entityToUpdate)
         {
-            try
-            {
-                PerformAttachIfCorresponds(element);
-            }
-            catch (SystemException exception)
-            {
-                throw new RepositoryException("Error en base de datos. Detalles: "
-                    + exception.Message);
-            }
+            return false;
         }
 
-        private void PerformAttachIfCorresponds(TEntity element)
+        internal void PerformAttachIfCorresponds(TEntity element)
         {
             if (context.Entry(element).State == EntityState.Detached)
             {

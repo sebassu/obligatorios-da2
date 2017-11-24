@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
+using System.Collections.Generic;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public class Subzone
     {
@@ -30,7 +30,7 @@ namespace Domain
             }
         }
 
-        protected bool IsValidName(string value)
+        internal static bool IsValidName(string value)
         {
             return Utilities.ContainsLettersSpacesOrDigitsOnly(value);
         }
@@ -60,11 +60,7 @@ namespace Domain
                 value >= Vehicles.Count;
         }
 
-        public Zone Container
-        {
-            get;
-            set;
-        }
+        public Zone Container { get; set; }
 
         public bool CanAdd(Vehicle someVehicle)
         {
@@ -125,7 +121,7 @@ namespace Domain
             Subzone subzoneToCompareAgainst = obj as Subzone;
             if (Utilities.IsNotNull(subzoneToCompareAgainst))
             {
-                return Id.Equals(subzoneToCompareAgainst.Id);
+                return name.Equals(subzoneToCompareAgainst.name);
             }
             else
             {

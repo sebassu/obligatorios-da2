@@ -1,10 +1,10 @@
-﻿using Domain;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System;
 using System.Linq;
+using System.Globalization;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal class ZoneRepository : GenericRepository<Zone>, IZoneRepository
     {
@@ -42,7 +42,7 @@ namespace Persistence
             AttemptToRemove(zoneToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Zone value)
+        internal override bool ElementExistsInCollection(Zone value)
         {
             return Utilities.IsNotNull(value) && elements.Any(z => z.Id == value.Id);
         }

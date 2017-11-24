@@ -1,0 +1,32 @@
+<div id="main">
+    <div id="innerContainer">
+        <div class="alert alert-danger" id="errorAlert" [hidden]="!errorOcurred">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <strong>Error: </strong>
+            <span id="errorMessage">{{errorMessage}}</span>
+        </div>
+        <div class="alert alert-success" [hidden]="!success" id="successAlert">
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+            <strong>Éxito: </strong> Ingreso de sesión correcto.
+        </div>
+        <h1 id="mainTitle">Vehicle Tracking System:</h1>
+        <h3 id="subtitle">Sistema de gestión del proceso de venta de vehículos.</h3>
+        <div class="container" id="formContainer">
+            <h3 id="loginFormTitle">Inicio de sesión:</h3>
+            <form #loginForm="ngForm" (ngSubmit)="attemptToLoginUser()" pattern="\^[ 0-9A-Z]+$\i" id="loginForm" accept-charset="UTF-8" role="form">
+                <label for="txtUsername" class="sr-only">Usuario</label>
+                <input type="text" id="txtUsername" name="username" class="form-control" placeholder="Usuario" [(ngModel)]="username" type="text" required autofocus>
+                <label for="txtPassword" class="sr-only">Password</label>
+                <input type="password" id="txtPassword" name="password" class="form-control" placeholder="Contraseña" [(ngModel)]="password" required>
+                <button class="btn btn-lg btn-primary btn-block" [disabled]="loginForm.invalid" id="btnSubmit" type="submit">Entrar</button>
+                <br>
+            </form>
+        </div>
+        <span id="information">
+            Obligatorio: Diseño de Aplicaciones II.
+            <br> Lucía Dabezies, Nº de estudiante: 200604.
+            <br> Sebastián Uriarte Güimil, Nº de estudiante: 194973.
+            <br> Universidad ORT Uruguay, 2017.
+          </span>
+    </div>
+</div>

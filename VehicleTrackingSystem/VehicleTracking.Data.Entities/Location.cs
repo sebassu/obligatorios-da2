@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public enum LocationType { PORT, YARD }
 
@@ -34,7 +34,6 @@ namespace Domain
             return Utilities.ContainsLettersOrSpacesOnly(value);
         }
 
-
         internal static Location InstanceForTestingPurposes()
         {
             return new Location();
@@ -44,6 +43,7 @@ namespace Domain
         {
             name = "Lugar inválido";
         }
+
         public static Location CreateNewLocation(LocationType type, string name)
         {
             return new Location(type, name);
@@ -60,7 +60,7 @@ namespace Domain
             Location locationToCompareAgainst = obj as Location;
             if (Utilities.IsNotNull(locationToCompareAgainst))
             {
-                return Id.Equals(locationToCompareAgainst.Id);
+                return name.Equals(locationToCompareAgainst.name);
             }
             else
             {

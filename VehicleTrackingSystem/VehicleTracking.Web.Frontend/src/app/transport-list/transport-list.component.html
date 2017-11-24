@@ -1,0 +1,37 @@
+<div class="header">
+    <br><br>
+    <h2 class="contentsTitle">Transportes</h2>
+</div>
+<div [hidden]="!transports.length" id="contentsContainer">
+    <br><br>
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th></th>
+                <th>ID:</th>
+                <th>Transportador:</th>
+                <th>Inicio:</th>
+                <th>Lotes transportados:</th>
+                <th>Fin:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let aTransport of transports'>
+                <td>
+                    <input name="transportSelector" class="transportRadiobutton" type="radio" (click)="setSelectedTransportId(aTransport)" />
+                </td>
+                <td>{{aTransport.id}}</td>
+                <td>{{aTransport.transporterUsername}}</td>
+                <td>{{prettyPrintDate(aTransport.startDateTime)}}</td>
+                <td>{{aTransport.transportedLotsNames}}</td>
+                <td>{{prettyPrintDate(aTransport.endDateTime)}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <button type="button" class="btn btn-lg btn-success changeBtn" [disabled]="selectedTransport == null || selectedTransport.endDateTime != null" (click)='finalizeSelectedTransport()' id="finalizeTransportBtn">Finalizar transporte</button>
+</div>
+<div [hidden]="transports.length" id="noContentsContainer">
+    <br><br><br><br><br>
+    <h3>Sin datos a mostrar.</h3>
+</div>

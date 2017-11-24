@@ -1,6 +1,7 @@
-﻿using Domain;
-using Persistence;
+﻿using System.Linq;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 
 namespace API.Services
 {
@@ -72,6 +73,25 @@ namespace API.Services
         private void AttemptToPerformModification(int idToModify, SubzoneDTO subzoneData)
         {
             Subzone subzoneFound = Subzones.GetSubzoneWithId(idToModify);
+            if (ModificationCausesRepeatedNameInZone(subzoneFound, subzoneData))
+            {
+                throw new ServiceException(ErrorMessages.SubzoneNameMustBeUniqueInZone);
+            }
+            else
+            {
+                ModifySubzoneWithData(subzoneData, subzoneFound);
+            }
+        }
+
+        private bool ModificationCausesRepeatedNameInZone(Subzone subzoneFound, SubzoneDTO subzoneData)
+        {
+            var nameToSet = subzoneData.Name;
+            var subzones = subzoneFound.Container.Subzones;
+            return subzones.Any(s => !s.Equals(subzoneFound) && nameToSet.Equals(s.Name));
+        }
+
+        private void ModifySubzoneWithData(SubzoneDTO subzoneData, Subzone subzoneFound)
+        {
             subzoneData.SetDataToSubzone(subzoneFound);
             Subzones.UpdateSubzone(subzoneFound);
             Model.SaveChanges();

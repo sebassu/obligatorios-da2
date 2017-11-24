@@ -1,13 +1,13 @@
-﻿using API.Services;
-using Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Persistence;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using Moq;
 using System.Linq;
+using API.Services;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using System.Diagnostics.CodeAnalysis;
+using VehicleTracking_Data_DataAccess;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Web.API.Services_Tests
+namespace Web.API.Services_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -33,6 +33,7 @@ namespace Web.API.Services_Tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(u => u.Users.AddNewUser(It.IsAny<User>()))
                 .Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.AddNewUserFromData(testingUserData);
             mockUnitOfWork.Verify();
@@ -93,7 +94,8 @@ namespace Web.API.Services_Tests
         private static void RunAddNewUserTestWithInvalidDataOnDTO(UserDTO testUserData)
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(u => u.Users.ExistsUserWithUsername(It.IsAny<string>())).Returns(false);
+            mockUnitOfWork.Setup(u => u.Users.ExistsUserWithUsername(It.IsAny<string>()))
+                .Returns(false);
             var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.AddNewUserFromData(testUserData);
             mockUnitOfWork.VerifyAll();
@@ -192,6 +194,7 @@ namespace Web.API.Services_Tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(userToModify.Username))
                 .Returns(userToModify).Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
             mockUnitOfWork.Verify();
@@ -251,7 +254,8 @@ namespace Web.API.Services_Tests
         private static void RunModifyUserTestWithInvalidDataOnDTO(UserDTO someUserData)
         {
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(testingUser.Username)).Returns(testingUser);
+            mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(testingUser.Username))
+                .Returns(testingUser);
             var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.ModifyUserWithUsername(testingUser.Username, someUserData);
         }
@@ -263,8 +267,10 @@ namespace Web.API.Services_Tests
             User userToModify = User.CreateNewUser(UserRoles.ADMINISTRATOR, "Mario", "Santos",
                 "mSantos", "DisculpeFuegoTiene", "099424242");
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(u => u.Users.ExistsUserWithUsername(testingUserData.Username)).
-                Returns(true);
+            mockUnitOfWork.Setup(u => u.Users.GetUserWithUsername(userToModify.Username))
+                .Returns(userToModify);
+            mockUnitOfWork.Setup(u => u.Users.ExistsUserWithUsername(testingUserData.Username))
+                .Returns(true);
             var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.ModifyUserWithUsername(userToModify.Username, testingUserData);
         }
@@ -277,7 +283,9 @@ namespace Web.API.Services_Tests
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             mockUnitOfWork.Setup(u => u.Users.UsernameBelongsToLastAdministrator(
                 It.IsAny<string>())).Returns(false).Verifiable();
-            mockUnitOfWork.Setup(u => u.Users.RemoveUserWithUsername(It.IsAny<string>()));
+            mockUnitOfWork.Setup(u => u.Users.RemoveUserWithUsername(It.IsAny<string>()))
+                .Verifiable();
+            mockUnitOfWork.Setup(u => u.SaveChanges()).Verifiable();
             var userServices = new UserServices(mockUnitOfWork.Object);
             userServices.RemoveUserWithUsername("mSantos");
             mockUnitOfWork.Verify();
@@ -325,6 +333,14 @@ namespace Web.API.Services_Tests
         {
             object someRandomObject = new object();
             Assert.AreNotEqual(testingUserData, someRandomObject);
+        }
+
+        [TestMethod]
+        public void UserDTOGetHashCodeTest()
+        {
+            object testingUserDataAsObject = testingUserData;
+            Assert.AreEqual(testingUserDataAsObject.GetHashCode(),
+                testingUserData.GetHashCode());
         }
     }
 }

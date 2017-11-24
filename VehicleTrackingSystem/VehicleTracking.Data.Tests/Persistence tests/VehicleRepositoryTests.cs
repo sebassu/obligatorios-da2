@@ -1,11 +1,10 @@
-﻿using Domain;
-using Persistence;
-using System.Linq;
+﻿using System.Linq;
+using VehicleTracking_Data_Entities;
+using VehicleTracking_Data_DataAccess;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
-namespace Data.Persistence_Tests
+namespace Data.Persistence_tests
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -19,15 +18,18 @@ namespace Data.Persistence_Tests
         public static void ClassSetup(TestContext context)
         {
             testingVehicleRepository = testingUnitOfWork.Vehicles;
+            Assert.IsNotNull(testingVehicleRepository);
         }
 
+        #region AddNewVehicle tests
         [TestMethod]
         public void VRepositoryAddNewVehicleValidTest()
         {
             Vehicle vehicleToAdd = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR1");
-            AddNewVehicleAndSave(vehicleToAdd);
-            CollectionAssert.Contains(testingVehicleRepository.Elements.ToList(), vehicleToAdd);
+            AddNewVehicleAndSaveChanges(vehicleToAdd);
+            CollectionAssert.Contains(testingVehicleRepository.GetRegisteredVehiclesIn()
+                .ToList(), vehicleToAdd);
         }
 
         [TestMethod]
@@ -37,8 +39,9 @@ namespace Data.Persistence_Tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR2");
             Vehicle vehicleToVerify = Vehicle.InstanceForTestingPurposes();
             vehicleToVerify.VIN = "RUSH2112MVNGPICR2";
-            AddNewVehicleAndSave(addedVehicle);
-            CollectionAssert.Contains(testingVehicleRepository.Elements.ToList(), vehicleToVerify);
+            AddNewVehicleAndSaveChanges(addedVehicle);
+            CollectionAssert.Contains(testingVehicleRepository.GetRegisteredVehiclesIn()
+                .ToList(), vehicleToVerify);
         }
 
         [TestMethod]
@@ -46,9 +49,10 @@ namespace Data.Persistence_Tests
         {
             Vehicle addedVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR3");
-            AddNewVehicleAndSave(addedVehicle);
-            AddNewVehicleAndSave(addedVehicle);
-            CollectionAssert.Contains(testingVehicleRepository.Elements.ToList(), addedVehicle);
+            AddNewVehicleAndSaveChanges(addedVehicle);
+            AddNewVehicleAndSaveChanges(addedVehicle);
+            CollectionAssert.Contains(testingVehicleRepository.GetRegisteredVehiclesIn()
+                .ToList(), addedVehicle);
         }
 
         [TestMethod]
@@ -58,52 +62,91 @@ namespace Data.Persistence_Tests
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR4");
             Vehicle someOtherVehicle = Vehicle.CreateNewVehicle(VehicleType.SUV, "BMW",
                 "Modelname", 2001, "Purple", "RUSH2112MVNGPICR4");
-            AddNewVehicleAndSave(someVehicle);
-            AddNewVehicleAndSave(someOtherVehicle);
+            AddNewVehicleAndSaveChanges(someVehicle);
+            AddNewVehicleAndSaveChanges(someOtherVehicle);
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void VRepositoryAddNullVehicleInvalidTest()
         {
-            AddNewVehicleAndSave(null);
+            AddNewVehicleAndSaveChanges(null);
+        }
+        #endregion
+
+        #region GetVehicleWithVIN tests
+        [TestMethod]
+        public void VRepositoryGetVehicleWithVINValidTest()
+        {
+            Vehicle addedVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR9");
+            AddNewVehicleAndSaveChanges(addedVehicle);
+            Vehicle result = testingVehicleRepository.GetVehicleWithVIN("RUSH2112MVNGPICR9");
+            Assert.AreEqual(addedVehicle, result);
         }
 
         [TestMethod]
-        public void VRepositoryRemoveVehicleValidTest()
+        public void VRepositoryGetFullyLoadedVehicleWithVINValidTest()
         {
-            Vehicle vehicleToVerify = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
-                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR5");
-            AddNewVehicleAndSave(vehicleToVerify);
-            RemoveVehicleWithVINAndSave(vehicleToVerify.VIN);
-            CollectionAssert.DoesNotContain(testingVehicleRepository.Elements.ToList(), vehicleToVerify);
+            Vehicle addedVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPIC19");
+            AddNewVehicleAndSaveChanges(addedVehicle);
+            Vehicle result = testingVehicleRepository.GetFullyLoadedVehicleWithVIN("RUSH2112MVNGPIC19");
+            Assert.AreEqual(addedVehicle, result);
+            Assert.IsNotNull(result.StagesData);
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void VRepositoryRemoveVehicleNotInRepositoryInvalidTest()
+        public void VRepositoryGetVehicleWithUnaddedVINInvalidTest()
         {
-            Vehicle vehicleToVerify = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
-                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR6");
-            RemoveVehicleWithVINAndSave(vehicleToVerify.VIN);
+            testingVehicleRepository.GetVehicleWithVIN(unaddedVIN);
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void VRepositoryRemoveVehicleNullVINInvalidTest()
+        public void VRepositoryGetVehicleWithNullVINInvalidTest()
         {
-            RemoveVehicleWithVINAndSave(null);
+            testingVehicleRepository.GetVehicleWithVIN(null);
+        }
+        #endregion
+
+        #region ExistsVehicleWithVIN tests
+        [TestMethod]
+        public void VRepositoryExistsVehicleWithVINAddedTest()
+        {
+            Vehicle userToVerify = testingVehicleRepository.GetRegisteredVehiclesIn()
+                .First();
+            bool result = testingVehicleRepository.ExistsVehicleWithVIN(userToVerify.VIN);
+            Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void VRepositoryExistsVehicleWithVINUnaddedTest()
+        {
+            bool result = testingVehicleRepository.ExistsVehicleWithVIN(
+                unaddedVIN);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void VRepositoryNoVehicleWithNullVINExistsTest()
+        {
+            bool result = testingVehicleRepository.ExistsVehicleWithVIN(null);
+            Assert.IsFalse(result);
+        }
+        #endregion
+
+        #region ModifyVehicle tests
         [TestMethod]
         public void VRepositoryModifyVehicleValidTest()
         {
             Vehicle vehicleToModify = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICR7");
-            AddNewVehicleAndSave(vehicleToModify);
+            AddNewVehicleAndSaveChanges(vehicleToModify);
             SetVehicleData(vehicleToModify, VehicleType.SUV, "Chevrolet", "Onix",
                 2016, "Green", "QWERTYUIO12345678");
-            UpdateVehicleAndSave(vehicleToModify);
+            UpdateVehicleAndSaveChanges(vehicleToModify);
             Assert.AreEqual(VehicleType.SUV, vehicleToModify.Type);
             Assert.AreEqual("Chevrolet", vehicleToModify.Brand);
             Assert.AreEqual("Onix", vehicleToModify.Model);
@@ -115,7 +158,8 @@ namespace Data.Persistence_Tests
         [TestMethod]
         public void VRepositoryModifyVehicleSetSameDataValidTest()
         {
-            Vehicle vehicleToModify = testingVehicleRepository.Elements.First();
+            Vehicle vehicleToModify = testingVehicleRepository.GetRegisteredVehiclesIn()
+                .First();
             var previousType = vehicleToModify.Type;
             var previousModel = vehicleToModify.Model;
             var previousBrand = vehicleToModify.Brand;
@@ -141,71 +185,83 @@ namespace Data.Persistence_Tests
             vehicleToModify.Year = yearToSet;
             vehicleToModify.Color = colorToSet;
             vehicleToModify.VIN = vinToSet;
-            UpdateVehicleAndSave(vehicleToModify);
+            UpdateVehicleAndSaveChanges(vehicleToModify);
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
         public void VRepositoryModifyNullVehicleInvalidTest()
         {
-            UpdateVehicleAndSave(null);
+            UpdateVehicleAndSaveChanges(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void VRepositoryModifyNotAddedVehicleInvalidTest()
+        public void VRepositoryModifyUnaddedVehicleInvalidTest()
         {
             Vehicle notAddedVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
                 "Barchetta", 1985, "Red", "RUSH2112MVNGPICRS");
-            UpdateVehicleAndSave(notAddedVehicle);
+            UpdateVehicleAndSaveChanges(notAddedVehicle);
         }
+        #endregion
 
+        #region RemoveVehicle tests
         [TestMethod]
-        public void VRepositoryGetVehicleByVINValidTest()
+        public void VRepositoryRemoveVehicleValidTest()
         {
-            Vehicle addedVehicle = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
-                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR9");
-            AddNewVehicleAndSave(addedVehicle);
-            Vehicle result = testingVehicleRepository.GetVehicleWithVIN("RUSH2112MVNGPICR9");
-            Assert.AreEqual(addedVehicle, result);
+            Vehicle vehicleToVerify = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR5");
+            AddNewVehicleAndSaveChanges(vehicleToVerify);
+            RemoveVehicleWithVINAndSaveChanges(vehicleToVerify.VIN);
+            CollectionAssert.DoesNotContain(testingVehicleRepository.GetRegisteredVehiclesIn()
+                .ToList(), vehicleToVerify);
         }
 
         [TestMethod]
         [ExpectedException(typeof(RepositoryException))]
-        public void VRepositoryGetVehicleByUnaddedVINInvalidTest()
+        public void VRepositoryRemoveVehicleNotInRepositoryInvalidTest()
         {
-            testingVehicleRepository.GetVehicleWithVIN(unaddedVIN);
+            Vehicle vehicleToVerify = Vehicle.CreateNewVehicle(VehicleType.CAR, "Ferrari",
+                "Barchetta", 1985, "Red", "RUSH2112MVNGPICR6");
+            RemoveVehicleWithVINAndSaveChanges(vehicleToVerify.VIN);
         }
 
         [TestMethod]
-        public void VRepositoryExistsVehicleWithVINAddedTest()
+        [ExpectedException(typeof(RepositoryException))]
+        public void VRepositoryRemoveVehicleNullVINInvalidTest()
         {
-            Vehicle userToVerify = testingVehicleRepository.Elements.First();
-            bool result = testingVehicleRepository.ExistsVehicleWithVIN(userToVerify.VIN);
-            Assert.IsTrue(result);
+            RemoveVehicleWithVINAndSaveChanges(null);
         }
+        #endregion
 
         [TestMethod]
-        public void VRepositoryExistsVehicleWithVINUnaddedTest()
+        public void GRepositoryPerformAttachTest()
         {
-            bool result = testingVehicleRepository.ExistsVehicleWithVIN(
-                unaddedVIN);
-            Assert.IsFalse(result);
+            using (var secondUnitOfWork = new UnitOfWork())
+            {
+                Vehicle vehicleToAttach = Vehicle.InstanceForTestingPurposes();
+                AddNewVehicleAndSaveChanges(vehicleToAttach);
+                var secondVehicles = secondUnitOfWork.Vehicles;
+                var castRepostory = secondVehicles as GenericRepository<Vehicle>;
+                castRepostory.PerformAttachIfCorresponds(vehicleToAttach);
+                Assert.IsTrue(secondUnitOfWork.context.Entry(vehicleToAttach).State
+                    == System.Data.Entity.EntityState.Unchanged);
+            }
         }
 
-        private static void AddNewVehicleAndSave(Vehicle vehicleToAdd)
+        private static void AddNewVehicleAndSaveChanges(Vehicle vehicleToAdd)
         {
             testingVehicleRepository.AddNewVehicle(vehicleToAdd);
             testingUnitOfWork.SaveChanges();
         }
 
-        private void UpdateVehicleAndSave(Vehicle vehicleToModify)
+        private void UpdateVehicleAndSaveChanges(Vehicle vehicleToModify)
         {
             testingVehicleRepository.UpdateVehicle(vehicleToModify);
             testingUnitOfWork.SaveChanges();
         }
 
-        private void RemoveVehicleWithVINAndSave(string vin)
+        private void RemoveVehicleWithVINAndSaveChanges(string vin)
         {
             testingVehicleRepository.RemoveVehicleWithVIN(vin);
             testingUnitOfWork.SaveChanges();

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
+using System;
 
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
     public class Damage
     {
@@ -31,21 +33,32 @@ namespace Domain
             return Utilities.IsNotEmpty(value);
         }
 
-        private ICollection<string> images;
+        public ICollection<ImageElement> ImageElements { get; set; }
+
         public ICollection<string> Images
         {
-            get { return images; }
+            get
+            {
+                var imageStringsToReturn = ImageElements.Select(i => i.StringifiedImage);
+                return imageStringsToReturn.ToList();
+            }
             set
             {
-                if (Utilities.IsValidItemEnumeration(value))
+                if (IsValidImageCollection(value))
                 {
-                    images = value;
+                    var imageElementsToAdd = value.Select(i => ImageElement.FromImageData(i));
+                    ImageElements = imageElementsToAdd.ToList();
                 }
                 else
                 {
                     throw new DamageException(ErrorMessages.CollectionIsInvalid);
                 }
             }
+        }
+
+        private bool IsValidImageCollection(ICollection<string> value)
+        {
+            return Utilities.IsNotNull(value) && value.Any();
         }
 
         internal static Damage InstanceForTestingPurposes()
@@ -56,7 +69,7 @@ namespace Domain
         protected Damage()
         {
             description = "This damage has a description";
-            images = new List<string>() { "newImage" };
+            ImageElements = new List<ImageElement>();
         }
 
         public static Damage CreateNewDamage(string description,

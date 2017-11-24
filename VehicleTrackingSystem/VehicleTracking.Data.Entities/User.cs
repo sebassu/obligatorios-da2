@@ -5,10 +5,8 @@ using System.Runtime.CompilerServices;
 [assembly: NeutralResourcesLanguage("es")]
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
-namespace Domain
+namespace VehicleTracking_Data_Entities
 {
-    public enum UserRoles { ADMINISTRATOR, PORT_OPERATOR, TRANSPORTER, YARD_OPERATOR }
-
     public class User
     {
         public int Id { get; set; }
@@ -79,7 +77,7 @@ namespace Domain
             }
         }
 
-        protected bool IsValidUsername(string value)
+        internal static bool IsValidUsername(string value)
         {
             return Utilities.ContainsLettersOrDigitsOnly(value);
         }
@@ -138,10 +136,10 @@ namespace Domain
         protected User()
         {
             firstName = "Usuario";
-            lastName = "inválido.";
+            lastName = "inválido";
             username = "usuarioinválido";
             password = "Contraseña inválida.";
-            phoneNumber = "Teléfono inválido.";
+            phoneNumber = "099424242";
         }
 
         public static User CreateNewUser(UserRoles role, string firstName, string lastName,

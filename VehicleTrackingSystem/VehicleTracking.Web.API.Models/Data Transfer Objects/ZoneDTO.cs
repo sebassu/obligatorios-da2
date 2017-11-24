@@ -1,12 +1,14 @@
-﻿using Domain;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Tests")]
 namespace API.Services
 {
+    [Serializable]
     public class ZoneDTO
     {
         [Required]
@@ -17,7 +19,7 @@ namespace API.Services
 
         public ICollection<int> SubzoneIds { get; set; }
 
-        internal ZoneDTO() { }
+        public ZoneDTO() { }
 
         internal static ZoneDTO FromZone(Zone someZone)
         {

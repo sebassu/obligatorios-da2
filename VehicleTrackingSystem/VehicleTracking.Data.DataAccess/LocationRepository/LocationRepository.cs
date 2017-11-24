@@ -1,17 +1,19 @@
-﻿using Domain;
+﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-using System;
 using System.Globalization;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal class LocationRepository : GenericRepository<Location>, ILocationRepository
     {
         public LocationRepository(VTSystemContext someContext)
             : base(someContext) { }
 
-        public IEnumerable<Location> Elements => GetElementsWith();
+        public IEnumerable<Location> Ports => GetElementsWith("", l => l.Type == LocationType.PORT);
+
+        public IEnumerable<Location> Yards => GetElementsWith("", l => l.Type == LocationType.YARD);
 
         public Location GetLocationWithName(string nameToLookup)
         {
@@ -25,12 +27,6 @@ namespace Persistence
                     ErrorMessages.CouldNotFindField, "lugar", nameToLookup);
                 throw new RepositoryException(errorMessage);
             }
-        }
-
-        protected override bool ElementExistsInCollection(Location entityToUpdate)
-        {
-            return Utilities.IsNotNull(entityToUpdate) &&
-                elements.Any(i => i.Id == entityToUpdate.Id);
         }
     }
 }

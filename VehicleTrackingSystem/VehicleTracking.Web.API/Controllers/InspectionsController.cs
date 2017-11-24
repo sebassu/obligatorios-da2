@@ -1,7 +1,8 @@
-﻿using System.Web.Http;
+﻿using System;
 using API.Services;
-using Domain;
+using System.Web.Http;
 using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
 
 namespace Web.API.Controllers
 {
@@ -30,10 +31,10 @@ namespace Web.API.Controllers
                 delegate
                 {
                     string currentUsername = User.Identity.Name;
-                    int additionId = Model.AddNewPortInspectionFromData(vehicleVIN,
+                    var additionId = Model.AddNewPortInspectionFromData(vehicleVIN,
                         currentUsername, inspectionDataToAdd);
                     inspectionDataToAdd.VehicleVIN = vehicleVIN;
-                    inspectionDataToAdd.ResponsibleUsername = currentUsername;
+                    inspectionDataToAdd.ResponsiblesUsername = currentUsername;
                     return CreatedAtRoute("RegisterPortInspectionToVehicle",
                         new { id = additionId }, inspectionDataToAdd);
                 });
@@ -49,10 +50,10 @@ namespace Web.API.Controllers
                 delegate
                 {
                     string currentUsername = User.Identity.Name;
-                    int additionId = Model.AddNewYardInspectionFromData(vehicleVIN,
+                    var additionId = Model.AddNewYardInspectionFromData(vehicleVIN,
                         currentUsername, inspectionDataToAdd);
                     inspectionDataToAdd.VehicleVIN = vehicleVIN;
-                    inspectionDataToAdd.ResponsibleUsername = currentUsername;
+                    inspectionDataToAdd.ResponsiblesUsername = currentUsername;
                     return CreatedAtRoute("RegisterYardInspectionToVehicle",
                         new { id = additionId }, inspectionDataToAdd);
                 });
@@ -62,25 +63,17 @@ namespace Web.API.Controllers
         [Route("api/Inspections")]
         public IHttpActionResult GetRegisteredInspections()
         {
-            return ExecuteActionAndReturnOutcome(AttemptToGetRegisteredInspections);
-        }
-
-        private IHttpActionResult AttemptToGetRegisteredInspections()
-        {
-            IEnumerable<InspectionDTO> users = Model.GetRegisteredInspections();
-            if (Utilities.IsNotNull(users))
-            {
-                return Ok(users);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return ExecuteActionAndReturnOutcome(
+                delegate
+                {
+                    IEnumerable<InspectionDTO> inspections = Model.GetRegisteredInspections();
+                    return Ok(inspections);
+                });
         }
 
         [HttpGet]
         [Route("api/Inspections/{idToLookup}")]
-        public IHttpActionResult GetInspectionWithId(int idToLookup)
+        public IHttpActionResult GetInspectionWithId(Guid idToLookup)
         {
             return ExecuteActionAndReturnOutcome(
                 delegate

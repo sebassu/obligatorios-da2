@@ -1,19 +1,33 @@
-﻿using Domain;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System;
 using System.Data.Entity;
+using System.Globalization;
+using System.Collections.Generic;
+using VehicleTracking_Data_Entities;
+using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Web.API.Services")]
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal class VehicleRepository : GenericRepository<Vehicle>, IVehicleRepository
     {
         public VehicleRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<Vehicle> Elements => GetElementsWith(null, "StagesData");
+        public IEnumerable<Vehicle> GetRegisteredVehiclesIn(ProcessStages?
+            stageToFilterBy = null)
+        {
+            if (stageToFilterBy.HasValue)
+            {
+                return GetElementsWith("StagesData.PortLot,StagesData.Inspections,StagesData." +
+                    "YardCurrentLocation.Container", v => v.StagesData.CurrentStage
+                    == stageToFilterBy);
+            }
+            else
+            {
+                return GetElementsWith("StagesData.PortLot,StagesData.Inspections,StagesData." +
+                    "YardCurrentLocation.Container");
+            }
+        }
 
         public void AddNewVehicle(Vehicle vehicleToAdd)
         {
@@ -35,7 +49,7 @@ namespace Persistence
         {
             return elements.Include("StagesData.PortLot").Include("StagesData.TransportData")
                 .Include("StagesData.Inspections").Include("StagesData.YardMovements")
-                .Include("StagesData.YardCurrentLocation")
+                .Include("StagesData.YardCurrentLocation.Container").Include("StagesData.SaleRecord")
                 .Single(v => v.VIN.Equals(vinToFind));
         }
 
@@ -46,12 +60,12 @@ namespace Persistence
 
         private Vehicle VehicleFullData(string vinToLookup)
         {
-            return elements.Include("StagesData.PortLot.Creator").Include("StagesData.PortLot.Vehicles")
-                .Include("StagesData.Inspections.ResponsibleUser").Include("StagesData.Inspections.Damages")
+            return elements.Include("StagesData.PortLot.Creator").Include("StagesData.PortLot.Vehicles.StagesData.Inspections")
+                .Include("StagesData.Inspections.Responsible").Include("StagesData.Inspections.Damages.ImageElements")
                 .Include("StagesData.Inspections.Location").Include("StagesData.TransportData.Transporter")
                 .Include("StagesData.TransportData.LotsTransported").Include("StagesData.YardMovements.Departure.Container")
-                .Include("StagesData.YardMovements.Arrival.Container").Include("StagesData.YardMovements.ResponsibleUser")
-                .Single(v => v.VIN.Equals(vinToLookup));
+                .Include("StagesData.YardMovements.Arrival.Container").Include("StagesData.YardMovements.Responsible")
+                .Include("StagesData.SaleRecord.Buyer").Single(v => v.VIN.Equals(vinToLookup));
         }
 
         public Vehicle AttemptToExecuteActionWithVIN(Func<string, Vehicle> actionToExecute,
@@ -82,7 +96,7 @@ namespace Persistence
             AttemptToRemove(vehicleToRemove);
         }
 
-        protected override bool ElementExistsInCollection(Vehicle value)
+        internal override bool ElementExistsInCollection(Vehicle value)
         {
             return Utilities.IsNotNull(value) && elements.Any(v => v.Id == value.Id);
         }

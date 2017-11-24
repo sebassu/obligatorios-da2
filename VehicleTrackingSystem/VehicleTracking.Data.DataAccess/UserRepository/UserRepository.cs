@@ -1,19 +1,19 @@
-﻿using Domain;
+﻿using System;
 using System.Data;
 using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System;
+using VehicleTracking_Data_Entities;
 
 [assembly: InternalsVisibleTo("VehicleTracking.Data.Tests")]
-namespace Persistence
+namespace VehicleTracking_Data_DataAccess
 {
     internal class UserRepository : GenericRepository<User>, IUserRepository
     {
         public UserRepository(VTSystemContext someContext) : base(someContext) { }
 
-        public IEnumerable<User> Elements => GetElementsWith(u => !u.WasRemoved);
+        public IEnumerable<User> Elements => GetElementsWith("", u => !u.WasRemoved);
 
         public void AddNewUser(User userToAdd)
         {
@@ -59,9 +59,10 @@ namespace Persistence
                 administrators.Single().Username == usernameToRemove;
         }
 
-        protected override bool ElementExistsInCollection(User value)
+        internal override bool ElementExistsInCollection(User value)
         {
-            return Utilities.IsNotNull(value) && elements.Any(u => u.Id == value.Id);
+            return Utilities.IsNotNull(value) && elements.Any(u
+                => u.Id == value.Id);
         }
     }
 }
